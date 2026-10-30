@@ -33,7 +33,7 @@ if ! git remote get-url origin >/dev/null 2>&1; then
     gh repo view "$OWNER/$REPO" >/dev/null 2>&1 || gh repo create "$REPO" --public --description "$DESC"
     git remote add origin "https://github.com/$OWNER/$REPO.git"
   else
-    echo "还没关联 GitHub 仓库。请先在 https://github.com/new 新建空仓库 $REPO（Public，不要勾选 README），然后运行："
+    echo "还没关联 GitHub 仓库。请先在 https://github.com/new 新建空仓库 ${REPO}（Public，不要勾选 README），然后运行："
     echo "  git -C \"$PWD\" remote add origin https://github.com/<你的用户名>/$REPO.git"
     echo "再重新运行本脚本。"
     exit 1
@@ -53,7 +53,7 @@ batch() {  # batch "提交说明" pathspec...
   git add -A -- "$@"
   if ! git diff --cached --quiet; then
     git commit -q -m "$msg"
-    echo "提交：$msg（$(git show --stat --format= HEAD | tail -1)）"
+    echo "提交：${msg}（$(git show --stat --format= HEAD | tail -1)）"
   fi
   if [ "$(ahead)" != "0" ]; then push; fi
 }
