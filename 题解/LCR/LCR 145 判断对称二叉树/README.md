@@ -1,0 +1,43 @@
+# LCR 145. 判断对称二叉树
+
+Easy · [力扣原题](https://leetcode.cn/problems/dui-cheng-de-er-cha-shu-lcof/)
+
+| 作者 | 题解 | 动画讲解 |
+|---|---|---|
+| 灵茶山艾府 | [📄 题解](灵茶山艾府.md) | [▶︎ LCR 145 判断对称二叉树 · 灵茶山艾府.mp4](LCR%20145%20判断对称二叉树%20·%20灵茶山艾府.mp4) |
+| yiduobo | — | — |
+
+## 题目描述
+
+请设计一个函数判断一棵二叉树是否 **轴对称** 。
+
+**示例 1：**
+
+![](../../_assets/灵茶山艾府/0d30d4ca2d6c286b.png)
+
+```
+
+输入：root = [6,7,7,8,9,9,8]
+输出：true
+解释：从图中可看出树是轴对称的。
+```
+
+**示例 2：**
+
+![](../../_assets/灵茶山艾府/476e7d93cd529132.png)
+
+```
+
+输入：root = [1,2,2,null,3,null,3]
+输出：false
+解释：从图中可看出最后一层的节点不对称。
+```
+
+**提示：**
+
+`0 <= 节点个数 <= 1000`
+
+注意：本题与主站 101 题相同：[https://leetcode.cn/problems/symmetric-tree/](https://leetcode.cn/problems/symmetric-tree/)
+
+---
+[↑ 返回 LCR](../README.md) · [总索引](../../../索引.md) · [仓库首页](../../../README.md)

@@ -1,0 +1,902 @@
+[
+ {
+  "cat": "哈希",
+  "cat_idx": 1,
+  "num": 1,
+  "title": "两数之和",
+  "ling": "0001 两数之和 · 【动画】从两数之和中，我们可以学到什么？（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0001 两数之和 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "哈希",
+  "cat_idx": 1,
+  "num": 49,
+  "title": "字母异位词分组",
+  "ling": "0049 字母异位词分组 · 哈希表分组，简洁写法（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0049 字母异位词分组 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "哈希",
+  "cat_idx": 1,
+  "num": 128,
+  "title": "最长连续序列",
+  "ling": "0128 最长连续序列 · 两个关键优化，O(n) 时间复杂度（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0128 最长连续序列 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "双指针",
+  "cat_idx": 2,
+  "num": 283,
+  "title": "移动零",
+  "ling": "0283 移动零 · 两种方法：原地栈 - 交换元素（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0283 移动零 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "双指针",
+  "cat_idx": 2,
+  "num": 11,
+  "title": "盛最多水的容器",
+  "ling": "0011 盛最多水的容器 · 【视频讲解】双指针做法（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0011 盛最多水的容器 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "双指针",
+  "cat_idx": 2,
+  "num": 15,
+  "title": "三数之和",
+  "ling": "0015 三数之和 · 【视频】极致优化！一个视频讲透双指针！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0015 三数之和 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "双指针",
+  "cat_idx": 2,
+  "num": 42,
+  "title": "接雨水",
+  "ling": "0042 接雨水 · 【视频】三种方法：前后缀分解-双指针-单调栈（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0042 接雨水 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "滑动窗口",
+  "cat_idx": 3,
+  "num": 3,
+  "title": "无重复字符的最长子串",
+  "ling": "0003 无重复字符的最长子串 · 【视频】一个视频讲透滑动窗口！附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0003 无重复字符的最长子串 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "滑动窗口",
+  "cat_idx": 3,
+  "num": 438,
+  "title": "找到字符串中所有字母异位词",
+  "ling": "0438 找到字符串中所有字母异位词 · 两种方法：定长滑窗-不定长滑窗（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0438 找到字符串中的所有字母异位词 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "子串",
+  "cat_idx": 4,
+  "num": 560,
+  "title": "和为 K 的子数组",
+  "ling": "0560 和为 K 的子数组 · 前缀和+哈希表：从两次遍历到一次遍历，附变形题（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0560 和为K的子数组 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "子串",
+  "cat_idx": 4,
+  "num": 239,
+  "title": "滑动窗口最大值",
+  "ling": "0239 滑动窗口最大值 · 降本增笑，秒懂单调队列！附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0239 滑动窗口最大值 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "子串",
+  "cat_idx": 4,
+  "num": 76,
+  "title": "最小覆盖子串",
+  "ling": "0076 最小覆盖子串 · 两种方法：从 O(52m+n) 到 O(m+n)，附题单（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0076 最小覆盖子串 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "普通数组",
+  "cat_idx": 5,
+  "num": 53,
+  "title": "最大子数组和",
+  "ling": "0053 最大子数组和 · 两种方法：前缀和+贪心 - 动态规划，附变形题（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0053 最大子序和 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "普通数组",
+  "cat_idx": 5,
+  "num": 56,
+  "title": "合并区间",
+  "ling": "0056 合并区间 · 三种方法：排序 - 差分数组 - 扫描线（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0056 合并区间 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "普通数组",
+  "cat_idx": 5,
+  "num": 189,
+  "title": "轮转数组",
+  "ling": "0189 轮转数组 · 【图解】负负得正，一图秒懂！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0189 旋转数组 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "普通数组",
+  "cat_idx": 5,
+  "num": 238,
+  "title": "除了自身以外数组的乘积",
+  "ling": "0238 除了自身以外数组的乘积 · 前后缀分解，附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0238 除自身以外数组的乘积 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "普通数组",
+  "cat_idx": 5,
+  "num": 41,
+  "title": "缺失的第一个正数",
+  "ling": "0041 缺失的第一个正数 · O(n) 换座位，通过例子理解算法思想（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0041 缺失的第一个正数 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "矩阵",
+  "cat_idx": 6,
+  "num": 73,
+  "title": "矩阵置零",
+  "ling": "0073 矩阵置零 · 一步步优化，从 O(m+n) 到 O(1) 空间（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0073 矩阵置零 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "矩阵",
+  "cat_idx": 6,
+  "num": 54,
+  "title": "螺旋矩阵",
+  "ling": "0054 螺旋矩阵 · 两种方法，简洁高效（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0054 螺旋矩阵 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "矩阵",
+  "cat_idx": 6,
+  "num": 48,
+  "title": "旋转图像",
+  "ling": "0048 旋转图像 · 数学本质：两次翻转等于一次旋转（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0048 旋转图像 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "矩阵",
+  "cat_idx": 6,
+  "num": 240,
+  "title": "搜索二维矩阵 II",
+  "ling": "0240 搜索二维矩阵 II · 【图解】排除法，一图秒懂！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0240 搜索二维矩阵 II · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 160,
+  "title": "相交链表",
+  "ling": "0160 相交链表 · 【图解】一张图秒懂相交链表！（Python-Java-C++-C-Go-JS）.md",
+  "yiduobo": "0160 相交链表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 206,
+  "title": "反转链表",
+  "ling": "0206 反转链表 · 两种方法：递归 - 迭代，本质是尾插法和头插法（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0206 反转链表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 234,
+  "title": "回文链表",
+  "ling": "0234 回文链表 · 两种方法：递归 - 寻找中间节点+反转链表（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0234 回文链表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 141,
+  "title": "环形链表",
+  "ling": "0141 环形链表 · 没想明白？一个视频讲透快慢指针！（Python-Java-C++-C-Go-JS）.md",
+  "yiduobo": "0141 环形链表 & 0142 环形链表II · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 142,
+  "title": "环形链表 II",
+  "ling": "0142 环形链表 II · 【图解】一张图秒懂环形链表 II，Floyd 判圈算法（Python-Java-C++-C-Go-JS）.md",
+  "yiduobo": null,
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 21,
+  "title": "合并两个有序链表",
+  "ling": "0021 合并两个有序链表 · 两种方法：迭代（尾插法）- 递归（头插法）Python-Java-C++-C-Go-JS-Rust.md",
+  "yiduobo": "0021 合并两个有序链表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 2,
+  "title": "两数相加",
+  "ling": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0002 两数相加 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 19,
+  "title": "删除链表的倒数第 N 个结点",
+  "ling": "0019 删除链表的倒数第 N 个结点 · 【视频讲解】前后指针，简洁写法（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0019 删除链表的倒数第N个节点 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 24,
+  "title": "两两交换链表中的节点",
+  "ling": "0024 两两交换链表中的节点 · 【图解】迭代-递归，一张图秒懂！（Python-Java-C++-C-Go-JS）.md",
+  "yiduobo": "0024 两两交换链表中的节点 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 25,
+  "title": "K 个一组翻转链表",
+  "ling": "0025 K 个一组翻转链表 · 【视频讲解】从反转链表到 K 个一组反转（Python-Java-C++-C-Go-JS）.md",
+  "yiduobo": "0025 K个一组翻转链表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 138,
+  "title": "随机链表的复制",
+  "ling": "0138 随机链表的复制 · 不用哈希表，简洁写法（Python-Java-C++-C-Go-JS）.md",
+  "yiduobo": "0138 复制带随机指针的链表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 148,
+  "title": "排序链表",
+  "ling": "0148 排序链表 · 两种方法：分治-迭代，模块化设计，代码可读性高（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0148 排序链表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 23,
+  "title": "合并 K 个升序链表",
+  "ling": "0023 合并 K 个升序链表 · 三种方法：最小堆-分治-迭代（Python-Java-C++-Go-JS）.md",
+  "yiduobo": "0023 合并K个排序链表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "链表",
+  "cat_idx": 7,
+  "num": 146,
+  "title": "LRU 缓存",
+  "ling": "0146 LRU 缓存 · 【图解】一张图秒懂 LRU！（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0146 LRU缓存机制 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 94,
+  "title": "二叉树的中序遍历",
+  "ling": "0094 二叉树的中序遍历 · 【图解】Morris 遍历（线索二叉树），一图秒懂！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0094 二叉树的中序遍历 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 104,
+  "title": "二叉树的最大深度",
+  "ling": "0104 二叉树的最大深度 · 【视频讲解】让你对递归的理解更上一层楼！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0104 二叉树的最大深度 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 226,
+  "title": "翻转二叉树",
+  "ling": "0226 翻转二叉树 · 两种递归写法（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0226 翻转二叉树 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 101,
+  "title": "对称二叉树",
+  "ling": "0101 对称二叉树 · 【视频】如何灵活运用递归？附思考题（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0101 对称二叉树 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 543,
+  "title": "二叉树的直径",
+  "ling": "0543 二叉树的直径 · 【视频】彻底掌握直径 DP，从二叉树到一般树（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0543 二叉树的直径 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 102,
+  "title": "二叉树的层序遍历",
+  "ling": "0102 二叉树的层序遍历 · BFS 为什么要用队列？一个视频讲透！（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0102 二叉树的层序遍历 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 108,
+  "title": "将有序数组转换为二叉搜索树",
+  "ling": "0108 将有序数组转换为二叉搜索树 · 入门递归，从二叉树开始（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0108 将有序数组转化成二叉搜索树 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 98,
+  "title": "验证二叉搜索树",
+  "ling": "0098 验证二叉搜索树 · 【视频】前序中序后序，三种方法，一个视频讲透！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0098 验证二叉搜索树 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 230,
+  "title": "二叉搜索树中第 K 小的元素",
+  "ling": "0230 二叉搜索树中第 K 小的元素 · 中序遍历（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0230 二叉搜索树中第K小的元素 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 199,
+  "title": "二叉树的右视图",
+  "ling": "0199 二叉树的右视图 · 两种方法：BFS - DFS（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0199 二叉树的右视图 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 114,
+  "title": "二叉树展开为链表",
+  "ling": "0114 二叉树展开为链表 · 两种方法：头插法-分治（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0114 二叉树展开为链表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 105,
+  "title": "从前序与中序遍历序列构造二叉树",
+  "ling": "0105 从前序与中序遍历序列构造二叉树 · 【图解】从 O(n-2) 到 O(n)（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0105 从前序与中序遍历序列构造二叉树 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 437,
+  "title": "路径总和 III",
+  "ling": "0437 路径总和 III · 做法和 560 题是一样的，附常见问题及其解答（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0437 路径总和III · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 236,
+  "title": "二叉树的最近公共祖先",
+  "ling": "0236 二叉树的最近公共祖先 · 【视频讲解】简洁写法（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0236 二叉树的最近公共祖先 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二叉树",
+  "cat_idx": 8,
+  "num": 124,
+  "title": "二叉树中的最大路径和",
+  "ling": "0124 二叉树中的最大路径和 · 【视频】彻底掌握直径 DP！从二叉树到一般树！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0124 二叉树中的最大路径和 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "图论",
+  "cat_idx": 9,
+  "num": 200,
+  "title": "岛屿数量",
+  "ling": "0200 岛屿数量 · 把访问过的格子插上旗子🚩（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0200 岛屿数量 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "图论",
+  "cat_idx": 9,
+  "num": 994,
+  "title": "腐烂的橘子",
+  "ling": "0994 腐烂的橘子 · 多源 BFS，附变形题（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0994 腐烂的橘子 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "图论",
+  "cat_idx": 9,
+  "num": 207,
+  "title": "课程表",
+  "ling": "0207 课程表 · DFS 三色标记法（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0207 课程表 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "图论",
+  "cat_idx": 9,
+  "num": 208,
+  "title": "实现 Trie (前缀树)",
+  "ling": "0208 实现 Trie (前缀树) · 从二叉树到二十六叉树（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0208 实现Trie（前缀树） · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "回溯",
+  "cat_idx": 10,
+  "num": 46,
+  "title": "全排列",
+  "ling": "0046 全排列 · 【视频】回溯不会写？套路在此！精确计算搜索树的节点个数！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0046 全排列 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "回溯",
+  "cat_idx": 10,
+  "num": 78,
+  "title": "子集",
+  "ling": "0078 子集 · 【视频】三种写法：选或不选-枚举选哪个-二进制枚举（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0078 子集 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "回溯",
+  "cat_idx": 10,
+  "num": 17,
+  "title": "电话号码的字母组合",
+  "ling": "0017 电话号码的字母组合 · 【视频】回溯不会写？套路在此！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0017 电话号码的字母组合 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "回溯",
+  "cat_idx": 10,
+  "num": 39,
+  "title": "组合总和",
+  "ling": "0039 组合总和 · 三种方法：选或不选-枚举选哪个-完全背包预处理+可行性剪枝（Python-Java-C++-Go）.md",
+  "yiduobo": "0039 组合总和 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "回溯",
+  "cat_idx": 10,
+  "num": 22,
+  "title": "括号生成",
+  "ling": "0022 括号生成 · 两种基本回溯思想：选或不选 - 枚举选哪个（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0022 括号生成 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "回溯",
+  "cat_idx": 10,
+  "num": 79,
+  "title": "单词搜索",
+  "ling": "0079 单词搜索 · 极致优化！代码击败接近 100%！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0079 单词搜索 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "回溯",
+  "cat_idx": 10,
+  "num": 131,
+  "title": "分割回文串",
+  "ling": "0131 分割回文串 · 【视频】回溯不会写？套路在此！（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0131 分割回文串 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "回溯",
+  "cat_idx": 10,
+  "num": 51,
+  "title": "N 皇后",
+  "ling": "0051 N 皇后 · 【视频讲解】排列型回溯，简洁高效！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0051 N皇后 & 0052 N皇后 II · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二分查找",
+  "cat_idx": 11,
+  "num": 35,
+  "title": "搜索插入位置",
+  "ling": "0035 搜索插入位置 · 二分查找总是写不对？一个视频讲透！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0035 搜索插入位置 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二分查找",
+  "cat_idx": 11,
+  "num": 74,
+  "title": "搜索二维矩阵",
+  "ling": "0074 搜索二维矩阵 · 把二维矩阵拉成一维数组，二分查找（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0074 搜索二维矩阵 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二分查找",
+  "cat_idx": 11,
+  "num": 34,
+  "title": "在排序数组中查找元素的第一个和最后一个位置",
+  "ling": "0034 在排序数组中查找元素的第一个和最后一个位置 · 【视频讲解】二分查找总是写不对？三种写法，一个视频讲.md",
+  "yiduobo": "0034 在排序数组中查找元素的第一个和最后一个位置 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二分查找",
+  "cat_idx": 11,
+  "num": 33,
+  "title": "搜索旋转排序数组",
+  "ling": "0033 搜索旋转排序数组 · 两种方法：两次二分 - 一次二分（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0033 搜算旋转排序数组 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二分查找",
+  "cat_idx": 11,
+  "num": 153,
+  "title": "寻找旋转排序数组中的最小值",
+  "ling": "0153 寻找旋转排序数组中的最小值 · 和最后一个数比大小，简洁二分（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0153 寻找旋转排序数组中的最小值 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "二分查找",
+  "cat_idx": 11,
+  "num": 4,
+  "title": "寻找两个正序数组的中位数",
+  "ling": "0004 寻找两个正序数组的中位数 · 【图解】循序渐进：从排序到双指针到二分（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0004 寻找两个有序数组的中位数 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "栈",
+  "cat_idx": 12,
+  "num": 20,
+  "title": "有效的括号",
+  "ling": "0020 有效的括号 · 括号消消乐：三种利用栈的写法，附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0020 有效的括号 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "栈",
+  "cat_idx": 12,
+  "num": 155,
+  "title": "最小栈",
+  "ling": "0155 最小栈 · 两种方法：保存前缀最小值 - 保存差值，不用辅助栈（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0155 最小栈 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "栈",
+  "cat_idx": 12,
+  "num": 394,
+  "title": "字符串解码",
+  "ling": "0394 字符串解码 · 递归 - 用栈模拟递归（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0394 字符串编码 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "栈",
+  "cat_idx": 12,
+  "num": 739,
+  "title": "每日温度",
+  "ling": "0739 每日温度 · 【视频】讲清楚为什么要用单调栈！两种写法：从右到左 - 从左到右.md",
+  "yiduobo": "0739 每日温度 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "栈",
+  "cat_idx": 12,
+  "num": 84,
+  "title": "柱状图中最大的矩形",
+  "ling": "0084 柱状图中最大的矩形 · 一步步优化：从三次遍历到一次遍历（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0084 柱状图中最大的矩形 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "堆",
+  "cat_idx": 13,
+  "num": 215,
+  "title": "数组中的第K个最大元素",
+  "ling": "0215 数组中的第K个最大元素 · O(n) 快速选择算法，附常见问题解答（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0215 数组中的第K个最大元素 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "堆",
+  "cat_idx": 13,
+  "num": 347,
+  "title": "前 K 个高频元素",
+  "ling": "0347 前 K 个高频元素 · 桶排序，O(n) 线性做法（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0347 前K个高频元素 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "堆",
+  "cat_idx": 13,
+  "num": 295,
+  "title": "数据流的中位数",
+  "ling": "0295 数据流的中位数 · 如何自然引入大小堆？简洁写法！（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0295 数据流的中位数 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "贪心算法",
+  "cat_idx": 14,
+  "num": 121,
+  "title": "买卖股票的最佳时机",
+  "ling": "0121 买卖股票的最佳时机 · 简洁写法：枚举卖出价格，维护买入的最小值（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0121 买卖股票的最佳时机 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "贪心算法",
+  "cat_idx": 14,
+  "num": 55,
+  "title": "跳跃游戏",
+  "ling": "0055 跳跃游戏 · 两种理解方式：维护最右可达位置-合并区间（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0055 跳跃游戏 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "贪心算法",
+  "cat_idx": 14,
+  "num": 45,
+  "title": "跳跃游戏 II",
+  "ling": "0045 跳跃游戏 II · 【图解】一张图秒懂跳跃游戏！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0045 跳跃游戏II · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "贪心算法",
+  "cat_idx": 14,
+  "num": 763,
+  "title": "划分字母区间",
+  "ling": "0763 划分字母区间 · 本质是合并区间，简洁写法（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0763 划分字母区间 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 70,
+  "title": "爬楼梯",
+  "ling": "0070 爬楼梯 · 教你一步步思考动态规划：从记忆化搜索到递推到矩阵快速幂（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0070 爬楼梯 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 118,
+  "title": "杨辉三角",
+  "ling": "0118 杨辉三角 · 简单题，简单做（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0118 杨辉三角 & 0119 杨辉三角II · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 198,
+  "title": "打家劫舍",
+  "ling": "0198 打家劫舍 · 【视频讲解】动态规划入门：从记忆化搜索到递推（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0198 打家劫舍 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 279,
+  "title": "完全平方数",
+  "ling": "0279 完全平方数 · 两种方法：完全背包 - BFS 最短路（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0279 完全平方数 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 322,
+  "title": "零钱兑换",
+  "ling": "0322 零钱兑换 · 两种方法：完全背包 - BFS 最短路（Python-Java-C++-Go）.md",
+  "yiduobo": "0322 零钱兑换 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 139,
+  "title": "单词拆分",
+  "ling": "0139 单词拆分 · 教你一步步思考 DP：从记忆化搜索到递推（Python-Java-C++-Go-JS-Rust）.md",
+  "yiduobo": "0139 单词拆分 & 0140 单词拆分II · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 300,
+  "title": "最长递增子序列",
+  "ling": "0300 最长递增子序列 · 【视频】三种方法：记忆化搜索-递推-二分查找（Python-Java-C++-Go）.md",
+  "yiduobo": "0300 最长上升子序列 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 152,
+  "title": "乘积最大子数组",
+  "ling": "0152 乘积最大子数组 · 动态规划，简洁高效！（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0152 乘积最大子数组 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 416,
+  "title": "分割等和子集",
+  "ling": "0416 分割等和子集 · 三种写法：记忆化搜索 - 递推 - bitset 优化（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0416 分割等和子集 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "动态规划",
+  "cat_idx": 15,
+  "num": 32,
+  "title": "最长有效括号",
+  "ling": "0032 最长有效括号 · 栈 + 配对标记 + O(1) 空间优化（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0032 最长有效括号 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "多维动态规划",
+  "cat_idx": 16,
+  "num": 62,
+  "title": "不同路径",
+  "ling": "0062 不同路径 · 两种方法：动态规划 - 组合数学（Python-Java-C++-Go）.md",
+  "yiduobo": "0062 不同路径 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "多维动态规划",
+  "cat_idx": 16,
+  "num": 64,
+  "title": "最小路径和",
+  "ling": "0064 最小路径和 · 教你一步步思考 DP：从记忆化搜索到递推到空间优化！（Python-Java-C++-Go）.md",
+  "yiduobo": "0064 最小路径和 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "多维动态规划",
+  "cat_idx": 16,
+  "num": 5,
+  "title": "最长回文子串",
+  "ling": "0005 最长回文子串 · 两种方法：中心扩展法 - Manacher 算法（Python-Java-C++-Go）.md",
+  "yiduobo": "0005 最长回文子串 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "多维动态规划",
+  "cat_idx": 16,
+  "num": 1143,
+  "title": "最长公共子序列",
+  "ling": "1143 最长公共子序列 · 教你一步步思考动态规划：从记忆化搜索到递推（Python-Java-C++-Go）.md",
+  "yiduobo": "1143 最长公共子序列 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "多维动态规划",
+  "cat_idx": 16,
+  "num": 72,
+  "title": "编辑距离",
+  "ling": "0072 编辑距离 · 【视频】教你一步步思考动态规划，从记忆化搜索到递推到空间优化！（Python-Java-C++-Go）.md",
+  "yiduobo": "0072 编辑距离 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "技巧",
+  "cat_idx": 17,
+  "num": 136,
+  "title": "只出现一次的数字",
+  "ling": "0136 只出现一次的数字 · O(n) 一次遍历，附相似题目（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0136 只出现一次的数字 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "技巧",
+  "cat_idx": 17,
+  "num": 169,
+  "title": "多数元素",
+  "ling": "0169 多数元素 · O(n) 武林大会打擂台，严谨证明（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0169 多数元素 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "技巧",
+  "cat_idx": 17,
+  "num": 75,
+  "title": "颜色分类",
+  "ling": "0075 颜色分类 · O(n) 插入排序，简洁写法（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0075 颜色分类 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "技巧",
+  "cat_idx": 17,
+  "num": 31,
+  "title": "下一个排列",
+  "ling": "0031 下一个排列 · 带你发明下一个排列算法（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0031 下一个排列 · yiduobo.md",
+  "ling_exists": true
+ },
+ {
+  "cat": "技巧",
+  "cat_idx": 17,
+  "num": 287,
+  "title": "寻找重复数",
+  "ling": "0287 寻找重复数 · 用基环树理解，做法同 142. 环形链表 II（Python-Java-C++-C-Go-JS-Rust）.md",
+  "yiduobo": "0287 寻找重复数 · yiduobo.md",
+  "ling_exists": true
+ }
+]

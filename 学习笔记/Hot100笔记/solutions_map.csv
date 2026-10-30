@@ -1,0 +1,19 @@
+﻿question_id,title_cn,title_en,note_file,solution_file,match_reason
+2,两数相加,Add Two Numbers,028-2-两数相加.md,2.py,filename_id
+2,两数相加,Add Two Numbers,028-2-两数相加.md,addTwo.py,alias_name
+2,两数相加,Add Two Numbers,028-2-两数相加.md,addTwoNumbers.py,alias_name
+3,无重复字符的最长子串,Longest Substring Without Repeating Characters,008-3-无重复字符的最长子串.md,3.py,filename_id
+11,盛最多水的容器,Container With Most Water,005-11-盛最多水的容器.md,11.py,filename_id
+15,三数之和,3Sum,006-15-三数之和.md,15.py,filename_id
+15,三数之和,3Sum,006-15-三数之和.md,两数之和_三数之和【基础算法精讲_01】.py,alias_name
+19,删除链表的倒数第 N 个结点,Remove Nth Node From End of List,029-19-删除链表的倒数第 N 个结点.md,19.py,filename_id
+21,合并两个有序链表,Merge Two Sorted Lists,027-21-合并两个有序链表.md,21.py,filename_id
+23,合并 K 个升序链表,Merge k Sorted Lists,034-23-合并 K 个升序链表.md,23.py,filename_id
+25,K 个一组翻转链表,Reverse Nodes in k-Group,031-25-K 个一组翻转链表.md,25.py,filename_id
+34,在排序数组中查找元素的第一个和最后一个位置,Find First and Last Position of Element in Sorted Array,065-34-在排序数组中查找元素的第一个和最后一个位置.md,34.py,filename_id
+42,接雨水,Trapping Rain Water,007-42-接雨水.md,42.py,filename_id
+49,字母异位词分组,Group Anagrams,002-49-字母异位词分组.md,49.py,filename_id
+53,最大子数组和,Maximum Subarray,013-53-最大子数组和.md,53.py,filename_id
+101,对称二叉树,Symmetric Tree,039-101-对称二叉树.md,101.py,filename_id
+206,反转链表,Reverse Linked List,023-206-反转链表.md,206.py,filename_id
+206,反转链表,Reverse Linked List,023-206-反转链表.md,reverseList.py,alias_name

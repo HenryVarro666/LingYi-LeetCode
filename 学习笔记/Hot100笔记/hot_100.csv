@@ -1,0 +1,101 @@
+﻿order,question_id,title_cn,title_en,slug,difficulty,category,url
+1,1,两数之和,Two Sum,two-sum,EASY,哈希,https://leetcode.cn/problems/two-sum/
+2,49,字母异位词分组,Group Anagrams,group-anagrams,MEDIUM,哈希,https://leetcode.cn/problems/group-anagrams/
+3,128,最长连续序列,Longest Consecutive Sequence,longest-consecutive-sequence,MEDIUM,哈希,https://leetcode.cn/problems/longest-consecutive-sequence/
+4,283,移动零,Move Zeroes,move-zeroes,EASY,双指针,https://leetcode.cn/problems/move-zeroes/
+5,11,盛最多水的容器,Container With Most Water,container-with-most-water,MEDIUM,双指针,https://leetcode.cn/problems/container-with-most-water/
+6,15,三数之和,3Sum,3sum,MEDIUM,双指针,https://leetcode.cn/problems/3sum/
+7,42,接雨水,Trapping Rain Water,trapping-rain-water,HARD,双指针,https://leetcode.cn/problems/trapping-rain-water/
+8,3,无重复字符的最长子串,Longest Substring Without Repeating Characters,longest-substring-without-repeating-characters,MEDIUM,滑动窗口,https://leetcode.cn/problems/longest-substring-without-repeating-characters/
+9,438,找到字符串中所有字母异位词,Find All Anagrams in a String,find-all-anagrams-in-a-string,MEDIUM,滑动窗口,https://leetcode.cn/problems/find-all-anagrams-in-a-string/
+10,560,和为 K 的子数组,Subarray Sum Equals K,subarray-sum-equals-k,MEDIUM,子串,https://leetcode.cn/problems/subarray-sum-equals-k/
+11,239,滑动窗口最大值,Sliding Window Maximum,sliding-window-maximum,HARD,子串,https://leetcode.cn/problems/sliding-window-maximum/
+12,76,最小覆盖子串,Minimum Window Substring,minimum-window-substring,HARD,子串,https://leetcode.cn/problems/minimum-window-substring/
+13,53,最大子数组和,Maximum Subarray,maximum-subarray,MEDIUM,普通数组,https://leetcode.cn/problems/maximum-subarray/
+14,56,合并区间,Merge Intervals,merge-intervals,MEDIUM,普通数组,https://leetcode.cn/problems/merge-intervals/
+15,189,轮转数组,Rotate Array,rotate-array,MEDIUM,普通数组,https://leetcode.cn/problems/rotate-array/
+16,238,除了自身以外数组的乘积,Product of Array Except Self,product-of-array-except-self,MEDIUM,普通数组,https://leetcode.cn/problems/product-of-array-except-self/
+17,41,缺失的第一个正数,First Missing Positive,first-missing-positive,HARD,普通数组,https://leetcode.cn/problems/first-missing-positive/
+18,73,矩阵置零,Set Matrix Zeroes,set-matrix-zeroes,MEDIUM,矩阵,https://leetcode.cn/problems/set-matrix-zeroes/
+19,54,螺旋矩阵,Spiral Matrix,spiral-matrix,MEDIUM,矩阵,https://leetcode.cn/problems/spiral-matrix/
+20,48,旋转图像,Rotate Image,rotate-image,MEDIUM,矩阵,https://leetcode.cn/problems/rotate-image/
+21,240,搜索二维矩阵 II,Search a 2D Matrix II,search-a-2d-matrix-ii,MEDIUM,矩阵,https://leetcode.cn/problems/search-a-2d-matrix-ii/
+22,160,相交链表,Intersection of Two Linked Lists,intersection-of-two-linked-lists,EASY,链表,https://leetcode.cn/problems/intersection-of-two-linked-lists/
+23,206,反转链表,Reverse Linked List,reverse-linked-list,EASY,链表,https://leetcode.cn/problems/reverse-linked-list/
+24,234,回文链表,Palindrome Linked List,palindrome-linked-list,EASY,链表,https://leetcode.cn/problems/palindrome-linked-list/
+25,141,环形链表,Linked List Cycle,linked-list-cycle,EASY,链表,https://leetcode.cn/problems/linked-list-cycle/
+26,142,环形链表 II,Linked List Cycle II,linked-list-cycle-ii,MEDIUM,链表,https://leetcode.cn/problems/linked-list-cycle-ii/
+27,21,合并两个有序链表,Merge Two Sorted Lists,merge-two-sorted-lists,EASY,链表,https://leetcode.cn/problems/merge-two-sorted-lists/
+28,2,两数相加,Add Two Numbers,add-two-numbers,MEDIUM,链表,https://leetcode.cn/problems/add-two-numbers/
+29,19,删除链表的倒数第 N 个结点,Remove Nth Node From End of List,remove-nth-node-from-end-of-list,MEDIUM,链表,https://leetcode.cn/problems/remove-nth-node-from-end-of-list/
+30,24,两两交换链表中的节点,Swap Nodes in Pairs,swap-nodes-in-pairs,MEDIUM,链表,https://leetcode.cn/problems/swap-nodes-in-pairs/
+31,25,K 个一组翻转链表,Reverse Nodes in k-Group,reverse-nodes-in-k-group,HARD,链表,https://leetcode.cn/problems/reverse-nodes-in-k-group/
+32,138,随机链表的复制,Copy List with Random Pointer,copy-list-with-random-pointer,MEDIUM,链表,https://leetcode.cn/problems/copy-list-with-random-pointer/
+33,148,排序链表,Sort List,sort-list,MEDIUM,链表,https://leetcode.cn/problems/sort-list/
+34,23,合并 K 个升序链表,Merge k Sorted Lists,merge-k-sorted-lists,HARD,链表,https://leetcode.cn/problems/merge-k-sorted-lists/
+35,146,LRU 缓存,LRU Cache,lru-cache,MEDIUM,链表,https://leetcode.cn/problems/lru-cache/
+36,94,二叉树的中序遍历,Binary Tree Inorder Traversal,binary-tree-inorder-traversal,EASY,二叉树,https://leetcode.cn/problems/binary-tree-inorder-traversal/
+37,104,二叉树的最大深度,Maximum Depth of Binary Tree,maximum-depth-of-binary-tree,EASY,二叉树,https://leetcode.cn/problems/maximum-depth-of-binary-tree/
+38,226,翻转二叉树,Invert Binary Tree,invert-binary-tree,EASY,二叉树,https://leetcode.cn/problems/invert-binary-tree/
+39,101,对称二叉树,Symmetric Tree,symmetric-tree,EASY,二叉树,https://leetcode.cn/problems/symmetric-tree/
+40,543,二叉树的直径,Diameter of Binary Tree,diameter-of-binary-tree,EASY,二叉树,https://leetcode.cn/problems/diameter-of-binary-tree/
+41,102,二叉树的层序遍历,Binary Tree Level Order Traversal,binary-tree-level-order-traversal,MEDIUM,二叉树,https://leetcode.cn/problems/binary-tree-level-order-traversal/
+42,108,将有序数组转换为二叉搜索树,Convert Sorted Array to Binary Search Tree,convert-sorted-array-to-binary-search-tree,EASY,二叉树,https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/
+43,98,验证二叉搜索树,Validate Binary Search Tree,validate-binary-search-tree,MEDIUM,二叉树,https://leetcode.cn/problems/validate-binary-search-tree/
+44,230,二叉搜索树中第 K 小的元素,Kth Smallest Element in a BST,kth-smallest-element-in-a-bst,MEDIUM,二叉树,https://leetcode.cn/problems/kth-smallest-element-in-a-bst/
+45,199,二叉树的右视图,Binary Tree Right Side View,binary-tree-right-side-view,MEDIUM,二叉树,https://leetcode.cn/problems/binary-tree-right-side-view/
+46,114,二叉树展开为链表,Flatten Binary Tree to Linked List,flatten-binary-tree-to-linked-list,MEDIUM,二叉树,https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/
+47,105,从前序与中序遍历序列构造二叉树,Construct Binary Tree from Preorder and Inorder Traversal,construct-binary-tree-from-preorder-and-inorder-traversal,MEDIUM,二叉树,https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+48,437,路径总和 III,Path Sum III,path-sum-iii,MEDIUM,二叉树,https://leetcode.cn/problems/path-sum-iii/
+49,236,二叉树的最近公共祖先,Lowest Common Ancestor of a Binary Tree,lowest-common-ancestor-of-a-binary-tree,MEDIUM,二叉树,https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/
+50,124,二叉树中的最大路径和,Binary Tree Maximum Path Sum,binary-tree-maximum-path-sum,HARD,二叉树,https://leetcode.cn/problems/binary-tree-maximum-path-sum/
+51,200,岛屿数量,Number of Islands,number-of-islands,MEDIUM,图论,https://leetcode.cn/problems/number-of-islands/
+52,994,腐烂的橘子,Rotting Oranges,rotting-oranges,MEDIUM,图论,https://leetcode.cn/problems/rotting-oranges/
+53,207,课程表,Course Schedule,course-schedule,MEDIUM,图论,https://leetcode.cn/problems/course-schedule/
+54,208,实现 Trie (前缀树),Implement Trie (Prefix Tree),implement-trie-prefix-tree,MEDIUM,图论,https://leetcode.cn/problems/implement-trie-prefix-tree/
+55,46,全排列,Permutations,permutations,MEDIUM,回溯,https://leetcode.cn/problems/permutations/
+56,78,子集,Subsets,subsets,MEDIUM,回溯,https://leetcode.cn/problems/subsets/
+57,17,电话号码的字母组合,Letter Combinations of a Phone Number,letter-combinations-of-a-phone-number,MEDIUM,回溯,https://leetcode.cn/problems/letter-combinations-of-a-phone-number/
+58,39,组合总和,Combination Sum,combination-sum,MEDIUM,回溯,https://leetcode.cn/problems/combination-sum/
+59,22,括号生成,Generate Parentheses,generate-parentheses,MEDIUM,回溯,https://leetcode.cn/problems/generate-parentheses/
+60,79,单词搜索,Word Search,word-search,MEDIUM,回溯,https://leetcode.cn/problems/word-search/
+61,131,分割回文串,Palindrome Partitioning,palindrome-partitioning,MEDIUM,回溯,https://leetcode.cn/problems/palindrome-partitioning/
+62,51,N 皇后,N-Queens,n-queens,HARD,回溯,https://leetcode.cn/problems/n-queens/
+63,35,搜索插入位置,Search Insert Position,search-insert-position,EASY,二分查找,https://leetcode.cn/problems/search-insert-position/
+64,74,搜索二维矩阵,Search a 2D Matrix,search-a-2d-matrix,MEDIUM,二分查找,https://leetcode.cn/problems/search-a-2d-matrix/
+65,34,在排序数组中查找元素的第一个和最后一个位置,Find First and Last Position of Element in Sorted Array,find-first-and-last-position-of-element-in-sorted-array,MEDIUM,二分查找,https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/
+66,33,搜索旋转排序数组,Search in Rotated Sorted Array,search-in-rotated-sorted-array,MEDIUM,二分查找,https://leetcode.cn/problems/search-in-rotated-sorted-array/
+67,153,寻找旋转排序数组中的最小值,Find Minimum in Rotated Sorted Array,find-minimum-in-rotated-sorted-array,MEDIUM,二分查找,https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/
+68,4,寻找两个正序数组的中位数,Median of Two Sorted Arrays,median-of-two-sorted-arrays,HARD,二分查找,https://leetcode.cn/problems/median-of-two-sorted-arrays/
+69,20,有效的括号,Valid Parentheses,valid-parentheses,EASY,栈,https://leetcode.cn/problems/valid-parentheses/
+70,155,最小栈,Min Stack,min-stack,MEDIUM,栈,https://leetcode.cn/problems/min-stack/
+71,394,字符串解码,Decode String,decode-string,MEDIUM,栈,https://leetcode.cn/problems/decode-string/
+72,739,每日温度,Daily Temperatures,daily-temperatures,MEDIUM,栈,https://leetcode.cn/problems/daily-temperatures/
+73,84,柱状图中最大的矩形,Largest Rectangle in Histogram,largest-rectangle-in-histogram,HARD,栈,https://leetcode.cn/problems/largest-rectangle-in-histogram/
+74,215,数组中的第K个最大元素,Kth Largest Element in an Array,kth-largest-element-in-an-array,MEDIUM,堆,https://leetcode.cn/problems/kth-largest-element-in-an-array/
+75,347,前 K 个高频元素,Top K Frequent Elements,top-k-frequent-elements,MEDIUM,堆,https://leetcode.cn/problems/top-k-frequent-elements/
+76,295,数据流的中位数,Find Median from Data Stream,find-median-from-data-stream,HARD,堆,https://leetcode.cn/problems/find-median-from-data-stream/
+77,121,买卖股票的最佳时机,Best Time to Buy and Sell Stock,best-time-to-buy-and-sell-stock,EASY,贪心算法,https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/
+78,55,跳跃游戏,Jump Game,jump-game,MEDIUM,贪心算法,https://leetcode.cn/problems/jump-game/
+79,45,跳跃游戏 II,Jump Game II,jump-game-ii,MEDIUM,贪心算法,https://leetcode.cn/problems/jump-game-ii/
+80,763,划分字母区间,Partition Labels,partition-labels,MEDIUM,贪心算法,https://leetcode.cn/problems/partition-labels/
+81,70,爬楼梯,Climbing Stairs,climbing-stairs,EASY,动态规划,https://leetcode.cn/problems/climbing-stairs/
+82,118,杨辉三角,Pascal's Triangle,pascals-triangle,EASY,动态规划,https://leetcode.cn/problems/pascals-triangle/
+83,198,打家劫舍,House Robber,house-robber,MEDIUM,动态规划,https://leetcode.cn/problems/house-robber/
+84,279,完全平方数,Perfect Squares,perfect-squares,MEDIUM,动态规划,https://leetcode.cn/problems/perfect-squares/
+85,322,零钱兑换,Coin Change,coin-change,MEDIUM,动态规划,https://leetcode.cn/problems/coin-change/
+86,139,单词拆分,Word Break,word-break,MEDIUM,动态规划,https://leetcode.cn/problems/word-break/
+87,300,最长递增子序列,Longest Increasing Subsequence,longest-increasing-subsequence,MEDIUM,动态规划,https://leetcode.cn/problems/longest-increasing-subsequence/
+88,152,乘积最大子数组,Maximum Product Subarray,maximum-product-subarray,MEDIUM,动态规划,https://leetcode.cn/problems/maximum-product-subarray/
+89,416,分割等和子集,Partition Equal Subset Sum,partition-equal-subset-sum,MEDIUM,动态规划,https://leetcode.cn/problems/partition-equal-subset-sum/
+90,32,最长有效括号,Longest Valid Parentheses,longest-valid-parentheses,HARD,动态规划,https://leetcode.cn/problems/longest-valid-parentheses/
+91,62,不同路径,Unique Paths,unique-paths,MEDIUM,多维动态规划,https://leetcode.cn/problems/unique-paths/
+92,64,最小路径和,Minimum Path Sum,minimum-path-sum,MEDIUM,多维动态规划,https://leetcode.cn/problems/minimum-path-sum/
+93,5,最长回文子串,Longest Palindromic Substring,longest-palindromic-substring,MEDIUM,多维动态规划,https://leetcode.cn/problems/longest-palindromic-substring/
+94,1143,最长公共子序列,Longest Common Subsequence,longest-common-subsequence,MEDIUM,多维动态规划,https://leetcode.cn/problems/longest-common-subsequence/
+95,72,编辑距离,Edit Distance,edit-distance,MEDIUM,多维动态规划,https://leetcode.cn/problems/edit-distance/
+96,136,只出现一次的数字,Single Number,single-number,EASY,技巧,https://leetcode.cn/problems/single-number/
+97,169,多数元素,Majority Element,majority-element,EASY,技巧,https://leetcode.cn/problems/majority-element/
+98,75,颜色分类,Sort Colors,sort-colors,MEDIUM,技巧,https://leetcode.cn/problems/sort-colors/
+99,31,下一个排列,Next Permutation,next-permutation,MEDIUM,技巧,https://leetcode.cn/problems/next-permutation/
+100,287,寻找重复数,Find the Duplicate Number,find-the-duplicate-number,MEDIUM,技巧,https://leetcode.cn/problems/find-the-duplicate-number/

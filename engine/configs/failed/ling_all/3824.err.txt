@@ -1,0 +1,5 @@
+max_events', 6000), setup=cfg.get('setup', ''))
+  File "/sessions/rcw-01sw9wlt9bjg9xspknhk8qym/mnt/LC_Video/engine/tracer.py", line 204, in run
+    exec(compile(setup, '<setup>', 'exec'), ns)
+  File "<setup>", line 1, in <module>
+ImportError: cannot import name 'cbrt' from 'math' (unknown location)

@@ -1,0 +1,13 @@
+# 2282. 在一个网格中可以看到的人数
+
+[力扣原题](https://leetcode.cn/problems/number-of-people-that-can-be-seen-in-a-grid/)
+
+所在刷题路径：灵神题单·单调栈
+
+| 作者 | 题解 | 动画讲解 |
+|---|---|---|
+| 灵茶山艾府 | — | — |
+| yiduobo | [📄 题解](yiduobo.md) | [▶︎ 2282 在一个网格中可以看到的人数 · yiduobo.mp4](2282%20在一个网格中可以看到的人数%20·%20yiduobo.mp4) |
+
+---
+[↑ 返回 2200-2299](../README.md) · [总索引](../../../索引.md) · [仓库首页](../../../README.md)

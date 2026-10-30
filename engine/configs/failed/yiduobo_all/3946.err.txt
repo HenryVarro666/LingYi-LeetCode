@@ -1,0 +1,3 @@
+ if B.cnt != S.cnt else ('就是自己，不送' if S.i == S.j else f'`{S[chr(105)+chr(116)+chr(101)+chr(109)+chr(115)][S.j][0]}` 不能被 `{S[chr(105)+chr(116)+chr(101)+chr(109)+chr(115)][S.i][0]}` 整除，不送')),
+                                                                   ^^^^^
+SyntaxError: f-string: unmatched '['

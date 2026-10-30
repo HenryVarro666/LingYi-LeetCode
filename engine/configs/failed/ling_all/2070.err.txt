@@ -1,0 +1,4 @@
+ile "/sessions/rcw-01rmqfng7amshs52pyvuay43/mnt/LC_Video/engine/configs/ling_all/2070.py", line 57
+    f'`items[{S.j}]` 价格 {S['items'][S.j][0]} ≤ {S.q}：属于==新增==的物品 → 纳入' if S.j < len(S['items']) and S['items'][S.j][0] <= S.q
+                                ^^^^^
+SyntaxError: f-string: unmatched '['

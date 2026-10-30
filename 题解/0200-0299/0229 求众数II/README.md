@@ -1,0 +1,13 @@
+# 229. 求众数II
+
+[力扣原题](https://leetcode.cn/problems/majority-element-ii/)
+
+所在刷题路径：灵神题单·数学算法
+
+| 作者 | 题解 | 动画讲解 |
+|---|---|---|
+| 灵茶山艾府 | — | — |
+| yiduobo | [📄 题解](yiduobo.md) | [▶︎ 0229 求众数II · yiduobo.mp4](0229%20求众数II%20·%20yiduobo.mp4) |
+
+---
+[↑ 返回 0200-0299](../README.md) · [总索引](../../../索引.md) · [仓库首页](../../../README.md)

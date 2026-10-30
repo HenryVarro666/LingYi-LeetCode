@@ -1,0 +1,3 @@
+)': lambda S, B, r: (f'`{S.w}` 比 `{B.res or '（空）'}` 更长，或同长且字典序更小 → 更新答案' if len(S.w) > len(B.res) or (len(S.w) == len(B.res) and S.w < B.res) else f'`{S.w}` 不比当前答案 `{S.res}` 更优，保持不变'),
+                                                                     ^
+SyntaxError: invalid character '（' (U+FF08)

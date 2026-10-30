@@ -1,0 +1,416 @@
+﻿题号,题目,难度,链接
+3,Longest Substring Without Repeating Characters,MEDIUM,https://leetcode.cn/problems/longest-substring-without-repeating-characters/
+42,Trapping Rain Water,HARD,https://leetcode.cn/problems/trapping-rain-water/
+146,LRU Cache,MEDIUM,https://leetcode.cn/problems/lru-cache/
+1,Two Sum,EASY,https://leetcode.cn/problems/two-sum/
+49,Group Anagrams,MEDIUM,https://leetcode.cn/problems/group-anagrams/
+128,Longest Consecutive Sequence,MEDIUM,https://leetcode.cn/problems/longest-consecutive-sequence/
+15,3Sum,MEDIUM,https://leetcode.cn/problems/3sum/
+2,Add Two Numbers,MEDIUM,https://leetcode.cn/problems/add-two-numbers/
+215,Kth Largest Element in an Array,MEDIUM,https://leetcode.cn/problems/kth-largest-element-in-an-array/
+283,Move Zeroes,EASY,https://leetcode.cn/problems/move-zeroes/
+200,Number of Islands,MEDIUM,https://leetcode.cn/problems/number-of-islands/
+560,Subarray Sum Equals K,MEDIUM,https://leetcode.cn/problems/subarray-sum-equals-k/
+5,Longest Palindromic Substring,MEDIUM,https://leetcode.cn/problems/longest-palindromic-substring/
+25,Reverse Nodes in k-Group,HARD,https://leetcode.cn/problems/reverse-nodes-in-k-group/
+56,Merge Intervals,MEDIUM,https://leetcode.cn/problems/merge-intervals/
+239,Sliding Window Maximum,HARD,https://leetcode.cn/problems/sliding-window-maximum/
+11,Container With Most Water,MEDIUM,https://leetcode.cn/problems/container-with-most-water/
+70,Climbing Stairs,EASY,https://leetcode.cn/problems/climbing-stairs/
+236,Lowest Common Ancestor of a Binary Tree,MEDIUM,https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/
+22,Generate Parentheses,MEDIUM,https://leetcode.cn/problems/generate-parentheses/
+33,Search in Rotated Sorted Array,MEDIUM,https://leetcode.cn/problems/search-in-rotated-sorted-array/
+206,Reverse Linked List,EASY,https://leetcode.cn/problems/reverse-linked-list/
+438,Find All Anagrams in a String,MEDIUM,https://leetcode.cn/problems/find-all-anagrams-in-a-string/
+54,Spiral Matrix,MEDIUM,https://leetcode.cn/problems/spiral-matrix/
+279,Perfect Squares,MEDIUM,https://leetcode.cn/problems/perfect-squares/
+4,Median of Two Sorted Arrays,HARD,https://leetcode.cn/problems/median-of-two-sorted-arrays/
+21,Merge Two Sorted Lists,EASY,https://leetcode.cn/problems/merge-two-sorted-lists/
+72,Edit Distance,MEDIUM,https://leetcode.cn/problems/edit-distance/
+300,Longest Increasing Subsequence,MEDIUM,https://leetcode.cn/problems/longest-increasing-subsequence/
+59,Spiral Matrix II,MEDIUM,https://leetcode.cn/problems/spiral-matrix-ii/
+46,Permutations,MEDIUM,https://leetcode.cn/problems/permutations/
+55,Jump Game,MEDIUM,https://leetcode.cn/problems/jump-game/
+88,Merge Sorted Array,EASY,https://leetcode.cn/problems/merge-sorted-array/
+121,Best Time to Buy and Sell Stock,EASY,https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/
+131,Palindrome Partitioning,MEDIUM,https://leetcode.cn/problems/palindrome-partitioning/
+1143,Longest Common Subsequence,MEDIUM,https://leetcode.cn/problems/longest-common-subsequence/
+394,Decode String,MEDIUM,https://leetcode.cn/problems/decode-string/
+79,Word Search,MEDIUM,https://leetcode.cn/problems/word-search/
+34,Find First and Last Position of Element in Sorted Array,MEDIUM,https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/
+LCR 143,子结构判断,MEDIUM,https://leetcode.cn/problems/shu-de-zi-jie-gou-lcof/
+198,House Robber,MEDIUM,https://leetcode.cn/problems/house-robber/
+27,Remove Element,EASY,https://leetcode.cn/problems/remove-element/
+28,Find the Index of the First Occurrence in a String,EASY,https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/
+53,Maximum Subarray,MEDIUM,https://leetcode.cn/problems/maximum-subarray/
+148,Sort List,MEDIUM,https://leetcode.cn/problems/sort-list/
+2235,Add Two Integers,EASY,https://leetcode.cn/problems/add-two-integers/
+739,Daily Temperatures,MEDIUM,https://leetcode.cn/problems/daily-temperatures/
+23,Merge k Sorted Lists,HARD,https://leetcode.cn/problems/merge-k-sorted-lists/
+14,Longest Common Prefix,EASY,https://leetcode.cn/problems/longest-common-prefix/
+17,Letter Combinations of a Phone Number,MEDIUM,https://leetcode.cn/problems/letter-combinations-of-a-phone-number/
+41,First Missing Positive,HARD,https://leetcode.cn/problems/first-missing-positive/
+48,Rotate Image,MEDIUM,https://leetcode.cn/problems/rotate-image/
+76,Minimum Window Substring,HARD,https://leetcode.cn/problems/minimum-window-substring/
+124,Binary Tree Maximum Path Sum,HARD,https://leetcode.cn/problems/binary-tree-maximum-path-sum/
+104,Maximum Depth of Binary Tree,EASY,https://leetcode.cn/problems/maximum-depth-of-binary-tree/
+139,Word Break,MEDIUM,https://leetcode.cn/problems/word-break/
+902,Numbers At Most N Given Digit Set,HARD,https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/
+7,Reverse Integer,MEDIUM,https://leetcode.cn/problems/reverse-integer/
+143,Reorder List,MEDIUM,https://leetcode.cn/problems/reorder-list/
+94,Binary Tree Inorder Traversal,EASY,https://leetcode.cn/problems/binary-tree-inorder-traversal/
+138,Copy List with Random Pointer,MEDIUM,https://leetcode.cn/problems/copy-list-with-random-pointer/
+105,Construct Binary Tree from Preorder and Inorder Traversal,MEDIUM,https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+面试题 16.25,LRU Cache LCCI,MEDIUM,https://leetcode.cn/problems/lru-cache-lcci/
+20,Valid Parentheses,EASY,https://leetcode.cn/problems/valid-parentheses/
+24,Swap Nodes in Pairs,MEDIUM,https://leetcode.cn/problems/swap-nodes-in-pairs/
+31,Next Permutation,MEDIUM,https://leetcode.cn/problems/next-permutation/
+45,Jump Game II,MEDIUM,https://leetcode.cn/problems/jump-game-ii/
+136,Single Number,EASY,https://leetcode.cn/problems/single-number/
+221,Maximal Square,MEDIUM,https://leetcode.cn/problems/maximal-square/
+416,Partition Equal Subset Sum,MEDIUM,https://leetcode.cn/problems/partition-equal-subset-sum/
+209,Minimum Size Subarray Sum,MEDIUM,https://leetcode.cn/problems/minimum-size-subarray-sum/
+32,Longest Valid Parentheses,HARD,https://leetcode.cn/problems/longest-valid-parentheses/
+51,N-Queens,HARD,https://leetcode.cn/problems/n-queens/
+152,Maximum Product Subarray,MEDIUM,https://leetcode.cn/problems/maximum-product-subarray/
+322,Coin Change,MEDIUM,https://leetcode.cn/problems/coin-change/
+73,Set Matrix Zeroes,MEDIUM,https://leetcode.cn/problems/set-matrix-zeroes/
+169,Majority Element,EASY,https://leetcode.cn/problems/majority-element/
+224,Basic Calculator,HARD,https://leetcode.cn/problems/basic-calculator/
+207,Course Schedule,MEDIUM,https://leetcode.cn/problems/course-schedule/
+645,Set Mismatch,EASY,https://leetcode.cn/problems/set-mismatch/
+704,Binary Search,EASY,https://leetcode.cn/problems/binary-search/
+175,Combine Two Tables,EASY,https://leetcode.cn/problems/combine-two-tables/
+78,Subsets,MEDIUM,https://leetcode.cn/problems/subsets/
+208,Implement Trie (Prefix Tree),MEDIUM,https://leetcode.cn/problems/implement-trie-prefix-tree/
+39,Combination Sum,MEDIUM,https://leetcode.cn/problems/combination-sum/
+102,Binary Tree Level Order Traversal,MEDIUM,https://leetcode.cn/problems/binary-tree-level-order-traversal/
+141,Linked List Cycle,EASY,https://leetcode.cn/problems/linked-list-cycle/
+160,Intersection of Two Linked Lists,EASY,https://leetcode.cn/problems/intersection-of-two-linked-lists/
+6,Zigzag Conversion,MEDIUM,https://leetcode.cn/problems/zigzag-conversion/
+142,Linked List Cycle II,MEDIUM,https://leetcode.cn/problems/linked-list-cycle-ii/
+389,Find the Difference,EASY,https://leetcode.cn/problems/find-the-difference/
+47,Permutations II,MEDIUM,https://leetcode.cn/problems/permutations-ii/
+LCR 016,无重复字符的最长子串,MEDIUM,https://leetcode.cn/problems/wtcaE1/
+912,Sort an Array,MEDIUM,https://leetcode.cn/problems/sort-an-array/
+67,Add Binary,EASY,https://leetcode.cn/problems/add-binary/
+84,Largest Rectangle in Histogram,HARD,https://leetcode.cn/problems/largest-rectangle-in-histogram/
+415,Add Strings,EASY,https://leetcode.cn/problems/add-strings/
+108,Convert Sorted Array to Binary Search Tree,EASY,https://leetcode.cn/problems/convert-sorted-array-to-binary-search-tree/
+226,Invert Binary Tree,EASY,https://leetcode.cn/problems/invert-binary-tree/
+343,Integer Break,MEDIUM,https://leetcode.cn/problems/integer-break/
+647,Palindromic Substrings,MEDIUM,https://leetcode.cn/problems/palindromic-substrings/
+8,String to Integer (atoi),MEDIUM,https://leetcode.cn/problems/string-to-integer-atoi/
+98,Validate Binary Search Tree,MEDIUM,https://leetcode.cn/problems/validate-binary-search-tree/
+1929,Concatenation of Array,EASY,https://leetcode.cn/problems/concatenation-of-array/
+18,4Sum,MEDIUM,https://leetcode.cn/problems/4sum/
+13,Roman to Integer,EASY,https://leetcode.cn/problems/roman-to-integer/
+238,Product of Array Except Self,MEDIUM,https://leetcode.cn/problems/product-of-array-except-self/
+61,Rotate List,MEDIUM,https://leetcode.cn/problems/rotate-list/
+570,Managers with at Least 5 Direct Reports,MEDIUM,https://leetcode.cn/problems/managers-with-at-least-5-direct-reports/
+202,Happy Number,EASY,https://leetcode.cn/problems/happy-number/
+234,Palindrome Linked List,EASY,https://leetcode.cn/problems/palindrome-linked-list/
+153,Find Minimum in Rotated Sorted Array,MEDIUM,https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/
+550,Game Play Analysis IV,MEDIUM,https://leetcode.cn/problems/game-play-analysis-iv/
+155,Min Stack,MEDIUM,https://leetcode.cn/problems/min-stack/
+69,Sqrt(x),EASY,https://leetcode.cn/problems/sqrtx/
+74,Search a 2D Matrix,MEDIUM,https://leetcode.cn/problems/search-a-2d-matrix/
+82,Remove Duplicates from Sorted List II,MEDIUM,https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/
+135,Candy,HARD,https://leetcode.cn/problems/candy/
+9,Palindrome Number,EASY,https://leetcode.cn/problems/palindrome-number/
+35,Search Insert Position,EASY,https://leetcode.cn/problems/search-insert-position/
+103,Binary Tree Zigzag Level Order Traversal,MEDIUM,https://leetcode.cn/problems/binary-tree-zigzag-level-order-traversal/
+994,Rotting Oranges,MEDIUM,https://leetcode.cn/problems/rotting-oranges/
+230,Kth Smallest Element in a BST,MEDIUM,https://leetcode.cn/problems/kth-smallest-element-in-a-bst/
+64,Minimum Path Sum,MEDIUM,https://leetcode.cn/problems/minimum-path-sum/
+123,Best Time to Buy and Sell Stock III,HARD,https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/
+400,Nth Digit,MEDIUM,https://leetcode.cn/problems/nth-digit/
+378,Kth Smallest Element in a Sorted Matrix,MEDIUM,https://leetcode.cn/problems/kth-smallest-element-in-a-sorted-matrix/
+101,Symmetric Tree,EASY,https://leetcode.cn/problems/symmetric-tree/
+1768,Merge Strings Alternately,EASY,https://leetcode.cn/problems/merge-strings-alternately/
+347,Top K Frequent Elements,MEDIUM,https://leetcode.cn/problems/top-k-frequent-elements/
+746,Min Cost Climbing Stairs,EASY,https://leetcode.cn/problems/min-cost-climbing-stairs/
+114,Flatten Binary Tree to Linked List,MEDIUM,https://leetcode.cn/problems/flatten-binary-tree-to-linked-list/
+349,Intersection of Two Arrays,EASY,https://leetcode.cn/problems/intersection-of-two-arrays/
+295,Find Median from Data Stream,HARD,https://leetcode.cn/problems/find-median-from-data-stream/
+2141,Maximum Running Time of N Computers,HARD,https://leetcode.cn/problems/maximum-running-time-of-n-computers/
+904,Fruit Into Baskets,MEDIUM,https://leetcode.cn/problems/fruit-into-baskets/
+面试题 02.02,Kth Node From End of List LCCI,EASY,https://leetcode.cn/problems/kth-node-from-end-of-list-lcci/
+19,Remove Nth Node From End of List,MEDIUM,https://leetcode.cn/problems/remove-nth-node-from-end-of-list/
+679,24 Game,HARD,https://leetcode.cn/problems/24-game/
+118,Pascal's Triangle,EASY,https://leetcode.cn/problems/pascals-triangle/
+213,House Robber II,MEDIUM,https://leetcode.cn/problems/house-robber-ii/
+36,Valid Sudoku,MEDIUM,https://leetcode.cn/problems/valid-sudoku/
+92,Reverse Linked List II,MEDIUM,https://leetcode.cn/problems/reverse-linked-list-ii/
+287,Find the Duplicate Number,MEDIUM,https://leetcode.cn/problems/find-the-duplicate-number/
+1757,Recyclable and Low Fat Products,EASY,https://leetcode.cn/problems/recyclable-and-low-fat-products/
+134,Gas Station,MEDIUM,https://leetcode.cn/problems/gas-station/
+2625,Flatten Deeply Nested Array,MEDIUM,https://leetcode.cn/problems/flatten-deeply-nested-array/
+448,Find All Numbers Disappeared in an Array,EASY,https://leetcode.cn/problems/find-all-numbers-disappeared-in-an-array/
+667,Beautiful Arrangement II,MEDIUM,https://leetcode.cn/problems/beautiful-arrangement-ii/
+1004,Max Consecutive Ones III,MEDIUM,https://leetcode.cn/problems/max-consecutive-ones-iii/
+LCR 185,统计结果概率,MEDIUM,https://leetcode.cn/problems/nge-tou-zi-de-dian-shu-lcof/
+面试题 02.05,Sum Lists LCCI,MEDIUM,https://leetcode.cn/problems/sum-lists-lcci/
+380,Insert Delete GetRandom O(1),MEDIUM,https://leetcode.cn/problems/insert-delete-getrandom-o1/
+491,Non-decreasing Subsequences,MEDIUM,https://leetcode.cn/problems/non-decreasing-subsequences/
+240,Search a 2D Matrix II,MEDIUM,https://leetcode.cn/problems/search-a-2d-matrix-ii/
+199,Binary Tree Right Side View,MEDIUM,https://leetcode.cn/problems/binary-tree-right-side-view/
+763,Partition Labels,MEDIUM,https://leetcode.cn/problems/partition-labels/
+58,Length of Last Word,EASY,https://leetcode.cn/problems/length-of-last-word/
+1502,Can Make Arithmetic Progression From Sequence,EASY,https://leetcode.cn/problems/can-make-arithmetic-progression-from-sequence/
+91,Decode Ways,MEDIUM,https://leetcode.cn/problems/decode-ways/
+113,Path Sum II,MEDIUM,https://leetcode.cn/problems/path-sum-ii/
+673,Number of Longest Increasing Subsequence,MEDIUM,https://leetcode.cn/problems/number-of-longest-increasing-subsequence/
+1512,Number of Good Pairs,EASY,https://leetcode.cn/problems/number-of-good-pairs/
+177,Nth Highest Salary,MEDIUM,https://leetcode.cn/problems/nth-highest-salary/
+1609,Even Odd Tree,MEDIUM,https://leetcode.cn/problems/even-odd-tree/
+LCR 017,最小覆盖子串,HARD,https://leetcode.cn/problems/M1oyTv/
+1581,Customer Who Visited but Did Not Make Any Transactions,EASY,https://leetcode.cn/problems/customer-who-visited-but-did-not-make-any-transactions/
+面试题 16.26,Calculator LCCI,MEDIUM,https://leetcode.cn/problems/calculator-lcci/
+1784,Check if Binary String Has at Most One Segment of Ones,EASY,https://leetcode.cn/problems/check-if-binary-string-has-at-most-one-segment-of-ones/
+543,Diameter of Binary Tree,EASY,https://leetcode.cn/problems/diameter-of-binary-tree/
+16,3Sum Closest,MEDIUM,https://leetcode.cn/problems/3sum-closest/
+424,Longest Repeating Character Replacement,MEDIUM,https://leetcode.cn/problems/longest-repeating-character-replacement/
+151,Reverse Words in a String,MEDIUM,https://leetcode.cn/problems/reverse-words-in-a-string/
+301,Remove Invalid Parentheses,HARD,https://leetcode.cn/problems/remove-invalid-parentheses/
+1049,Last Stone Weight II,MEDIUM,https://leetcode.cn/problems/last-stone-weight-ii/
+1622,Fancy Sequence,HARD,https://leetcode.cn/problems/fancy-sequence/
+1878,Get Biggest Three Rhombus Sums in a Grid,MEDIUM,https://leetcode.cn/problems/get-biggest-three-rhombus-sums-in-a-grid/
+10,Regular Expression Matching,HARD,https://leetcode.cn/problems/regular-expression-matching/
+2694,Event Emitter,MEDIUM,https://leetcode.cn/problems/event-emitter/
+373,Find K Pairs with Smallest Sums,MEDIUM,https://leetcode.cn/problems/find-k-pairs-with-smallest-sums/
+1470,Shuffle the Array,EASY,https://leetcode.cn/problems/shuffle-the-array/
+459,Repeated Substring Pattern,EASY,https://leetcode.cn/problems/repeated-substring-pattern/
+97,Interleaving String,MEDIUM,https://leetcode.cn/problems/interleaving-string/
+738,Monotone Increasing Digits,MEDIUM,https://leetcode.cn/problems/monotone-increasing-digits/
+26,Remove Duplicates from Sorted Array,EASY,https://leetcode.cn/problems/remove-duplicates-from-sorted-array/
+83,Remove Duplicates from Sorted List,EASY,https://leetcode.cn/problems/remove-duplicates-from-sorted-list/
+165,Compare Version Numbers,MEDIUM,https://leetcode.cn/problems/compare-version-numbers/
+437,Path Sum III,MEDIUM,https://leetcode.cn/problems/path-sum-iii/
+494,Target Sum,MEDIUM,https://leetcode.cn/problems/target-sum/
+66,Plus One,EASY,https://leetcode.cn/problems/plus-one/
+71,Simplify Path,MEDIUM,https://leetcode.cn/problems/simplify-path/
+611,Valid Triangle Number,MEDIUM,https://leetcode.cn/problems/valid-triangle-number/
+242,Valid Anagram,EASY,https://leetcode.cn/problems/valid-anagram/
+852,Peak Index in a Mountain Array,MEDIUM,https://leetcode.cn/problems/peak-index-in-a-mountain-array/
+854,K-Similar Strings,HARD,https://leetcode.cn/problems/k-similar-strings/
+1072,Flip Columns For Maximum Number of Equal Rows,MEDIUM,https://leetcode.cn/problems/flip-columns-for-maximum-number-of-equal-rows/
+2413,Smallest Even Multiple,EASY,https://leetcode.cn/problems/smallest-even-multiple/
+338,Counting Bits,EASY,https://leetcode.cn/problems/counting-bits/
+面试题 16.19,Pond Sizes LCCI,MEDIUM,https://leetcode.cn/problems/pond-sizes-lcci/
+528,Random Pick with Weight,MEDIUM,https://leetcode.cn/problems/random-pick-with-weight/
+29,Divide Two Integers,MEDIUM,https://leetcode.cn/problems/divide-two-integers/
+977,Squares of a Sorted Array,EASY,https://leetcode.cn/problems/squares-of-a-sorted-array/
+LCR 095,最长公共子序列,MEDIUM,https://leetcode.cn/problems/qJnOS7/
+1905,Count Sub Islands,MEDIUM,https://leetcode.cn/problems/count-sub-islands/
+1262,Greatest Sum Divisible by Three,MEDIUM,https://leetcode.cn/problems/greatest-sum-divisible-by-three/
+605,Can Place Flowers,EASY,https://leetcode.cn/problems/can-place-flowers/
+LCR 146,螺旋遍历二维数组,EASY,https://leetcode.cn/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/
+610,Triangle Judgement,EASY,https://leetcode.cn/problems/triangle-judgement/
+1673,Find the Most Competitive Subsequence,MEDIUM,https://leetcode.cn/problems/find-the-most-competitive-subsequence/
+297,Serialize and Deserialize Binary Tree,HARD,https://leetcode.cn/problems/serialize-and-deserialize-binary-tree/
+713,Subarray Product Less Than K,MEDIUM,https://leetcode.cn/problems/subarray-product-less-than-k/
+577,Employee Bonus,EASY,https://leetcode.cn/problems/employee-bonus/
+1975,Maximum Matrix Sum,MEDIUM,https://leetcode.cn/problems/maximum-matrix-sum/
+212,Word Search II,HARD,https://leetcode.cn/problems/word-search-ii/
+220,Contains Duplicate III,HARD,https://leetcode.cn/problems/contains-duplicate-iii/
+712,Minimum ASCII Delete Sum for Two Strings,MEDIUM,https://leetcode.cn/problems/minimum-ascii-delete-sum-for-two-strings/
+1390,Four Divisors,MEDIUM,https://leetcode.cn/problems/four-divisors/
+3644,Maximum K to Sort a Permutation,MEDIUM,https://leetcode.cn/problems/maximum-k-to-sort-a-permutation/
+1672,Richest Customer Wealth,EASY,https://leetcode.cn/problems/richest-customer-wealth/
+1043,Partition Array for Maximum Sum,MEDIUM,https://leetcode.cn/problems/partition-array-for-maximum-sum/
+837,New 21 Game,MEDIUM,https://leetcode.cn/problems/new-21-game/
+182,Duplicate Emails,EASY,https://leetcode.cn/problems/duplicate-emails/
+LCR 131,砍竹子 I,MEDIUM,https://leetcode.cn/problems/jian-sheng-zi-lcof/
+面试题 10.01,Sorted Merge LCCI,EASY,https://leetcode.cn/problems/sorted-merge-lcci/
+434,Number of Segments in a String,EASY,https://leetcode.cn/problems/number-of-segments-in-a-string/
+3259,Maximum Energy Boost From Two Drinks,MEDIUM,https://leetcode.cn/problems/maximum-energy-boost-from-two-drinks/
+2943,Maximize Area of Square Hole in Grid,MEDIUM,https://leetcode.cn/problems/maximize-area-of-square-hole-in-grid/
+LCR 077,排序链表,MEDIUM,https://leetcode.cn/problems/7WHec2/
+812,Largest Triangle Area,EASY,https://leetcode.cn/problems/largest-triangle-area/
+3697,Compute Decimal Representation,EASY,https://leetcode.cn/problems/compute-decimal-representation/
+1141,User Activity for the Past 30 Days I,EASY,https://leetcode.cn/problems/user-activity-for-the-past-30-days-i/
+2836,Maximize Value of Function in a Ball Passing Game,HARD,https://leetcode.cn/problems/maximize-value-of-function-in-a-ball-passing-game/
+499,The Maze III,HARD,https://leetcode.cn/problems/the-maze-iii/
+1070,Product Sales Analysis III,MEDIUM,https://leetcode.cn/problems/product-sales-analysis-iii/
+225,Implement Stack using Queues,EASY,https://leetcode.cn/problems/implement-stack-using-queues/
+130,Surrounded Regions,MEDIUM,https://leetcode.cn/problems/surrounded-regions/
+3639,Minimum Time to Activate String,MEDIUM,https://leetcode.cn/problems/minimum-time-to-activate-string/
+面试题 17.16,The Masseuse LCCI,EASY,https://leetcode.cn/problems/the-masseuse-lcci/
+3705,Find Golden Hour Customers,MEDIUM,https://leetcode.cn/problems/find-golden-hour-customers/
+669,Trim a Binary Search Tree,MEDIUM,https://leetcode.cn/problems/trim-a-binary-search-tree/
+3507,Minimum Pair Removal to Sort Array I,EASY,https://leetcode.cn/problems/minimum-pair-removal-to-sort-array-i/
+304,Range Sum Query 2D - Immutable,MEDIUM,https://leetcode.cn/problems/range-sum-query-2d-immutable/
+344,Reverse String,EASY,https://leetcode.cn/problems/reverse-string/
+582,Kill Process,MEDIUM,https://leetcode.cn/problems/kill-process/
+3225,Maximum Score From Grid Operations,HARD,https://leetcode.cn/problems/maximum-score-from-grid-operations/
+1200,Minimum Absolute Difference,EASY,https://leetcode.cn/problems/minimum-absolute-difference/
+3623,Count Number of Trapezoids I,MEDIUM,https://leetcode.cn/problems/count-number-of-trapezoids-i/
+1290,Convert Binary Number in a Linked List to Integer,EASY,https://leetcode.cn/problems/convert-binary-number-in-a-linked-list-to-integer/
+89,Gray Code,MEDIUM,https://leetcode.cn/problems/gray-code/
+3650,Minimum Cost Path with Edge Reversals,MEDIUM,https://leetcode.cn/problems/minimum-cost-path-with-edge-reversals/
+525,Contiguous Array,MEDIUM,https://leetcode.cn/problems/contiguous-array/
+387,First Unique Character in a String,EASY,https://leetcode.cn/problems/first-unique-character-in-a-string/
+493,Reverse Pairs,HARD,https://leetcode.cn/problems/reverse-pairs/
+80,Remove Duplicates from Sorted Array II,MEDIUM,https://leetcode.cn/problems/remove-duplicates-from-sorted-array-ii/
+2977,Minimum Cost to Convert String II,HARD,https://leetcode.cn/problems/minimum-cost-to-convert-string-ii/
+149,Max Points on a Line,HARD,https://leetcode.cn/problems/max-points-on-a-line/
+1832,Check if the Sentence Is Pangram,EASY,https://leetcode.cn/problems/check-if-the-sentence-is-pangram/
+3828,Final Element After Subarray Deletions,MEDIUM,https://leetcode.cn/problems/final-element-after-subarray-deletions/
+406,Queue Reconstruction by Height,MEDIUM,https://leetcode.cn/problems/queue-reconstruction-by-height/
+3013,Divide an Array Into Subarrays With Minimum Cost II,HARD,https://leetcode.cn/problems/divide-an-array-into-subarrays-with-minimum-cost-ii/
+1174,Immediate Food Delivery II,MEDIUM,https://leetcode.cn/problems/immediate-food-delivery-ii/
+2962,Count Subarrays Where Max Element Appears at Least K Times,MEDIUM,https://leetcode.cn/problems/count-subarrays-where-max-element-appears-at-least-k-times/
+面试题 17.24,Max Submatrix LCCI,HARD,https://leetcode.cn/problems/max-submatrix-lcci/
+813,Largest Sum of Averages,MEDIUM,https://leetcode.cn/problems/largest-sum-of-averages/
+1695,Maximum Erasure Value,MEDIUM,https://leetcode.cn/problems/maximum-erasure-value/
+2336,Smallest Number in Infinite Set,MEDIUM,https://leetcode.cn/problems/smallest-number-in-infinite-set/
+2116,Check if a Parentheses String Can Be Valid,MEDIUM,https://leetcode.cn/problems/check-if-a-parentheses-string-can-be-valid/
+167,Two Sum II - Input Array Is Sorted,MEDIUM,https://leetcode.cn/problems/two-sum-ii-input-array-is-sorted/
+516,Longest Palindromic Subsequence,MEDIUM,https://leetcode.cn/problems/longest-palindromic-subsequence/
+455,Assign Cookies,EASY,https://leetcode.cn/problems/assign-cookies/
+1314,Matrix Block Sum,MEDIUM,https://leetcode.cn/problems/matrix-block-sum/
+1941,Check if All Characters Have Equal Number of Occurrences,EASY,https://leetcode.cn/problems/check-if-all-characters-have-equal-number-of-occurrences/
+168,Excel Sheet Column Title,EASY,https://leetcode.cn/problems/excel-sheet-column-title/
+235,Lowest Common Ancestor of a Binary Search Tree,MEDIUM,https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-search-tree/
+3196,Maximize Total Cost of Alternating Subarrays,MEDIUM,https://leetcode.cn/problems/maximize-total-cost-of-alternating-subarrays/
+765,Couples Holding Hands,HARD,https://leetcode.cn/problems/couples-holding-hands/
+567,Permutation in String,MEDIUM,https://leetcode.cn/problems/permutation-in-string/
+77,Combinations,MEDIUM,https://leetcode.cn/problems/combinations/
+368,Largest Divisible Subset,MEDIUM,https://leetcode.cn/problems/largest-divisible-subset/
+3713,Longest Balanced Substring I,MEDIUM,https://leetcode.cn/problems/longest-balanced-substring-i/
+956,Tallest Billboard,HARD,https://leetcode.cn/problems/tallest-billboard/
+1147,Longest Chunked Palindrome Decomposition,HARD,https://leetcode.cn/problems/longest-chunked-palindrome-decomposition/
+1193,Monthly Transactions I,MEDIUM,https://leetcode.cn/problems/monthly-transactions-i/
+696,Count Binary Substrings,EASY,https://leetcode.cn/problems/count-binary-substrings/
+485,Max Consecutive Ones,EASY,https://leetcode.cn/problems/max-consecutive-ones/
+187,Repeated DNA Sequences,MEDIUM,https://leetcode.cn/problems/repeated-dna-sequences/
+419,Battleships in a Board,MEDIUM,https://leetcode.cn/problems/battleships-in-a-board/
+440,K-th Smallest in Lexicographical Order,HARD,https://leetcode.cn/problems/k-th-smallest-in-lexicographical-order/
+762,Prime Number of Set Bits in Binary Representation,EASY,https://leetcode.cn/problems/prime-number-of-set-bits-in-binary-representation/
+983,Minimum Cost For Tickets,MEDIUM,https://leetcode.cn/problems/minimum-cost-for-tickets/
+44,Wildcard Matching,HARD,https://leetcode.cn/problems/wildcard-matching/
+LCR 086,分割回文串,MEDIUM,https://leetcode.cn/problems/M99OJA/
+474,Ones and Zeroes,MEDIUM,https://leetcode.cn/problems/ones-and-zeroes/
+292,Nim Game,EASY,https://leetcode.cn/problems/nim-game/
+LCR 194,寻找二叉树的最近公共祖先,EASY,https://leetcode.cn/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/
+258,Add Digits,EASY,https://leetcode.cn/problems/add-digits/
+117,Populating Next Right Pointers in Each Node II,MEDIUM,https://leetcode.cn/problems/populating-next-right-pointers-in-each-node-ii/
+1114,Print in Order,EASY,https://leetcode.cn/problems/print-in-order/
+309,Best Time to Buy and Sell Stock with Cooldown,MEDIUM,https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+188,Best Time to Buy and Sell Stock IV,HARD,https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/
+65,Valid Number,HARD,https://leetcode.cn/problems/valid-number/
+856,Score of Parentheses,MEDIUM,https://leetcode.cn/problems/score-of-parentheses/
+30,Substring with Concatenation of All Words,HARD,https://leetcode.cn/problems/substring-with-concatenation-of-all-words/
+1680,Concatenation of Consecutive Binary Numbers,MEDIUM,https://leetcode.cn/problems/concatenation-of-consecutive-binary-numbers/
+166,Fraction to Recurring Decimal,MEDIUM,https://leetcode.cn/problems/fraction-to-recurring-decimal/
+654,Maximum Binary Tree,MEDIUM,https://leetcode.cn/problems/maximum-binary-tree/
+450,Delete Node in a BST,MEDIUM,https://leetcode.cn/problems/delete-node-in-a-bst/
+264,Ugly Number II,MEDIUM,https://leetcode.cn/problems/ugly-number-ii/
+584,Find Customer Referee,EASY,https://leetcode.cn/problems/find-customer-referee/
+682,Baseball Game,EASY,https://leetcode.cn/problems/baseball-game/
+2919,Minimum Increment Operations to Make Array Beautiful,MEDIUM,https://leetcode.cn/problems/minimum-increment-operations-to-make-array-beautiful/
+1365,How Many Numbers Are Smaller Than the Current Number,EASY,https://leetcode.cn/problems/how-many-numbers-are-smaller-than-the-current-number/
+1206,Design Skiplist,HARD,https://leetcode.cn/problems/design-skiplist/
+122,Best Time to Buy and Sell Stock II,MEDIUM,https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/
+1909,Remove One Element to Make the Array Strictly Increasing,EASY,https://leetcode.cn/problems/remove-one-element-to-make-the-array-strictly-increasing/
+1582,Special Positions in a Binary Matrix,EASY,https://leetcode.cn/problems/special-positions-in-a-binary-matrix/
+233,Number of Digit One,HARD,https://leetcode.cn/problems/number-of-digit-one/
+75,Sort Colors,MEDIUM,https://leetcode.cn/problems/sort-colors/
+1998,GCD Sort of an Array,HARD,https://leetcode.cn/problems/gcd-sort-of-an-array/
+1191,K-Concatenation Maximum Sum,MEDIUM,https://leetcode.cn/problems/k-concatenation-maximum-sum/
+662,Maximum Width of Binary Tree,MEDIUM,https://leetcode.cn/problems/maximum-width-of-binary-tree/
+940,Distinct Subsequences II,HARD,https://leetcode.cn/problems/distinct-subsequences-ii/
+1110,Delete Nodes And Return Forest,MEDIUM,https://leetcode.cn/problems/delete-nodes-and-return-forest/
+674,Longest Continuous Increasing Subsequence,EASY,https://leetcode.cn/problems/longest-continuous-increasing-subsequence/
+1378,Replace Employee ID With The Unique Identifier,EASY,https://leetcode.cn/problems/replace-employee-id-with-the-unique-identifier/
+1280,Students and Examinations,EASY,https://leetcode.cn/problems/students-and-examinations/
+LCR 091,粉刷房子,MEDIUM,https://leetcode.cn/problems/JEj789/
+623,Add One Row to Tree,MEDIUM,https://leetcode.cn/problems/add-one-row-to-tree/
+2841,Maximum Sum of Almost Unique Subarray,MEDIUM,https://leetcode.cn/problems/maximum-sum-of-almost-unique-subarray/
+LCR 074,合并区间,MEDIUM,https://leetcode.cn/problems/SsGoHC/
+487,Max Consecutive Ones II,MEDIUM,https://leetcode.cn/problems/max-consecutive-ones-ii/
+906,Super Palindromes,HARD,https://leetcode.cn/problems/super-palindromes/
+2080,Range Frequency Queries,MEDIUM,https://leetcode.cn/problems/range-frequency-queries/
+1472,Design Browser History,MEDIUM,https://leetcode.cn/problems/design-browser-history/
+面试题 17.14,Smallest K LCCI,MEDIUM,https://leetcode.cn/problems/smallest-k-lcci/
+1980,Find Unique Binary String,MEDIUM,https://leetcode.cn/problems/find-unique-binary-string/
+2778,Sum of Squares of Special Elements ,EASY,https://leetcode.cn/problems/sum-of-squares-of-special-elements/
+LCR 170,交易逆序对的总数,HARD,https://leetcode.cn/problems/shu-zu-zhong-de-ni-xu-dui-lcof/
+LCR 030,O(1) 时间插入、删除和获取随机元素,MEDIUM,https://leetcode.cn/problems/FortPu/
+473,Matchsticks to Square,MEDIUM,https://leetcode.cn/problems/matchsticks-to-square/
+3129,Find All Possible Stable Binary Arrays I,MEDIUM,https://leetcode.cn/problems/find-all-possible-stable-binary-arrays-i/
+733,Flood Fill,EASY,https://leetcode.cn/problems/flood-fill/
+214,Shortest Palindrome,HARD,https://leetcode.cn/problems/shortest-palindrome/
+2576,Find the Maximum Number of Marked Indices,MEDIUM,https://leetcode.cn/problems/find-the-maximum-number-of-marked-indices/
+189,Rotate Array,MEDIUM,https://leetcode.cn/problems/rotate-array/
+112,Path Sum,EASY,https://leetcode.cn/problems/path-sum/
+707,Design Linked List,MEDIUM,https://leetcode.cn/problems/design-linked-list/
+518,Coin Change II,MEDIUM,https://leetcode.cn/problems/coin-change-ii/
+12,Integer to Roman,MEDIUM,https://leetcode.cn/problems/integer-to-roman/
+1441,Build an Array With Stack Operations,MEDIUM,https://leetcode.cn/problems/build-an-array-with-stack-operations/
+183,Customers Who Never Order,EASY,https://leetcode.cn/problems/customers-who-never-order/
+1431,Kids With the Greatest Number of Candies,EASY,https://leetcode.cn/problems/kids-with-the-greatest-number-of-candies/
+63,Unique Paths II,MEDIUM,https://leetcode.cn/problems/unique-paths-ii/
+967,Numbers With Same Consecutive Differences,MEDIUM,https://leetcode.cn/problems/numbers-with-same-consecutive-differences/
+831,Masking Personal Information,MEDIUM,https://leetcode.cn/problems/masking-personal-information/
+719,Find K-th Smallest Pair Distance,HARD,https://leetcode.cn/problems/find-k-th-smallest-pair-distance/
+面试题 01.05,One Away LCCI,MEDIUM,https://leetcode.cn/problems/one-away-lcci/
+718,Maximum Length of Repeated Subarray,MEDIUM,https://leetcode.cn/problems/maximum-length-of-repeated-subarray/
+LCR 053,二叉搜索树中的中序后继,MEDIUM,https://leetcode.cn/problems/P5rCT8/
+126,Word Ladder II,HARD,https://leetcode.cn/problems/word-ladder-ii/
+197,Rising Temperature,EASY,https://leetcode.cn/problems/rising-temperature/
+1838,Frequency of the Most Frequent Element,MEDIUM,https://leetcode.cn/problems/frequency-of-the-most-frequent-element/
+50,"Pow(x, n)",MEDIUM,https://leetcode.cn/problems/powx-n/
+857,Minimum Cost to Hire K Workers,HARD,https://leetcode.cn/problems/minimum-cost-to-hire-k-workers/
+面试题 01.04,Palindrome Permutation LCCI,EASY,https://leetcode.cn/problems/palindrome-permutation-lcci/
+96,Unique Binary Search Trees,MEDIUM,https://leetcode.cn/problems/unique-binary-search-trees/
+LCR 183,望远镜中最高的海拔,HARD,https://leetcode.cn/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/
+3026,Maximum Good Subarray Sum,MEDIUM,https://leetcode.cn/problems/maximum-good-subarray-sum/
+179,Largest Number,MEDIUM,https://leetcode.cn/problems/largest-number/
+2476,Closest Nodes Queries in a Binary Search Tree,MEDIUM,https://leetcode.cn/problems/closest-nodes-queries-in-a-binary-search-tree/
+140,Word Break II,HARD,https://leetcode.cn/problems/word-break-ii/
+889,Construct Binary Tree from Preorder and Postorder Traversal,MEDIUM,https://leetcode.cn/problems/construct-binary-tree-from-preorder-and-postorder-traversal/
+624,Maximum Distance in Arrays,MEDIUM,https://leetcode.cn/problems/maximum-distance-in-arrays/
+3304,Find the K-th Character in String Game I,EASY,https://leetcode.cn/problems/find-the-k-th-character-in-string-game-i/
+502,IPO,HARD,https://leetcode.cn/problems/ipo/
+376,Wiggle Subsequence,MEDIUM,https://leetcode.cn/problems/wiggle-subsequence/
+345,Reverse Vowels of a String,EASY,https://leetcode.cn/problems/reverse-vowels-of-a-string/
+2415,Reverse Odd Levels of Binary Tree,MEDIUM,https://leetcode.cn/problems/reverse-odd-levels-of-binary-tree/
+319,Bulb Switcher,MEDIUM,https://leetcode.cn/problems/bulb-switcher/
+面试题 10.03,Search Rotate Array LCCI,MEDIUM,https://leetcode.cn/problems/search-rotate-array-lcci/
+90,Subsets II,MEDIUM,https://leetcode.cn/problems/subsets-ii/
+172,Factorial Trailing Zeroes,MEDIUM,https://leetcode.cn/problems/factorial-trailing-zeroes/
+506,Relative Ranks,EASY,https://leetcode.cn/problems/relative-ranks/
+273,Integer to English Words,HARD,https://leetcode.cn/problems/integer-to-english-words/
+698,Partition to K Equal Sum Subsets,MEDIUM,https://leetcode.cn/problems/partition-to-k-equal-sum-subsets/
+328,Odd Even Linked List,MEDIUM,https://leetcode.cn/problems/odd-even-linked-list/
+435,Non-overlapping Intervals,MEDIUM,https://leetcode.cn/problems/non-overlapping-intervals/
+1594,Maximum Non Negative Product in a Matrix,MEDIUM,https://leetcode.cn/problems/maximum-non-negative-product-in-a-matrix/
+1089,Duplicate Zeros,EASY,https://leetcode.cn/problems/duplicate-zeros/
+329,Longest Increasing Path in a Matrix,HARD,https://leetcode.cn/problems/longest-increasing-path-in-a-matrix/
+716,Max Stack,HARD,https://leetcode.cn/problems/max-stack/
+274,H-Index,MEDIUM,https://leetcode.cn/problems/h-index/
+881,Boats to Save People,MEDIUM,https://leetcode.cn/problems/boats-to-save-people/
+860,Lemonade Change,EASY,https://leetcode.cn/problems/lemonade-change/
+面试题 01.01,Is Unique LCCI,EASY,https://leetcode.cn/problems/is-unique-lcci/
+1884,Egg Drop With 2 Eggs and N Floors,MEDIUM,https://leetcode.cn/problems/egg-drop-with-2-eggs-and-n-floors/
+303,Range Sum Query - Immutable,EASY,https://leetcode.cn/problems/range-sum-query-immutable/
+2879,Display the First Three Rows,EASY,https://leetcode.cn/problems/display-the-first-three-rows/
+887,Super Egg Drop,HARD,https://leetcode.cn/problems/super-egg-drop/
+407,Trapping Rain Water II,HARD,https://leetcode.cn/problems/trapping-rain-water-ii/
+876,Middle of the Linked List,EASY,https://leetcode.cn/problems/middle-of-the-linked-list/
+695,Max Area of Island,MEDIUM,https://leetcode.cn/problems/max-area-of-island/
+162,Find Peak Element,MEDIUM,https://leetcode.cn/problems/find-peak-element/
+637,Average of Levels in Binary Tree,EASY,https://leetcode.cn/problems/average-of-levels-in-binary-tree/
+1912,Design Movie Rental System,HARD,https://leetcode.cn/problems/design-movie-rental-system/
+LCR 105,岛屿的最大面积,MEDIUM,https://leetcode.cn/problems/ZL6zAn/
+99,Recover Binary Search Tree,MEDIUM,https://leetcode.cn/problems/recover-binary-search-tree/
+676,Implement Magic Dictionary,MEDIUM,https://leetcode.cn/problems/implement-magic-dictionary/
+144,Binary Tree Preorder Traversal,EASY,https://leetcode.cn/problems/binary-tree-preorder-traversal/
+692,Top K Frequent Words,MEDIUM,https://leetcode.cn/problems/top-k-frequent-words/
+181,Employees Earning More Than Their Managers,EASY,https://leetcode.cn/problems/employees-earning-more-than-their-managers/
+313,Super Ugly Number,MEDIUM,https://leetcode.cn/problems/super-ugly-number/
+3193,Count the Number of Inversions,HARD,https://leetcode.cn/problems/count-the-number-of-inversions/
+643,Maximum Average Subarray I,EASY,https://leetcode.cn/problems/maximum-average-subarray-i/
+930,Binary Subarrays With Sum,MEDIUM,https://leetcode.cn/problems/binary-subarrays-with-sum/

@@ -1,0 +1,204 @@
+{
+  "matched_questions": 14,
+  "matched_solution_files": 18,
+  "mappings": [
+    {
+      "question_id": "2",
+      "title_cn": "两数相加",
+      "title_en": "Add Two Numbers",
+      "solution_files": [
+        "2.py",
+        "addTwo.py",
+        "addTwoNumbers.py"
+      ],
+      "match_reasons": [
+        "filename_id",
+        "alias_name",
+        "alias_name"
+      ]
+    },
+    {
+      "question_id": "3",
+      "title_cn": "无重复字符的最长子串",
+      "title_en": "Longest Substring Without Repeating Characters",
+      "solution_files": [
+        "3.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "11",
+      "title_cn": "盛最多水的容器",
+      "title_en": "Container With Most Water",
+      "solution_files": [
+        "11.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "15",
+      "title_cn": "三数之和",
+      "title_en": "3Sum",
+      "solution_files": [
+        "15.py",
+        "两数之和_三数之和【基础算法精讲_01】.py"
+      ],
+      "match_reasons": [
+        "filename_id",
+        "alias_name"
+      ]
+    },
+    {
+      "question_id": "19",
+      "title_cn": "删除链表的倒数第 N 个结点",
+      "title_en": "Remove Nth Node From End of List",
+      "solution_files": [
+        "19.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "21",
+      "title_cn": "合并两个有序链表",
+      "title_en": "Merge Two Sorted Lists",
+      "solution_files": [
+        "21.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "23",
+      "title_cn": "合并 K 个升序链表",
+      "title_en": "Merge k Sorted Lists",
+      "solution_files": [
+        "23.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "25",
+      "title_cn": "K 个一组翻转链表",
+      "title_en": "Reverse Nodes in k-Group",
+      "solution_files": [
+        "25.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "34",
+      "title_cn": "在排序数组中查找元素的第一个和最后一个位置",
+      "title_en": "Find First and Last Position of Element in Sorted Array",
+      "solution_files": [
+        "34.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "42",
+      "title_cn": "接雨水",
+      "title_en": "Trapping Rain Water",
+      "solution_files": [
+        "42.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "49",
+      "title_cn": "字母异位词分组",
+      "title_en": "Group Anagrams",
+      "solution_files": [
+        "49.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "53",
+      "title_cn": "最大子数组和",
+      "title_en": "Maximum Subarray",
+      "solution_files": [
+        "53.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "101",
+      "title_cn": "对称二叉树",
+      "title_en": "Symmetric Tree",
+      "solution_files": [
+        "101.py"
+      ],
+      "match_reasons": [
+        "filename_id"
+      ]
+    },
+    {
+      "question_id": "206",
+      "title_cn": "反转链表",
+      "title_en": "Reverse Linked List",
+      "solution_files": [
+        "206.py",
+        "reverseList.py"
+      ],
+      "match_reasons": [
+        "filename_id",
+        "alias_name"
+      ]
+    }
+  ],
+  "unmatched_py_files": [
+    "100.py",
+    "110.py",
+    "111.py",
+    "1281.py",
+    "1422.py",
+    "1470.py",
+    "1486.py",
+    "1512.py",
+    "1534.py",
+    "167.py",
+    "209.py",
+    "2235.py",
+    "2236.py",
+    "231.2.py",
+    "237.py",
+    "2413.py",
+    "2469.py",
+    "258.py",
+    "2586.py",
+    "263.py",
+    "303.py",
+    "326.3.py",
+    "363.py",
+    "445.py",
+    "707.py",
+    "709.py",
+    "713.py",
+    "852.py",
+    "86.py",
+    "867.py",
+    "92.py",
+    "ListNode.py",
+    "doubly_linked_list.py",
+    "singly_linked_list.py"
+  ]
+}

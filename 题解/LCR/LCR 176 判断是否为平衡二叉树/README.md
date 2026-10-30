@@ -1,0 +1,43 @@
+# LCR 176. 判断是否为平衡二叉树
+
+Easy · [力扣原题](https://leetcode.cn/problems/ping-heng-er-cha-shu-lcof/)
+
+| 作者 | 题解 | 动画讲解 |
+|---|---|---|
+| 灵茶山艾府 | [📄 题解](灵茶山艾府.md) | [▶︎ LCR 176 判断是否为平衡二叉树 · 灵茶山艾府.mp4](LCR%20176%20判断是否为平衡二叉树%20·%20灵茶山艾府.mp4) |
+| yiduobo | — | — |
+
+## 题目描述
+
+输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
+
+**示例 1：**
+
+```
+
+输入：root = [3,9,20,null,null,15,7]
+输出：true
+解释：如下图
+```
+
+![](../../_assets/灵茶山艾府/47e6e850bf55cab4.png)
+
+**示例 2：**
+
+```
+
+输入：root = [1,2,2,3,3,null,null,4,4]
+输出：false
+解释：如下图
+```
+
+![](../../_assets/灵茶山艾府/64513fb0d77d418f.png)
+
+**提示：**
+
+- `0 <= 树的结点个数 <= 10000`
+
+注意：本题与主站 110 题相同：[https://leetcode.cn/problems/balanced-binary-tree/](https://leetcode.cn/problems/balanced-binary-tree/)
+
+---
+[↑ 返回 LCR](../README.md) · [总索引](../../../索引.md) · [仓库首页](../../../README.md)

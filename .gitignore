@@ -1,0 +1,8 @@
+_work/
+**/__pycache__/
+*.pyc
+*.part.mp4
+engine/out/
+engine/preview/
+.DS_Store
+.obsidian/

@@ -1,0 +1,7 @@
+{
+ "agent_model": "sonnet",
+ "agents_per_round": 6,
+ "keys_per_agent": 4,
+ "max_rounds": 20,
+ "note": "agent_model: sonnet | opus（Agent 工具的 model 参数）；每轮 agents_per_round 个子代理，每个 keys_per_agent 道题；一次运行最多 max_rounds 轮（额度用完会被切断，没关系）"
+}

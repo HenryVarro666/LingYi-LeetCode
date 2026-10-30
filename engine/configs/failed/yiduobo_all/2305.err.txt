@@ -1,0 +1,5 @@
+removed
+  File "/sessions/rcw-011wijks4v8ud9cftsmwfk9w/mnt/LC_Video/engine/configs/yiduobo_all/2305.py", line 32
+    f'新孩子拿 `{st ^ ls:03b}` = =={_vals(S, st ^ ls)}== = {S['base'][st ^ ls]}')
+                                                                   ^^^^
+SyntaxError: f-string: unmatched '['

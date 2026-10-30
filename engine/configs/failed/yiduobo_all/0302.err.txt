@@ -1,0 +1,5 @@
+s_removed
+  File "/sessions/rcw-01sf7ogmtbkxyit41xpo4jyk/mnt/LC_Video/engine/configs/yiduobo_all/0302.py", line 99
+    24: lambda S, B, r: f'检查第 `{S.mid}` {"行" if 'bottom' not in S else "列"}有没有黑色块',
+                                                         ^^^^^^
+SyntaxError: f-string: expecting '}'

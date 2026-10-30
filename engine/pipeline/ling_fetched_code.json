@@ -1,0 +1,674 @@
+{
+"1905": [
+"go",
+"var dir4 = []struct{ x, y int }{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}\nvar ok bool\n\nfunc countSubIslands(grid1, grid2 [][]int) (ans int) {\n\tn, m := len(grid2), len(grid2[0])\n\tvar dfs func(int, int)\n\tdfs = func(x, y int) {\n\t\tgrid2[x][y] = 0\n\t\tif grid1[x][y] == 0 { // 找到水域\n\t\t\tok = false\n\t\t}\n\t\tfor _, d := range dir4 {\n\t\t\tif x, y := x+d.x, y+d.y; 0 <= x && x < n && 0 <= y && y < m && grid2[x][y] > 0 {\n\t\t\t\tdfs(x, y)\n\t\t\t}\n\t\t}\n\t}\n\tfor i, row := range grid2 {\n\t\tfor j, v := range row {\n\t\t\tif v > 0 {\n\t\t\t\tok = true // 重置\n\t\t\t\tdfs(i, j)\n\t\t\t\tif ok {\n\t\t\t\t\tans++\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2216": [
+"go",
+"func minDeletion(a []int) (ans int) {\n\todd := false // 栈大小的奇偶性\n\tfor i, n := 0, len(a); i < n; {\n\t\tstart := i\n\t\t// 注意这里的 i 和外层循环的 i 是同一个变量，因此时间复杂度为 O(n)\n\t\tfor i < n && a[i] == a[start] { i++ }\n\t\tl := i - start // 连续相同元素个数\n\t\tif !odd { // 只能放一个元素\n\t\t\tans += l - 1\n\t\t\todd = true\n\t\t} else if l == 1 {\n\t\t\todd = false\n\t\t} else { // 放两个元素，奇偶性不变\n\t\t\tans += l - 2\n\t\t}\n\t}\n\tif odd { // 栈大小必须为偶数\n\t\tans++\n\t}\n\treturn\n}\n"
+],
+"1942": [
+"go",
+"const wLog = 5 + bits.UintSize>>6\nconst wMask = bits.UintSize - 1\n\nfunc smallestChair(times [][]int, targetFriend int) int {\n\t// 按时间顺序，记录每个到达事件和离开事件相对应的朋友编号\n\tevents := make([][2][]int, 1e5+1)\n\tfor i, t := range times {\n\t\tl, r := t[0], t[1]\n\t\tevents[l][1] = append(events[l][1], i) // 朋友到达\n\t\tevents[r][0] = append(events[r][0], i) // 朋友离开\n\t}\n\n\t// 初始化未被占据的椅子\n\tn := len(times)\n\tbitset := make([]uint, n>>wLog+1)\n\tflip := func(p int) { bitset[p>>wLog] ^= 1 << (p & wMask) }\n\n\t// 按时间顺序扫描每个事件\n\tbelong := make([]int, n)\n\tfor _, e := range events {\n\t\tfor _, id := range e[0] { // 朋友离开\n\t\t\tflip(belong[id]) // 返还椅子\n\t\t}\n\t\tfor _, id := range e[1] { // 朋友到达\n\t\t\tfor i, mask := range bitset { // 暴力找未被占据的椅子\n\t\t\t\tif ^mask != 0 {\n\t\t\t\t\tbelong[id] = i<<wLog | bits.TrailingZeros(^mask) // 记录占据该椅子的朋友编号\n\t\t\t\t\tbreak\n\t\t\t\t}\n\t\t\t}\n\t\t\tif id == targetFriend {\n\t\t\t\treturn belong[id]\n\t\t\t}\n\t\t\tflip(belong[id])\n\t\t}\n\t}\n\treturn 0\n}\n\n// ----\nfunc smallestChair(times [][]int, targetFriend int) int {\n\t// 按时间顺序，记录每个到达事件和离开事件相对应的朋友编号\n\tevents := make([][2][]int, 1e5+1)\n\tfor i, t := range times {\n\t\tl, r := t[0], t[1]\n\t\tevents[l][1] = append(events[l][1], i) // 朋友到达\n\t\tevents[r][0] = append(events[r][0], i) // 朋友离开\n\t}\n\n\t// 初始化未被占据的椅子\n\tn := len(times)\n\tunoccupied := hp{make([]int, n)}\n\tfor i := range unoccupied.IntSlice {\n\t\tunoccupied.IntSlice[i] = i\n\t}\n\n\t// 按时间顺序扫描每个事件\n\tbelong := make([]int, n)\n\tfor _, e := range events {\n\t\tfor _, id := range e[0] { // 朋友离开\n\t\t\theap.Push(&unoccupied, belong[id]) // 返还椅子\n\t\t}\n\t\tfor _, id := range e[1] { // 朋友到达\n\t\t\tbelong[id] = heap.Pop(&unoccupied).(int) // 记录占据该椅子的朋友编号\n\t\t\tif id == targetFriend {\n\t\t\t\treturn belong[id]\n\t\t\t}\n\t\t}\n\t}\n\treturn 0\n}\n\ntype hp struct{ sort.IntSlice }\n\nfunc (h *hp) Push(v interface{}) { h.IntSlice = append(h.IntSlice, v.(int)) }\nfunc (h *hp) Pop() interface{}   { a := h.IntSlice; v := a[len(a)-1]; h.IntSlice = a[:len(a)-1]; return v }\n"
+],
+"2331": [
+"go",
+"func evaluateTree(root *TreeNode) bool {\n\tif root.Left == nil {\n\t\treturn root.Val == 1\n\t}\n\tif root.Val == 2 {\n\t\treturn evaluateTree(root.Left) || evaluateTree(root.Right)\n\t}\n\treturn evaluateTree(root.Left) && evaluateTree(root.Right)\n}\n"
+],
+"0729": [
+"go",
+"type MyCalendar struct {\n\t*redblacktree.Tree\n}\n\nfunc Constructor() MyCalendar {\n\tt := redblacktree.NewWithIntComparator()\n\tt.Put(-1, -1) // 哨兵\n\treturn MyCalendar{t}\n}\n\nfunc (c *MyCalendar) Book(start, end int) bool {\n\tfloor, _ := c.Floor(start)\n\tif floor.Value.(int) > start { // [start,end) 左侧区间的右端点超过了 start\n\t\treturn false\n\t}\n\tif it := c.IteratorAt(floor); it.Next() && it.Key().(int) < end { // [start,end) 右侧区间的左端点小于 end\n\t\treturn false\n\t}\n\tc.Put(start, end) // 可以插入区间 [start,end)\n\treturn true\n}\n"
+],
+"2260": [
+"go",
+"func minimumCardPickup(cards []int) int {\n\tans := len(cards) + 1\n\tpos := map[int]int{}\n\tfor i, v := range cards {\n\t\tif p, ok := pos[v]; ok && i-p+1 < ans { // 找最近出现的 v\n\t\t\tans = i - p + 1 \n\t\t}\n\t\tpos[v] = i\n\t}\n\tif ans <= len(cards) {\n\t\treturn ans\n\t}\n\treturn -1\n}\n"
+],
+"2222": [
+"go",
+"func numberOfWays(s string) int64 {\n\ttot0 := strings.Count(s, \"0\")\n\tans, c0 := 0, 0\n\tfor i, ch := range s {\n\t\tif ch == '1' {\n\t\t\tans += c0 * (tot0 - c0) // 对每个 1，统计左边 0 的个数和右边 0 的个数\n\t\t} else {\n\t\t\tc1 := i - c0\n\t\t\tans += c1 * (len(s) - tot0 - c1) // 对每个 0，统计左边 1 的个数和右边 1 的个数\n\t\t\tc0++\n\t\t}\n\t}\n\treturn int64(ans)\n}\n"
+],
+"2122": [
+"go",
+"func recoverArray(nums []int) []int {\n\tsort.Ints(nums)\n\tfor i, n := 1, len(nums); ; i++ {\n\t\tif nums[i] == nums[i-1] { continue } // 优化：如果与上一个元素相同，那么我们会得到同样的 k，同样找不到原数组，此时应直接跳过\n\t\td := nums[i] - nums[0] // 此时 d > 0 必然成立\n\t\tif d&1 > 0 { continue } // k 必须是整数\n\t\tk := d / 2\n\t\tvis := make([]bool, n) // 用来标记出现在 higher 中的数（用 nums 的下标）\n\t\tvis[i] = true\n\t\tans := []int{(nums[0] + nums[i]) / 2}\n\t\tfor lo, hi := 0, i+1; hi < n; hi++ { // 双指针：lo 指向 lower，hi 指向 higher\n\t\t\tfor lo++; vis[lo]; lo++ {} // 找 lower：跳过出现在 higher 中的数\n\t\t\tfor ; hi < n && nums[hi]-nums[lo] < 2*k; hi++ {} // 找 higher\n\t\t\tif hi == n || nums[hi]-nums[lo] > 2*k { break } // 不存在满足等式的 higher 值\n\t\t\tvis[hi] = true\n\t\t\tans = append(ans, (nums[lo]+nums[hi])/2) // 找到一对满足等式的 (lower, higher)\n\t\t}\n\t\tif len(ans) == n/2 { return ans }\n\t}\n}\n"
+],
+"1712": [
+"go",
+"func waysToSplit(a []int) (ans int) {\n\tn := len(a)\n\tsum := make([]int, n+1)\n\tfor i, v := range a {\n\t\tsum[i+1] = sum[i] + v\n\t}\n\tfor r := 2; r < n && 3*sum[r] <= 2*sum[n]; r++ {\n\t\tl1 := sort.SearchInts(sum[1:r], 2*sum[r]-sum[n]) + 1\n\t\tans += sort.SearchInts(sum[l1:r], sum[r]/2+1)\n\t}\n\treturn ans % (1e9 + 7)\n}\n"
+],
+"2000": [
+"go",
+"func reversePrefix(s string, ch byte) string {\n\tj := strings.IndexByte(s, ch)\n\tif j < 0 {\n\t\treturn s\n\t}\n\tt := []byte(s)\n\tfor i := 0; i < j; i++ {\n\t\tt[i], t[j] = t[j], t[i]\n\t\tj--\n\t}\n\treturn string(t)\n}\n"
+],
+"2111": [
+"go",
+"func kIncreasing(arr []int, k int) int {\n\tsave := 0\n\tfor i, n := 0, len(arr); i < k && i < n; i++ {\n\t\tf := []int{}\n\t\tfor j := i; j < n; j += k {\n\t\t\tv := arr[j]\n\t\t\tif p := sort.SearchInts(f, v+1); p < len(f) {\n\t\t\t\tf[p] = v\n\t\t\t} else {\n\t\t\t\tf = append(f, v)\n\t\t\t}\n\t\t}\n\t\tsave += len(f)\n\t}\n\treturn len(arr) - save\n}\n"
+],
+"1911": [
+"go",
+"func maxAlternatingSum(nums []int) int64 {\n\tf := [2]int{0, math.MinInt / 2} // 除 2 防止计算时溢出\n\tfor _, v := range nums {\n\t\tf = [2]int{max(f[0], f[1]-v), max(f[1], f[0]+v)}\n\t}\n\treturn int64(f[1])\n}\n"
+],
+"1095": [
+"go",
+"func findInMountainArray(target int, arr *MountainArray) int {\n\tn := arr.length()\n\tpeak := sort.Search(n-1, func(i int) bool { return arr.get(i) >= arr.get(i+1) })\n\ti := sort.Search(peak, func(i int) bool { return arr.get(i) >= target })\n\tif arr.get(i) != target {\n\t\ti = peak + sort.Search(n-1-peak, func(i int) bool { return arr.get(peak+i) <= target })\n\t\tif arr.get(i) != target {\n\t\t\treturn -1\n\t\t}\n\t}\n\treturn i\n}\n"
+],
+"1887": [
+"go",
+"func reductionOperations(a []int) (ans int) {\n\tsort.Ints(a)\n\tfor i, k, n := 0, 0, len(a); i < n; k++ {\n\t\tstart := i\n\t\tfor ; i < n && a[i] == a[start]; i++ {}\n\t\tans += (i - start) * k // [start, i) 区间内的数都是第 k 小的\n\t}\n\treturn\n}\n"
+],
+"2038": [
+"go",
+"func winnerOfGame(colors string) bool {\n\tcnt := [2]int{}\n\tfor i, n := 0, len(colors); i < n; {\n\t\ti0 := i\n\t\tc := colors[i0]\n\t\tfor i < n && colors[i] == c {\n\t\t\ti++ // 注意这里 i 就是外层循环的 i，所以复杂度是 O(n) 的\n\t\t}\n\t\tif l := i - i0; l > 2 {\n\t\t\tcnt[c-'A'] += l - 2\n\t\t}\n\t}\n\treturn cnt[0] > cnt[1]\n}\n"
+],
+"1869": [
+"go",
+"func checkZeroOnes(s string) bool {\n\tm1, m0 := 0, 0\n\tfor i, n := 0, len(s); i < n; {\n\t\tst := i\n\t\tv := s[st]\n\t\tfor ; i < n && s[i] == v; i++ {\n\t\t}\n\t\tif v == '1' {\n\t\t\tm1 = max(m1, i-st)\n\t\t} else {\n\t\t\tm0 = max(m0, i-st)\n\t\t}\n\t}\n\treturn m1 > m0\n}\n"
+],
+"1839": [
+"go",
+"func longestBeautifulSubstring(s string) (ans int) {\n\tconst vowel = \"aeiou\"\n\tcur, sum := 0, 0\n\tfor i, n := 0, len(s); i < n; {\n\t\tstart := i\n\t\tch := s[start]\n\t\tfor i < n && s[i] == ch {\n\t\t\ti++\n\t\t}\n\n\t\tif ch != vowel[cur] {\n\t\t\tcur, sum = 0, 0\n\t\t\tif ch != vowel[0] {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t}\n\n\t\tsum += i - start\n\t\tcur++\n\t\tif cur == 5 {\n\t\t\tif sum > ans {\n\t\t\t\tans = sum\n\t\t\t}\n\t\t\tcur, sum = 0, 0\n\t\t}\n\t}\n\treturn\n}\n\n// ----\nvar re = regexp.MustCompile(\"a+e+i+o+u+\")\n\nfunc longestBeautifulSubstring(s string) (ans int) {\n\tfor _, t := range re.FindAllString(s, -1) {\n\t\tif len(t) > ans {\n\t\t\tans = len(t)\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"1898": [
+"go",
+"func maximumRemovals(s, p string, id []int) int {\n\treturn sort.Search(len(id), func(k int) bool {\n\t\tdel := make([]bool, len(s))\n\t\tfor _, i := range id[:k+1] {\n\t\t\tdel[i] = true\n\t\t}\n\t\tj := 0\n\t\tfor i := range s {\n\t\t\tif !del[i] && s[i] == p[j] {\n\t\t\t\tif j++; j == len(p) {\n\t\t\t\t\treturn false\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn true\n\t})\n}\n"
+],
+"2030": [
+"go",
+"func smallestSubsequence(s string, k int, letter byte, repetition int) string {\n\tans := []byte{}\n\tunread := strings.Count(s, string(letter)) // 未遍历到的 letter 个数\n\tinQ := 0 // 在单调队列中的 letter 个数\n\tq := []byte{}\n\tfor i, n := 0, len(s); len(ans) < k; i++ {\n\t\t// 将 s[i] 插入单调队列\n\t\tfor i < n && len(q) > 0 && s[i] < q[len(q)-1] {\n\t\t\tif q[len(q)-1] == letter { // 特判队尾是 letter 的情况\n\t\t\t\tif inQ+unread <= repetition { // 弹出队尾会导致无法凑足 repetition 个 letter，及时退出\n\t\t\t\t\tbreak\n\t\t\t\t}\n\t\t\t\tinQ--\n\t\t\t}\n\t\t\tq = q[:len(q)-1]\n\t\t}\n\t\tif i < n {\n\t\t\tif s[i] == letter {\n\t\t\t\tunread--\n\t\t\t\tinQ++\n\t\t\t}\n\t\t\tq = append(q, s[i])\n\t\t}\n\n\t\tif i >= n-k {\n\t\t\t// 从队首拿到字典序最小的字符\n\t\t\tif q[0] == letter {\n\t\t\t\tinQ--\n\t\t\t\trepetition--\n\t\t\t\tans = append(ans, q[0])\n\t\t\t} else if len(ans)+repetition < k { // 还有足够空间可以放 letter\n\t\t\t\tans = append(ans, q[0])\n\t\t\t}\n\t\t\tq = q[1:]\n\t\t}\n\t}\n\treturn string(ans)\n}\n"
+],
+"2104": [
+"go",
+"func subArrayRanges(nums []int) (ans int64) {\n\tfor i, num := range nums {\n\t\tmin, max := num, num\n\t\tfor _, v := range nums[i+1:] {\n\t\t\tif v < min {\n\t\t\t\tmin = v\n\t\t\t} else if v > max {\n\t\t\t\tmax = v\n\t\t\t}\n\t\t\tans += int64(max - min)\n\t\t}\n\t}\n\treturn\n}\n\n// ----\nfunc solve(nums []int) (ans int64) {\n\tn := len(nums)\n\tleft := make([]int, n)  // left[i] 为左侧严格大于 num[i] 的最近元素位置（不存在时为 -1）\n\tright := make([]int, n) // right[i] 为右侧大于等于 num[i] 的最近元素位置（不存在时为 n）\n\tfor i := range right { right[i] = n }\n\tst := []int{-1}\n\tfor i, v := range nums {\n\t\tfor len(st) > 1 && nums[st[len(st)-1]] <= v {\n\t\t\tright[st[len(st)-1]] = i\n\t\t\tst = st[:len(st)-1]\n\t\t}\n\t\tleft[i] = st[len(st)-1]\n\t\tst = append(st, i)\n\t}\n\tfor i, v := range nums {\n\t\tans += int64(i-left[i]) * int64(right[i]-i) * int64(v)\n\t}\n\treturn\n}\n\nfunc subArrayRanges(nums []int) int64 {\n\tans := solve(nums)\n\tfor i, v := range nums { // 小技巧：所有元素取反后算的就是最小值的贡献\n\t\tnums[i] = -v\n\t}\n\treturn ans + solve(nums)\n}\n\n"
+],
+"LCP_45": [
+"go",
+"var dir4 = []struct{ x, y int }{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}\n\nfunc bicycleYard(position []int, terrain, obstacle [][]int) (ans [][]int) {\n\tn, m := len(terrain), len(terrain[0])\n\tvis := make([][][102]bool, n)\n\tfor i := range vis {\n\t\tvis[i] = make([][102]bool, m)\n\t}\n\n\tsx, sy := position[0], position[1]\n\tvis[sx][sy][1] = true\n\ttype pair struct{ x, y, speed int }\n\tq := []pair{{sx, sy, 1}}\n\tfor len(q) > 0 {\n\t\tp := q[0]\n\t\tq = q[1:]\n\t\tx, y, speed := p.x, p.y, p.speed\n\t\tfor _, d := range dir4 {\n\t\t\tif xx, yy := x+d.x, y+d.y; 0 <= xx && xx < n && 0 <= yy && yy < m {\n\t\t\t\ts := speed + terrain[x][y] - terrain[xx][yy] - obstacle[xx][yy]\n\t\t\t\tif s > 0 && !vis[xx][yy][s] {\n\t\t\t\t\tvis[xx][yy][s] = true\n\t\t\t\t\tq = append(q, pair{xx, yy, s})\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\tvis[sx][sy][1] = false // 起点不计入答案\n\tfor i, row := range vis {\n\t\tfor j, b := range row {\n\t\t\tif b[1] {\n\t\t\t\tans = append(ans, []int{i, j})\n\t\t\t}\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"1947": [
+"go",
+"const inf int = 1e9\n\nfunc KuhnMunkres(wt [][]int) (sum int) {\n\tmatch := make([]int, len(wt)) // 右部点匹配了哪一个左部点\n\tla := make([]int, len(wt))\n\tfor i, row := range wt {\n\t\tla[i] = -inf\n\t\tfor _, v := range row {\n\t\t\tif v > la[i] {\n\t\t\t\tla[i] = v\n\t\t\t}\n\t\t}\n\t}\n\tlb := make([]int, len(wt))\n\tslack := make([]int, len(wt))\n\tfor i := 1; i < len(wt); i++ {\n\t\tvb := make([]bool, len(wt))\n\t\tfor j := 1; j < len(wt); j++ {\n\t\t\tslack[j] = inf\n\t\t}\n\t\tlast := make([]int, len(wt)) // 右部点在交错树中的上一个右部点，用于倒推得到交错路\n\t\ty := 0\n\t\tmatch[0] = i // 一开始假设有一条 i-0 的匹配\n\t\tfor {\n\t\t\tvb[y] = true\n\t\t\tx, nextY := match[y], 0\n\t\t\tdelta := inf\n\t\t\tfor j := 1; j < len(wt); j++ {\n\t\t\t\tif !vb[j] {\n\t\t\t\t\tif d := la[x] + lb[j] - wt[x][j]; d < slack[j] {\n\t\t\t\t\t\tslack[j] = d\n\t\t\t\t\t\tlast[j] = y\n\t\t\t\t\t}\n\t\t\t\t\tif slack[j] < delta {\n\t\t\t\t\t\tdelta = slack[j]\n\t\t\t\t\t\tnextY = j\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\t// 当 delta=0 时，相当于沿着相等子图向下搜索一层\n\t\t\t// 当 delta>0 时，相当于直接回到最小边（新加入相等子图的边）处开始搜索\n\t\t\tif delta > 0 {\n\t\t\t\tfor j := 0; j < len(wt); j++ {\n\t\t\t\t\tif vb[j] {\n\t\t\t\t\t\tla[match[j]] -= delta\n\t\t\t\t\t\tlb[j] += delta\n\t\t\t\t\t} else {\n\t\t\t\t\t\tslack[j] -= delta\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\ty = nextY\n\t\t\tif match[y] == 0 {\n\t\t\t\tbreak\n\t\t\t}\n\t\t}\n\t\t// 倒推更新增广路\n\t\tfor ; y > 0; y = last[y] {\n\t\t\tmatch[y] = match[last[y]]\n\t\t}\n\t}\n\tfor w := 1; w < len(wt); w++ {\n\t\tsum += wt[match[w]][w]\n\t}\n\treturn\n}\n\nfunc maxCompatibilitySum(students [][]int, mentors [][]int) int {\n\tm := len(students)\n\twt := make([][]int, m+1)\n\twt[0] = make([]int, m+1)\n\tfor i := range wt[0] {\n\t\twt[0][i] = -inf\n\t}\n\tfor i, st := range students {\n\t\twt[i+1] = make([]int, m+1)\n\t\twt[i+1][0] = -inf\n\t\tfor j, mt := range mentors {\n\t\t\tfor k, v := range st {\n\t\t\t\tif v == mt[k] {\n\t\t\t\t\twt[i+1][j+1]++\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn KuhnMunkres(wt)\n}\n"
+],
+"LCP_81": [
+"go",
+"var k int\n\ntype seg []struct {\n\tl, r int\n\tto   [2]int\n}\n\nfunc (t seg) set(o, val int) {\n\tt[o].to[1] = t[o].to[0] ^ val\n}\n\nfunc (t seg) maintain(o int) {\n\ta, b, c := t[o<<1].to, t[o<<1|1].to, [2]int{}\n\tfor i := 0; i < k; i++ {\n\t\tc[0] |= b[a[0]>>i&1] >> i & 1 << i\n\t\tc[1] |= b[a[1]>>i&1] >> i & 1 << i\n\t}\n\tt[o].to = c\n}\n\nfunc (t seg) build(a []int, k, o, l, r int) {\n\tt[o].l, t[o].r = l, r\n\tt[o].to[0] = 1<<k - 1\n\tif l == r {\n\t\tt.set(o, a[l-1])\n\t\treturn\n\t}\n\tm := (l + r) >> 1\n\tt.build(a, k, o<<1, l, m)\n\tt.build(a, k, o<<1|1, m+1, r)\n\tt.maintain(o)\n}\n\nfunc (t seg) update(o, i, val int) {\n\tif t[o].l == t[o].r {\n\t\tt.set(o, val)\n\t\treturn\n\t}\n\tm := (t[o].l + t[o].r) >> 1\n\tif i <= m {\n\t\tt.update(o<<1, i, val)\n\t} else {\n\t\tt.update(o<<1|1, i, val)\n\t}\n\tt.maintain(o)\n}\n\nfunc getNandResult(K int, arr []int, operations [][]int) (ans int) {\n\tk = K\n\tt := make(seg, len(arr)*4)\n\tt.build(arr, k, 1, 1, len(arr))\n\tfor _, op := range operations {\n\t\tif op[0] == 0 {\n\t\t\tt.update(1, op[1]+1, op[2])\n\t\t\tcontinue\n\t\t}\n\t\tto := t[1].to\n\t\tx, y := op[1], op[2]\n\t\tfor i := 0; i < k; i++ {\n\t\t\tvar res int\n\t\t\ty := y >> i & 1\n\t\t\ty1 := to[y] >> i & 1 // 穿过 arr 一次\n\t\t\tif y1 == y { // 不变\n\t\t\t\tres = y\n\t\t\t} else if x == 1 || to[y1]>>i&1 == y1 {\n\t\t\t\t// 只穿过一次，或者穿过两次和穿过一次相同\n\t\t\t\tres = y1\n\t\t\t} else {\n\t\t\t\tres = y ^ x%2 // 奇变偶不变\n\t\t\t}\n\t\t\tans ^= res << i\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2059": [
+"go",
+"func minimumOperations(nums []int, start, goal int) int {\n\tvis := [1001]bool{}\n\tvis[start] = true\n\tq := []int{start}\n\tfor step := 1; q != nil; step++ {\n\t\ttmp := q\n\t\tq = nil\n\t\tfor _, v := range tmp {\n\t\t\tfor _, num := range nums {\n\t\t\t\tfor _, x := range []int{v + num, v - num, v ^ num} {\n\t\t\t\t\tif x == goal {\n\t\t\t\t\t\treturn step\n\t\t\t\t\t}\n\t\t\t\t\t// 由于超过范围无法继续运算，故不入队\n\t\t\t\t\tif 0 <= x && x <= 1000 && !vis[x] {\n\t\t\t\t\t\tvis[x] = true\n\t\t\t\t\t\tq = append(q, x)\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn -1\n}\n"
+],
+"2045": [
+"go",
+"func secondMinimum(n int, edges [][]int, time, change int) int {\n\tg := make([][]int, n)\n\tfor _, e := range edges { // 建图\n\t\tv, w := e[0]-1, e[1]-1\n\t\tg[v] = append(g[v], w)\n\t\tg[w] = append(g[w], v)\n\t}\n\n\t// 传入当前时间 d，返回到达下一个节点的时间\n\tnext := func(d int) int {\n\t\tif times := d / change; times%2 == 1 { // 如果红绿灯切换次数为奇数，则现在是红灯\n\t\t\treturn (times+1)*change + time // 等绿灯再出发\n\t\t}\n\t\treturn d + time // 绿灯，直接出发\n\t}\n\n\tdis := make([][2]int, n) // 距离数组同时存 [最短路, 次短路]\n\tdis[0][1] = 1e9\n\tfor i := 1; i < n; i++ {\n\t\tdis[i] = [2]int{1e9, 1e9}\n\t}\n\ttype pair struct{ v, d int }\n\tq := []pair{{}}\n\tfor len(q) > 0 { // BFS 求最短路和次短路\n\t\tp := q[0] // 取队首\n\t\tq = q[1:]\n\t\tfor _, w := range g[p.v] {\n\t\t\td := next(p.d) // 到达节点 w 的时间\n\t\t\tif d < dis[w][0] { // d 比最短路小，就更新最短路\n\t\t\t\tdis[w][0] = d\n\t\t\t\tq = append(q, pair{w, d})\n\t\t\t} else if dis[w][0] < d && d < dis[w][1] { // d 比最短路大又比次短路小，就更新次短路\n\t\t\t\tdis[w][1] = d\n\t\t\t\tq = append(q, pair{w, d})\n\t\t\t}\n\t\t}\n\t}\n\treturn dis[n-1][1]\n}\n"
+],
+"2039": [
+"go",
+"func networkBecomesIdle(edges [][]int, patience []int) (ans int) {\n\tn := len(patience)\n\tg := make([][]int, n)\n\tfor _, e := range edges {\n\t\tv, w := e[0], e[1]\n\t\tg[v] = append(g[v], w)\n\t\tg[w] = append(g[w], v)\n\t}\n\n\tvis := make([]bool, n)\n\tvis[0] = true\n\tq := []int{0}\n\tfor d := 0; q != nil; d++ {\n\t\ttmp := q\n\t\tq = nil\n\t\tfor _, v := range tmp {\n\t\t\tif v > 0 {\n\t\t\t\tp := patience[v]\n\t\t\t\tt := p // 计算最后一条消息发出的秒数\n\t\t\t\tif 2*d%p > 0 {\n\t\t\t\t\tt = 2 * d % p\n\t\t\t\t}\n\t\t\t\tans = max(ans, 4*d-t+1)\n\t\t\t}\n\t\t\tfor _, w := range g[v] {\n\t\t\t\tif !vis[w] {\n\t\t\t\t\tvis[w] = true\n\t\t\t\t\tq = append(q, w)\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn\n}\n\nfunc max(a, b int) int {\n\tif b > a {\n\t\treturn b\n\t}\n\treturn a\n}\n"
+],
+"0044": [
+"go",
+"func isMatch(s, p string) bool {\n\tp = strings.ReplaceAll(p, \"?\", \".\")\n\tp = strings.ReplaceAll(p, \"*\", \".*\")\n\treturn regexp.MustCompile(\"^\" + p + \"$\").MatchString(s)\n}\n"
+],
+"1937": [
+"go",
+"func maxPoints(points [][]int) int64 {\n\tans := 0\n\tn := len(points[0])\n\tf := make([][2]int, n)\n\tsufMax := make([]int, n) // 后缀最大值\n\tfor i, row := range points {\n\t\tif i == 0 {\n\t\t\tfor j, v := range row {\n\t\t\t\tans = max(ans, v)\n\t\t\t\tf[j][0] = v + j\n\t\t\t\tf[j][1] = v - j\n\t\t\t}\n\t\t} else {\n\t\t\tpreMax := math.MinInt32\n\t\t\tfor j, v := range row {\n\t\t\t\tpreMax = max(preMax, f[j][0])\n\t\t\t\tres := max(v-j+preMax, v+j+sufMax[j]) // 左侧和右侧的最大值即为选择 points[i][j] 时的计算结果\n\t\t\t\tans = max(ans, res) // 直接更新答案，这样下面就不直接存储 res 了，改为存储 res + j 和 res - j\n\t\t\t\tf[j][0] = res + j\n\t\t\t\tf[j][1] = res - j\n\t\t\t}\n\t\t}\n\t\t// 计算完一整行 f 后，对于每个位置 j，计算其右侧的所有 f[k] - k 的最大值\n\t\t// 这可以通过倒着遍历 f 求出\n\t\tsufMax[n-1] = f[n-1][1]\n\t\tfor j := n - 2; j >= 0; j-- {\n\t\t\tsufMax[j] = max(sufMax[j+1], f[j][1])\n\t\t}\n\t}\n\treturn int64(ans)\n}\n\nfunc max(a, b int) int { if a > b { return a }; return b }\n"
+],
+"1879": [
+"go",
+"func minimumXORSum(x, y []int) int {\n\tm := 1 << len(x)\n\tdp := make([]int, m)\n\tfor i := range dp {\n\t\tdp[i] = 2e9\n\t}\n\tdp[0] = 0\n\tfor s, dv := range dp[:m-1] {\n\t\tv := x[bits.OnesCount(uint(s))]\n\t\tfor t, lb := s^(m-1), 0; t > 0; t ^= lb {\n\t\t\tlb = t & -t\n\t\t\tw := y[bits.TrailingZeros(uint(lb))]\n\t\t\tdp[s|lb] = min(dp[s|lb], v^w+dv)\n\t\t}\n\t}\n\treturn dp[m-1]\n}\n\nfunc min(a, b int) int {\n\tif a < b {\n\t\treturn a\n\t}\n\treturn b\n}\n"
+],
+"LCP_47": [
+"go",
+"func securityCheck(capacities []int, k int) int {\n\tdp := make([]int, k+1)\n\tdp[0] = 1\n\tfor _, x := range capacities {\n\t\tx--\n\t\tfor s := k; s >= x; s-- {\n\t\t\tdp[s] = (dp[s] + dp[s-x]) % (1e9 + 7)\n\t\t}\n\t}\n\treturn dp[k]\n}\n"
+],
+"1955": [
+"go",
+"const mod int = 1e9 + 7\n\nfunc countSpecialSubsequences(nums []int) int {\n\tf := [3]int{}\n\tfor _, v := range nums {\n\t\tif v == 0 {\n\t\t\tf[0] = (f[0]*2 + 1) % mod\n\t\t} else if v == 1 {\n\t\t\tf[1] = (f[1]*2 + f[0]) % mod\n\t\t} else {\n\t\t\tf[2] = (f[2]*2 + f[1]) % mod\n\t\t}\n\t}\n\treturn f[2]\n}\n"
+],
+"1981": [
+"go",
+"func minimizeTheDifference(mat [][]int, target int) int {\n\tdp := make([]bool, min(len(mat)*70, target*2)+1) // 需要枚举的重量不会超过 target*2\n\tdp[0] = true\n\tminSum, maxSum := 0, 0\n\tfor _, row := range mat {\n\t\tmi, mx := row[0], row[0]\n\t\tfor _, v := range row[1:] {\n\t\t\tif v > mx {\n\t\t\t\tmx = v\n\t\t\t} else if v < mi {\n\t\t\t\tmi = v\n\t\t\t}\n\t\t}\n\t\tminSum += mi // 求 minSum 是为了防止 target 过小导致 dp 没有记录到\n\t\tmaxSum = min(maxSum+mx, target*2) // 前 i 组的最大重量，优化枚举时 j 的初始值\n\t\tfor j := maxSum; j >= 0; j-- {\n\t\t\tdp[j] = false\n\t\t\tfor _, v := range row {\n\t\t\t\tif v <= j && dp[j-v] {\n\t\t\t\t\tdp[j] = true\n\t\t\t\t\tbreak\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tans := abs(minSum - target)\n\tfor i, ok := range dp {\n\t\tif ok {\n\t\t\tans = min(ans, abs(i-target))\n\t\t}\n\t}\n\treturn ans\n}\n\nfunc abs(x int) int { if x < 0 { return -x }; return x }\n"
+],
+"2088": [
+"go",
+"func countPyramids(grid [][]int) (ans int) {\n\tm, n := len(grid), len(grid[0])\n\tdp := make([][]int, m)\n\tfor i := range dp {\n\t\tdp[i] = make([]int, n)\n\t}\n\n\tf := func() {\n\t\tdp[m-1] = grid[m-1]\n\t\tfor i := m - 2; i >= 0; i-- {\n\t\t\tdp[i][0] = grid[i][0]\n\t\t\tdp[i][n-1] = grid[i][n-1]\n\t\t\tfor j := 1; j < n-1; j++ {\n\t\t\t\tif grid[i][j] == 0 {\n\t\t\t\t\tdp[i][j] = 0\n\t\t\t\t} else {\n\t\t\t\t\tdp[i][j] = min(dp[i+1][j-1], dp[i+1][j+1], dp[i+1][j]) + 1\n\t\t\t\t\tans += dp[i][j] - 1\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\tf() // 求正金字塔个数\n\tfor i := 0; i < m/2; i++ { // 上下颠倒\n\t\tgrid[i], grid[m-1-i] = grid[m-1-i], grid[i]\n\t}\n\tf() // 再求一遍正金字塔个数\n\treturn\n}\n"
+],
+"LCP_43": [
+"go",
+"var mp = []int{'E': 0, 'S': 1, 'W': 2, 'N': 3} // 将方向字符映射到 0-3 上\nvar valid = [4][4][4]int{ // 当前车去方向，另一辆车来方向，另一辆车去方向\n\t{},\n\t{\n\t\t{},\n\t\t{1},\n\t\t{0, 0, 0, 1},\n\t\t{0, 0, 1},\n\t},\n\t{\n\t\t{},\n\t\t{1},\n\t\t{1, 1},\n\t},\n\t{\n\t\t{},\n\t\t{1, 0, 1},\n\t\t{1, 1},\n\t\t{1, 1, 1},\n\t},\n}\n\n// 两辆车 X 和 Y，将 X 旋转至方向 0 上，Y 跟着 X 一起旋转\n// 这样上面就不用写一个很长的 valid 数组\nfunc ok(fromX, toX, fromY, toY int) bool {\n\ttoX = (toX - fromX + 4) % 4\n\tfromY = (fromY - fromX + 4) % 4\n\ttoY = (toY - fromX + 4) % 4\n\treturn valid[toX][fromY][toY] == 1\n}\n\nfunc trafficCommand(ds []string) int {\n\tn0, n1, n2, n3 := len(ds[0]), len(ds[1]), len(ds[2]), len(ds[3])\n\tdp := [21][21][21][21]int{}\n\tvis := [21][21][21][21]bool{}\n\n\tvar f func(int, int, int, int) int\n\tf = func(p0, p1, p2, p3 int) (res int) {\n\t\tif p0 == n0 && p1 == n1 && p2 == n2 && p3 == n3 {\n\t\t\treturn\n\t\t}\n\t\tdv := &dp[p0][p1][p2][p3]\n\t\tif vis[p0][p1][p2][p3] {\n\t\t\treturn *dv\n\t\t}\n\t\tvis[p0][p1][p2][p3] = true\n\t\tdefer func() { *dv = res }()\n\t\tps := [4]int{p0, p1, p2, p3}\n\t\tres = 1e9\n\touter:\n\t\tfor sub := uint(1); sub < 16; sub++ { // 枚举选择哪几个方向的车通行\n\t\t\ta := [][2]int{}\n\t\t\tfor s := sub; s > 0; s &= s - 1 {\n\t\t\t\tfrom := bits.TrailingZeros(s)\n\t\t\t\tif ps[from] == len(ds[from]) {\n\t\t\t\t\tcontinue outer\n\t\t\t\t}\n\t\t\t\tto := mp[ds[from][ps[from]]]\n\t\t\t\tfor _, q := range a {\n\t\t\t\t\tif !ok(from, to, q[0], q[1]) {\n\t\t\t\t\t\tcontinue outer\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ta = append(a, [2]int{from, to})\n\t\t\t}\n\t\t\tfor _, p := range a {\n\t\t\t\tps[p[0]]++\n\t\t\t}\n\t\t\tres = min(res, f(ps[0], ps[1], ps[2], ps[3])+1)\n\t\t\tfor _, p := range a {\n\t\t\t\tps[p[0]]--\n\t\t\t}\n\t\t}\n\t\treturn\n\t}\n\treturn f(0, 0, 0, 0)\n}\n\nfunc min(a, b int) int {\n\tif a > b {\n\t\treturn b\n\t}\n\treturn a\n}\n"
+],
+"1866": [
+"go",
+"var f [1001][1001]int\n\nfunc init() {\n\tf[0][0] = 1\n\tfor i := 1; i <= 1000; i++ {\n\t\tfor j := 1; j <= i; j++ {\n\t\t\tf[i][j] = (f[i-1][j-1] + (i-1)*f[i-1][j]) % (1e9 + 7)\n\t\t}\n\t}\n}\n\nfunc rearrangeSticks(n, k int) int {\n\treturn f[n][k]\n}\n"
+],
+"1787": [
+"go",
+"func minChanges(a []int, k int) (ans int) {\n\tcnt := make([][1024]int, k)\n\tn := len(a)\n\tminCnt := n\n\tfor i := 0; i < k; i++ {\n\t\tmaxCnt := 0\n\t\tfor j := i; j < n; j += k {\n\t\t\tcnt[i][a[j]]++\n\t\t\tmaxCnt = max(maxCnt, cnt[i][a[j]])\n\t\t}\n\t\tans += maxCnt\n\t\tminCnt = min(minCnt, maxCnt)\n\t}\n\tans -= minCnt\n\n\tdp := make([][1024]int, k)\n\tfor i := range dp {\n\t\tfor j := 0; j < 1024; j++ {\n\t\t\tdp[i][j] = -1\n\t\t}\n\t}\n\tvar f func(int, int) int\n\tf = func(p, xor int) (res int) {\n\t\tif p == 0 {\n\t\t\treturn cnt[0][xor]\n\t\t}\n\t\tdv := &dp[p][xor]\n\t\tif *dv >= 0 {\n\t\t\treturn *dv\n\t\t}\n\t\tdefer func() { *dv = res }()\n\t\tfor i := p; i < n; i += k {\n\t\t\tres = max(res, cnt[p][a[i]]+f(p-1, xor^a[i]))\n\t\t}\n\t\treturn\n\t}\n\treturn n - max(ans, f(k-1, 0))\n}\n\nfunc min(a, b int) int {\n\tif a < b {\n\t\treturn a\n\t}\n\treturn b\n}\n\nfunc max(a, b int) int {\n\tif a > b {\n\t\treturn a\n\t}\n\treturn b\n}\n"
+],
+"2060": [
+"go",
+"func possiblyEquals(s1, s2 string) bool {\n\tn, m := len(s1), len(s2)\n\tconst mx, bias = 2000, 1000\n\tvis := make([][][mx]bool, n+1)\n\tfor i := range vis {\n\t\tvis[i] = make([][mx]bool, m+1)\n\t}\n\tvar dfs func(i, j, d int) bool\n\tdfs = func(i, j, d int) bool {\n\t\tif i == n && j == m {\n\t\t\treturn d == 0 // 匹配成功\n\t\t}\n\t\tif vis[i][j][d+bias] {\n\t\t\treturn false\n\t\t}\n\t\tvis[i][j][d+bias] = true\n\t\t// 原始字符串长度相同时，若 s1[i] == s2[j]，则 s1[:i] 和 s2[:j] 均可以向后扩展一个字母\n\t\tif d == 0 && i < n && j < m && s1[i] == s2[j] && dfs(i+1, j+1, 0) {\n\t\t\treturn true\n\t\t}\n\t\tif d <= 0 && i < n { // s1[:i] 的原始字符串长度不超过 s2[:j] 的原始字符串长度时，扩展 s1[:i]\n\t\t\tif unicode.IsDigit(rune(s1[i])) { // 数字\n\t\t\t\tfor p, v := i, 0; p < n && unicode.IsDigit(rune(s1[p])); p++ {\n\t\t\t\t\tv = v*10 + int(s1[p]&15)\n\t\t\t\t\tif dfs(p+1, j, d+v) {\n\t\t\t\t\t\treturn true\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t} else if d < 0 && dfs(i+1, j, d+1) { // 字符，扩展一位，注意这里 d 不能为 0\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\tif d >= 0 && j < m { // s2[:j] 的原始字符串长度不超过 s1[:i] 的原始字符串长度时，扩展 s2[:j]\n\t\t\tif unicode.IsDigit(rune(s2[j])) { // 数字\n\t\t\t\tfor q, v := j, 0; q < m && unicode.IsDigit(rune(s2[q])); q++ {\n\t\t\t\t\tv = v*10 + int(s2[q]&15)\n\t\t\t\t\tif dfs(i, q+1, d-v) {\n\t\t\t\t\t\treturn true\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t} else if d > 0 && dfs(i, j+1, d-1) { // 字符，扩展一位，注意这里 d 不能为 0\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\treturn false\n\t}\n\treturn dfs(0, 0, 0)\n}\n"
+],
+"2019": [
+"go",
+"func scoreOfStudents(s string, answers []int) (ans int) {\n\tn := len(s)\n\t// 计算正确答案\n\tcorrect := 0\n\tfor i := 0; i < n; {\n\t\tmul := int(s[i] & 15)\n\t\tfor i += 2; i < n && s[i-1] == '*'; i += 2 {\n\t\t\tmul *= int(s[i] & 15)\n\t\t}\n\t\tcorrect += mul\n\t}\n\n\t// 区间 DP\n\t// dp[l][r] 表示 s[l..r] 内的表达式在不同计算顺序下的不超过 1000 的所有可能值\n\tdp := make([][]map[int]bool, n)\n\tfor i := range dp {\n\t\tdp[i] = make([]map[int]bool, n)\n\t}\n\tvar f func(int, int) map[int]bool\n\tf = func(l, r int) map[int]bool {\n\t\tif l == r {\n\t\t\treturn map[int]bool{int(s[l] & 15): true}\n\t\t}\n\t\tif dp[l][r] != nil {\n\t\t\treturn dp[l][r]\n\t\t}\n\t\tres := map[int]bool{}\n\t\tfor i := l + 1; i < r; i += 2 { // 枚举分界点\n\t\t\tfor v := range f(l, i-1) { // 计算左边表达式的可能值\n\t\t\t\tfor w := range f(i+1, r) { // 计算右边表达式的可能值\n\t\t\t\t\tx := v + w\n\t\t\t\t\tif s[i] == '*' {\n\t\t\t\t\t\tx = v * w\n\t\t\t\t\t}\n\t\t\t\t\tif x <= 1000 { // 超过 1000 的结果不计入\n\t\t\t\t\t\tres[x] = true\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tdp[l][r] = res\n\t\treturn res\n\t}\n\tres := f(0, n-1)\n\tfor _, v := range answers {\n\t\tif v == correct {\n\t\t\tans += 5\n\t\t} else if res[v] {\n\t\t\tans += 2\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2256": [
+"go",
+"func minimumAverageDifference(nums []int) (ans int) {\n\tpre, suf, n := 0, 0, len(nums)\n\tfor _, v := range nums { suf += v } // 后缀和\n\tminDiff := math.MaxInt64\n\tfor i, v := range nums[:n-1] {\n\t\tpre += v // 前缀和\n\t\tsuf -= v // 后缀和\n\t\td := abs(pre/(i+1) - suf/(n-1-i))\n\t\tif d < minDiff {\n\t\t\tminDiff, ans = d, i\n\t\t}\n\t}\n\tif (pre+nums[n-1])/n < minDiff { ans = n - 1 }\n\treturn ans\n}\n\nfunc abs(x int) int { if x < 0 { return -x }; return x }\n"
+],
+"1977": [
+"go",
+"const mod int = 1e9 + 7\n\nfunc numberOfCombinations(s string) (ans int) {\n\tif s[0] == '0' {\n\t\treturn\n\t}\n\n\tn := len(s)\n\t// 计算 lcp\n\tlcp := make([][]int, n+1)\n\tfor i := range lcp {\n\t\tlcp[i] = make([]int, n+1)\n\t}\n\tfor i := n - 1; i >= 0; i-- {\n\t\tfor j := n - 1; j >= 0; j-- {\n\t\t\tif s[i] == s[j] {\n\t\t\t\tlcp[i][j] = lcp[i+1][j+1] + 1\n\t\t\t}\n\t\t}\n\t}\n\t// 返回 s[l1:l2] <= s[l2:r2]\n\tlessEq := func(l1, l2, r2 int) bool {\n\t\tl := lcp[l1][l2]\n\t\treturn l >= r2-l2 || s[l1+l] < s[l2+l]\n\t}\n\n\tf := make([][]int, n)\n\tfor i := range f {\n\t\tf[i] = make([]int, n)\n\t}\n\tfor j := 0; j < n; j++ {\n\t\tf[0][j] = 1\n\t}\n\tfor i := 1; i < n; i++ {\n\t\tif s[i] == '0' {\n\t\t\tcontinue\n\t\t}\n\t\t// k 和 j 同时向左向右扩展\n\t\tfor j, k, sum := i, i-1, 0; j < n; j++ {\n\t\t\tf[i][j] = sum // 对应上面所说的长度小于最后一个划分出的整数\n\t\t\tif k < 0 {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tif s[k] > '0' && lessEq(k, i, j+1) {\n\t\t\t\tf[i][j] = (f[i][j] + f[k][i-1]) % mod // 对应上面所说的长度等于最后一个划分出的整数\n\t\t\t}\n\t\t\tsum = (sum + f[k][i-1]) % mod\n\t\t\tk--\n\t\t}\n\t}\n\tfor _, row := range f {\n\t\tans = (ans + row[n-1]) % mod\n\t}\n\treturn\n}\n"
+],
+"2002": [
+"go",
+"func maxProduct(s string) (ans int) {\n\tvar a, b []byte\n\tvar f func(int)\n\tf = func(i int) {\n\t\tif i == len(s) {\n\t\t\tif len(a)*len(b) > ans && isPalindromic(a) && isPalindromic(b) {\n\t\t\t\tans = len(a) * len(b)\n\t\t\t}\n\t\t\treturn\n\t\t}\n\n\t\t// 不选\n\t\tf(i + 1)\n\n\t\t// 放入 a\n\t\ta = append(a, s[i])\n\t\tf(i + 1)\n\t\ta = a[:len(a)-1]\n\n\t\t// 放入 b\n\t\tb = append(b, s[i])\n\t\tf(i + 1)\n\t\tb = b[:len(b)-1]\n\t}\n\tf(0)\n\treturn\n}\n\nfunc isPalindromic(a []byte) bool {\n\tfor i, n := 0, len(a); i < n/2; i++ {\n\t\tif a[i] != a[n-1-i] {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n"
+],
+"1655": [
+"go",
+"func canDistribute(a []int, quantity []int) bool {\n\t// 预处理 quantity 每个子集的子集和\n\tm := 1 << len(quantity)\n\tsum := make([]int, m)\n\tfor i, v := range quantity {\n\t\tbit := 1 << i\n\t\tfor j := 0; j < bit; j++ {\n\t\t\tsum[bit|j] = sum[j] + v\n\t\t}\n\t}\n\n\tcnt := map[int]int{}\n\tfor _, v := range a {\n\t\tcnt[v]++\n\t}\n\tn := len(cnt)\n\n\t// dp[i][j] 表示 cnt 的前 i 个元素能否满足集合为 j 的顾客\n\tdp := make([][]bool, n+1)\n\tfor i := range dp {\n\t\tdp[i] = make([]bool, m)\n\t\tdp[i][0] = true\n\t}\n\ti := 0\n\tfor _, c := range cnt {\n\t\tfor j, ok := range dp[i] {\n\t\t\tif ok {\n\t\t\t\tdp[i+1][j] = true\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tfor sub := j; sub > 0; sub = (sub - 1) & j { // 枚举 j 的子集 sub\n\t\t\t\tif sum[sub] <= c && dp[i][j^sub] { // 判断这 c 个数能否全部分给 sub，并且除了 sub 以外的 j 中的顾客也满足\n\t\t\t\t\tdp[i+1][j] = true\n\t\t\t\t\tbreak\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\ti++\n\t}\n\treturn dp[n][m-1]\n}\n"
+],
+"2100": [
+"go",
+"func goodDaysToRobBank(security []int, time int) (ans []int) {\n\tn := len(security)\n\tif time*2 >= n { // i 最小为 time，而且需要满足 i+time<n，即 time*2<n，不满足则直接返回空数组\n\t\treturn\n\t}\n\n\tsuf := make([]int, n) // suf[i] 表示从 security[i+1] 向后的最长连续非递减长度\n\tfor i := n - 2; i >= time; i-- {\n\t\tif security[i] <= security[i+1] {\n\t\t\tsuf[i] = suf[i+1] + 1\n\t\t}\n\t}\n\n\tpre := 0 // pre 表示从 security[i-1] 向前的最长连续非递增长度\n\tfor i, v := range security[:n-time] {\n\t\tif i > 0 && v <= security[i-1] {\n\t\t\tpre++\n\t\t} else {\n\t\t\tpre = 0\n\t\t}\n\t\tif pre >= time && suf[i] >= time {\n\t\t\tans = append(ans, i)\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"1862": [
+"go",
+"func sumOfFlooredPairs(a []int) (ans int) {\n\tcnt := make([]int, 2e5)\n\tfor _, v := range a {\n\t\tcnt[v]++\n\t}\n\tsum := make([]int, 2e5+1)\n\tfor i, v := range cnt {\n\t\tsum[i+1] = sum[i] + v\n\t}\n\tfor i, c := range cnt {\n\t\tif c > 0 {\n\t\t\tfor d := 1; d*i <= 1e5; d++ {\n\t\t\t\tans += c * d * (sum[(d+1)*i] - sum[d*i])\n\t\t\t}\n\t\t}\n\t}\n\treturn ans % (1e9 + 7)\n}\n"
+],
+"2025": [
+"go",
+"func waysToPartition(nums []int, k int) (ans int) {\n\tn := len(nums)\n\tsum := make([]int, n)\n\tsum[0] = nums[0]\n\tcntR := map[int]int{}\n\tfor i := 1; i < n; i++ {\n\t\tsum[i] = sum[i-1] + nums[i]\n\t\tcntR[sum[i-1]]++\n\t}\n\ttot := sum[n-1]\n\tif tot%2 == 0 {\n\t\tans = cntR[tot/2] // 不修改\n\t}\n\tcntL := map[int]int{}\n\tfor i, s := range sum {\n\t\tif d := k - nums[i]; (tot+d)%2 == 0 {\n\t\t\tans = max(ans, cntL[(tot+d)/2]+cntR[(tot-d)/2]) // 修改 nums[i]\n\t\t}\n\t\tcntL[s]++\n\t\tcntR[s]--\n\t}\n\treturn\n}\n\nfunc max(a, b int) int { if b > a { return b }; return a }\n"
+],
+"2055": [
+"go",
+"func platesBetweenCandles(s string, queries [][]int) []int {\n\tn := len(s)\n\tsum := make([]int, n+1) // sum[i] 表示 s[:i] 中盘子的个数\n\tleft := make([]int, n) // left[i] 表示 i 左侧最近蜡烛位置\n\tp := -1\n\tfor i, b := range s {\n\t\tsum[i+1] = sum[i]\n\t\tif b == '|' {\n\t\t\tp = i\n\t\t} else {\n\t\t\tsum[i+1]++\n\t\t}\n\t\tleft[i] = p\n\t}\n\n\tright := make([]int, n) // right[i] 表示 i 右侧最近蜡烛位置\n\tfor i, p := n-1, n; i >= 0; i-- {\n\t\tif s[i] == '|' {\n\t\t\tp = i\n\t\t}\n\t\tright[i] = p\n\t}\n\n\tans := make([]int, len(queries))\n\tfor i, q := range queries {\n\t\tl, r := right[q[0]], left[q[1]] // 用最近蜡烛位置来代替查询的范围，从而去掉不符合要求的盘子\n\t\tif l < r {\n\t\t\tans[i] = sum[r] - sum[l]\n\t\t}\n\t}\n\treturn ans\n}\n"
+],
+"1893": [
+"go",
+"func isCovered(a [][]int, l, r int) bool {\n\td := [52]int{}\n\tfor _, p := range a {\n\t\td[p[0]]++\n\t\td[p[1]+1]--\n\t}\n\ts := 0\n\tfor _, v := range d[:l] {\n\t\ts += v\n\t}\n\tfor _, v := range d[l : r+1] {\n\t\tif s += v; s == 0 {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n"
+],
+"1834": [
+"go",
+"type pair struct{ t, i int }\ntype hp []pair\n\nfunc (h hp) Len() int            { return len(h) }\nfunc (h hp) Less(i, j int) bool  { a, b := h[i], h[j]; return a.t < b.t || a.t == b.t && a.i < b.i }\nfunc (h hp) Swap(i, j int)       { h[i], h[j] = h[j], h[i] }\nfunc (h *hp) Push(v interface{}) { *h = append(*h, v.(pair)) }\nfunc (h *hp) Pop() interface{}   { a := *h; v := a[len(a)-1]; *h = a[:len(a)-1]; return v }\nfunc (h *hp) push(v pair)        { heap.Push(h, v) }\nfunc (h *hp) pop() pair          { return heap.Pop(h).(pair) }\n\nfunc getOrder(a [][]int) (ans []int) {\n\tfor i := range a {\n\t\ta[i] = append(a[i], i)\n\t}\n\tsort.Slice(a, func(i, j int) bool { return a[i][0] < a[j][0] })\n\th := &hp{}\n\tfor i, cur, n := 0, 0, len(a); i < n; {\n\t\tif h.Len() > 0 {\n\t\t\tp := h.pop()\n\t\t\tans = append(ans, p.i)\n\t\t\tcur += p.t\n\t\t}\n\t\tif h.Len() == 0 && cur < a[i][0] {\n\t\t\tcur = a[i][0]\n\t\t}\n\t\tfor ; i < n && a[i][0] <= cur; i++ {\n\t\t\th.push(pair{a[i][1], a[i][2]})\n\t\t}\n\t}\n\tfor h.Len() > 0 {\n\t\tans = append(ans, h.pop().i)\n\t}\n\treturn\n}\n"
+],
+"0726": [
+"go",
+"func isDigit(b byte) bool { return '0' <= b && b <= '9' }\nfunc isLower(b byte) bool { return 'a' <= b && b <= 'z' }\n\nfunc countOfAtoms(s string) (ans string) {\n\tstack := []map[string]int{{}}\n\ti, n := 0, len(s)\n\tparseNum := func() (v int) {\n\t\tif i == n || !isDigit(s[i]) {\n\t\t\treturn 1\n\t\t}\n\t\tfor ; i < n && isDigit(s[i]); i++ {\n\t\t\tv = v*10 + int(s[i]-'0')\n\t\t}\n\t\treturn\n\t}\n\tfor i < n {\n\t\tswitch s[i] {\n\t\tcase '(':\n\t\t\tstack = append(stack, map[string]int{})\n\t\t\ti++\n\t\tcase ')':\n\t\t\tmp := stack[len(stack)-1]\n\t\t\tstack = stack[:len(stack)-1]\n\t\t\ti++\n\t\t\tv := parseNum()\n\t\t\tfor s, c := range mp {\n\t\t\t\tstack[len(stack)-1][s] += c * v\n\t\t\t}\n\t\tdefault:\n\t\t\tst := i\n\t\t\tfor i++; i < n && isLower(s[i]); i++ {\n\t\t\t}\n\t\t\tname := s[st:i]\n\t\t\tstack[len(stack)-1][name] += parseNum()\n\t\t}\n\t}\n\tmp := stack[0]\n\tss := make([]string, 0, len(mp))\n\tfor k := range mp {\n\t\tss = append(ss, k)\n\t}\n\tsort.Strings(ss)\n\tfor _, s := range ss {\n\t\tans += s\n\t\tif v := mp[s]; v > 1 {\n\t\t\tans += strconv.Itoa(v)\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"1943": [
+"go",
+"func splitPainting(segments [][]int) (ans [][]int64) {\n\ttype event struct{ pos, color int }\n\tevents := make([]event, 0, len(segments)*2)\n\tfor _, seg := range segments {\n\t\tevents = append(events, event{seg[0], seg[2]}, event{seg[1], -seg[2]}) // 记录每个区间左右端点及颜色\n\t}\n\tsort.Slice(events, func(i, j int) bool { return events[i].pos < events[j].pos }) // 按位置排序\n\n\tsum := 0\n\tfor i, e := range events[:len(events)-1] {\n\t\tsum += e.color\n\t\tif sum > 0 && e.pos < events[i+1].pos {\n\t\t\tans = append(ans, []int64{int64(e.pos), int64(events[i+1].pos), int64(sum)})\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"LCP_48": [
+"go",
+"const (\n\tblack = \"Black\"\n\twhite = \"White\"\n\tnone  = \"None\"\n)\n\ntype pair struct{ x, y int }\nvar dir8 = []pair{{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}}\n\nfunc gobang(pieces [][]int) string {\n\tcolor := make(map[pair]int, len(pieces)+1)\n\tfor _, p := range pieces {\n\t\tp[2]++ // 为方便利用零值，将黑改为 1，白改为 2\n\t\tcolor[pair{p[0], p[1]}] = p[2]\n\t}\n\n\t// 在 (i,j) 落子，颜色为 c，判断落子的一方是否获胜\n\tcheckWin := func(i, j, c int) bool {\n\t\tfor k, d := range dir8[:4] {\n\t\t\tcnt := 1\n\t\t\t// 检查一个方向\n\t\t\tfor x, y := i+d.x, j+d.y; color[pair{x, y}] == c; x, y = x+d.x, y+d.y {\n\t\t\t\tcnt++\n\t\t\t}\n\t\t\t// 检查相反的另一方向\n\t\t\td = dir8[k^4]\n\t\t\tfor x, y := i+d.x, j+d.y; color[pair{x, y}] == c; x, y = x+d.x, y+d.y {\n\t\t\t\tcnt++\n\t\t\t}\n\t\t\tif cnt >= 5 {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\treturn false\n\t}\n\n\t// 1. 黑第一手就可以获胜\n\tfor _, p := range pieces {\n\t\tif p[2] == 2 {\n\t\t\tcontinue\n\t\t}\n\t\ti, j := p[0], p[1]\n\t\tfor _, d := range dir8 { // 黑要想一步获胜只能下在黑子周围\n\t\t\tif x, y := i+d.x, j+d.y; color[pair{x, y}] == 0 && checkWin(x, y, 1) {\n\t\t\t\treturn black\n\t\t\t}\n\t\t}\n\t}\n\n\t// 2. 黑第一手无法获胜\n\twhites := map[pair]bool{}\n\tposW := pair{}\n\tfor _, p := range pieces {\n\t\tif p[2] == 1 {\n\t\t\tcontinue\n\t\t}\n\t\ti, j := p[0], p[1]\n\t\tfor _, d := range dir8 { // 白要想一步获胜只能下在白子周围\n\t\t\tx, y := i+d.x, j+d.y\n\t\t\tq := pair{x, y}\n\t\t\tif color[q] == 0 && checkWin(x, y, 2) {\n\t\t\t\t// 2.1 白可以一步胜，且获胜位置不止一处\n\t\t\t\tif whites[q] = true; len(whites) > 1 {\n\t\t\t\t\treturn white\n\t\t\t\t}\n\t\t\t\tposW = q\n\t\t\t}\n\t\t}\n\t}\n\n\t// 2.2 白可以一步胜，但获胜位置只有一处\n\tif len(whites) == 1 {\n\t\tcolor[posW] = 1 // 黑第一手下在该处，阻止白获胜\n\t\tblacks := map[pair]bool{}\n\t\t// 检查第三步的黑能否获胜\n\t\tcheckBlackWin := func(i, j int) bool {\n\t\t\tfor _, d := range dir8 { // 黑要获胜只能下在黑子周围\n\t\t\t\tx, y := i+d.x, j+d.y\n\t\t\t\tp := pair{x, y}\n\t\t\t\tif color[p] == 0 && checkWin(x, y, 1) {\n\t\t\t\t\tif blacks[p] = true; len(blacks) > 1 {\n\t\t\t\t\t\treturn true\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn false\n\t\t}\n\t\tcheckBlackWin(posW.x, posW.y)\n\t\tfor _, p := range pieces {\n\t\t\tif p[2] == 1 && checkBlackWin(p[0], p[1]) {\n\t\t\t\treturn black\n\t\t\t}\n\t\t}\n\t\treturn none\n\t}\n\n\t// 3. 白无法获胜，于是白的策略是防止黑获胜\n\t// 根据黑第一步的落子位置，在该位置周围枚举黑第三步的落子位置，检查黑能否获胜\n\tcheckBlackWin := func(i0, j0 int) bool {\n\t\tblacks := map[pair]bool{}\n\t\tfor k, d := range dir8 {\n\t\t\tfor l, i, j := 0, i0, j0; l < 5; l++ { // 如果黑可以获胜，这两枚黑子的距离不会超过 5\n\t\t\t\ti += d.x\n\t\t\t\tj += d.y\n\t\t\t\tp := pair{i, j}\n\t\t\t\tif color[p] > 0 {\n\t\t\t\t\tcontinue\n\t\t\t\t}\n\t\t\t\tcnt := 1\n\t\t\t\t// 检查一个方向\n\t\t\t\tfor x, y := i+d.x, j+d.y; color[pair{x, y}] == 1; x, y = x+d.x, y+d.y {\n\t\t\t\t\tcnt++\n\t\t\t\t}\n\t\t\t\t// 检查相反的另一方向\n\t\t\t\td2 := dir8[k^4]\n\t\t\t\tfor x, y := i+d2.x, j+d2.y; color[pair{x, y}] == 1; x, y = x+d2.x, y+d2.y {\n\t\t\t\t\tcnt++\n\t\t\t\t}\n\t\t\t\tif cnt >= 5 {\n\t\t\t\t\tif blacks[p] = true; len(blacks) > 1 {\n\t\t\t\t\t\treturn true\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\treturn false\n\t}\n\tvis := map[pair]bool{} // 常数优化：避免重复枚举\n\tfor _, p := range pieces {\n\t\tif p[2] == 2 {\n\t\t\tcontinue\n\t\t}\n\t\ti, j := p[0], p[1]\n\t\t// 枚举黑第一步的落子。由于黑要下两手棋，需要枚举黑子周围两圈\n\t\tfor dx := -2; dx <= 2; dx++ {\n\t\t\tfor dy := -2; dy <= 2; dy++ {\n\t\t\t\tif dx == 0 && dy == 0 {\n\t\t\t\t\tcontinue\n\t\t\t\t}\n\t\t\t\tx, y := i+dx, j+dy\n\t\t\t\tq := pair{x, y}\n\t\t\t\tif vis[q] || color[q] > 0 {\n\t\t\t\t\tcontinue\n\t\t\t\t}\n\t\t\t\tcolor[q] = 1 // 黑落子\n\t\t\t\tvis[q] = true\n\t\t\t\tif checkBlackWin(x, y) {\n\t\t\t\t\treturn black\n\t\t\t\t}\n\t\t\t\tdelete(color, q)\n\t\t\t}\n\t\t}\n\t}\n\treturn none\n}\n"
+],
+"1998": [
+"go",
+"const mx int = 1e5\nvar pf [mx + 1][]int\n\nfunc init() { // 预处理每个数的质因子\n\tfor i := 2; i <= mx; i++ {\n\t\tif pf[i] == nil {\n\t\t\tfor j := i; j <= mx; j += i {\n\t\t\t\tpf[j] = append(pf[j], i)\n\t\t\t}\n\t\t}\n\t}\n}\n\nfunc gcdSort(a []int) bool {\n\tn := len(a)\n\tu := newUnionFind(n + mx)\n\tfor i, v := range a {\n\t\tfor _, p := range pf[v] {\n\t\t\tu.merge(i, p+n) // 用并查集将下标 i 和质数 p 合并，为了区分下标集合和质数集合，将 p 加上 n\n\t\t}\n\t}\n\n\t// 整理处于同一集合的元素及其下标\n\tgroups := make([]struct{ vs, is []int }, mx)\n\tfor i, v := range a {\n\t\tp := u.find(i) - n\n\t\tgroups[p].vs = append(groups[p].vs, v)\n\t\tgroups[p].is = append(groups[p].is, i)\n\t}\n\n\t// 每一组内的元素可以直接或间接交换，因此对每组元素直接排序，然后按照在原数组中的顺序填回去\n\tfor _, g := range groups {\n\t\tsort.Ints(g.vs)\n\t\tfor j, v := range g.vs {\n\t\t\ta[g.is[j]] = v\n\t\t}\n\t}\n\treturn sort.IntsAreSorted(a) // 判断数组是否有序\n}\n\ntype uf struct {\n\tfa []int\n}\n\nfunc newUnionFind(n int) uf {\n\tfa := make([]int, n)\n\tfor i := range fa {\n\t\tfa[i] = i\n\t}\n\treturn uf{fa}\n}\n\nfunc (u uf) find(x int) int {\n\tif u.fa[x] != x {\n\t\tu.fa[x] = u.find(u.fa[x])\n\t}\n\treturn u.fa[x]\n}\n\nfunc (u uf) merge(from, to int) {\n\tu.fa[u.find(from)] = u.find(to)\n}\n"
+],
+"2076": [
+"go",
+"func friendRequests(n int, restrictions [][]int, requests [][]int) []bool {\n\tfa := make([]int, n) // 初始化并查集\n\tfor i := range fa {\n\t\tfa[i] = i\n\t}\n\tvar find func(int) int\n\tfind = func(x int) int {\n\t\tif fa[x] != x {\n\t\t\tfa[x] = find(fa[x])\n\t\t}\n\t\treturn fa[x]\n\t}\n\n\tcant := make([]map[int]bool, n)\n\tfor i := range cant {\n\t\tcant[i] = map[int]bool{}\n\t}\n\tfor _, r := range restrictions { // 初始化无法成为朋友的用户\n\t\tv, w := r[0], r[1]\n\t\tcant[v][w] = true\n\t\tcant[w][v] = true // 双向\n\t}\n\n\tans := make([]bool, len(requests))\n\tfor i, r := range requests {\n\t\tv, w := find(r[0]), find(r[1])\n\t\tif v == w { // 已经是朋友（直接或间接）\n\t\t\tans[i] = true\n\t\t\tcontinue\n\t\t}\n\t\tif cant[v][w] { // 无法成为朋友\n\t\t\tcontinue\n\t\t}\n\t\tans[i] = true\n\t\tif len(cant[v]) > len(cant[w]) { // 启发式合并：总是从小的集合合并到大的集合上\n\t\t\tv, w = w, v\n\t\t}\n\t\tfor x := range cant[v] { // 将 cant[v] 中的代表元合并到 cant[w] 上\n\t\t\tx = find(x)\n\t\t\tcant[w][x] = true\n\t\t\tcant[x][w] = true // 双向\n\t\t}\n\t\tfa[v] = w\n\t}\n\treturn ans\n}\n"
+],
+"1851": [
+"go",
+"func minInterval(intervals [][]int, queries []int) []int {\n\t// 按照区间长度由小到大排序，这样每次回答的时候用的就是长度最小的区间\n\tsort.Slice(intervals, func(i, j int) bool { a, b := intervals[i], intervals[j]; return a[1]-a[0] < b[1]-b[0] })\n\n\tm := len(queries)\n\ttype pair struct{ pos, i int }\n\tqs := make([]pair, m)\n\tfor i, q := range queries {\n\t\tqs[i] = pair{q, i}\n\t}\n\t// 离线：按查询位置排序\n\tsort.Slice(qs, func(i, j int) bool { return qs[i].pos < qs[j].pos })\n\n\t// 初始化并查集\n\tfa := make([]int, m+1)\n\tfor i := range fa {\n\t\tfa[i] = i\n\t}\n\tvar find func(int) int\n\tfind = func(x int) int {\n\t\tif fa[x] != x {\n\t\t\tfa[x] = find(fa[x])\n\t\t}\n\t\treturn fa[x]\n\t}\n\n\tans := make([]int, m)\n\tfor i := range ans {\n\t\tans[i] = -1\n\t}\n\t// 对每个区间，回答所有在 [l,r] 范围内的询问\n\t// 由于每次回答询问之后，都将其指向了下一个询问\n\t// 所以若 i = find(i) 符合 i < m && qs[i].pos <= r 的条件，则必然是一个在 [l,r] 范围内的还没有回答过的询问\n\tfor _, p := range intervals {\n\t\tl, r := p[0], p[1]\n\t\tlength := r - l + 1\n\t\t// 二分找大于等于区间左端点的最小询问\n\t\ti := sort.Search(m, func(i int) bool { return qs[i].pos >= l })\n\t\t// 回答所有询问位置在 [l,r] 范围内的还没有被回答过的询问\n\t\tfor i = find(i); i < m && qs[i].pos <= r; i = find(i + 1) {\n\t\t\tans[qs[i].i] = length\n\t\t\tfa[i] = i + 1\n\t\t}\n\t}\n\treturn ans\n}\n"
+],
+"1968": [
+"go",
+"func rearrangeArray(a []int) []int {\n\tsort.Ints(a)\n\ti, n := 0, len(a)\n\tans := make([]int, n)\n\tfor _, v := range a {\n\t\tans[i] = v\n\t\tif i += 2; i >= n {\n\t\t\ti = 1\n\t\t}\n\t}\n\treturn ans\n}\n"
+],
+"LCP_58": [
+"go",
+"// 每条边压缩成二进制\nfunc encode(a [][]byte) (res [4][2]int) {\n\tn := len(a)\n\tfor i, b := range a[0] {\n\t\tres[0][0] |= int(b&1) << i // 正向\n\t\tres[0][1] |= int(b&1) << (n - 1 - i) // 反向\n\t\tres[2][0] |= int(a[n-1][i]&1) << i\n\t\tres[2][1] |= int(a[n-1][i]&1) << (n - 1 - i)\n\t}\n\tfor i, r := range a {\n\t\tres[1][0] |= int(r[n-1]&1) << i\n\t\tres[1][1] |= int(r[n-1]&1) << (n - 1 - i)\n\t\tres[3][0] |= int(r[0]&1) << i\n\t\tres[3][1] |= int(r[0]&1) << (n - 1 - i)\n\t}\n\treturn\n}\n\n// 顺时针旋转矩阵 90°\nfunc rotate(a [][]byte) [][]byte {\n\tn, m := len(a), len(a[0])\n\tb := make([][]byte, m)\n\tfor i := range b {\n\t\tb[i] = make([]byte, n)\n\t}\n\tfor i, r := range a {\n\t\tfor j, v := range r {\n\t\t\tb[j][n-1-i] = v\n\t\t}\n\t}\n\treturn b\n}\n\nfunc composeCube(shapes [][]string) bool {\n\tn := len(shapes[0])\n\ta := [6][8][4][2]int{} // [积木][旋转+翻转][边][0-正向/1-反向]\n\tfor i, shape := range shapes {\n\t\tt := make([][]byte, n)\n\t\tfor j, s := range shape {\n\t\t\tt[j] = []byte(s)\n\t\t}\n\t\tfor j := 0; j < 4; j++ {\n\t\t\ta[i][j] = encode(t)\n\t\t\tt = rotate(t)\n\t\t}\n\t\tfor _, r := range t {\n\t\t\tfor j := 0; j < n/2; j++ {\n\t\t\t\tr[j], r[n-1-j] = r[n-1-j], r[j]\n\t\t\t}\n\t\t}\n\t\tfor j := 4; j < 8; j++ {\n\t\t\ta[i][j] = encode(t)\n\t\t\tt = rotate(t)\n\t\t}\n\t}\n\n\t// 判断两条边是否恰好重叠（除了顶角）\n\tMASK := 1<<(n-1) - 2\n\tok := func(v, w int) bool { return v&w == 0 && (v|w)&MASK == MASK }\n\n\ttype pair struct{ who, rot int }\n\tfill := [6]pair{} // 枚举每个积木以什么旋转/翻转姿势放在哪个面（0-顶面，1234-侧面，5-底面）\n\tvis := 0\n\tvar dfs func(int) bool\n\tdfs = func(p int) bool { // 当前考虑的面\n\t\tif p == 6 { return true }\n\t\tfor cur := 1; cur < 6; cur++ { // 枚举 6 个积木（固定第一个积木放在顶面）\n\t\t\tif vis>>cur&1 > 0 { continue }\n\t\t\tvis ^= 1 << cur\n\t\t\tfor rot := 0; rot < 8; rot++ { // 枚举 8 种旋转+翻转的情况\n\t\t\t\tswitch p {\n\t\t\t\tcase 1:\n\t\t\t\t\t// 1 和 0 是否有冲突\n\t\t\t\t\tif !ok(a[cur][rot][0][0], a[0][0][2][0]) {\n\t\t\t\t\t\tcontinue\n\t\t\t\t\t}\n\t\t\t\tcase 2:\n\t\t\t\t\t// 2 和 0 1 是否有冲突\n\t\t\t\t\tw, r := fill[p-1].who, fill[p-1].rot\n\t\t\t\t\tif !ok(a[cur][rot][0][0], a[0][0][1][1]) || // 边是否冲突\n\t\t\t\t\t\t!ok(a[cur][rot][3][0], a[w][r][1][0]) ||\n\t\t\t\t\t\ta[0][0][2][1]&1 == 0 && a[cur][rot][0][0]&1 == 0 && a[w][r][0][1]&1 == 0 { // 角是否冲突\n\t\t\t\t\t\tcontinue\n\t\t\t\t\t}\n\t\t\t\tcase 3:\n\t\t\t\t\t// 3 和 0 2 是否有冲突\n\t\t\t\t\tw, r := fill[p-1].who, fill[p-1].rot\n\t\t\t\t\tif !ok(a[cur][rot][0][0], a[0][0][0][1]) ||\n\t\t\t\t\t\t!ok(a[cur][rot][3][0], a[w][r][1][0]) ||\n\t\t\t\t\t\ta[0][0][1][0]&1 == 0 && a[cur][rot][0][0]&1 == 0 && a[w][r][0][1]&1 == 0 {\n\t\t\t\t\t\tcontinue\n\t\t\t\t\t}\n\t\t\t\tcase 4:\n\t\t\t\t\t// 4 和 0 1 3 是否有冲突\n\t\t\t\t\tw, r := fill[p-1].who, fill[p-1].rot\n\t\t\t\t\tw1, r1 := fill[1].who, fill[1].rot\n\t\t\t\t\tif !ok(a[cur][rot][0][0], a[0][0][3][0]) ||\n\t\t\t\t\t\t!ok(a[cur][rot][3][0], a[w][r][1][0]) ||\n\t\t\t\t\t\t!ok(a[cur][rot][1][0], a[w1][r1][3][0]) ||\n\t\t\t\t\t\ta[0][0][3][0]&1 == 0 && a[cur][rot][0][0]&1 == 0 && a[w][r][0][1]&1 == 0 ||\n\t\t\t\t\t\ta[0][0][2][0]&1 == 0 && a[cur][rot][0][1]&1 == 0 && a[w1][r1][0][0]&1 == 0 {\n\t\t\t\t\t\tcontinue\n\t\t\t\t\t}\n\t\t\t\tdefault:\n\t\t\t\t\t// 5 和 1 2 3 4 是否有冲突\n\t\t\t\t\tw1, r1 := fill[1].who, fill[1].rot\n\t\t\t\t\tw2, r2 := fill[2].who, fill[2].rot\n\t\t\t\t\tw3, r3 := fill[3].who, fill[3].rot\n\t\t\t\t\tw4, r4 := fill[4].who, fill[4].rot\n\t\t\t\t\tif !ok(a[cur][rot][0][0], a[w1][r1][2][0]) ||\n\t\t\t\t\t\t!ok(a[cur][rot][1][0], a[w2][r2][2][0]) ||\n\t\t\t\t\t\t!ok(a[cur][rot][2][1], a[w3][r3][2][0]) ||\n\t\t\t\t\t\t!ok(a[cur][rot][3][1], a[w4][r4][2][0]) ||\n\t\t\t\t\t\ta[cur][rot][0][1]&1 == 0 && a[w1][r1][2][1]&1 == 0 && a[w2][r2][2][0]&1 == 0 ||\n\t\t\t\t\t\ta[cur][rot][1][1]&1 == 0 && a[w2][r2][2][1]&1 == 0 && a[w3][r3][2][0]&1 == 0 ||\n\t\t\t\t\t\ta[cur][rot][2][0]&1 == 0 && a[w3][r3][2][1]&1 == 0 && a[w4][r4][2][0]&1 == 0 ||\n\t\t\t\t\t\ta[cur][rot][0][0]&1 == 0 && a[w4][r4][2][1]&1 == 0 && a[w1][r1][2][0]&1 == 0 {\n\t\t\t\t\t\tcontinue\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tfill[p] = pair{cur, rot}\n\t\t\t\tif dfs(p + 1) { return true }\n\t\t\t}\n\t\t\tvis ^= 1 << cur\n\t\t}\n\t\treturn false\n\t}\n\treturn dfs(1)\n}\n"
+],
+"1952": [
+"go",
+"func isThree(n int) bool {\n\tcnt := 0\n\tfor d := 1; d*d <= n; d++ {\n\t\tif n%d == 0 {\n\t\t\tcnt++\n\t\t\tif d*d < n {\n\t\t\t\tcnt++\n\t\t\t}\n\t\t}\n\t}\n\treturn cnt == 3\n}\n"
+],
+"LCP_42": [
+"go",
+"func circleGame(toys [][]int, circles [][]int, r0 int) (ans int) {\n\tsort.Slice(circles, func(i, j int) bool { a, b := circles[i], circles[j]; return a[0] < b[0] || a[0] == b[0] && a[1] < b[1] })\n\n\t// 将横坐标相同的圈分为一组\n\ttype pair struct{ x int; ys []int }\n\ta, y := []pair{}, -1\n\tfor _, p := range circles {\n\t\tif len(a) == 0 || p[0] > a[len(a)-1].x {\n\t\t\ta = append(a, pair{p[0], []int{p[1]}})\n\t\t\ty = -1\n\t\t} else if p[1] > y { // 去重\n\t\t\ta[len(a)-1].ys = append(a[len(a)-1].ys, p[1])\n\t\t\ty = p[1]\n\t\t}\n\t}\n\n\tfor _, t := range toys {\n\t\tx, y, r := t[0], t[1], t[2]\n\t\tif r > r0 {\n\t\t\tcontinue\n\t\t}\n\t\ti := sort.Search(len(a), func(i int) bool { return a[i].x+r0 >= x+r })\n\t\tfor ; i < len(a) && a[i].x-r0 <= x-r; i++ {\n\t\t\tcx, ys := a[i].x, a[i].ys\n\t\t\tj := sort.SearchInts(ys, y)\n\t\t\tif j < len(ys) {\n\t\t\t\tif cy := ys[j]; (x-cx)*(x-cx)+(y-cy)*(y-cy) <= (r0-r)*(r0-r) {\n\t\t\t\t\tans++\n\t\t\t\t\tbreak\n\t\t\t\t}\n\t\t\t}\n\t\t\tif j > 0 {\n\t\t\t\tif cy := ys[j-1]; (x-cx)*(x-cx)+(y-cy)*(y-cy) <= (r0-r)*(r0-r) {\n\t\t\t\t\tans++\n\t\t\t\t\tbreak\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2027": [
+"go",
+"func minimumMoves(s string) (ans int) {\n\tfor i := 0; i < len(s); i++ {\n\t\tif s[i] == 'X' {\n\t\t\tans++\n\t\t\ti += 2 // 跳过两个字符\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2117": [
+"go",
+"func abbreviateProduct(left, right int) string {\n\ts := new(big.Int).MulRange(int64(left), int64(right)).String()\n\ttz := len(s)\n\ts = strings.TrimRight(s, \"0\")\n\ttz -= len(s)\n\tif len(s) > 10 {\n\t\treturn fmt.Sprintf(\"%s...%se%d\", s[:5], s[len(s)-5:], tz)\n\t}\n\treturn fmt.Sprintf(\"%se%d\", s, tz)\n}\n\n// ----\nfunc abbreviateProduct(left, right int) string {\n\te, cnt2, cnt5, suf, mul := 0.0, 0, 0, 1, 1\n\tupdate := func(x int) {\n\t\tsuf = suf * x % 1e5\n\t\tif mul != -1 {\n\t\t\tmul *= x\n\t\t\tif mul >= 1e10 { // 长度超过 10\n\t\t\t\tmul = -1\n\t\t\t}\n\t\t}\n\t}\n\n\tfor i := left; i <= right; i++ {\n\t\te += math.Log10(float64(i))\n\t\tx := i\n\t\ttz := bits.TrailingZeros(uint(x)) // 因子 2 的个数\n\t\tcnt2 += tz\n\t\tx >>= tz\n\t\tfor ; x%5 == 0; x /= 5 {\n\t\t\tcnt5++ // 因子 5 的个数\n\t\t}\n\t\tupdate(x)\n\t}\n\tcnt10 := min(cnt2, cnt5)\n\tfor i := cnt10; i < cnt2; i++ {\n\t\tupdate(2) // 补上多拆出来的 2\n\t}\n\tfor i := cnt10; i < cnt5; i++ {\n\t\tupdate(5) // 补上多拆出来的 5\n\t}\n\n\tif mul != -1 { // 不需要缩写\n\t\treturn fmt.Sprintf(\"%de%d\", mul, cnt10)\n\t}\n\tpre := int(math.Pow(10, e-math.Floor(e)+4))\n\treturn fmt.Sprintf(\"%d...%05de%d\", pre, suf, cnt10)\n}\n\nfunc min(a, b int) int { if a > b { return b }; return a }\n\n// ----\nvar lim, _ = new(big.Int).SetString(strings.Repeat(\"9\", 200), 10)\nvar div, _ = new(big.Int).SetString(\"1\"+strings.Repeat(\"0\", 100), 10)\n\nfunc abbreviateProduct(left, right int) string {\n\tcnt2, cnt5, suf, mul := 0, 0, 1, 1\n\tupdate := func(x int) {\n\t\tsuf = suf * x % 1e5\n\t\tif mul != -1 {\n\t\t\tmul *= x\n\t\t\tif mul >= 1e10 { // 长度超过 10\n\t\t\t\tmul = -1\n\t\t\t}\n\t\t}\n\t}\n\n\tpre := big.NewInt(1)\n\tfor i := left; i <= right; i++ {\n\t\tpre.Mul(pre, big.NewInt(int64(i)))\n\t\tif pre.Cmp(lim) > 0 { // 超过一定位数就截断\n\t\t\tpre.Quo(pre, div)\n\t\t}\n\t\tx := i\n\t\ttz := bits.TrailingZeros(uint(x)) // 因子 2 的个数\n\t\tcnt2 += tz\n\t\tx >>= tz\n\t\tfor ; x%5 == 0; x /= 5 {\n\t\t\tcnt5++ // 因子 5 的个数\n\t\t}\n\t\tupdate(x)\n\t}\n\tcnt10 := min(cnt2, cnt5)\n\tfor i := cnt10; i < cnt2; i++ {\n\t\tupdate(2) // 补上多拆出来的 2\n\t}\n\tfor i := cnt10; i < cnt5; i++ {\n\t\tupdate(5) // 补上多拆出来的 5\n\t}\n\n\tif mul != -1 { // 不需要缩写\n\t\treturn fmt.Sprintf(\"%de%d\", mul, cnt10)\n\t}\n\treturn fmt.Sprintf(\"%s...%05de%d\", pre.String()[:5], suf, cnt10)\n}\n\nfunc min(a, b int) int { if a > b { return b }; return a }\n"
+],
+"2279": [
+"go",
+"func maximumBags(capacity, rocks []int, additionalRocks int) (ans int) {\n\tfor i := range capacity {\n\t\tcapacity[i] -= rocks[i]\n\t}\n\tsort.Ints(capacity) // 先装剩余最小的\n\tfor _, leftSpace := range capacity {\n\t\tif leftSpace > additionalRocks { // 无法装满，那后续也无法装满（因为排序了）\n\t\t\tbreak // 直接退出\n\t\t}\n\t\tans++\n\t\tadditionalRocks -= leftSpace\n\t}\n\treturn\n}\n"
+],
+"1889": [
+"go",
+"func minWastedSpace(a []int, boxes [][]int) int {\n\tsort.Ints(a) // 将包裹按尺寸排序，方便后面按照箱子尺寸划分包裹\n\tans := math.MaxInt64\n\tfor _, box := range boxes {\n\t\tsort.Ints(box)\n\t\tif box[len(box)-1] < a[len(a)-1] { // 最大的箱子不够装最大的包裹\n\t\t\tcontinue\n\t\t}\n\t\tres, l := 0, 0\n\t\tfor _, v := range box {\n\t\t\t// 划分包裹：当前箱子 v 可以装入下标在 [l, r) 区间内的包裹\n\t\t\tr := sort.SearchInts(a, v+1)\n\t\t\tres += (r - l) * v // 统计箱子尺寸之和\n\t\t\tl = r\n\t\t}\n\t\tans = min(ans, res)\n\t}\n\tif ans < math.MaxInt64 {\n\t\tfor _, v := range a {\n\t\t\tans -= v // 减去每个包裹尺寸\n\t\t}\n\t\treturn ans % (1e9 + 7)\n\t}\n\treturn -1\n}\n\nfunc min(a, b int) int {\n\tif a < b {\n\t\treturn a\n\t}\n\treturn b\n}\n"
+],
+"2037": [
+"go",
+"func minMovesToSeat(seats, students []int) (ans int) {\n\tsort.Ints(seats)\n\tsort.Ints(students)\n\tfor i, p := range seats {\n\t\tans += abs(p - students[i])\n\t}\n\treturn\n}\n\nfunc abs(x int) int {\n\tif x < 0 {\n\t\treturn -x\n\t}\n\treturn x\n}\n"
+],
+"LCS_02": [
+"go",
+"func halfQuestions(a []int) (ans int) {\n\tcnt := [1001]int{}\n\tfor _, v := range a {\n\t\tcnt[v]++\n\t}\n\tsort.Ints(cnt[:])\n\tfor i, n := 1000, len(a)/2; n > 0; i-- {\n\t\tans++\n\t\tn -= cnt[i]\n\t}\n\treturn\n}\n"
+],
+"2182": [
+"go",
+"func repeatLimitedString(s string, repeatLimit int) string {\n\tcnt := [26]int{}\n\tfor _, b := range s {\n\t\tcnt[b-'a']++\n\t}\n\tans := []byte{}\n\tfor i := 25; i >= 0; i-- { // 从大到小填字母\n\tnext:\n\t\tfor j := 0; j < repeatLimit && cnt[i] > 0; j++ { // 填充 min(repeatLimit, cnt[i]) 个字母 i\n\t\t\tcnt[i]--\n\t\t\tans = append(ans, 'a'+byte(i))\n\t\t}\n\t\tif cnt[i] == 0 { // i 用完了，找下一个更小的字母\n\t\t\tcontinue\n\t\t}\n\t\tfor j := i - 1; j >= 0; j-- { // i 没用完，插入一个字母 j，这样可以继续填 i\n\t\t\tif cnt[j] > 0 {\n\t\t\t\tcnt[j]--\n\t\t\t\tans = append(ans, 'a'+byte(j))\n\t\t\t\tgoto next\n\t\t\t}\n\t\t}\n\t}\n\treturn string(ans)\n}\n\n// ----\nfunc repeatLimitedString(s string, repeatLimit int) string {\n\tcnt := [26]int{}\n\tfor _, b := range s {\n\t\tcnt[b-'a']++\n\t}\n\tans := []byte{}\n\tfor i := 25; i >= 0; i-- { // 从大到小填字母\n\t\tk := i - 1\n\t\tfor {\n\t\t\tfor j := 0; j < repeatLimit && cnt[i] > 0; j++ { // 填充 min(repeatLimit, cnt[i]) 个字母 i\n\t\t\t\tcnt[i]--\n\t\t\t\tans = append(ans, 'a'+byte(i))\n\t\t\t}\n\t\t\tif cnt[i] == 0 { // i 用完了，找下一个更小的字母\n\t\t\t\tbreak\n\t\t\t}\n\t\t\tfor k >= 0 && cnt[k] == 0 {\n\t\t\t\tk--\n\t\t\t}\n\t\t\tif k < 0 {\n\t\t\t\tbreak\n\t\t\t}\n\t\t\t// i 没用完，插入一个字母 k，这样可以继续填 i\n\t\t\tcnt[k]--\n\t\t\tans = append(ans, 'a'+byte(k))\n\t\t}\n\t}\n\treturn string(ans)\n}\n"
+],
+"2405": [
+"go",
+"func partitionString(s string) int {\n\tans, vis := 1, 0\n\tfor _, c := range s {\n\t\tif vis>>(c&31)&1 > 0 {\n\t\t\tvis = 0\n\t\t\tans++\n\t\t}\n\t\tvis |= 1 << (c & 31)\n\t}\n\treturn ans\n}\n"
+],
+"1881": [
+"go",
+"func maxValue(n string, x int) string {\n\ty := byte('0' + x)\n\ti := 0\n\tif n[0] != '-' {\n\t\tfor ; i < len(n) && n[i] >= y; i++ {}\n\t} else {\n\t\tfor i = 1; i < len(n) && n[i] <= y; i++ {}\n\t}\n\treturn n[:i] + string(y) + n[i:]\n}\n"
+],
+"1946": [
+"go",
+"func maximumNumber(num string, change []int) string {\n\ts := []byte(num)\n\ti, n := 0, len(s)\n\tfor ; i < n && byte(change[s[i]&15]) <= s[i]&15; i++ {\n\t}\n\tfor ; i < n && byte(change[s[i]&15]) >= s[i]&15; i++ {\n\t\ts[i] = '0' + byte(change[s[i]&15])\n\t}\n\treturn string(s)\n}\n"
+],
+"2086": [
+"go",
+"func minimumBuckets(street string) (ans int) {\n\tbucketPos := -2 // 上一个水桶的放置位置\n\tfor i, ch := range street {\n\t\tif ch == 'H' { // 遍历每个房屋\n\t\t\tif bucketPos == i-1 { // 左侧已有水桶，不做任何处理\n\t\t\t} else if i+1 < len(street) && street[i+1] == '.' { // 贪心：先考虑在右侧放水桶\n\t\t\t\tbucketPos = i + 1\n\t\t\t\tans++\n\t\t\t} else if i > 0 && street[i-1] == '.' { // 再考虑在左侧放水桶\n\t\t\t\tans++\n\t\t\t} else { // 左右均无空位，无解\n\t\t\t\treturn -1\n\t\t\t}\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2358": [
+"go",
+"func maximumGroups(grades []int) (ans int) {\n\tsort.Ints(grades)\n\tfor i, preSum, k, n := 0, 0, 0, len(grades); i+k < n; ans++ {\n\t\ti0, sum := i, 0 // i0 保存本次循环的起始下标\n\t\tfor ; i < n && (sum <= preSum || i <= i0+k); i++ { // 必须满足题目的两个要求\n\t\t\tsum += grades[i]\n\t\t}\n\t\tif sum <= preSum { // 未能满足要求\n\t\t\tbreak\n\t\t}\n\t\tpreSum, k = sum, i-i0\n\t}\n\treturn\n}\n\n// ----\nfunc maximumGroups(grades []int) int {\n\treturn int((math.Sqrt(float64(1+8*len(grades))) - 1) / 2)\n}\n\n// ----\nfunc maximumGroups(grades []int) int {\n\tn := len(grades)\n\tx := int((math.Sqrt(float64(1+8*n)) - 1) / 2)\n\tif (x+1)*(x+2)/2 <= n {\n\t\tx++\n\t}\n\treturn x\n}\n"
+],
+"LCS_01": [
+"go",
+"func leastMinutes(n int) int {\n\treturn bits.Len(uint(n-1)) + 1\n}\n"
+],
+"1992": [
+"go",
+"func findFarmland(a [][]int) (ans [][]int) {\n\tn, m := len(a), len(a[0])\n\tfor i, row := range a {\n\t\tfor j, v := range row {\n\t\t\tif v == 0 || j > 0 && row[j-1] == 1 || i > 0 && a[i-1][j] == 1 {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tii := i\n\t\t\tfor ; ii+1 < n && a[ii+1][j] == 1; ii++ {}\n\t\t\tjj := j\n\t\t\tfor ; jj+1 < m && a[ii][jj+1] == 1; jj++ {}\n\t\t\tans = append(ans, []int{i, j, ii, jj})\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"1903": [
+"go",
+"func largestOddNumber(s string) string {\n\tfor s != \"\" && s[len(s)-1]&1 == 0 {\n\t\ts = s[:len(s)-1]\n\t}\n\treturn s\n}\n\n// ----\nfunc largestOddNumber(s string) string {\n    return s[:strings.LastIndexAny(s, \"13579\")+1]\n}\n"
+],
+"1754": [
+"go",
+"func largestMerge(s, t string) string {\n\tn := len(s)\n\tsa := *(*[]int32)(unsafe.Pointer(reflect.ValueOf(suffixarray.New([]byte(s + \"#\" + t))).Elem().FieldByName(\"sa\").Field(0).UnsafeAddr()))\n\trank := make([]int, n+1+len(t))\n\tfor i := range rank {\n\t\trank[sa[i]] = i\n\t}\n\tans := []byte{}\n\ti, j := 0, n+1\n\tfor {\n\t\tif s == \"\" {\n\t\t\tans = append(ans, t...)\n\t\t\tbreak\n\t\t}\n\t\tif t == \"\" {\n\t\t\tans = append(ans, s...)\n\t\t\tbreak\n\t\t}\n\t\tif rank[i] > rank[j] { // s > t\n\t\t\tans = append(ans, s[0])\n\t\t\ts = s[1:]\n\t\t\ti++\n\t\t} else {\n\t\t\tans = append(ans, t[0])\n\t\t\tt = t[1:]\n\t\t\tj++\n\t\t}\n\t}\n\treturn string(ans)\n}\n"
+],
+"2160": [
+"go",
+"func minimumSum(num int) int {\n\ts := []byte(strconv.Itoa(num))\n\tsort.Slice(s, func(i, j int) bool { return s[i] < s[j] })\n\treturn int(s[0]&15+s[1]&15)*10 + int(s[2]&15+s[3]&15)\n}\n"
+],
+"2139": [
+"go",
+"func minMoves(v, maxDoubles int) (ans int) {\n\tfor v > 1 {\n\t\tif maxDoubles == 0 {\n\t\t\treturn ans + v - 1\n\t\t}\n\t\tif v%2 > 0 {\n\t\t\tv--\n\t\t\tans++\n\t\t}\n\t\tmaxDoubles--\n\t\tv /= 2\n\t\tans++\n\t}\n\treturn\n}\n"
+],
+"2170": [
+"go",
+"type pair struct{ num, cnt int }\n\n// 计算出现次数最多的两个元素及其出现次数\nfunc getMaxCnt2(cnt map[int]int) []pair {\n\ta := make([]pair, 0, max(len(cnt), 2))\n\tfor num, c := range cnt {\n\t\ta = append(a, pair{num, c})\n\t}\n\tsort.Slice(a, func(i, j int) bool { return a[i].cnt > a[j].cnt })\n\treturn a[:2] // 不足两个时，用 pair{0, 0} 填充\n}\n\nfunc minimumOperations(nums []int) int {\n\tcnt := [2]map[int]int{{}, {}}\n\tfor i, num := range nums {\n\t\tcnt[i&1][num]++\n\t}\n\ta0 := getMaxCnt2(cnt[0])\n\ta1 := getMaxCnt2(cnt[1])\n\tif a0[0].num != a1[0].num {\n\t\treturn len(nums) - a0[0].cnt - a1[0].cnt // 不相等时，保留出现次数最多的两个\n\t}\n\treturn len(nums) - max(a0[0].cnt+a1[1].cnt, a0[1].cnt+a1[0].cnt) // 相等时，保留出现次数最多的和另一个出现次数次多的\n}\n"
+],
+"2165": [
+"go",
+"func smallestNumber(num int64) int64 {\n\ts := []byte(strconv.FormatInt(num, 10))\n\tif num <= 0 {\n\t\tt := s[1:]\n\t\tsort.Slice(t, func(i, j int) bool { return t[i] > t[j] }) // 负数，从大到小排序（兼容 num=0）\n\t\tans, _ := strconv.ParseInt(string(s), 10, 64)\n\t\treturn ans\n\t}\n\tsort.Slice(s, func(i, j int) bool { return s[i] < s[j] }) // 正数，从小到大排序\n\ti := 0\n\tfor s[i] == '0' { // 如果有前导零就从后面找一个数字\n\t\ti++\n\t}\n\ts[i], s[0] = s[0], s[i] // 交换，保证没有前导零\n\tans, _ := strconv.ParseInt(string(s), 10, 64)\n\treturn ans\n}\n"
+],
+"1864": [
+"go",
+"func minSwaps(s string) int {\n\tans := int(1e9)\n\tf := func(tar string) {\n\t\tif strings.Count(tar, \"0\") != strings.Count(s, \"0\") {\n\t\t\treturn\n\t\t}\n\t\tc := 0\n\t\tfor i := range s {\n\t\t\tif s[i] == '1' && tar[i] == '0' {\n\t\t\t\tc++\n\t\t\t}\n\t\t}\n\t\tif c < ans {\n\t\t\tans = c\n\t\t}\n\t}\n\tn := len(s)\n\tf(strings.Repeat(\"10\", n)[:n])\n\tf(strings.Repeat(\"01\", n)[:n])\n\tif ans == 1e9 {\n\t\treturn -1\n\t}\n\treturn ans\n}\n"
+],
+"1899": [
+"go",
+"func mergeTriplets(a [][]int, t []int) bool {\n\tfound := [3]bool{}\n\tfor _, p := range a {\n\t\tif p[0] <= t[0] && p[1] <= t[1] && p[2] <= t[2] {\n\t\t\tfound[0] = found[0] || p[0] == t[0]\n\t\t\tfound[1] = found[1] || p[1] == t[1]\n\t\t\tfound[2] = found[2] || p[2] == t[2]\n\t\t}\n\t}\n\treturn found[0] && found[1] && found[2]\n}\n"
+],
+"2063": [
+"go",
+"func countVowels(word string) (ans int64) {\n\tfor i, ch := range word {\n\t\tif strings.ContainsRune(\"aeiou\", ch) {\n\t\t\tans += int64(i+1) * int64(len(word)-i)\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"1104": [
+"go",
+"func pathInZigZagTree(label int) []int {\n\tif label == 1 {\n\t\treturn []int{1}\n\t}\n\treturn append(pathInZigZagTree(1<<(bits.Len(uint(label))-2)*3-1-label/2), label)\n}\n"
+],
+"2074": [
+"go",
+"func reverseEvenLengthGroups(head *ListNode) *ListNode {\n\tvar nodes []*ListNode\n\tfor node, size := head, 1; node != nil; node = node.Next {\n\t\tnodes = append(nodes, node)\n\t\tif len(nodes) == size || node.Next == nil { // 统计到 size 个节点，或到达链表末尾\n\t\t\tif n := len(nodes); n%2 == 0 { // 有偶数个节点\n\t\t\t\tfor i := 0; i < n/2; i++ {\n\t\t\t\t\tnodes[i].Val, nodes[n-1-i].Val = nodes[n-1-i].Val, nodes[i].Val // 直接交换元素值\n\t\t\t\t}\n\t\t\t}\n\t\t\tnodes = nil\n\t\t\tsize++\n\t\t}\n\t}\n\treturn head\n}\n"
+],
+"2049": [
+"go",
+"func countHighestScoreNodes(parents []int) (ans int) {\n\tn := len(parents)\n\tg := make([][]int, n)\n\tfor w := 1; w < n; w++ {\n\t\tv := parents[w]\n\t\tg[v] = append(g[v], w) // 建树\n\t}\n\n\tmaxScore := 0\n\tvar dfs func(int) int\n\tdfs = func(v int) int {\n\t\tsize, score := 1, 1\n\t\tfor _, w := range g[v] {\n\t\t\tsz := dfs(w)\n\t\t\tsize += sz // 统计以 v 为根的子树的大小\n\t\t\tscore *= sz // 由于是二叉树所以 score 最大约为 (1e5/3)^3，在 64 位整数范围内\n\t\t}\n\t\tif v > 0 {\n\t\t\tscore *= n - size // 如果不是根节点，还要乘上「整棵树去掉以 v 为根的子树后，剩余的部分」\n\t\t}\n\t\tif score > maxScore {\n\t\t\tmaxScore, ans = score, 1\n\t\t} else if score == maxScore {\n\t\t\tans++\n\t\t}\n\t\treturn size\n\t}\n\tdfs(0)\n\treturn\n}\n"
+],
+"1932": [
+"go",
+"const mx int = 5e4 + 1\n\nfunc canMerge(trees []*TreeNode) *TreeNode {\n    isSub := [mx]bool{}      // 对于根节点，需要知道其是否为另一颗二叉搜索树的子节点\n    roots := [mx]*TreeNode{} // 对于子节点，我们需要知道其数值所对应的二叉搜索树的根节点是哪个\n    for _, rt := range trees {\n        if rt.Left != nil {\n            if isSub[rt.Left.Val] { // 由于二叉搜索树上不能有两个值相同的节点，所以 trees 中也不能有两个值相同的子节点\n                return nil\n            }\n            isSub[rt.Left.Val] = true\n        }\n        if rt.Right != nil {\n            if isSub[rt.Right.Val] {\n                return nil\n            }\n            isSub[rt.Right.Val] = true\n        }\n        roots[rt.Val] = rt\n    }\n\n    var root *TreeNode\n    for _, rt := range trees {\n        if !isSub[rt.Val] { // 根节点不应是另一颗二叉搜索树的子节点，否则二叉搜索树上会出现两个值相同的节点\n            if root != nil { // 根节点应只有一个，否则会构成森林\n                return nil\n            }\n            root = rt\n        }\n    }\n    if root == nil { // 未找到根节点\n        return nil\n    }\n\n    cnt := 0\n    // 在构建二叉搜索树的同时判断是否合法\n    var build func(*TreeNode, int, int) *TreeNode\n    build = func(node *TreeNode, l, r int) *TreeNode {\n        cnt++\n        if node.Left != nil {\n            if node.Left.Val <= l {\n                return nil\n            }\n            if lo := roots[node.Left.Val]; lo != nil {\n                node.Left = build(lo, l, node.Val)\n                if node.Left == nil {\n                    return nil\n                }\n            }\n        }\n        if node.Right != nil {\n            if node.Right.Val >= r {\n                return nil\n            }\n            if ro := roots[node.Right.Val]; ro != nil {\n                node.Right = build(ro, node.Val, r)\n                if node.Right == nil {\n                    return nil\n                }\n            }\n        }\n        return node\n    }\n    root = build(root, 0, mx)\n    if cnt == len(trees) { // 所有 trees[i] 均参与构建二叉搜索树\n        return root\n    }\n    return nil\n}\n"
+],
+"2212": [
+"go",
+"func maximumBobPoints(numArrows int, aliceArrows []int) (ans []int) {\n\tfor i, maxScore := 0, -1; i < 1<<len(aliceArrows); i++ { // 二进制枚举\n\t\tscore, arrow, bobArrows := 0, 0, [12]int{}\n\t\tfor j, v := range aliceArrows {\n\t\t\tif i>>j&1 == 1 {\n\t\t\t\tscore += j\n\t\t\t\tarrow += v + 1\n\t\t\t\tbobArrows[j] = v + 1 // Bob 多射一支箭\n\t\t\t}\n\t\t}\n\t\tif arrow > numArrows { // 超出限制，区域集合不合法\n\t\t\tcontinue\n\t\t}\n\t\tif score > maxScore {\n\t\t\tmaxScore = score\n\t\t\tbobArrows[0] += numArrows - arrow // 随便找个位置补满至 numArrows\n\t\t\tans = bobArrows[:]\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"1923": [
+"go",
+"func longestCommonSubpath(_ int, paths [][]int) (ans int) {\n\ta := []int{}\n\tminPathLen := int(1e9) // 二分右边界\n\tfor _, p := range paths {\n\t\tminPathLen = min(minPathLen, len(p))\n\t\ta = append(a, 1e9) // 用一个不存在 paths 中的数拼接所有路径\n\t\ta = append(a, p...)\n\t}\n\tn, m := len(a), len(paths)\n\n\t// 标记每个元素属于哪条路径\n\tids := make([]int, n)\n\tid := -1\n\tfor i, v := range a {\n\t\tif v == 1e9 {\n\t\t\tid++\n\t\t\tids[i] = m\n\t\t} else {\n\t\t\tids[i] = id\n\t\t}\n\t}\n\n\t// 构建 a 的后缀数组和高度数组\n\ts := make([]byte, 0, n*4)\n\tfor _, v := range a {\n\t\ts = append(s, byte(v>>24), byte(v>>16), byte(v>>8), byte(v))\n\t}\n\t// Go 自带后缀数组，由 SA-IS 算法实现，复杂度 O(n)\n\t_sa := *(*[]int32)(unsafe.Pointer(reflect.ValueOf(suffixarray.New(s)).Elem().FieldByName(\"sa\").Field(0).UnsafeAddr()))\n\tsa := make([]int32, 0, n)\n\tfor _, v := range _sa {\n\t\tif v&3 == 0 {\n\t\t\tsa = append(sa, v>>2)\n\t\t}\n\t}\n\trank := make([]int, n)\n\tfor i := range rank {\n\t\trank[sa[i]] = i\n\t}\n\theight := make([]int, n)\n\th := 0\n\tfor i, rk := range rank {\n\t\tif h > 0 {\n\t\t\th--\n\t\t}\n\t\tif rk > 0 {\n\t\t\tfor j := int(sa[rk-1]); i+h < n && j+h < n && a[i+h] == a[j+h]; h++ {\n\t\t\t}\n\t\t}\n\t\theight[rk] = h\n\t}\n\n\t// 二分求答案\n\treturn sort.Search(minPathLen, func(limit int) bool {\n\t\tlimit++\n\t\tvis := make([]int, m)\n\t\tfor i := 1; i < n; i++ {\n\t\t\tif height[i] < limit {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tcnt := 0\n\t\t\tfor st := i; i < n && height[i] >= limit; i++ {\n\t\t\t\t// 检查 sa[i] 和 sa[i-1]\n\t\t\t\tif j := ids[sa[i]]; j < m && vis[j] != st {\n\t\t\t\t\tvis[j] = st\n\t\t\t\t\tcnt++\n\t\t\t\t}\n\t\t\t\tif j := ids[sa[i-1]]; j < m && vis[j] != st {\n\t\t\t\t\tvis[j] = st\n\t\t\t\t\tcnt++\n\t\t\t\t}\n\t\t\t}\n\t\t\tif cnt == m {\n\t\t\t\treturn false\n\t\t\t}\n\t\t}\n\t\treturn true\n\t})\n}\n\nfunc min(a, b int) int {\n\tif a < b {\n\t\treturn a\n\t}\n\treturn b\n}\n"
+],
+"3934": [
+"go",
+"func smallestUniqueSubarray(nums []int) int {\n\tn := len(nums)\n\t// 把 1 个 int 拆成 3 个 byte（题目保证 nums[i] <= 1e5），从而可以调用库函数计算后缀数组\n\ttmp := make([]byte, 0, n*3)\n\tfor _, x := range nums {\n\t\ttmp = append(tmp, byte(x>>16), byte(x>>8), byte(x))\n\t}\n\n\ttype _tp struct {\n\t\t_  []byte\n\t\tsa []int32\n\t}\n\t_sa := (*_tp)(unsafe.Pointer(suffixarray.New(tmp))).sa\n\n\tsa := make([]int32, 0, n)\n\tfor _, p := range _sa {\n\t\tif p%3 == 0 { // 是 3 的倍数的 _sa[i] 就对应着 nums 的 sa[i]\n\t\t\tsa = append(sa, p/3)\n\t\t}\n\t}\n\n\t// 计算后缀名次数组\n\t// 后缀 nums[i:] 位于后缀字典序中的第 rank[i] 个\n\t// 特别地，rank[0] 即 nums 在后缀字典序中的排名，rank[n-1] 即 nums[n-1:] 在字典序中的排名\n\t// 相当于 sa 的反函数，即 rank[sa[i]] = i\n\trank := make([]int, n)\n\tfor i, p := range sa {\n\t\trank[p] = i\n\t}\n\n\t// 计算高度数组（也叫 LCP 数组）\n\t// height[0] = 0（哨兵）\n\t// height[i] = LCP(nums[sa[i]:], nums[sa[i-1]:])  (i > 0)\n\t// 获取 nums[i] 所在位置的高度：height[rank[i]]\n\theight := make([]int, n)\n\th := 0\n\t// 计算 nums 与 nums[sa[rank[0]-1]:] 的 LCP（记作 LCP0）\n\t// 计算 nums[1:] 与 nums[sa[rank[1]-1]:] 的 LCP（记作 LCP1）\n\t// 计算 nums[2:] 与 nums[sa[rank[2]-1]:] 的 LCP\n\t// ...\n\t// 计算 nums[n-1:] 与 nums[sa[rank[n-1]-1]:] 的 LCP\n\t// 从 LCP0 到 LCP1，我们只去掉了 nums[0] 和 nums[sa[rank[0]-1]] 这两个数\n\t// 所以 LCP1 >= LCP0 - 1\n\t// 这样就能加快 LCP 的计算了（类似滑动窗口）\n\tfor i, rk := range rank {\n\t\tif h > 0 {\n\t\t\th--\n\t\t}\n\t\tif rk > 0 {\n\t\t\tfor j := int(sa[rk-1]); i+h < n && j+h < n && nums[i+h] == nums[j+h]; h++ {\n\t\t\t}\n\t\t}\n\t\theight[rk] = h\n\t}\n\n\tans := n\n\tfor i, h := range height {\n\t\t// 对于后缀 nums[sa[i]:]，其长为 uniqueLength 的前缀是唯一的\n\t\tuniqueLength := h + 1\n\t\tif i < n-1 {\n\t\t\tuniqueLength = max(h, height[i+1]) + 1\n\t\t}\n\t\t// 注意 uniqueLength 不能超过后缀 nums[sa[i]:] 的长度\n\t\tif uniqueLength <= n-int(sa[i]) {\n\t\t\tans = min(ans, uniqueLength)\n\t\t}\n\t}\n\treturn ans\n}\n"
+],
+"1960": [
+"go",
+"func maxProduct(s string) int64 {\n\tn := len(s)\n\n\t// 将 s 改造为 t，这样就不需要分 len(s) 的奇偶来讨论了，因为新串 t 的每个回文子串都是奇回文串（都有回文中心）\n\t// s 和 t 的下标转换关系：\n\t// (si+1)*2 = ti\n\t// ti/2-1 = si\n\tt := append(make([]byte, 0, n*2+3), '^')\n\tfor _, c := range s {\n\t\tt = append(t, '#', byte(c))\n\t}\n\tt = append(t, '#', '$')\n\n\t// 定义一个奇回文串的半长度=(长度+1)/2，即保留回文中心，去掉一侧后的剩余字符串的长度\n\t// halfLen[i] 表示在 t 上的以 t[i] 为回文中心的最长回文子串的半长度\n\t// 即 [i-halfLen[i]+1,i+halfLen[i]-1] 是 t 上的一个回文子串\n\thalfLen := make([]int, len(t)-2)\n\thalfLen[1] = 1\n\t// r 表示当前右边界下标最大的回文子串的右边界下标+1\n\t// mid 为该回文子串的中心位置，二者的关系为 r=mid+halfLen[mid]\n\tfor i, mid, r := 2, 1, 0; i < len(halfLen); i++ { // 循环的起止位置对应着原串的首尾字符\n\t\thl := 1\n\t\tif i < r {\n\t\t\t// 记 i 关于 mid 的对称位置 i'=mid*2-i\n\t\t\t// 若以 i' 为中心的最长回文子串范围超出了以 mid 为中心的回文串的范围（即 i+halfLen[i'] >= r）\n\t\t\t// 则 halfLen[i] 应先初始化为已知的半长度 r-i，然后再继续暴力匹配\n\t\t\t// 否则 halfLen[i] 与 halfLen[i'] 相等\n\t\t\thl = min(halfLen[mid*2-i], r-i)\n\t\t}\n\t\t// 暴力扩展\n\t\t// 算法的复杂度取决于这部分执行的次数\n\t\t// 由于扩展之后 r 必然会更新（右移），且扩展的的次数就是 r 右移的次数\n\t\t// 因此算法的复杂度和 t 的长度成正比\n\t\tfor ; t[i-hl] == t[i+hl]; hl++ {}\n\t\tif i+hl > r {\n\t\t\tmid, r = i, i+hl\n\t\t}\n\t\thalfLen[i] = hl\n\t}\n\n\t// 计算两个数组，其中\n\t// startPL[i] 表示以 s[i] 为首字母的最长奇回文子串的长度\n\t// endPL[i]   表示以 s[i] 为尾字母的最长奇回文子串的长度\n\tstartPL := make([]int, n)\n\tendPL := make([]int, n)\n\tfor i := 2; i < len(halfLen); i += 2 { // 由于求的是奇数长度，写成 i+=2，改成 i++ 就是不限奇偶\n\t\t// t 中回文子串的长度为 hl*2-1\n\t\t// 由于其中 # 的数量总是比字符的数量多 1\n\t\t// 因此其在 s 中对应的回文子串的长度为 hl-1\n\t\t// 由于 t 中回文子串的首尾字母一定是 #，再根据上面说的下标转换关系，可以得到其在 s 中对应的回文子串的区间：\n\t\t// [(i-hl)/2, (i+hl)/2-2]\n\t\thl := halfLen[i]\n\t\tleft, right := (i-hl)/2, (i+hl)/2-2\n\t\tstartPL[left] = max(startPL[left], hl-1)\n\t\tendPL[right] = max(endPL[right], hl-1)\n\t}\n\tfor i := 1; i < n; i++ {\n\t\tstartPL[i] = max(startPL[i], startPL[i-1]-2) // startPL[i] 还可能是一个更长的回文串缩短后的结果\n\t}\n\tfor i := n - 2; i >= 0; i-- {\n\t\tstartPL[i] = max(startPL[i], startPL[i+1]) // 变成后缀最大值\n\t}\n\tfor i := n - 2; i >= 0; i-- {\n\t\tendPL[i] = max(endPL[i], endPL[i+1]-2) // endPL[i] 还可能是一个更长的回文串缩短后的结果\n\t}\n\tfor i := 1; i < n; i++ {\n\t\tendPL[i] = max(endPL[i], endPL[i-1]) // 变成前缀最大值\n\t}\n\n\tans := 0\n\tfor i := 1; i < n; i++ {\n\t\tans = max(ans, endPL[i-1]*startPL[i])\n\t}\n\treturn int64(ans)\n}\n\nfunc min(a, b int) int { if a > b { return b }; return a }\nfunc max(a, b int) int { if a < b { return b }; return a }\n\n// ----\nfunc maxProduct(s string) int64 {\n\tn := len(s)\n\thalfLen := make([]int, n)\n\tfor i, mid, r := 0, 0, 0; i < n; i++ {\n\t\thl := 1\n\t\tif i < r {\n\t\t\thl = min(halfLen[mid*2-i], r-i)\n\t\t}\n\t\tfor ; i >= hl && i+hl < n && s[i-hl] == s[i+hl]; hl++ {}\n\t\tif i+hl > r {\n\t\t\tmid, r = i, i+hl\n\t\t}\n\t\thalfLen[i] = hl\n\t}\n\n\tstartPL := make([]int, n)\n\tendPL := make([]int, n)\n\tfor i, hl := range halfLen {\n\t\tleft, right := i-hl+1, i+hl-1\n\t\tstartPL[left] = max(startPL[left], hl*2-1)\n\t\tendPL[right] = max(endPL[right], hl*2-1)\n\t}\n\tfor i := 1; i < n; i++ {\n\t\tstartPL[i] = max(startPL[i], startPL[i-1]-2)\n\t}\n\tfor i := n - 2; i >= 0; i-- {\n\t\tstartPL[i] = max(startPL[i], startPL[i+1])\n\t}\n\tfor i := n - 2; i >= 0; i-- {\n\t\tendPL[i] = max(endPL[i], endPL[i+1]-2)\n\t}\n\tfor i := 1; i < n; i++ {\n\t\tendPL[i] = max(endPL[i], endPL[i-1])\n\t}\n\n\tans := 0\n\tfor i := 1; i < n; i++ {\n\t\tans = max(ans, endPL[i-1]*startPL[i])\n\t}\n\treturn int64(ans)\n}\n\nfunc min(a, b int) int { if a > b { return b }; return a }\nfunc max(a, b int) int { if a < b { return b }; return a }\n"
+],
+"1044": [
+"go",
+"func longestDupSubstring(s string) string {\n\t// 求出后缀数组和高度数组\n\tn := len(s)\n\tsa := *(*[]int32)(unsafe.Pointer(reflect.ValueOf(suffixarray.New([]byte(s))).Elem().FieldByName(\"sa\").Field(0).UnsafeAddr()))\n\trank := make([]int, n)\n\tfor i := range rank {\n\t\trank[sa[i]] = i\n\t}\n\theight := make([]int, n)\n\th := 0\n\tfor i, rk := range rank {\n\t\tif h > 0 {\n\t\t\th--\n\t\t}\n\t\tif rk > 0 {\n\t\t\tfor j := int(sa[rk-1]); i+h < n && j+h < n && s[i+h] == s[j+h]; h++ {\n\t\t\t}\n\t\t}\n\t\theight[rk] = h\n\t}\n\t\n\t// 高度数组中的最大值对应的就是最长的重复子串\n\tidx, maxH := 0, 0\n\tfor i, h := range height {\n\t\tif h > maxH {\n\t\t\tidx, maxH = i, h\n\t\t}\n\t}\n\treturn s[sa[idx] : int(sa[idx])+maxH]\n}\n"
+],
+"1849": [
+"go",
+"func splitString(s string) bool {\nnext:\n\tfor i := 1; i < len(s); i++ {\n\t\tv, _ := strconv.Atoi(s[:i]) // 如果 s 很长，会返回最大 int\n\t\tv--\n\t\tfor t := s[i:]; t != \"\"; v-- {\n\t\t\t// 移除前导零，但不能全部移除，至少保留一位数字\n\t\t\tfor len(t) > 1 && t[0] == '0' {\n\t\t\t\tt = t[1:]\n\t\t\t}\n\t\t\t// 判断 v 是否符合\n\t\t\ttmp := strconv.Itoa(v)\n\t\t\tif !strings.HasPrefix(t, tmp) {\n\t\t\t\tcontinue next\n\t\t\t}\n\t\t\tt = t[len(tmp):]\n\t\t}\n\t\treturn true\n\t}\n\treturn false\n}\n"
+],
+"0468": [
+"go",
+"func validIPAddress(queryIP string) string {\n\tip := net.ParseIP(queryIP)\n\tif ip == nil {\n\t\treturn \"Neither\"\n\t}\n\tif ip.To4() != nil {\n\t\tfor _, s := range strings.Split(queryIP, \".\") {\n\t\t\tif len(s) > 1 && s[0] == '0' {\n\t\t\t\treturn \"Neither\"\n\t\t\t}\n\t\t}\n\t\treturn \"IPv4\"\n\t}\n\tfor _, s := range strings.Split(queryIP, \":\") {\n\t\tif len(s) > 4 || s == \"\" {\n\t\t\treturn \"Neither\"\n\t\t}\n\t}\n\treturn \"IPv6\"\n}\n"
+],
+"0405": [
+"go",
+"func toHex(num int) string {\n    return strconv.FormatUint(uint64(uint32(num)), 16)\n}\n"
+],
+"1859": [
+"go",
+"func sortSentence(s string) (ans string) {\n\ta := strings.Split(s, \" \")\n\tsort.Slice(a, func(i, j int) bool { return a[i][len(a[i])-1] < a[j][len(a[j])-1] })\n\tfor i, s := range a {\n\t\ta[i] = s[:len(s)-1]\n\t}\n\treturn strings.Join(a, \" \")\n}\n"
+],
+"0537": [
+"go",
+"func complexNumberMultiply(num1, num2 string) string {\n\tx, _ := strconv.ParseComplex(num1, 64)\n\ty, _ := strconv.ParseComplex(num2, 64)\n\treturn fmt.Sprintf(\"%d+%di\", int(real(x*y)), int(imag(x*y)))\n}\n"
+],
+"1451": [
+"go",
+"func arrangeWords(text string) string {\n\tsp := strings.Split(text, \" \")\n\tsp[0] = strings.ToLower(sp[0])\n\tsort.SliceStable(sp, func(i, j int) bool { return len(sp[i]) < len(sp[j]) })\n\tsp[0] = strings.Title(sp[0])\n\treturn strings.Join(sp, \" \")\n}\n"
+],
+"1832": [
+"go",
+"func checkIfPangram(s string) bool {\n    m := 0\n    for _, b := range s {\n   \t    m |= 1 << (b - 'a')\n    }\n    return m == 1<<26-1\n}\n"
+],
+"0592": [
+"go",
+"func fractionAddition(expression string) string {\n    in := strings.NewReader(expression)\n    ans := big.NewRat(0, 1)\n    var a, b int64\n    for {\n        if n, _ := fmt.Fscanf(in, \"%d/%d\", &a, &b); n == 0 {\n            return ans.String()\n        }\n        ans.Add(ans, big.NewRat(a, b))\n    }\n}\n"
+],
+"1805": [
+"go",
+"func numDifferentIntegers(word string) int {\n\tset := map[string]struct{}{}\n\tfor _, s := range strings.FieldsFunc(word, unicode.IsLower) {\n\t\tfor len(s) > 1 && s[0] == '0' {\n\t\t\ts = s[1:]\n\t\t}\n\t\tset[s] = struct{}{}\n\t}\n\treturn len(set)\n}\n"
+],
+"1894": [
+"go",
+"func chalkReplacer(a []int, k int) int {\n\ts := 0\n\tfor _, v := range a {\n\t\ts += v\n\t}\n\tk %= s\n\tfor i, v := range a {\n\t\tif k < v {\n\t\t\treturn i\n\t\t}\n\t\tk -= v\n\t}\n\tpanic(-1)\n}\n"
+],
+"1904": [
+"go",
+"func numberOfRounds(startTime, finishTime string) int {\n\tvar h1, m1, h2, m2 int\n\tfmt.Sscanf(startTime, \"%d:%d\", &h1, &m1)\n\tfmt.Sscanf(finishTime, \"%d:%d\", &h2, &m2)\n\tif startTime > finishTime { h2 += 24 } // 玩了个通宵\n\ts, t := h1*60+m1, h2*60+m2\n\treturn (t - t%15 - s) / 15\n}\n"
+],
+"1876": [
+"go",
+"func countGoodSubstrings(s string) (ans int) {\n\tfor i := 2; i < len(s); i++ {\n\t\tif s[i-2] != s[i-1] && s[i-2] != s[i] && s[i-1] != s[i] {\n\t\t\tans++\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"1860": [
+"go",
+"func memLeak(a, b int) []int {\n\ti := 1\n\tfor ; i <= a || i <= b; i++ {\n\t\tif a >= b {\n\t\t\ta -= i\n\t\t} else {\n\t\t\tb -= i\n\t\t}\n\t}\n\treturn []int{i, a, b}\n}\n"
+],
+"1880": [
+"go",
+"func isSumEqual(firstWord, secondWord, targetWord string) bool {\n\treturn str2int(firstWord)+str2int(secondWord) == str2int(targetWord)\n}\n\nfunc str2int(s string) (x int) {\n\tfor _, b := range s {\n\t\tx = x*10 + int(b-'a')\n\t}\n\treturn\n}\n"
+],
+"1897": [
+"go",
+"func makeEqual(a []string) bool {\n\tc := [26]int{}\n\tfor _, s := range a {\n\t\tfor _, b := range s {\n\t\t\tc[b-'a']++\n\t\t}\n\t}\n\tfor _, v := range c {\n\t\tif v%len(a) > 0 {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n"
+],
+"1906": [
+"go",
+"func minDifference(a []int, qs [][]int) []int {\n\tsum := make([][101]int, len(a)+1)\n\tfor i, v := range a {\n\t\tsum[i+1] = sum[i]\n\t\tsum[i+1][v]++\n\t}\n\tans := make([]int, len(qs))\nouter:\n\tfor i, q := range qs {\n\t\tl, r, d, pre := q[0], q[1]+1, int(1e9), int(-1e9)\n\t\tfor v := 1; v <= 100; v++ {\n\t\t\tcnt := sum[r][v] - sum[l][v] // v 的个数\n\t\t\tif cnt == r-l { // 所有元素都相同\n\t\t\t\tans[i] = -1\n\t\t\t\tcontinue outer\n\t\t\t}\n\t\t\tif cnt > 0 { // 子数组包含元素 v\n\t\t\t\tif v-pre < d {\n\t\t\t\t\td = v - pre\n\t\t\t\t}\n\t\t\t\tpre = v\n\t\t\t}\n\t\t}\n\t\tans[i] = d\n\t}\n\treturn ans\n}\n\n// ----\nfunc minDifference(a []int, qs [][]int) []int {\n\tans := make([]int, len(qs))\n\tpos := make([]sort.IntSlice, 101)\n\tfor i, v := range a {\n\t\tpos[v] = append(pos[v], i)\n\t}\nouter:\n\tfor i, q := range qs {\n\t\tl, r, d, pre := q[0], q[1]+1, int(1e9), int(-1e9)\n\t\tfor v, ps := range pos {\n\t\t\tif ps == nil {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tcnt := ps[ps.Search(l):].Search(r) // 二分查询 v 的个数\n\t\t\tif cnt == r-l { // 所有元素都相同\n\t\t\t\tans[i] = -1\n\t\t\t\tcontinue outer\n\t\t\t}\n\t\t\tif cnt > 0 { // 子数组包含元素 v\n\t\t\t\tif v-pre < d {\n\t\t\t\t\td = v - pre\n\t\t\t\t}\n\t\t\t\tpre = v\n\t\t\t}\n\t\t}\n\t\tans[i] = d\n\t}\n\treturn ans\n}\n"
+],
+"1913": [
+"go",
+"func maxProductDifference(a []int) int {\n\tsort.Ints(a)\n\tn := len(a)\n\treturn a[n-1]*a[n-2] - a[0]*a[1]\n}\n"
+],
+"1910": [
+"go",
+"func removeOccurrences(s, part string) string {\n\tfor {\n\t\ti := strings.Index(s, part)\n\t\tif i < 0 {\n\t\t\treturn s\n\t\t}\n\t\ts = s[:i] + s[i+len(part):]\n\t}\n}\n"
+],
+"1921": [
+"go",
+"func eliminateMaximum(dis, speed []int) int {\n\tn := len(dis)\n\ttype pair struct{ d, spd int }\n\ta := make([]pair, n)\n\tfor i, d := range dis {\n\t\ta[i] = pair{d, speed[i]}\n\t}\n\t// 按照怪物到达城市的时间从小到大排序\n\tsort.Slice(a, func(i, j int) bool { a, b := a[i], a[j]; return a.d*b.spd < b.d*a.spd })\n\tfor t, p := range a {\n\t\tif t*p.spd >= p.d {\n\t\t\treturn t\n\t\t}\n\t}\n\treturn n\n}\n"
+],
+"1909": [
+"go",
+"func canBeIncreasing(nums []int) bool {\n\tfor i := 1; i < len(nums); i++ {\n\t\tif nums[i-1] >= nums[i] {\n\t\t\treturn strictlyIncreasing(nums, i-1) || strictlyIncreasing(nums, i)\n\t\t}\n\t}\n\treturn true\n}\n\nfunc strictlyIncreasing(a []int, i int) bool {\n\ta = append(append([]int(nil), a[:i]...), a[i+1:]...)\n\treturn sort.SliceIsSorted(a, func(i, j int) bool { return a[i] <= a[j] })\n}\n"
+],
+"1936": [
+"go",
+"func addRungs(rungs []int, dist int) (ans int) {\n\tpre := 0\n\tfor _, h := range rungs {\n\t\tif d := h - pre; d > dist {\n\t\t\tans += (d - 1) / dist // 等价于 ceil(d / dist) - 1\n\t\t}\n\t\tpre = h\n\t}\n\treturn\n}\n"
+],
+"1945": [
+"go",
+"func getLucky(s string, k int) (sum int) {\n\tfor _, b := range s {\n\t\tb -= 'a' - 1\n\t\tsum += int(b/10 + b%10)\n\t}\n\tfor k--; k > 0 && sum > 9; k-- { // sum < 10 时可以提前退出\n\t\ts := sum\n\t\tfor sum = 0; s > 0; s /= 10 {\n\t\t\tsum += s % 10\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"1961": [
+"go",
+"func isPrefixString(s string, words []string) bool {\n\tsum := 0\n\tfor i, word := range words {\n\t\tsum += len(word)\n\t\tif sum > len(s) {\n\t\t\treturn false\n\t\t}\n\t\tif sum == len(s) {\n\t\t\treturn strings.Join(words[:i+1], \"\") == s\n\t\t}\n\t}\n\treturn false\n}\n"
+],
+"1985": [
+"go",
+"func kthLargestNumber(a []string, k int) string {\n    sort.Slice(a, func(i, j int) bool { s, t := a[i], a[j]; return len(s) > len(t) || len(s) == len(t) && s > t })\n    return a[k-1]\n}\n"
+],
+"1974": [
+"go",
+"func minTimeToType(s string) int {\n\tcur := 'a'\n\tans := len(s)\n\tfor _, b := range s {\n\t\td := int(b - cur)\n\t\tif d < 0 {\n\t\t\td = -d\n\t\t}\n\t\tans += min(d, 26-d)\n\t\tcur = b\n\t}\n\treturn ans\n}\n\nfunc min(a, b int) int {\n\tif a < b {\n\t\treturn a\n\t}\n\treturn b\n}\n"
+],
+"1941": [
+"go",
+"func areOccurrencesEqual(s string) bool {\n\tcnt := [26]int{}\n\tfor _, b := range s {\n\t\tcnt[b-'a']++\n\t}\n\ttarget := 0\n\tfor _, c := range cnt {\n\t\tif c == 0 {\n\t\t\tcontinue\n\t\t}\n\t\tif target == 0 {\n\t\t\ttarget = c\n\t\t} else if c != target {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n"
+],
+"2018": [
+"go",
+"func placeWordInCrossword(board [][]byte, word string) bool {\n\tm, n, k := len(board), len(board[0]), len(word)\n\t// 遍历行\n\tfor _, row := range board {\n\t\tfor j := 0; j < n; j++ {\n\t\t\tif row[j] == '#' {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\t// 遍历并匹配两个 # 之间的字符\n\t\t\tj0, ok1, ok2 := j, true, true\n\t\t\tfor ; j < n && row[j] != '#'; j++ { // 注意这里的 j 就是外层循环的 j，因此整体复杂度是线性的\n\t\t\t\tif j-j0 >= k || row[j] != ' ' && row[j] != word[j-j0] { // 正序匹配 word\n\t\t\t\t\tok1 = false\n\t\t\t\t}\n\t\t\t\tif j-j0 >= k || row[j] != ' ' && row[j] != word[k-1-j+j0] { // 倒序匹配 word\n\t\t\t\t\tok2 = false\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (ok1 || ok2) && j-j0 == k { // 只要正序和倒序中有一个匹配成功，且两个 # 之间的字符长度恰好为 word 的长度，就返回 true\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t}\n\n\t// 遍历列（同上）\n\tfor j := 0; j < n; j++ {\n\t\tfor i := 0; i < m; i++ {\n\t\t\tif board[i][j] == '#' {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\ti0, ok1, ok2 := i, true, true\n\t\t\tfor ; i < m && board[i][j] != '#'; i++ {\n\t\t\t\tif i-i0 >= k || board[i][j] != ' ' && board[i][j] != word[i-i0] {\n\t\t\t\t\tok1 = false\n\t\t\t\t}\n\t\t\t\tif i-i0 >= k || board[i][j] != ' ' && board[i][j] != word[k-1-i+i0] {\n\t\t\t\t\tok2 = false\n\t\t\t\t}\n\t\t\t}\n\t\t\tif (ok1 || ok2) && i-i0 == k {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t}\n\treturn false\n}\n"
+],
+"2006": [
+"go",
+"func countKDifference(nums []int, k int) (ans int) {\n\tcnt := map[int]int{}\n\tfor _, v := range nums {\n\t\tcnt[v]++\n\t}\n\tfor _, v := range nums {\n\t\tans += cnt[v-k]\n\t}\n\treturn\n}\n"
+],
+"2022": [
+"go",
+"func construct2DArray(original []int, m, n int) [][]int {\n\tk := len(original)\n\tif k != m*n {\n\t\treturn nil\n\t}\n\tans := make([][]int, 0, m)\n\tfor i := 0; i < k; i += n {\n\t\tans = append(ans, original[i:i+n])\n\t}\n\treturn ans\n}\n"
+],
+"2013": [
+"go",
+"type DetectSquares struct{}\n\nvar row [1001][]int\nvar col = [1001]map[int]int{}\n\nfunc Constructor() (_ DetectSquares) {\n\trow = [1001][]int{}\n\tfor i := range col {\n\t\tcol[i] = map[int]int{}\n\t}\n\treturn\n}\n\nfunc (DetectSquares) Add(point []int) {\n\tx, y := point[0], point[1]\n\trow[y] = append(row[y], x)\n\tcol[x][y]++\n}\n\nfunc (DetectSquares) Count(point []int) (ans int) {\n\tx, y := point[0], point[1]\n\tfor _, x2 := range row[y] {\n\t\tif x2 != x {\n\t\t\td := abs(x2 - x) // 横向距离\n\t\t\tans += col[x][y-d] * col[x2][y-d] // 将 x-x2 当作正方形顶边两个点，计算正方形底边两点的组合方案\n\t\t\tans += col[x][y+d] * col[x2][y+d] // 将 x-x2 当作正方形底边两个点，计算正方形顶边两点的组合方案\n\t\t}\n\t}\n\treturn\n}\n\nfunc abs(x int) int {\n\tif x < 0 {\n\t\treturn -x\n\t}\n\treturn x\n}\n"
+],
+"2017": [
+"go",
+"func gridGame(grid [][]int) int64 {\n\tans := math.MaxInt\n\tleft0 := 0\n\tfor _, v := range grid[0] {\n\t\tleft0 += v\n\t}\n\tleft1 := 0\n\tfor j, v := range grid[0] { // 枚举第一个机器人在哪拐弯\n\t\tleft0 -= v\n\t\tans = min(ans, max(left0, left1)) // 第二个机器人只能取上下剩余部分中的最大值\n\t\tleft1 += grid[1][j]\n\t}\n\treturn int64(ans)\n}\n"
+],
+"2023": [
+"go",
+"func numOfPairs(nums []string, target string) (ans int) {\n\tcnt := map[string]int{}\n\tfor _, s := range nums {\n\t\tcnt[s]++\n\t}\n\tfor i, n := 1, len(target); i < n; i++ {\n\t\tp, s := target[:i], target[i:] // 枚举所有前缀+后缀\n\t\tif p != s {\n\t\t\tans += cnt[p] * cnt[s]\n\t\t} else {\n\t\t\tans += cnt[p] * (cnt[p] - 1) // 前后缀相同时，相当于从 cnt[p] 个下标中选择两个不同下标的排列数，即 A(cnt[p], 2)\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2032": [
+"go",
+"func twoOutOfThree(nums1, nums2, nums3 []int) (ans []int) {\n\tmask := map[int]int8{}\n\tfor i, a := range [][]int{nums1, nums2, nums3} {\n\t\tfor _, v := range a {\n\t\t\tmask[v] |= 1 << i // 标记 v 在哪些数组中出现过\n\t\t}\n\t}\n\tfor v, m := range mask {\n\t\tif m > 2 && m != 4 { // 二进制包含至少两个 1，即 3 5 6 7。也可以用 bits.OnesCount8 来求\n\t\t\tans = append(ans, v)\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2053": [
+"go",
+"func kthDistinct(a []string, k int) (ans string) {\n\tcnt := map[string]int{}\n\tfor _, s := range a {\n\t\tcnt[s]++\n\t}\n\tfor _, s := range a {\n\t\tif cnt[s] == 1 {\n\t\t\tif k--; k == 0 {\n\t\t\t\treturn s\n\t\t\t}\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2047": [
+"go",
+"func countValidWords(sentence string) (ans int) {\nnext:\n    for _, s := range strings.Fields(sentence) { // 按照空格分割\n        if strings.ContainsAny(s, \"0123456789\") { // 不能包含数字\n            continue\n        }\n        i := strings.IndexByte(s, '-')\n        if i >= 0 && (strings.Contains(s[i+1:], \"-\") || // 应至多包含一个连字符\n            i == 0 || i == len(s)-1 || !unicode.IsLower(rune(s[i-1])) || !unicode.IsLower(rune(s[i+1]))) { // 连字符左右应均为小写字母\n            continue\n        }\n        for _, ch := range \"!.,\" {\n            if i := strings.IndexRune(s, ch); i >= 0 && i < len(s)-1 { // 标点符号应当位于末尾\n                continue next\n            }\n        }\n        ans++ // 单词是有效的\n    }\n    return\n}\n\n// ----\nvar re = regexp.MustCompile(`^[a-z]*([a-z]-[a-z])?[a-z]*[!.,]?$`)\n\nfunc countValidWords(sentence string) (ans int) {\n\tfor _, s := range strings.Fields(sentence) {\n\t\tif re.MatchString(s) {\n\t\t\tans++\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2042": [
+"go",
+"func areNumbersAscending(s string) bool {\n\tprev := 0\n\tfor _, token := range strings.Split(s, \" \") {\n\t\tif unicode.IsDigit(rune(token[0])) {\n\t\t\tv, _ := strconv.Atoi(token)\n\t\t\tif v <= prev {\n\t\t\t\treturn false\n\t\t\t}\n\t\t\tprev = v\n\t\t}\n\t}\n\treturn true\n}\n"
+],
+"2057": [
+"go",
+"func smallestEqual(nums []int) int {\n\tfor i, num := range nums {\n\t\tif i%10 == num {\n\t\t\treturn i\n\t\t}\n\t}\n\treturn -1\n}\n"
+],
+"2068": [
+"go",
+"func checkAlmostEquivalent(word1, word2 string) bool {\n\tdiff := [26]int{} // 统计每个字符的频率差值\n\tfor _, ch := range word1 {\n\t\tdiff[ch-'a']++\n\t}\n\tfor _, ch := range word2 {\n\t\tdiff[ch-'a']--\n\t}\n\tfor _, d := range diff {\n\t\tif d < -3 || d > 3 {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n"
+],
+"2120": [
+"go",
+"var dirs = [][2]int{'L': {0, -1}, 'R': {0, 1}, 'U': {-1, 0}, 'D': {1, 0}}\n\nfunc executeInstructions(n int, startPos []int, s string) []int {\n\tans := make([]int, len(s))\n\tfor i := range s {\n\t\tans[i] = len(s) - i\n\t\tx, y := startPos[0], startPos[1]\n\t\tfor j, ch := range s[i:] {\n\t\t\tx += dirs[ch][0]\n\t\t\ty += dirs[ch][1]\n\t\t\tif x < 0 || x >= n || y < 0 || y >= n {\n\t\t\t\tans[i] = j\n\t\t\t\tbreak\n\t\t\t}\n\t\t}\n\t}\n\treturn ans\n}\n"
+],
+"2119": [
+"go",
+"func isSameAfterReversals(num int) bool {\n\treturn num == 0 || num%10 > 0\n}\n"
+],
+"2108": [
+"go",
+"func firstPalindrome(words []string) string {\nnext:\n\tfor _, w := range words {\n\t\tfor i, n := 0, len(w); i < n/2; i++ {\n\t\t\tif w[i] != w[n-1-i] {\n\t\t\t\tcontinue next\n\t\t\t}\n\t\t}\n\t\treturn w\n\t}\n\treturn \"\"\n}\n"
+],
+"2114": [
+"go",
+"func mostWordsFound(sentences []string) (ans int) {\n\tfor _, s := range sentences {\n\t\tcnt := strings.Count(s, \" \") + 1\n\t\tif cnt > ans {\n\t\t\tans = cnt\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2075": [
+"go",
+"func decodeCiphertext(encodedText string, rows int) string {\n\tans := []byte{}\n\tfor i, j, k, cols := 0, 0, 0, len(encodedText)/rows; k < cols; {\n\t\tans = append(ans, encodedText[i*cols+j]) // 转换成在 encodedText 上的下标\n\t\ti++\n\t\tj++\n\t\tif i == rows || j == cols { // 触及边界\n\t\t\tk++\n\t\t\ti, j = 0, k // 移至下一条斜向\n\t\t}\n\t}\n\treturn string(bytes.TrimRight(ans, \" \")) // 移除末尾多余空格\n}\n"
+],
+"2089": [
+"py",
+"class Solution:\n    def targetIndices(self, nums: List[int], target: int) -> List[int]:\n        less = equal = 0\n        for x in nums:\n            if x < target:\n                less += 1\n            elif x == target:\n                equal += 1\n\n        return list(range(less, less + equal))\n"
+],
+"2150": [
+"go",
+"func findLonely(nums []int) (ans []int) {\n\tcnt := map[int]int{}\n\tfor _, v := range nums {\n\t\tcnt[v]++\n\t}\n\tfor v, c := range cnt {\n\t\tif c == 1 && cnt[v+1] == 0 && cnt[v-1] == 0 {\n\t\t\tans = append(ans, v)\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2155": [
+"go",
+"func maxScoreIndices(nums []int) []int {\n\tleft, right := 0, 0\n\tfor i := len(nums) - 1; i >= 0; i-- {\n\t\tright += nums[i] // 先算出整个数组的 1 的个数\n\t}\n\tmaxSum := right\n\tans := []int{0}\n\tfor i, v := range nums {\n\t\tleft += v ^ 1 // 不断增加左边 0 的个数\n\t\tright -= v // 减少右边 1 的个数\n\t\tif left+right > maxSum { // 更新答案\n\t\t\tmaxSum = left + right\n\t\t\tans = []int{i + 1}\n\t\t} else if left+right == maxSum {\n\t\t\tans = append(ans, i+1)\n\t\t}\n\t}\n\treturn ans\n}\n"
+],
+"2149": [
+"go",
+"func rearrangeArray(nums []int) []int {\n\tans := make([]int, len(nums))\n\ti, j := 0, 1\n\tfor _, v := range nums {\n\t\tif v > 0 {\n\t\t\tans[i] = v\n\t\t\ti += 2\n\t\t} else {\n\t\t\tans[j] = v\n\t\t\tj += 2\n\t\t}\n\t}\n\treturn ans\n}\n\n// ----\nfunc rearrangeArray(nums []int) []int {\n\tans := make([]int, len(nums))\n\ti := [2]int{0, 1}\n\tfor _, v := range nums {\n\t\tans[i[uint(v)>>63]] = v\n\t\ti[uint(v)>>63] += 2\n\t}\n\treturn ans\n}\n"
+],
+"2133": [
+"go",
+"func checkValid(matrix [][]int) bool {\n\tcnt := [101]int{} // cnt 记录的是当前循环轮数\n\tfor i, row := range matrix {\n\t\tfor _, v := range row {\n\t\t\tif cnt[v] != i { \n\t\t\t\treturn false\n\t\t\t}\n\t\t\tcnt[v]++\n\t\t}\n\t}\n\tfor j := range matrix[0] {\n\t\tfor _, row := range matrix {\n\t\t\tv := row[j]\n\t\t\tif cnt[v] != len(matrix)+j {\n\t\t\t\treturn false\n\t\t\t}\n\t\t\tcnt[v]++\n\t\t}\n\t}\n\treturn true\n}\n"
+],
+"2124": [
+"go",
+"func checkString(s string) bool {\n\treturn !strings.Contains(s, \"ba\")\n}\n"
+],
+"2148": [
+"go",
+"func countElements(nums []int) int {\n\tmin, max, cntMin, cntMax := nums[0], nums[0], 1, 1\n\tfor _, v := range nums[1:] {\n\t\tif v < min {\n\t\t\tmin, cntMin = v, 1\n\t\t} else if v == min {\n\t\t\tcntMin++\n\t\t}\n\t\tif v > max {\n\t\t\tmax, cntMax = v, 1\n\t\t} else if v == max {\n\t\t\tcntMax++\n\t\t}\n\t}\n\tif min == max {\n\t\treturn 0\n\t}\n\treturn len(nums) - cntMin - cntMax\n}\n"
+],
+"2186": [
+"go",
+"func minSteps(s, t string) (ans int) {\n\tcnt := [26]int{}\n\tfor _, ch := range s { cnt[ch-'a']++ }\n\tfor _, ch := range t { cnt[ch-'a']-- }\n\tfor _, c := range cnt { ans += abs(c) }\n\treturn\n}\n\nfunc abs(x int) int { if x < 0 { return -x }; return x }\n"
+],
+"2166": [
+"go",
+"type Bitset struct{}\n\nvar (\n\ts    []byte\n\tflip byte\n\tcnt1 int\n)\n\nfunc Constructor(size int) (_ Bitset) {\n\ts = bytes.Repeat([]byte{'0'}, size)\n\tflip, cnt1 = '0', 0\n\treturn\n}\n\nfunc (Bitset) Fix(i int) {\n\tif s[i] == flip {\n\t\ts[i] ^= 1\n\t\tcnt1++\n\t}\n}\n\nfunc (Bitset) Unfix(i int) {\n\tif s[i] != flip {\n\t\ts[i] ^= 1\n\t\tcnt1--\n\t}\n}\n\nfunc (Bitset) Flip() {\n\tflip ^= 1\n\tcnt1 = len(s) - cnt1\n}\n\nfunc (Bitset) All() bool  { return cnt1 == len(s) }\nfunc (Bitset) One() bool  { return cnt1 > 0 }\nfunc (Bitset) Count() int { return cnt1 }\n\nfunc (Bitset) ToString() string {\n\tif flip == '1' {\n\t\tt := make([]byte, len(s))\n\t\tfor i, ch := range s {\n\t\t\tt[i] = ch ^ 1\n\t\t}\n\t\treturn string(t)\n\t}\n\treturn string(s)\n}\n"
+],
+"2180": [
+"go",
+"func countEven(n int) (ans int) {\n\tfor i := 1; i <= n; i++ {\n\t\ts := 0\n\t\tfor x := i; x > 0; x /= 10 {\n\t\t\ts ^= x % 10 & 1 // 用异或代替加法\n\t\t}\n\t\tans += s ^ 1 // 偶数就 +1\n\t}\n\treturn\n}\n"
+],
+"2164": [
+"go",
+"func sortEvenOdd(nums []int) []int {\n\ta := [2]sort.IntSlice{}\n\tfor i, v := range nums {\n\t\ta[i&1] = append(a[i&1], v)\n\t}\n\tsort.Sort(a[0])\n\tsort.Sort(sort.Reverse(a[1]))\n\tnums = nums[:0]\n\tfor i, v := range a[0] {\n\t\tnums = append(nums, v)\n\t\tif i < len(a[1]) {\n\t\t\tnums = append(nums, a[1][i])\n\t\t}\n\t}\n\treturn nums\n}\n"
+],
+"2194": [
+"go",
+"func cellsInRange(s string) []string {\n\tans := make([]string, 0, (s[3]-s[0]+1)*(s[4]-s[1]+1))\n\tfor i := s[0]; i <= s[3]; i++ {\n\t\tfor j := s[1]; j <= s[4]; j++ {\n\t\t\tans = append(ans, string(i)+string(j))\n\t\t}\n\t}\n\treturn ans\n}\n"
+],
+"2185": [
+"go",
+"func prefixCount(words []string, pref string) (ans int) {\n\tfor _, word := range words {\n\t\tif strings.HasPrefix(word, pref) {\n\t\t\tans++\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2224": [
+"go",
+"func parseTime(s string) int {\n\treturn (int(s[0]&15)*10+int(s[1]&15))*60 + int(s[3]&15)*10 + int(s[4]&15)\n}\n\nfunc convertTime(current, correct string) (ans int) {\n\tdiff := parseTime(correct) - parseTime(current)\n\tfor _, inc := range []int{60, 15, 5, 1} { // 从大往小贪心\n\t\tans += diff / inc\n\t\tdiff %= inc\n\t}\n\treturn\n}\n"
+],
+"2232": [
+"go",
+"func minimizeResult(expression string) (ans string) {\n\tsp := strings.Split(expression, \"+\")\n\tl, r := sp[0], sp[1]\n\tfor i, min := 0, math.MaxInt64; i < len(l); i++ { // 枚举左括号插入位置\n\t\ta := 1 \n\t\tif i > 0 {\n\t\t\ta, _ = strconv.Atoi(l[:i]) // 左括号左边的数（不存在时为 1）\n\t\t}\n\t\tb, _ := strconv.Atoi(l[i:]) // 左括号右边的数\n\t\tfor j := 1; j <= len(r); j++ { // 枚举右括号插入位置\n\t\t\tc, _ := strconv.Atoi(r[:j]) // 右括号左边的数\n\t\t\td := 1 \n\t\t\tif j < len(r) {\n\t\t\t\td, _ = strconv.Atoi(r[j:]) // 右括号右边的数（不存在时为 1） \n\t\t\t}\n\t\t\tres := a * (b + c) * d\n\t\t\tif res < min {\n\t\t\t\tmin = res\n\t\t\t\tans = fmt.Sprintf(\"%s(%s+%s)%s\", l[:i], l[i:], r[:j], r[j:])\n\t\t\t}\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2215": [
+"go",
+"func findDifference(nums1, nums2 []int) [][]int {\n\tset1, set2 := map[int]bool{}, map[int]bool{}\n\tfor _, v := range nums1 { set1[v] = true }\n\tfor _, v := range nums2 { set2[v] = true }\n\tvar a, b []int\n\tfor v := range set1 { if !set2[v] { a = append(a, v) }}\n\tfor v := range set2 { if !set1[v] { b = append(b, v) }}\n\treturn [][]int{a, b}\n}\n"
+],
+"2206": [
+"go",
+"func divideArray(nums []int) bool {\n\tcnt := map[int]int{}\n\tfor _, v := range nums {\n\t\tcnt[v]++\n\t}\n\tfor _, c := range cnt {\n\t\tif c%2 == 1 {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n\n// ----\nfunc divideArray(nums []int) bool {\n\tparity := map[int]int8{}\n\todd := 0\n\tfor _, v := range nums {\n\t\tparity[v] ^= 1\n\t\tif parity[v] == 1 {\n\t\t\todd++\n\t\t} else {\n\t\t\todd--\n\t\t}\n\t}\n\treturn odd == 0\n}\n\n// ----\nfunc divideArray(nums []int) bool {\n\tparity := map[int]int{}\n\todd := 0\n\tfor _, v := range nums {\n\t\tparity[v] ^= 1\n\t\todd += parity[v]*2 - 1\n\t}\n\treturn odd == 0\n}\n"
+],
+"2231": [
+"go",
+"func largestInteger(num int) int {\n\ts := []byte(strconv.Itoa(num))\n\ta := [2][]byte{}\n\tfor _, v := range s {\n\t\ta[v&1] = append(a[v&1], v) // 分组\n\t}\n\tsort.Slice(a[0], func(i, j int) bool { return a[0][i] > a[0][j] })\n\tsort.Slice(a[1], func(i, j int) bool { return a[1][i] > a[1][j] }) // 排序\n\n\tfor i, ch := range s {\n\t\tj := ch & 1\n\t\ts[i] = a[j][0] // 填回\n\t\ta[j] = a[j][1:]\n\t}\n\tans, _ := strconv.Atoi(string(s))\n\treturn ans\n}\n"
+],
+"2201": [
+"go",
+"func digArtifacts(_ int, artifacts [][]int, dig [][]int) (ans int) {\n\ttype pair struct{ x, y int }\n\td := map[pair]bool{}\n\tfor _, p := range dig {\n\t\td[pair{p[0], p[1]}] = true\n\t}\nnext:\n\tfor _, art := range artifacts {\n\t\tfor i := art[0]; i <= art[2]; i++ {\n\t\t\tfor j := art[1]; j <= art[3]; j++ {\n\t\t\t\tif !d[pair{i, j}] {\n\t\t\t\t\tcontinue next\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tans++\n\t}\n\treturn\n}\n"
+],
+"2293": [
+"go",
+"func minMaxGame(a []int) int {\n\tfor len(a) > 1 {\n\t\tb := make([]int, len(a)/2)\n\t\tfor i := range b {\n\t\t\tif i%2 == 0 {\n\t\t\t\tb[i] = min(a[i*2], a[i*2+1])\n\t\t\t} else {\n\t\t\t\tb[i] = max(a[i*2], a[i*2+1])\n\t\t\t}\n\t\t}\n\t\ta = b\n\t}\n\treturn a[0]\n}\n\nfunc min(a, b int) int { if a > b { return b }; return a }\nfunc max(a, b int) int { if a < b { return b }; return a }\n"
+],
+"2248": [
+"go",
+"func intersection(nums [][]int) (ans []int) {\n\tcnt := map[int]int{}\n\tfor _, a := range nums {\n\t\tfor _, v := range a {\n\t\t\tcnt[v]++\n\t\t}\n\t}\n\tfor v, c := range cnt {\n\t\tif c == len(nums) {\n\t\t\tans = append(ans, v)\n\t\t}\n\t}\n\tsort.Ints(ans)\n\treturn\n}\n"
+],
+"2283": [
+"go",
+"func digitCount(num string) bool {\n\tcnt := [10]int{}\n\tfor _, ch := range num {\n\t\tcnt[ch&15]++\n\t}\n\tfor i, ch := range num {\n\t\tif cnt[i] != int(ch&15) {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n"
+],
+"2299": [
+"go",
+"func strongPasswordCheckerII(password string) bool {\n\tif len(password) < 8 { return false }\n\tmask := 0\n\tfor i, c := range password {\n\t\tif i > 0 && byte(c) == password[i-1] { return false }\n\t\tswitch {\n\t\tcase unicode.IsLower(c): mask |= 1\n\t\tcase unicode.IsUpper(c): mask |= 2\n\t\tcase unicode.IsDigit(c): mask |= 4\n\t\tdefault: mask |= 8\n\t\t}\n\t}\n\treturn mask == 15\n}\n"
+],
+"2284": [
+"go",
+"func largestWordCount(messages, senders []string) (ans string) {\n\tcnt := map[string]int{}\n\tfor i, msg := range messages {\n\t\tcnt[senders[i]] += strings.Count(msg, \" \") + 1\n\t}\n\tfor s, c := range cnt {\n\t\tif c > cnt[ans] || c == cnt[ans] && s > ans {\n\t\t\tans = s\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"2243": [
+"go",
+"func digitSum(s string, k int) string {\n\tfor len(s) > k {\n\t\tt := &strings.Builder{}\n\t\tfor {\n\t\t\tsum := 0\n\t\t\tfor i := 0; i < len(s) && i < k; i++ {\n\t\t\t\tsum += int(s[i] & 15)\n\t\t\t}\n\t\t\tt.WriteString(strconv.Itoa(sum))\n\t\t\tif len(s) <= k {\n\t\t\t\tbreak\n\t\t\t}\n\t\t\ts = s[k:]\n\t\t}\n\t\ts = t.String()\n\t}\n\treturn s\n}\n"
+],
+"LCP_39": [
+"go",
+"func minimumSwitchingTimes(source, target [][]int) (ans int) {\n\tcnt := map[int]int{}\n\tfor i, row := range source {\n\t\tfor j, v := range row {\n\t\t\tcnt[v]++\n\t\t\tcnt[target[i][j]]--\n\t\t}\n\t}\n\tfor _, c := range cnt {\n\t\tans += abs(c)\n\t}\n\treturn ans / 2\n}\n\nfunc abs(x int) int {\n\tif x < 0 {\n\t\treturn -x\n\t}\n\treturn x\n}\n"
+],
+"2309": [
+"go",
+"func greatestLetter(s string) string {\n\thas := map[rune]bool{}\n\tfor _, v := range s {\n\t\thas[v] = true\n\t}\n\tfor i := 'Z'; i >= 'A'; i-- {\n\t\tif has[i] && has[i-'A'+'a'] {\n\t\t\treturn string(i)\n\t\t}\n\t}\n\treturn \"\"\n}\n\n// ----\nfunc greatestLetter(s string) string {\n\tmask := uint64(0)\n\tfor _, c := range s {\n\t\tmask |= 1 << (c - 'A')\n\t}\n\tmask &= mask >> ('a' - 'A')\n\tif mask == 0 {\n\t\treturn \"\"\n\t}\n\treturn string(byte('A' + bits.Len64(mask) - 1))\n}\n\n// ----\nfunc greatestLetter(s string) string {\n\tmasks := [2]uint32{}\n\tfor _, c := range s {\n\t\tmasks[c>>5&1] |= 1 << (c & 31)\n\t}\n\tmask := masks[0] & masks[1]\n\tif mask == 0 {\n\t\treturn \"\"\n\t}\n\treturn string(byte('A' + bits.Len32(mask) - 2))\n}\n"
+],
+"2351": [
+"go",
+"func repeatedCharacter(s string) byte {\n\tmask := 0\n\tfor _, c := range s {\n\t\tif mask>>(c&31)&1 > 0 {\n\t\t\treturn byte(c)\n\t\t}\n\t\tmask |= 1 << (c & 31)\n\t}\n\treturn 0\n}\n"
+],
+"2303": [
+"go",
+"func calculateTax(brackets [][]int, income int) float64 {\n\tans, pre := 0, 0\n\tfor _, b := range brackets {\n\t\tup, p := b[0], b[1]\n\t\tif income <= up {\n\t\t\tans += (income - pre) * p\n\t\t\tbreak\n\t\t}\n\t\tans += (up - pre) * p\n\t\tpre = up\n\t}\n\treturn float64(ans) / 100\n}\n"
+],
+"2347": [
+"go",
+"func bestHand(ranks []int, suits []byte) string {\n\tif bytes.Count(suits, suits[:1]) == 5 {\n\t\treturn \"Flush\"\n\t}\n\tcnt, pair := map[int]int{}, false\n\tfor _, r := range ranks {\n\t\tcnt[r]++\n\t\tif cnt[r] == 3 {\n\t\t\treturn \"Three of a Kind\"\n\t\t}\n\t\tif cnt[r] == 2 {\n\t\t\tpair = true\n\t\t}\n\t}\n\tif pair {\n\t\treturn \"Pair\"\n\t}\n\treturn \"High Card\"\n}\n"
+],
+"LCP_41": [
+"go",
+"var dir8 = []struct{ x, y int }{{1, 0}, {1, 1}, {0, 1}, {-1, 1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}}\n\nfunc cntFlip(g [][]byte) (cnt int) {\n\tn, m := len(g), len(g[0])\n\tfor { // 不断循环，直到无法翻转白棋\n\t\tflip := false\n\t\tfor i, row := range g {\n\t\t\tfor j, ch := range row {\n\t\t\t\tif ch != 'O' {\n\t\t\t\t\tcontinue\n\t\t\t\t}\n\t\t\t\t// 对于每个白棋，检查行、列或对角线中是否存在两端均有黑棋，且中间没有空白\n\t\t\touter:\n\t\t\t\tfor k, d := range dir8[:4] {\n\t\t\t\t\t// 检查一个方向\n\t\t\t\t\tfor x, y := i, j; ; x, y = x+d.x, y+d.y {\n\t\t\t\t\t\tif x < 0 || x >= n || y < 0 || y >= m || g[x][y] == '.' {\n\t\t\t\t\t\t\tcontinue outer\n\t\t\t\t\t\t}\n\t\t\t\t\t\tif g[x][y] == 'X' {\n\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\t// 检查相反的另一方向\n\t\t\t\t\td = dir8[k+4]\n\t\t\t\t\tfor x, y := i, j; ; x, y = x+d.x, y+d.y {\n\t\t\t\t\t\tif x < 0 || x >= n || y < 0 || y >= m || g[x][y] == '.' {\n\t\t\t\t\t\t\tcontinue outer\n\t\t\t\t\t\t}\n\t\t\t\t\t\tif g[x][y] == 'X' {\n\t\t\t\t\t\t\tbreak\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t\t// 将其翻转为黑棋\n\t\t\t\t\tg[i][j] = 'X'\n\t\t\t\t\tflip = true\n\t\t\t\t\tcnt++\n\t\t\t\t\tbreak\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\tif !flip {\n\t\t\treturn\n\t\t}\n\t}\n}\n\nfunc flipChess(g []string) (ans int) {\n\tg2 := make([][]byte, len(g))\n\tfor i, row := range g {\n\t\tfor j, ch := range row {\n\t\t\tif ch == '.' {\n\t\t\t\tfor k, r := range g {\n\t\t\t\t\tg2[k] = []byte(r)\n\t\t\t\t}\n\t\t\t\tg2[i][j] = 'X' // 放上黑棋\n\t\t\t\tif cnt := cntFlip(g2); cnt > ans {\n\t\t\t\t\tans = cnt\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\treturn\n}\n"
+],
+"LCR_138": [
+"go",
+"func validNumber(s string) bool {\n    s = strings.ToLower(strings.TrimSpace(s))\n    if strings.ContainsAny(s, \" bopx\") {\n        return false\n    }\n    if i := strings.IndexAny(s, \"e\"); i >= 0 {\n        n1, _ := fmt.Sscan(s[:i], new(big.Float), new(string))\n        n2, _ := fmt.Sscanf(s[i+1:], \"%d%s\", new(big.Int), new(string)) // %d 强制以十进制方式读入\n        return n1 == 1 && n2 == 1\n    }\n    n, _ := fmt.Sscan(s, new(big.Float), new(string))\n    return n == 1\n}\n"
+],
+"LCR_137": [
+"go",
+"func articleMatch(s, p string) bool {\n\treturn regexp.MustCompile(\"^\" + p + \"$\").MatchString(s)\n}\n"
+],
+"2433": [
+"py",
+"class Solution:\n    def findArray(self, pref: List[int]) -> List[int]:\n        return [pref[0]] + [x ^ y for x, y in pairwise(pref)]\n"
+],
+"LCP_31": [
+"go",
+"var dir4 = []struct{ x, y int }{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}\n\nfunc escapeMaze(g [][]string) bool {\n\tk, n, m := len(g), len(g[0]), len(g[0][0])\n\tvis := make([][][][6]bool, k)\n\tfor i := range vis {\n\t\tvis[i] = make([][][6]bool, n)\n\t\tfor j := range vis[i] {\n\t\t\tvis[i][j] = make([][6]bool, m)\n\t\t}\n\t}\n\t// s 的最低位：是否使用了临时消除术\n\t// s 的其余位：0-未使用永久消除术，1-当前正位于永久消除的位置，2-已使用永久消除术\n\tvar f func(t, x, y, s int) bool\n\tf = func(t, x, y, s int) bool {\n\t\tif x < 0 || x >= n || y < 0 || y >= m || t+n-1-x+m-1-y >= k || vis[t][x][y][s] {\n\t\t\treturn false\n\t\t}\n\t\tif x == n-1 && y == m-1 {\n\t\t\treturn true\n\t\t}\n\t\tvis[t][x][y][s] = true\n\t\tif s>>1 == 1 {\n\t\t\tfor _, d := range dir4 {\n\t\t\t\tif f(t+1, x+d.x, y+d.y, s^6) { // 跳出永久消除的位置\n\t\t\t\t\treturn true\n\t\t\t\t}\n\t\t\t}\n\t\t\treturn f(t+1, x, y, s)\n\t\t}\n\t\tif s>>1 == 0 && g[t][x][y] == '#' && f(t, x, y, s|2) { // 尝试使用永久消除术\n\t\t\treturn true\n\t\t}\n\t\t// 使用永久消除术已无法走到终点，遇到障碍只能使用临时消除术\n\t\tif g[t][x][y] == '#' {\n\t\t\tif s&1 == 1 {\n\t\t\t\treturn false\n\t\t\t}\n\t\t\ts |= 1\n\t\t}\n\t\tfor _, d := range dir4 {\n\t\t\tif f(t+1, x+d.x, y+d.y, s) {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t\treturn f(t+1, x, y, s)\n\t}\n\treturn f(0, 0, 0, 0)\n}\n"
+]
+}

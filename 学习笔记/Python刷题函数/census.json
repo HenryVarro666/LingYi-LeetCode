@@ -1,0 +1,6221 @@
+{
+ "authors": [
+  "灵茶山艾府",
+  "yiduobo"
+ ],
+ "stats": {
+  "灵茶山艾府": {
+   "files": 2540,
+   "blocks": 4006,
+   "blocks_ok": 3983,
+   "files_parsed": 2277,
+   "blocks_failed": 5,
+   "files_no_code": 257,
+   "blocks_text_skipped": 18,
+   "files_failed": 6
+  },
+  "yiduobo": {
+   "files": 3625,
+   "blocks": 3637,
+   "blocks_ok": 3622,
+   "files_parsed": 3624,
+   "blocks_fixed": 15,
+   "files_no_code": 1
+  }
+ },
+ "failed_blocks": [
+  [
+   "0026 删除有序数组中的重复项 · 跟着我过一遍示例 2，你就明白怎么做了（附库函数写法）Python-Java-C++-C-Go-JS-Rust.md",
+   "invalid syntax (<unknown>, line 2)"
+  ],
+  [
+   "0027 移除元素 · 用栈思考，原地实现（Python-Java-C++-C-Go-JS-Rust）.md",
+   "invalid character '。' (U+3002) (<unknown>, line 4)"
+  ],
+  [
+   "1237 找出给定方程的正整数解 · 相向双指针，附题单（Python-Java-C++-Go）.md",
+   "invalid syntax (<unknown>, line 2)"
+  ],
+  [
+   "2251 花期内花的数目 · 两种方法：二分-差分（Python-Java-C++-Go-JS-Rust）.md",
+   "invalid character '＊' (U+FF0A) (<unknown>, line 2)"
+  ],
+  [
+   "2251 花期内花的数目 · 两种方法：二分-差分（Python-Java-C++-Go-JS-Rust）.md",
+   "invalid character '＊' (U+FF0A) (<unknown>, line 2)"
+  ]
+ ],
+ "keywords": {
+  "灵茶山艾府": {
+   ".sort|key": 98,
+   "bisect.bisect_left|key": 95,
+   "itertools.accumulate|initial": 86,
+   "sorted|key": 42,
+   ".sort|reverse": 33,
+   "max|default": 17,
+   "numpy.array|dtype": 15,
+   "bisect.bisect_left|lo": 10,
+   "sorted|reverse": 10,
+   "min|default": 9,
+   "numpy.ones|dtype": 7,
+   "numpy.zeros|dtype": 7,
+   ".move_to_end|last": 6,
+   "bisect.bisect_right|key": 6,
+   "bisect.bisect_left|hi": 5,
+   "numpy.base_repr|base": 5,
+   "itertools.groupby|key": 2,
+   "itertools.zip_longest|fillvalue": 1,
+   "bisect.bisect_right|lo": 1,
+   "bisect.bisect_right|hi": 1
+  },
+  "yiduobo": {
+   "sorted|key": 143,
+   "sorted|reverse": 51,
+   ".sort|key": 35,
+   ".sort|reverse": 34,
+   "sorted|cmp": 1
+  }
+ },
+ "rows": [
+  {
+   "key": "syn:增量赋值 +=",
+   "category": "syn",
+   "name": "增量赋值 +=",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 4566,
+    "yiduobo": 7380
+   },
+   "files": {
+    "灵茶山艾府": 1370,
+    "yiduobo": 2424
+   },
+   "total_occ": 11946,
+   "total_files": 3794,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0001 两数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "py2:docstring 类型注释 :type",
+   "category": "py2",
+   "name": "docstring 类型注释 :type",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3634
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3622
+   },
+   "total_occ": 3634,
+   "total_files": 3622,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0001 两数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "py2:class X(object)",
+   "category": "py2",
+   "name": "class X(object)",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 3629
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 3618
+   },
+   "total_occ": 3630,
+   "total_files": 3619,
+   "example": {
+    "灵茶山艾府": "2936 包含相等值数字块的数量 · 库函数简洁写法.md",
+    "yiduobo": "0001 两数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:len",
+   "category": "builtin",
+   "name": "len",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 3053,
+    "yiduobo": 4208
+   },
+   "files": {
+    "灵茶山艾府": 1268,
+    "yiduobo": 2104
+   },
+   "total_occ": 7261,
+   "total_files": 3372,
+   "example": {
+    "灵茶山艾府": "0001 两数之和 · 【动画】从两数之和中，我们可以学到什么？（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0001 两数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:range",
+   "category": "builtin",
+   "name": "range",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 3288,
+    "yiduobo": 4561
+   },
+   "files": {
+    "灵茶山艾府": 1077,
+    "yiduobo": 1835
+   },
+   "total_occ": 7849,
+   "total_files": 2912,
+   "example": {
+    "灵茶山艾府": "0001 两数之和 · 【动画】从两数之和中，我们可以学到什么？（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0005 最长回文子串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:类型注解",
+   "category": "syn",
+   "name": "类型注解",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 5742,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2276,
+    "yiduobo": 0
+   },
+   "total_occ": 5742,
+   "total_files": 2276,
+   "example": {
+    "灵茶山艾府": "0001 两数之和 · 【动画】从两数之和中，我们可以学到什么？（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:and/or 短路",
+   "category": "syn",
+   "name": "and/or 短路",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1875,
+    "yiduobo": 3185
+   },
+   "files": {
+    "灵茶山艾府": 800,
+    "yiduobo": 1457
+   },
+   "total_occ": 5060,
+   "total_files": 2257,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0002 两数相加 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:for 中解包 for i, x in ...",
+   "category": "syn",
+   "name": "for 中解包 for i, x in ...",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2108,
+    "yiduobo": 1233
+   },
+   "files": {
+    "灵茶山艾府": 994,
+    "yiduobo": 959
+   },
+   "total_occ": 3341,
+   "total_files": 1953,
+   "example": {
+    "灵茶山艾府": "0001 两数之和 · 【动画】从两数之和中，我们可以学到什么？（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0003 无重复字符的最长子串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.append",
+   "category": "method",
+   "name": ".append",
+   "label": "list",
+   "occ": {
+    "灵茶山艾府": 1306,
+    "yiduobo": 2952
+   },
+   "files": {
+    "灵茶山艾府": 556,
+    "yiduobo": 1374
+   },
+   "total_occ": 4258,
+   "total_files": 1930,
+   "example": {
+    "灵茶山艾府": "0015 三数之和 · 【视频】极致优化！一个视频讲透双指针！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0005 最长回文子串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:max",
+   "category": "builtin",
+   "name": "max",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1697,
+    "yiduobo": 1361
+   },
+   "files": {
+    "灵茶山艾府": 660,
+    "yiduobo": 743
+   },
+   "total_occ": 3058,
+   "total_files": 1403,
+   "example": {
+    "灵茶山艾府": "0003 无重复字符的最长子串 · 【视频】一个视频讲透滑动窗口！附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0011 盛最多水的容器 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:元组解包赋值 a, b = ...",
+   "category": "syn",
+   "name": "元组解包赋值 a, b = ...",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1306,
+    "yiduobo": 1218
+   },
+   "files": {
+    "灵茶山艾府": 648,
+    "yiduobo": 650
+   },
+   "total_occ": 2524,
+   "total_files": 1298,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0023 合并K个排序链表 · yiduobo.md"
+   }
+  },
+  {
+   "key": "op:%",
+   "category": "op",
+   "name": "%",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1473,
+    "yiduobo": 1635
+   },
+   "files": {
+    "灵茶山艾府": 467,
+    "yiduobo": 783
+   },
+   "total_occ": 3108,
+   "total_files": 1250,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0002 两数相加 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:[x] * n 初始化",
+   "category": "syn",
+   "name": "[x] * n 初始化",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1261,
+    "yiduobo": 929
+   },
+   "files": {
+    "灵茶山艾府": 636,
+    "yiduobo": 610
+   },
+   "total_occ": 2190,
+   "total_files": 1246,
+   "example": {
+    "灵茶山艾府": "0005 最长回文子串 · 两种方法：中心扩展法 - Manacher 算法（Python-Java-C++-Go）.md",
+    "yiduobo": "0043 字符串相乘 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:enumerate",
+   "category": "builtin",
+   "name": "enumerate",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1469,
+    "yiduobo": 552
+   },
+   "files": {
+    "灵茶山艾府": 749,
+    "yiduobo": 482
+   },
+   "total_occ": 2021,
+   "total_files": 1231,
+   "example": {
+    "灵茶山艾府": "0001 两数之和 · 【动画】从两数之和中，我们可以学到什么？（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0001 两数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:列表推导式",
+   "category": "syn",
+   "name": "列表推导式",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 996,
+    "yiduobo": 1007
+   },
+   "files": {
+    "灵茶山艾府": 503,
+    "yiduobo": 640
+   },
+   "total_occ": 2003,
+   "total_files": 1143,
+   "example": {
+    "灵茶山艾府": "0010 正则表达式匹配 · 教你一步步思考 DP：记忆化搜索 - 递推 - 空间优化（Python-Java-C++-Go）.md",
+    "yiduobo": "0001 两数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:切片 a[i:j]",
+   "category": "syn",
+   "name": "切片 a[i:j]",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 801,
+    "yiduobo": 1111
+   },
+   "files": {
+    "灵茶山艾府": 373,
+    "yiduobo": 690
+   },
+   "total_occ": 1912,
+   "total_files": 1063,
+   "example": {
+    "灵茶山艾府": "0005 最长回文子串 · 两种方法：中心扩展法 - Manacher 算法（Python-Java-C++-Go）.md",
+    "yiduobo": "0005 最长回文子串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:负下标 a[-1]",
+   "category": "syn",
+   "name": "负下标 a[-1]",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 860,
+    "yiduobo": 1877
+   },
+   "files": {
+    "灵茶山艾府": 340,
+    "yiduobo": 714
+   },
+   "total_occ": 2737,
+   "total_files": 1054,
+   "example": {
+    "灵茶山艾府": "0013 罗马数字转整数 · 简单题就有简单写法！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0018 四数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:嵌套函数(闭包)",
+   "category": "syn",
+   "name": "嵌套函数(闭包)",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 964,
+    "yiduobo": 552
+   },
+   "files": {
+    "灵茶山艾府": 594,
+    "yiduobo": 414
+   },
+   "total_occ": 1516,
+   "total_files": 1008,
+   "example": {
+    "灵茶山艾府": "0010 正则表达式匹配 · 教你一步步思考 DP：记忆化搜索 - 递推 - 空间优化（Python-Java-C++-Go）.md",
+    "yiduobo": "0186 反转字符串中的单词II · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:min",
+   "category": "builtin",
+   "name": "min",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1045,
+    "yiduobo": 675
+   },
+   "files": {
+    "灵茶山艾府": 483,
+    "yiduobo": 424
+   },
+   "total_occ": 1720,
+   "total_files": 907,
+   "example": {
+    "灵茶山艾府": "0004 寻找两个正序数组的中位数 · 【图解】循序渐进：从排序到双指针到二分（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0004 寻找两个有序数组的中位数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:in / not in 成员判断",
+   "category": "syn",
+   "name": "in / not in 成员判断",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 365,
+    "yiduobo": 1223
+   },
+   "files": {
+    "灵茶山艾府": 221,
+    "yiduobo": 636
+   },
+   "total_occ": 1588,
+   "total_files": 857,
+   "example": {
+    "灵茶山艾府": "0001 两数之和 · 【动画】从两数之和中，我们可以学到什么？（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0015 三数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:链式赋值 a = b = 0",
+   "category": "syn",
+   "name": "链式赋值 a = b = 0",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 702,
+    "yiduobo": 353
+   },
+   "files": {
+    "灵茶山艾府": 493,
+    "yiduobo": 258
+   },
+   "total_occ": 1055,
+   "total_files": 751,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0004 寻找两个有序数组的中位数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "op://",
+   "category": "op",
+   "name": "//",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1159,
+    "yiduobo": 459
+   },
+   "files": {
+    "灵茶山艾府": 469,
+    "yiduobo": 257
+   },
+   "total_occ": 1618,
+   "total_files": 726,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "2639 查询网格图中每一列的宽度 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:set",
+   "category": "builtin",
+   "name": "set",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 270,
+    "yiduobo": 675
+   },
+   "files": {
+    "灵茶山艾府": 176,
+    "yiduobo": 465
+   },
+   "total_occ": 945,
+   "total_files": 641,
+   "example": {
+    "灵茶山艾府": "0003 无重复字符的最长子串 · 【视频】一个视频讲透滑动窗口！附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0015 三数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "op:/",
+   "category": "op",
+   "name": "/",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 85,
+    "yiduobo": 955
+   },
+   "files": {
+    "灵茶山艾府": 42,
+    "yiduobo": 546
+   },
+   "total_occ": 1040,
+   "total_files": 588,
+   "example": {
+    "灵茶山艾府": "0004 寻找两个正序数组的中位数 · 【图解】循序渐进：从排序到双指针到二分（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0002 两数相加 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:is / is not",
+   "category": "syn",
+   "name": "is / is not",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 267,
+    "yiduobo": 1051
+   },
+   "files": {
+    "灵茶山艾府": 115,
+    "yiduobo": 467
+   },
+   "total_occ": 1318,
+   "total_files": 582,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0008 字符串转换整数(atoi) · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.add",
+   "category": "method",
+   "name": ".add",
+   "label": "set/SortedList",
+   "occ": {
+    "灵茶山艾府": 200,
+    "yiduobo": 685
+   },
+   "files": {
+    "灵茶山艾府": 114,
+    "yiduobo": 377
+   },
+   "total_occ": 885,
+   "total_files": 491,
+   "example": {
+    "灵茶山艾府": "0003 无重复字符的最长子串 · 【视频】一个视频讲透滑动窗口！附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0015 三数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:sum",
+   "category": "builtin",
+   "name": "sum",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 546,
+    "yiduobo": 190
+   },
+   "files": {
+    "灵茶山艾府": 320,
+    "yiduobo": 163
+   },
+   "total_occ": 736,
+   "total_files": 483,
+   "example": {
+    "灵茶山艾府": "0039 组合总和 · 三种方法：选或不选-枚举选哪个-完全背包预处理+可行性剪枝（Python-Java-C++-Go）.md",
+    "yiduobo": "0204 计数质数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:sorted",
+   "category": "builtin",
+   "name": "sorted",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 222,
+    "yiduobo": 387
+   },
+   "files": {
+    "灵茶山艾府": 146,
+    "yiduobo": 327
+   },
+   "total_occ": 609,
+   "total_files": 473,
+   "example": {
+    "灵茶山艾府": "0026 删除有序数组中的重复项 · 跟着我过一遍示例 2，你就明白怎么做了（附库函数写法）Python-Java-C++-C-Go-JS-Rust.md",
+    "yiduobo": "0001 两数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:int",
+   "category": "builtin",
+   "name": "int",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 401,
+    "yiduobo": 461
+   },
+   "files": {
+    "灵茶山艾府": 235,
+    "yiduobo": 209
+   },
+   "total_occ": 862,
+   "total_files": 444,
+   "example": {
+    "灵茶山艾府": "0003 无重复字符的最长子串 · 【视频】一个视频讲透滑动窗口！附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0008 字符串转换整数(atoi) · yiduobo.md"
+   }
+  },
+  {
+   "key": "op:&",
+   "category": "op",
+   "name": "&",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 637,
+    "yiduobo": 415
+   },
+   "files": {
+    "灵茶山艾府": 222,
+    "yiduobo": 218
+   },
+   "total_occ": 1052,
+   "total_files": 440,
+   "example": {
+    "灵茶山艾府": "0050 Pow(x, n) · 【图解】一张图秒懂快速幂！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0137 只出现一次的数字II · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:三元表达式 x if c else y",
+   "category": "syn",
+   "name": "三元表达式 x if c else y",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 805,
+    "yiduobo": 14
+   },
+   "files": {
+    "灵茶山艾府": 423,
+    "yiduobo": 12
+   },
+   "total_occ": 819,
+   "total_files": 435,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0165 比较版本号 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:生成器表达式",
+   "category": "syn",
+   "name": "生成器表达式",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 669,
+    "yiduobo": 8
+   },
+   "files": {
+    "灵茶山艾府": 425,
+    "yiduobo": 8
+   },
+   "total_occ": 677,
+   "total_files": 433,
+   "example": {
+    "灵茶山艾府": "0056 合并区间 · 三种方法：排序 - 差分数组 - 扫描线（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0139 单词拆分 & 0140 单词拆分II · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.get",
+   "category": "method",
+   "name": ".get",
+   "label": "dict",
+   "occ": {
+    "灵茶山艾府": 54,
+    "yiduobo": 757
+   },
+   "files": {
+    "灵茶山艾府": 36,
+    "yiduobo": 388
+   },
+   "total_occ": 811,
+   "total_files": 424,
+   "example": {
+    "灵茶山艾府": "0399 除法求值 · 带权并查集（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0023 合并K个排序链表 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.pop",
+   "category": "method",
+   "name": ".pop",
+   "label": "list/dict/set",
+   "occ": {
+    "灵茶山艾府": 238,
+    "yiduobo": 382
+   },
+   "files": {
+    "灵茶山艾府": 148,
+    "yiduobo": 257
+   },
+   "total_occ": 620,
+   "total_files": 405,
+   "example": {
+    "灵茶山艾府": "0020 有效的括号 · 括号消消乐：三种利用栈的写法，附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0020 有效的括号 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.sort",
+   "category": "method",
+   "name": ".sort",
+   "label": "list",
+   "occ": {
+    "灵茶山艾府": 374,
+    "yiduobo": 172
+   },
+   "files": {
+    "灵茶山艾府": 242,
+    "yiduobo": 146
+   },
+   "total_occ": 546,
+   "total_files": 388,
+   "example": {
+    "灵茶山艾府": "0004 寻找两个正序数组的中位数 · 【图解】循序渐进：从排序到双指针到二分（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0252 会议室 · yiduobo.md"
+   }
+  },
+  {
+   "key": "op:**",
+   "category": "op",
+   "name": "**",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 139,
+    "yiduobo": 401
+   },
+   "files": {
+    "灵茶山艾府": 76,
+    "yiduobo": 292
+   },
+   "total_occ": 540,
+   "total_files": 368,
+   "example": {
+    "灵茶山艾府": "0050 Pow(x, n) · 【图解】一张图秒懂快速幂！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0129 求根到叶子节点数字之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:lambda",
+   "category": "syn",
+   "name": "lambda",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 290,
+    "yiduobo": 178
+   },
+   "files": {
+    "灵茶山艾府": 180,
+    "yiduobo": 165
+   },
+   "total_occ": 468,
+   "total_files": 345,
+   "example": {
+    "灵茶山艾府": "0004 寻找两个正序数组的中位数 · 【图解】循序渐进：从排序到双指针到二分（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0001 两数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "op:<<",
+   "category": "op",
+   "name": "<<",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 626,
+    "yiduobo": 481
+   },
+   "files": {
+    "灵茶山艾府": 191,
+    "yiduobo": 135
+   },
+   "total_occ": 1107,
+   "total_files": 326,
+   "example": {
+    "灵茶山艾府": "0008 字符串转换整数 (atoi) · 只使用 32 位整数的写法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0190 颠倒二进制位 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:list",
+   "category": "builtin",
+   "name": "list",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 379,
+    "yiduobo": 98
+   },
+   "files": {
+    "灵茶山艾府": 235,
+    "yiduobo": 86
+   },
+   "total_occ": 477,
+   "total_files": 321,
+   "example": {
+    "灵茶山艾府": "0049 字母异位词分组 · 哈希表分组，简洁写法（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0005 最长回文子串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.join",
+   "category": "method",
+   "name": ".join",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 161,
+    "yiduobo": 226
+   },
+   "files": {
+    "灵茶山艾府": 116,
+    "yiduobo": 180
+   },
+   "total_occ": 387,
+   "total_files": 296,
+   "example": {
+    "灵茶山艾府": "0005 最长回文子串 · 两种方法：中心扩展法 - Manacher 算法（Python-Java-C++-Go）.md",
+    "yiduobo": "0005 最长回文子串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:''.join 拼接",
+   "category": "syn",
+   "name": "''.join 拼接",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 159,
+    "yiduobo": 225
+   },
+   "files": {
+    "灵茶山艾府": 116,
+    "yiduobo": 179
+   },
+   "total_occ": 384,
+   "total_files": 295,
+   "example": {
+    "灵茶山艾府": "0005 最长回文子串 · 两种方法：中心扩展法 - Manacher 算法（Python-Java-C++-Go）.md",
+    "yiduobo": "0005 最长回文子串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:自定义类",
+   "category": "syn",
+   "name": "自定义类",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 186,
+    "yiduobo": 206
+   },
+   "files": {
+    "灵茶山艾府": 120,
+    "yiduobo": 170
+   },
+   "total_occ": 392,
+   "total_files": 290,
+   "example": {
+    "灵茶山艾府": "0146 LRU 缓存 · 【图解】一张图秒懂 LRU！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0146 LRU缓存机制 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:zip",
+   "category": "builtin",
+   "name": "zip",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 313,
+    "yiduobo": 87
+   },
+   "files": {
+    "灵茶山艾府": 197,
+    "yiduobo": 80
+   },
+   "total_occ": 400,
+   "total_files": 277,
+   "example": {
+    "灵茶山艾府": "0014 最长公共前缀 · 简单题，简单做（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0582 杀掉进程 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:math.inf",
+   "category": "mod",
+   "name": "math.inf",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 746,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 272,
+    "yiduobo": 0
+   },
+   "total_occ": 746,
+   "total_files": 272,
+   "example": {
+    "灵茶山艾府": "0004 寻找两个正序数组的中位数 · 【图解】循序渐进：从排序到双指针到二分（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:key=lambda",
+   "category": "syn",
+   "name": "key=lambda",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 133,
+    "yiduobo": 178
+   },
+   "files": {
+    "灵茶山艾府": 92,
+    "yiduobo": 165
+   },
+   "total_occ": 311,
+   "total_files": 257,
+   "example": {
+    "灵茶山艾府": "0056 合并区间 · 三种方法：排序 - 差分数组 - 扫描线（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0001 两数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "op:^",
+   "category": "op",
+   "name": "^",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 326,
+    "yiduobo": 277
+   },
+   "files": {
+    "灵茶山艾府": 128,
+    "yiduobo": 127
+   },
+   "total_occ": 603,
+   "total_files": 255,
+   "example": {
+    "灵茶山艾府": "0063 不同路径 II · 教你一步步思考 DP：从记忆化搜索到递推到空间优化！（Python-Java-C++-Go）.md",
+    "yiduobo": "0136 只出现一次的数字 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:10 ** 9 等大数(当无穷/取模)",
+   "category": "syn",
+   "name": "10 ** 9 等大数(当无穷/取模)",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 58,
+    "yiduobo": 224
+   },
+   "files": {
+    "灵茶山艾府": 32,
+    "yiduobo": 221
+   },
+   "total_occ": 282,
+   "total_files": 253,
+   "example": {
+    "灵茶山艾府": "0823 带因子的二叉树 · 从记忆化搜索到递推，教你一步步思考动态规划！（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "0552 学生出勤记录II · yiduobo.md"
+   }
+  },
+  {
+   "key": "op:>>",
+   "category": "op",
+   "name": ">>",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 297,
+    "yiduobo": 181
+   },
+   "files": {
+    "灵茶山艾府": 126,
+    "yiduobo": 117
+   },
+   "total_occ": 478,
+   "total_files": 243,
+   "example": {
+    "灵茶山艾府": "0050 Pow(x, n) · 【图解】一张图秒懂快速幂！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0190 颠倒二进制位 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:abs",
+   "category": "builtin",
+   "name": "abs",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 235,
+    "yiduobo": 304
+   },
+   "files": {
+    "灵茶山艾府": 97,
+    "yiduobo": 141
+   },
+   "total_occ": 539,
+   "total_files": 238,
+   "example": {
+    "灵茶山艾府": "0016 最接近的三数之和 · 极致优化！基于三数之和的做法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0016 最接近的三数之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:ord",
+   "category": "builtin",
+   "name": "ord",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 357,
+    "yiduobo": 242
+   },
+   "files": {
+    "灵茶山艾府": 102,
+    "yiduobo": 124
+   },
+   "total_occ": 599,
+   "total_files": 226,
+   "example": {
+    "灵茶山艾府": "0208 实现 Trie (前缀树) · 从二叉树到二十六叉树（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0049 字母异位词分组 · yiduobo.md"
+   }
+  },
+  {
+   "key": "op:|",
+   "category": "op",
+   "name": "|",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 349,
+    "yiduobo": 175
+   },
+   "files": {
+    "灵茶山艾府": 135,
+    "yiduobo": 90
+   },
+   "total_occ": 524,
+   "total_files": 225,
+   "example": {
+    "灵茶山艾府": "0037 解数独 · 数独怎么玩，题目就怎么做：回溯+堆优化（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0318 最大单词长度乘积 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:functools.cache",
+   "category": "mod",
+   "name": "functools.cache",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 276,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 223,
+    "yiduobo": 0
+   },
+   "total_occ": 276,
+   "total_files": 223,
+   "example": {
+    "灵茶山艾府": "0010 正则表达式匹配 · 教你一步步思考 DP：记忆化搜索 - 递推 - 空间优化（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "deco:@cache",
+   "category": "deco",
+   "name": "@cache",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 274,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 223,
+    "yiduobo": 0
+   },
+   "total_occ": 274,
+   "total_files": 223,
+   "example": {
+    "灵茶山艾府": "0010 正则表达式匹配 · 教你一步步思考 DP：记忆化搜索 - 递推 - 空间优化（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:链式比较 a < b < c",
+   "category": "syn",
+   "name": "链式比较 a < b < c",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 267,
+    "yiduobo": 141
+   },
+   "files": {
+    "灵茶山艾府": 121,
+    "yiduobo": 83
+   },
+   "total_occ": 408,
+   "total_files": 204,
+   "example": {
+    "灵茶山艾府": "0008 字符串转换整数 (atoi) · 只使用 32 位整数的写法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0248 中心对称数III · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:str",
+   "category": "builtin",
+   "name": "str",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 147,
+    "yiduobo": 222
+   },
+   "files": {
+    "灵茶山艾府": 83,
+    "yiduobo": 116
+   },
+   "total_occ": 369,
+   "total_files": 199,
+   "example": {
+    "灵茶山艾府": "0009 回文数 · 详细解释，比官方题解少循环一次（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0037 解数独 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:heapq.heappop",
+   "category": "mod",
+   "name": "heapq.heappop",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 84,
+    "yiduobo": 210
+   },
+   "files": {
+    "灵茶山艾府": 56,
+    "yiduobo": 134
+   },
+   "total_occ": 294,
+   "total_files": 190,
+   "example": {
+    "灵茶山艾府": "0023 合并 K 个升序链表 · 三种方法：最小堆-分治-迭代（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "0295 数据流的中位数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:heapq.heappush",
+   "category": "mod",
+   "name": "heapq.heappush",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 87,
+    "yiduobo": 281
+   },
+   "files": {
+    "灵茶山艾府": 57,
+    "yiduobo": 131
+   },
+   "total_occ": 368,
+   "total_files": 188,
+   "example": {
+    "灵茶山艾府": "0023 合并 K 个升序链表 · 三种方法：最小堆-分治-迭代（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "0295 数据流的中位数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.values",
+   "category": "method",
+   "name": ".values",
+   "label": "dict",
+   "occ": {
+    "灵茶山艾府": 129,
+    "yiduobo": 106
+   },
+   "files": {
+    "灵茶山艾府": 89,
+    "yiduobo": 97
+   },
+   "total_occ": 235,
+   "total_files": 186,
+   "example": {
+    "灵茶山艾府": "0049 字母异位词分组 · 哈希表分组，简洁写法（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0049 字母异位词分组 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:collections.defaultdict",
+   "category": "mod",
+   "name": "collections.defaultdict",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 265,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 172,
+    "yiduobo": 0
+   },
+   "total_occ": 265,
+   "total_files": 172,
+   "example": {
+    "灵茶山艾府": "0003 无重复字符的最长子串 · 【视频】一个视频讲透滑动窗口！附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:collections.Counter",
+   "category": "mod",
+   "name": "collections.Counter",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 228,
+    "yiduobo": 37
+   },
+   "files": {
+    "灵茶山艾府": 139,
+    "yiduobo": 30
+   },
+   "total_occ": 265,
+   "total_files": 169,
+   "example": {
+    "灵茶山艾府": "0030 串联所有单词的子串 · 30 次定长滑动窗口（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "2983 回文串重新排列查询 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:交换 a, b = b, a",
+   "category": "syn",
+   "name": "交换 a, b = b, a",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 106,
+    "yiduobo": 124
+   },
+   "files": {
+    "灵茶山艾府": 69,
+    "yiduobo": 89
+   },
+   "total_occ": 230,
+   "total_files": 158,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0161 相隔为1的编辑距离 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.items",
+   "category": "method",
+   "name": ".items",
+   "label": "dict",
+   "occ": {
+    "灵茶山艾府": 122,
+    "yiduobo": 86
+   },
+   "files": {
+    "灵茶山艾府": 79,
+    "yiduobo": 70
+   },
+   "total_occ": 208,
+   "total_files": 149,
+   "example": {
+    "灵茶山艾府": "0056 合并区间 · 三种方法：排序 - 差分数组 - 扫描线（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0129 求根到叶子节点数字之和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:bisect.bisect_left",
+   "category": "mod",
+   "name": "bisect.bisect_left",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 222,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 144,
+    "yiduobo": 0
+   },
+   "total_occ": 222,
+   "total_files": 144,
+   "example": {
+    "灵茶山艾府": "0004 寻找两个正序数组的中位数 · 【图解】循序渐进：从排序到双指针到二分（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:切片反转 [::-1]",
+   "category": "syn",
+   "name": "切片反转 [::-1]",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 87,
+    "yiduobo": 115
+   },
+   "files": {
+    "灵茶山艾府": 59,
+    "yiduobo": 84
+   },
+   "total_occ": 202,
+   "total_files": 143,
+   "example": {
+    "灵茶山艾府": "0009 回文数 · 详细解释，比官方题解少循环一次（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0214 最短回文串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.reverse",
+   "category": "method",
+   "name": ".reverse",
+   "label": "list",
+   "occ": {
+    "灵茶山艾府": 23,
+    "yiduobo": 119
+   },
+   "files": {
+    "灵茶山艾府": 20,
+    "yiduobo": 114
+   },
+   "total_occ": 142,
+   "total_files": 134,
+   "example": {
+    "灵茶山艾府": "0048 旋转图像 · 数学本质：两次翻转等于一次旋转（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0103 二叉树的锯齿形层次遍历 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.bit_length",
+   "category": "method",
+   "name": ".bit_length",
+   "label": "int",
+   "occ": {
+    "灵茶山艾府": 177,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 109,
+    "yiduobo": 0
+   },
+   "total_occ": 177,
+   "total_files": 109,
+   "example": {
+    "灵茶山艾府": "0201 数字范围按位与 · O(1) 写法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:nonlocal",
+   "category": "syn",
+   "name": "nonlocal",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 142,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 109,
+    "yiduobo": 0
+   },
+   "total_occ": 142,
+   "total_files": 109,
+   "example": {
+    "灵茶山艾府": "0052 N 皇后 II · 【视频讲解】排列型回溯，简洁高效！附题单（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:推导式带 if 过滤",
+   "category": "syn",
+   "name": "推导式带 if 过滤",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 151,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 105,
+    "yiduobo": 3
+   },
+   "total_occ": 154,
+   "total_files": 108,
+   "example": {
+    "灵茶山艾府": "0023 合并 K 个升序链表 · 三种方法：最小堆-分治-迭代（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "0207 课程表 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:MOD = 1_000_000_007",
+   "category": "syn",
+   "name": "MOD = 1_000_000_007",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 225,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 107,
+    "yiduobo": 0
+   },
+   "total_occ": 225,
+   "total_files": 107,
+   "example": {
+    "灵茶山艾府": "0552 学生出勤记录 II · 教你一步步思考 DP：从记忆化搜索到递推，再到矩阵快速幂优化！（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:map",
+   "category": "builtin",
+   "name": "map",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 183,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 104,
+    "yiduobo": 0
+   },
+   "total_occ": 183,
+   "total_files": 104,
+   "example": {
+    "灵茶山艾府": "0139 单词拆分 · 教你一步步思考 DP：从记忆化搜索到递推（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:itertools.pairwise",
+   "category": "mod",
+   "name": "itertools.pairwise",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 121,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 86,
+    "yiduobo": 0
+   },
+   "total_occ": 121,
+   "total_files": 86,
+   "example": {
+    "灵茶山艾府": "0013 罗马数字转整数 · 简单题就有简单写法！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:collections.deque",
+   "category": "mod",
+   "name": "collections.deque",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 91,
+    "yiduobo": 28
+   },
+   "files": {
+    "灵茶山艾府": 64,
+    "yiduobo": 21
+   },
+   "total_occ": 119,
+   "total_files": 85,
+   "example": {
+    "灵茶山艾府": "0102 二叉树的层序遍历 · BFS 为什么要用队列？一个视频讲透！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0362 敲击计数器 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.split",
+   "category": "method",
+   "name": ".split",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 21,
+    "yiduobo": 90
+   },
+   "files": {
+    "灵茶山艾府": 17,
+    "yiduobo": 68
+   },
+   "total_occ": 111,
+   "total_files": 85,
+   "example": {
+    "灵茶山艾府": "0071 简化路径 · 栈模拟，简洁写法（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0071 简化路径 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.popleft",
+   "category": "method",
+   "name": ".popleft",
+   "label": "deque",
+   "occ": {
+    "灵茶山艾府": 93,
+    "yiduobo": 31
+   },
+   "files": {
+    "灵茶山艾府": 63,
+    "yiduobo": 21
+   },
+   "total_occ": 124,
+   "total_files": 84,
+   "example": {
+    "灵茶山艾府": "0102 二叉树的层序遍历 · BFS 为什么要用队列？一个视频讲透！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0362 敲击计数器 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:itertools.accumulate",
+   "category": "mod",
+   "name": "itertools.accumulate",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 126,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 83,
+    "yiduobo": 0
+   },
+   "total_occ": 126,
+   "total_files": 83,
+   "example": {
+    "灵茶山艾府": "0303 区域和检索 - 数组不可变 · 前缀和，附扩展问题（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:chr",
+   "category": "builtin",
+   "name": "chr",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 12,
+    "yiduobo": 102
+   },
+   "files": {
+    "灵茶山艾府": 9,
+    "yiduobo": 69
+   },
+   "total_occ": 114,
+   "total_files": 78,
+   "example": {
+    "灵茶山艾府": "0709 转换成小写字母 · 三种方法：库函数-手动计算-位运算（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0049 字母异位词分组 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:字典推导式",
+   "category": "syn",
+   "name": "字典推导式",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 37,
+    "yiduobo": 59
+   },
+   "files": {
+    "灵茶山艾府": 25,
+    "yiduobo": 53
+   },
+   "total_occ": 96,
+   "total_files": 78,
+   "example": {
+    "灵茶山艾府": "0105 从前序与中序遍历序列构造二叉树 · 【图解】从 O(n-2) 到 O(n)（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0126 单词接龙II & 0127 单词接龙 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.extend",
+   "category": "method",
+   "name": ".extend",
+   "label": "list",
+   "occ": {
+    "灵茶山艾府": 29,
+    "yiduobo": 66
+   },
+   "files": {
+    "灵茶山艾府": 20,
+    "yiduobo": 47
+   },
+   "total_occ": 95,
+   "total_files": 67,
+   "example": {
+    "灵茶山艾府": "0429 N 叉树的层序遍历 · 两种 BFS 写法：双数组-队列（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "0089 格雷编码 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.remove",
+   "category": "method",
+   "name": ".remove",
+   "label": "list/set",
+   "occ": {
+    "灵茶山艾府": 25,
+    "yiduobo": 70
+   },
+   "files": {
+    "灵茶山艾府": 16,
+    "yiduobo": 50
+   },
+   "total_occ": 95,
+   "total_files": 66,
+   "example": {
+    "灵茶山艾府": "0003 无重复字符的最长子串 · 【视频】一个视频讲透滑动窗口！附题单！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0266 回文排列 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:负数切片 a[-k:]",
+   "category": "syn",
+   "name": "负数切片 a[-k:]",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 71,
+    "yiduobo": 24
+   },
+   "files": {
+    "灵茶山艾府": 45,
+    "yiduobo": 21
+   },
+   "total_occ": 95,
+   "total_files": 66,
+   "example": {
+    "灵茶山艾府": "0106 从中序与后序遍历序列构造二叉树 · 【图解】从 O(n-2) 到 O(n)（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0213 打家劫舍II · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:del",
+   "category": "syn",
+   "name": "del",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 72,
+    "yiduobo": 5
+   },
+   "files": {
+    "灵茶山艾府": 54,
+    "yiduobo": 4
+   },
+   "total_occ": 77,
+   "total_files": 58,
+   "example": {
+    "灵茶山艾府": "0146 LRU 缓存 · 【图解】一张图秒懂 LRU！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0622 设计循环队列 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.copy",
+   "category": "method",
+   "name": ".copy",
+   "label": "list/dict/set",
+   "occ": {
+    "灵茶山艾府": 65,
+    "yiduobo": 20
+   },
+   "files": {
+    "灵茶山艾府": 39,
+    "yiduobo": 17
+   },
+   "total_occ": 85,
+   "total_files": 56,
+   "example": {
+    "灵茶山艾府": "0039 组合总和 · 三种方法：选或不选-枚举选哪个-完全背包预处理+可行性剪枝（Python-Java-C++-Go）.md",
+    "yiduobo": "0691 贴纸拼词 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.bit_count",
+   "category": "method",
+   "name": ".bit_count",
+   "label": "int",
+   "occ": {
+    "灵茶山艾府": 88,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 50,
+    "yiduobo": 0
+   },
+   "total_occ": 88,
+   "total_files": 50,
+   "example": {
+    "灵茶山艾府": "0401 二进制手表 · 简单题，简单做（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:global",
+   "category": "syn",
+   "name": "global",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 96
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 47
+   },
+   "total_occ": 97,
+   "total_files": 48,
+   "example": {
+    "灵茶山艾府": "3490 统计美丽整数的数目 · 【模板】数位 DP v2.1（Python-Java-C++-Go）.md",
+    "yiduobo": "0250 统计同值子树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:调用时解包 *args/**kw",
+   "category": "syn",
+   "name": "调用时解包 *args/**kw",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 63,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 44,
+    "yiduobo": 0
+   },
+   "total_occ": 63,
+   "total_files": 44,
+   "example": {
+    "灵茶山艾府": "0014 最长公共前缀 · 简单题，简单做（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:all",
+   "category": "builtin",
+   "name": "all",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 52,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 44,
+    "yiduobo": 0
+   },
+   "total_occ": 52,
+   "total_files": 44,
+   "example": {
+    "灵茶山艾府": "0242 有效的字母异位词 · 简单题，简单做（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:pow",
+   "category": "builtin",
+   "name": "pow",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 77,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 43,
+    "yiduobo": 0
+   },
+   "total_occ": 77,
+   "total_files": 43,
+   "example": {
+    "灵茶山艾府": "0891 子序列宽度之和 · 计算每个元素对答案的贡献，多解法（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:divmod",
+   "category": "builtin",
+   "name": "divmod",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 53,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 42,
+    "yiduobo": 0
+   },
+   "total_occ": 53,
+   "total_files": 42,
+   "example": {
+    "灵茶山艾府": "0068 文本左右对齐 · 分组循环，把困难题变成简单题（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:多重 for 推导式",
+   "category": "syn",
+   "name": "多重 for 推导式",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 48,
+    "yiduobo": 6
+   },
+   "files": {
+    "灵茶山艾府": 33,
+    "yiduobo": 5
+   },
+   "total_occ": 54,
+   "total_files": 38,
+   "example": {
+    "灵茶山艾府": "0079 单词搜索 · 极致优化！代码击败接近 100%！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0017 电话号码的字母组合 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:bisect.bisect_right",
+   "category": "mod",
+   "name": "bisect.bisect_right",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 51,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 36,
+    "yiduobo": 0
+   },
+   "total_occ": 51,
+   "total_files": 36,
+   "example": {
+    "灵茶山艾府": "0034 在排序数组中查找元素的第一个和最后一个位置 · 【视频讲解】二分查找总是写不对？三种写法，一个视频讲.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:heapq.heapify",
+   "category": "mod",
+   "name": "heapq.heapify",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 29,
+    "yiduobo": 16
+   },
+   "files": {
+    "灵茶山艾府": 20,
+    "yiduobo": 16
+   },
+   "total_occ": 45,
+   "total_files": 36,
+   "example": {
+    "灵茶山艾府": "0023 合并 K 个升序链表 · 三种方法：最小堆-分治-迭代（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "0355 设计推特 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.count",
+   "category": "method",
+   "name": ".count",
+   "label": "list/str",
+   "occ": {
+    "灵茶山艾府": 61,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 35,
+    "yiduobo": 0
+   },
+   "total_occ": 61,
+   "total_files": 35,
+   "example": {
+    "灵茶山艾府": "0474 一和零 · 一步步思考：从记忆化搜索到递推到空间优化！（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.isqrt",
+   "category": "mod",
+   "name": "math.isqrt",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 56,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 34,
+    "yiduobo": 0
+   },
+   "total_occ": 56,
+   "total_files": 34,
+   "example": {
+    "灵茶山艾府": "0279 完全平方数 · 两种方法：完全背包 - BFS 最短路（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.sqrt",
+   "category": "mod",
+   "name": "math.sqrt",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 13,
+    "yiduobo": 37
+   },
+   "files": {
+    "灵茶山艾府": 7,
+    "yiduobo": 27
+   },
+   "total_occ": 50,
+   "total_files": 34,
+   "example": {
+    "灵茶山艾府": "1103 分糖果 II · 两种方法：模拟-数学公式（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0279 完全平方数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.keys",
+   "category": "method",
+   "name": ".keys",
+   "label": "dict",
+   "occ": {
+    "灵茶山艾府": 5,
+    "yiduobo": 41
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 31
+   },
+   "total_occ": 46,
+   "total_files": 34,
+   "example": {
+    "灵茶山艾府": "1657 确定两个字符串是否接近 · 理解操作本质+简洁写法（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0090 子集II · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:math.gcd",
+   "category": "mod",
+   "name": "math.gcd",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 86,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 33,
+    "yiduobo": 0
+   },
+   "total_occ": 86,
+   "total_files": 33,
+   "example": {
+    "灵茶山艾府": "1625 执行操作后字典序最小的字符串 · 枚举轮转到最左边的下标 + 裴蜀定理（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "op:~",
+   "category": "op",
+   "name": "~",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 56,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 27,
+    "yiduobo": 3
+   },
+   "total_occ": 59,
+   "total_files": 30,
+   "example": {
+    "灵茶山艾府": "0137 只出现一次的数字 II · 教你一步步推导出位运算公式！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0137 只出现一次的数字II · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:reversed",
+   "category": "builtin",
+   "name": "reversed",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 37,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 26,
+    "yiduobo": 0
+   },
+   "total_occ": 37,
+   "total_files": 26,
+   "example": {
+    "灵茶山艾府": "0032 最长有效括号 · 栈 + 配对标记 + O(1) 空间优化（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:sortedcontainers.SortedList",
+   "category": "mod",
+   "name": "sortedcontainers.SortedList",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 36,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 26,
+    "yiduobo": 0
+   },
+   "total_occ": 36,
+   "total_files": 26,
+   "example": {
+    "灵茶山艾府": "1488 避免洪水泛滥 · 贪心 + 有序集合 - 并查集（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:print",
+   "category": "builtin",
+   "name": "print",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 10,
+    "yiduobo": 22
+   },
+   "files": {
+    "灵茶山艾府": 9,
+    "yiduobo": 17
+   },
+   "total_occ": 32,
+   "total_files": 26,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0440 字典序最小的第K个数字 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:print 调用(调试残留)",
+   "category": "syn",
+   "name": "print 调用(调试残留)",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 10,
+    "yiduobo": 22
+   },
+   "files": {
+    "灵茶山艾府": 9,
+    "yiduobo": 17
+   },
+   "total_occ": 32,
+   "total_files": 26,
+   "example": {
+    "灵茶山艾府": "0002 两数相加 · 【动画】简洁写法！从递归到迭代！（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0440 字典序最小的第K个数字 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:string.ascii_lowercase",
+   "category": "mod",
+   "name": "string.ascii_lowercase",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 46,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 24,
+    "yiduobo": 0
+   },
+   "total_occ": 46,
+   "total_files": 24,
+   "example": {
+    "灵茶山艾府": "1061 按字典序排列最小的等效字符串 · 并查集（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:tuple",
+   "category": "builtin",
+   "name": "tuple",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 22,
+    "yiduobo": 23
+   },
+   "files": {
+    "灵茶山艾府": 14,
+    "yiduobo": 10
+   },
+   "total_occ": 45,
+   "total_files": 24,
+   "example": {
+    "灵茶山艾府": "0874 模拟行走机器人 · 利用向量数组简化代码（Python-Java-C++-Go）.md",
+    "yiduobo": "0249 移动字符串分组 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:any",
+   "category": "builtin",
+   "name": "any",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 30,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 24,
+    "yiduobo": 0
+   },
+   "total_occ": 30,
+   "total_files": 24,
+   "example": {
+    "灵茶山艾府": "0073 矩阵置零 · 一步步优化，从 O(m+n) 到 O(1) 空间（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:itertools.count",
+   "category": "mod",
+   "name": "itertools.count",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 33,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 23,
+    "yiduobo": 0
+   },
+   "total_occ": 33,
+   "total_files": 23,
+   "example": {
+    "灵茶山艾府": "0394 字符串解码 · 递归 - 用栈模拟递归（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.comb",
+   "category": "mod",
+   "name": "math.comb",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 40,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 22,
+    "yiduobo": 0
+   },
+   "total_occ": 40,
+   "total_files": 22,
+   "example": {
+    "灵茶山艾府": "0062 不同路径 · 两种方法：动态规划 - 组合数学（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:bin",
+   "category": "builtin",
+   "name": "bin",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 14,
+    "yiduobo": 17
+   },
+   "files": {
+    "灵茶山艾府": 10,
+    "yiduobo": 11
+   },
+   "total_occ": 31,
+   "total_files": 21,
+   "example": {
+    "灵茶山艾府": "0190 颠倒二进制位 · O(1) 位运算分治，原理讲解（Python-Java-C++-Go）.md",
+    "yiduobo": "2509 查询树中环的长度 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:functools.reduce",
+   "category": "mod",
+   "name": "functools.reduce",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 29,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 20,
+    "yiduobo": 0
+   },
+   "total_occ": 29,
+   "total_files": 20,
+   "example": {
+    "灵茶山艾府": "0136 只出现一次的数字 · O(n) 一次遍历，附相似题目（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:random.randint",
+   "category": "mod",
+   "name": "random.randint",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 8,
+    "yiduobo": 17
+   },
+   "files": {
+    "灵茶山艾府": 6,
+    "yiduobo": 14
+   },
+   "total_occ": 25,
+   "total_files": 20,
+   "example": {
+    "灵茶山艾府": "0215 数组中的第K个最大元素 · O(n) 快速选择算法，附常见问题解答（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0380 常数时间插入、删除和获取随机元素 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:切片步长 a[::k]",
+   "category": "syn",
+   "name": "切片步长 a[::k]",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 38,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 19,
+    "yiduobo": 0
+   },
+   "total_occ": 38,
+   "total_files": 19,
+   "example": {
+    "灵茶山艾府": "0390 消除游戏 · 从 O(log n) 到 O(1)（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.cache_clear",
+   "category": "method",
+   "name": ".cache_clear",
+   "label": "@cache 函数",
+   "occ": {
+    "灵茶山艾府": 21,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 19,
+    "yiduobo": 0
+   },
+   "total_occ": 21,
+   "total_files": 19,
+   "example": {
+    "灵茶山艾府": "1690 石子游戏 VII · 教你一步步思考动态规划：从记忆化搜索到递推（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.find",
+   "category": "method",
+   "name": ".find",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 7,
+    "yiduobo": 16
+   },
+   "files": {
+    "灵茶山艾府": 6,
+    "yiduobo": 12
+   },
+   "total_occ": 23,
+   "total_files": 18,
+   "example": {
+    "灵茶山艾府": "0394 字符串解码 · 递归 - 用栈模拟递归（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "0003 无重复字符的最长子串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.index",
+   "category": "method",
+   "name": ".index",
+   "label": "list/str",
+   "occ": {
+    "灵茶山艾府": 25,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 14,
+    "yiduobo": 2
+   },
+   "total_occ": 27,
+   "total_files": 16,
+   "example": {
+    "灵茶山艾府": "0105 从前序与中序遍历序列构造二叉树 · 【图解】从 O(n-2) 到 O(n)（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "1516 移动N叉树的子树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.replace",
+   "category": "method",
+   "name": ".replace",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 15,
+    "yiduobo": 10
+   },
+   "files": {
+    "灵茶山艾府": 8,
+    "yiduobo": 8
+   },
+   "total_occ": 25,
+   "total_files": 16,
+   "example": {
+    "灵茶山艾府": "0777 在 LR 字符串中交换相邻字符 · 脑筋急转弯（Python-Java-C++-Go）.md",
+    "yiduobo": "0005 最长回文子串 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:海象运算符 :=",
+   "category": "syn",
+   "name": "海象运算符 :=",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 26,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 15,
+    "yiduobo": 0
+   },
+   "total_occ": 26,
+   "total_files": 15,
+   "example": {
+    "灵茶山艾府": "0279 完全平方数 · 两种方法：完全背包 - BFS 最短路（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.clear",
+   "category": "method",
+   "name": ".clear",
+   "label": "list/dict/set",
+   "occ": {
+    "灵茶山艾府": 20,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 14,
+    "yiduobo": 1
+   },
+   "total_occ": 21,
+   "total_files": 15,
+   "example": {
+    "灵茶山艾府": "0084 柱状图中最大的矩形 · 一步步优化：从三次遍历到一次遍历（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "3924 有限重边的最小阈值路径 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.bisect_left",
+   "category": "method",
+   "name": ".bisect_left",
+   "label": "SortedList",
+   "occ": {
+    "灵茶山艾府": 17,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 15,
+    "yiduobo": 0
+   },
+   "total_occ": 17,
+   "total_files": 15,
+   "example": {
+    "灵茶山艾府": "1847 最近的房间 · 离线+有序集合+双指针（Python-Java-C++-Go-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "py2:需修复才能用 py3 解析",
+   "category": "py2",
+   "name": "需修复才能用 py3 解析",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 15
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 15
+   },
+   "total_occ": 15,
+   "total_files": 15,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0440 字典序最小的第K个数字 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:% 字符串格式化",
+   "category": "syn",
+   "name": "% 字符串格式化",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 19
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 14
+   },
+   "total_occ": 19,
+   "total_files": 14,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0228 汇总区间 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:集合推导式",
+   "category": "syn",
+   "name": "集合推导式",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 17,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 13,
+    "yiduobo": 1
+   },
+   "total_occ": 18,
+   "total_files": 14,
+   "example": {
+    "灵茶山艾府": "0822 翻转卡片游戏 · 阅读理解题（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "0898 子数组按位或操作 · yiduobo.md"
+   }
+  },
+  {
+   "key": "py2:print 语句",
+   "category": "py2",
+   "name": "print 语句",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 16
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 14
+   },
+   "total_occ": 16,
+   "total_files": 14,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0440 字典序最小的第K个数字 · yiduobo.md"
+   }
+  },
+  {
+   "key": "import:import heapq",
+   "category": "import",
+   "name": "import heapq",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 14
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 14
+   },
+   "total_occ": 14,
+   "total_files": 14,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0295 数据流的中位数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:operator.xor",
+   "category": "mod",
+   "name": "operator.xor",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 21,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 13,
+    "yiduobo": 0
+   },
+   "total_occ": 21,
+   "total_files": 13,
+   "example": {
+    "灵茶山艾府": "0136 只出现一次的数字 · O(n) 一次遍历，附相似题目（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.isdigit",
+   "category": "method",
+   "name": ".isdigit",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 14,
+    "yiduobo": 5
+   },
+   "files": {
+    "灵茶山艾府": 9,
+    "yiduobo": 4
+   },
+   "total_occ": 19,
+   "total_files": 13,
+   "example": {
+    "灵茶山艾府": "0150 逆波兰表达式求值 · 理解题意，用栈模拟（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0224 基本计算器 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:f-string",
+   "category": "syn",
+   "name": "f-string",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 26,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 12,
+    "yiduobo": 0
+   },
+   "total_occ": 26,
+   "total_files": 12,
+   "example": {
+    "灵茶山艾府": "0093 复原 IP 地址 · 两种方法：三重循环 - 回溯+剪枝（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:import numpy",
+   "category": "import",
+   "name": "import numpy",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 19,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 12,
+    "yiduobo": 0
+   },
+   "total_occ": 19,
+   "total_files": 12,
+   "example": {
+    "灵茶山艾府": "0070 爬楼梯 · 教你一步步思考动态规划：从记忆化搜索到递推到矩阵快速幂（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.update",
+   "category": "method",
+   "name": ".update",
+   "label": "dict/set/Counter",
+   "occ": {
+    "灵茶山艾府": 7,
+    "yiduobo": 9
+   },
+   "files": {
+    "灵茶山艾府": 4,
+    "yiduobo": 8
+   },
+   "total_occ": 16,
+   "total_files": 12,
+   "example": {
+    "灵茶山艾府": "2391 收集垃圾的最少总时间 · 三种方法：多次遍历-正序一次遍历-倒序一次遍历（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": "1096 花括号展开II · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.discard",
+   "category": "method",
+   "name": ".discard",
+   "label": "set",
+   "occ": {
+    "灵茶山艾府": 13,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 12,
+    "yiduobo": 0
+   },
+   "total_occ": 13,
+   "total_files": 12,
+   "example": {
+    "灵茶山艾府": "1436 旅行终点站 · 两种方法：两次遍历-一次遍历（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:for ... else",
+   "category": "syn",
+   "name": "for ... else",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 22,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 11,
+    "yiduobo": 0
+   },
+   "total_occ": 22,
+   "total_files": 11,
+   "example": {
+    "灵茶山艾府": "0955 删列造序 II · 从左到右贪心 + 优化（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:heapq.heapreplace",
+   "category": "mod",
+   "name": "heapq.heapreplace",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 16,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 11,
+    "yiduobo": 0
+   },
+   "total_occ": 16,
+   "total_files": 11,
+   "example": {
+    "灵茶山艾府": "0632 最小区间 · 两种方法：堆-排序+滑动窗口（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.lcm",
+   "category": "mod",
+   "name": "math.lcm",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 23,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 10,
+    "yiduobo": 0
+   },
+   "total_occ": 23,
+   "total_files": 10,
+   "example": {
+    "灵茶山艾府": "0878 第 N 个神奇数字 · 二分答案+容斥原理（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:dict",
+   "category": "builtin",
+   "name": "dict",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 15,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 10,
+    "yiduobo": 0
+   },
+   "total_occ": 15,
+   "total_files": 10,
+   "example": {
+    "灵茶山艾府": "1255 得分最高的单词集合 · 回溯三问：思考回溯问题的通用方法（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.appendleft",
+   "category": "method",
+   "name": ".appendleft",
+   "label": "deque",
+   "occ": {
+    "灵茶山艾府": 13,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 9,
+    "yiduobo": 1
+   },
+   "total_occ": 15,
+   "total_files": 10,
+   "example": {
+    "灵茶山艾府": "1406 石子游戏 III · 三种方法：最大化得分之差 - 最大化个人得分 - 单调队列优化（Python-Java-C++-Go）.md",
+    "yiduobo": "0362 敲击计数器 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.lower",
+   "category": "method",
+   "name": ".lower",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 13,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 9,
+    "yiduobo": 1
+   },
+   "total_occ": 15,
+   "total_files": 10,
+   "example": {
+    "灵茶山艾府": "0125 验证回文串 · 简单题，简单做（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "3860 不同邮件组 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:next",
+   "category": "builtin",
+   "name": "next",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 11,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 9,
+    "yiduobo": 0
+   },
+   "total_occ": 11,
+   "total_files": 9,
+   "example": {
+    "灵茶山艾府": "0782 变为棋盘 · 【图解】逆向思维（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.zfill",
+   "category": "method",
+   "name": ".zfill",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 10,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 9,
+    "yiduobo": 0
+   },
+   "total_occ": 10,
+   "total_files": 9,
+   "example": {
+    "灵茶山艾府": "0190 颠倒二进制位 · O(1) 位运算分治，原理讲解（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:object",
+   "category": "builtin",
+   "name": "object",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 26,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 8,
+    "yiduobo": 0
+   },
+   "total_occ": 26,
+   "total_files": 8,
+   "example": {
+    "灵茶山艾府": "0070 爬楼梯 · 教你一步步思考动态规划：从记忆化搜索到递推到矩阵快速幂（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "op:@",
+   "category": "op",
+   "name": "@",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 20,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 8,
+    "yiduobo": 0
+   },
+   "total_occ": 20,
+   "total_files": 8,
+   "example": {
+    "灵茶山艾府": "0070 爬楼梯 · 教你一步步思考动态规划：从记忆化搜索到递推到矩阵快速幂（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.ceil",
+   "category": "mod",
+   "name": "math.ceil",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 14,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 7,
+    "yiduobo": 1
+   },
+   "total_occ": 16,
+   "total_files": 8,
+   "example": {
+    "灵茶山艾府": "0754 到达终点数字 · 分类讨论+详细证明+简洁写法+优化（Python-Java-C++-Go）.md",
+    "yiduobo": "1058 最小化舍入误差以满足目标 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:itertools.permutations",
+   "category": "mod",
+   "name": "itertools.permutations",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 10,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 8,
+    "yiduobo": 0
+   },
+   "total_occ": 10,
+   "total_files": 8,
+   "example": {
+    "灵茶山艾府": "2014 重复 K 次的最长子序列 · 枚举排列 + 判断子序列（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:heapq.heapreplace_max",
+   "category": "mod",
+   "name": "heapq.heapreplace_max",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 9,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 8,
+    "yiduobo": 0
+   },
+   "total_occ": 9,
+   "total_files": 8,
+   "example": {
+    "灵茶山艾府": "0630 课程表 III · 贪心还能反悔？（Python-Java-C++-Go-JS）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:heapq.nlargest",
+   "category": "mod",
+   "name": "heapq.nlargest",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 9,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 8,
+    "yiduobo": 0
+   },
+   "total_occ": 9,
+   "total_files": 8,
+   "example": {
+    "灵茶山艾府": "2242 节点序列的最大得分 · 一步步提示如何做出此题（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:heapq.heapify_max",
+   "category": "mod",
+   "name": "heapq.heapify_max",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 8,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 8,
+    "yiduobo": 0
+   },
+   "total_occ": 8,
+   "total_files": 8,
+   "example": {
+    "灵茶山艾府": "0857 雇佣 K 名工人的最低成本 · 一步步提示如何思考此题（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:float",
+   "category": "builtin",
+   "name": "float",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 14
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 6
+   },
+   "total_occ": 16,
+   "total_files": 7,
+   "example": {
+    "灵茶山艾府": "0799 香槟塔 · BFS 模拟 + 优化（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "0480 滑动窗口中位数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:numpy.array",
+   "category": "mod",
+   "name": "numpy.array",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 15,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "total_occ": 15,
+   "total_files": 7,
+   "example": {
+    "灵茶山艾府": "0070 爬楼梯 · 教你一步步思考动态规划：从记忆化搜索到递推到矩阵快速幂（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:copy.deepcopy",
+   "category": "mod",
+   "name": "copy.deepcopy",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 11
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 7
+   },
+   "total_occ": 11,
+   "total_files": 7,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "3320 统计能获胜的出招序列数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:heapq.heappushpop",
+   "category": "mod",
+   "name": "heapq.heappushpop",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 10,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "total_occ": 10,
+   "total_files": 7,
+   "example": {
+    "灵茶山艾府": "0295 数据流的中位数 · 如何自然引入大小堆？简洁写法！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:itertools.groupby",
+   "category": "mod",
+   "name": "itertools.groupby",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 10,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "total_occ": 10,
+   "total_files": 7,
+   "example": {
+    "灵茶山艾府": "0987 二叉树的垂序遍历 · 四种写法：DFS+哈希表-双数组-单数组（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:operator.or_",
+   "category": "mod",
+   "name": "operator.or_",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 10,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "total_occ": 10,
+   "total_files": 7,
+   "example": {
+    "灵茶山艾府": "1863 找出所有子集的异或总和再求和 · O(n) 数学做法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:import random",
+   "category": "import",
+   "name": "import random",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 7
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 7
+   },
+   "total_occ": 7,
+   "total_files": 7,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0380 常数时间插入、删除和获取随机元素 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:heapq.heappush_max",
+   "category": "mod",
+   "name": "heapq.heappush_max",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "total_occ": 7,
+   "total_files": 7,
+   "example": {
+    "灵茶山艾府": "0295 数据流的中位数 · 如何自然引入大小堆？简洁写法！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.release",
+   "category": "method",
+   "name": ".release",
+   "label": "threading",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 22
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 6
+   },
+   "total_occ": 22,
+   "total_files": 6,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1114 按序打印 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.acquire",
+   "category": "method",
+   "name": ".acquire",
+   "label": "threading",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 17
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 6
+   },
+   "total_occ": 17,
+   "total_files": 6,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1114 按序打印 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:threading.Semaphore",
+   "category": "mod",
+   "name": "threading.Semaphore",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 14
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 6
+   },
+   "total_occ": 14,
+   "total_files": 6,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1114 按序打印 · yiduobo.md"
+   }
+  },
+  {
+   "key": "import:from sortedcontainers import SortedList",
+   "category": "import",
+   "name": "from sortedcontainers import SortedList",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "total_occ": 7,
+   "total_files": 6,
+   "example": {
+    "灵茶山艾府": "2102 序列顺序查询 · 巧妙利用查询的特殊性.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:itertools.combinations",
+   "category": "mod",
+   "name": "itertools.combinations",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "total_occ": 7,
+   "total_files": 6,
+   "example": {
+    "灵茶山艾府": "0812 最大三角形面积 · 两种方法：枚举 - 凸包+旋转卡壳（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:import threading",
+   "category": "import",
+   "name": "import threading",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 6
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 6
+   },
+   "total_occ": 6,
+   "total_files": 6,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1114 按序打印 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.matrix_power",
+   "category": "method",
+   "name": ".matrix_power",
+   "label": "numpy",
+   "occ": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "total_occ": 6,
+   "total_files": 6,
+   "example": {
+    "灵茶山艾府": "0070 爬楼梯 · 教你一步步思考动态规划：从记忆化搜索到递推到矩阵快速幂（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.rstrip",
+   "category": "method",
+   "name": ".rstrip",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "total_occ": 6,
+   "total_files": 6,
+   "example": {
+    "灵茶山艾府": "0058 最后一个单词的长度 · 两种写法：手写循环-库函数（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:numpy.linalg",
+   "category": "mod",
+   "name": "numpy.linalg",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "total_occ": 6,
+   "total_files": 6,
+   "example": {
+    "灵茶山艾府": "0070 爬楼梯 · 教你一步步思考动态规划：从记忆化搜索到递推到矩阵快速幂（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.bisect_right",
+   "category": "method",
+   "name": ".bisect_right",
+   "label": "SortedList",
+   "occ": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 5,
+    "yiduobo": 0
+   },
+   "total_occ": 6,
+   "total_files": 5,
+   "example": {
+    "灵茶山艾府": "1488 避免洪水泛滥 · 贪心 + 有序集合 - 并查集（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.rfind",
+   "category": "method",
+   "name": ".rfind",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 5,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 4,
+    "yiduobo": 1
+   },
+   "total_occ": 6,
+   "total_files": 5,
+   "example": {
+    "灵茶山艾府": "0058 最后一个单词的长度 · 两种写法：手写循环-库函数（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "3407 字符串匹配模式 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.islower",
+   "category": "method",
+   "name": ".islower",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 5,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 5,
+    "yiduobo": 0
+   },
+   "total_occ": 5,
+   "total_files": 5,
+   "example": {
+    "灵茶山艾府": "0520 检测大写字母 · 简洁写法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.floor",
+   "category": "mod",
+   "name": "math.floor",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 6,
+    "yiduobo": 4
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 1
+   },
+   "total_occ": 10,
+   "total_files": 4,
+   "example": {
+    "灵茶山艾府": "1739 放置盒子 · 没想明白？一个动画秒懂！附 O(1) 做法（Python-Java-C++-Go）.md",
+    "yiduobo": "1058 最小化舍入误差以满足目标 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:math.pi",
+   "category": "mod",
+   "name": "math.pi",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 10
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 4
+   },
+   "total_occ": 10,
+   "total_files": 4,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0478 在圆内随机生成点 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.isalpha",
+   "category": "method",
+   "name": ".isalpha",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "total_occ": 7,
+   "total_files": 4,
+   "example": {
+    "灵茶山艾府": "0394 字符串解码 · 递归 - 用栈模拟递归（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:numpy.ones",
+   "category": "mod",
+   "name": "numpy.ones",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "total_occ": 7,
+   "total_files": 4,
+   "example": {
+    "灵茶山艾府": "0935 骑士拨号器 · 教你一步步思考 DP：从记忆化搜索到递推到矩阵快速幂！（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:numpy.zeros",
+   "category": "mod",
+   "name": "numpy.zeros",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 7,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "total_occ": 7,
+   "total_files": 4,
+   "example": {
+    "灵茶山艾府": "1931 用三种不同颜色为网格涂色 · 四种方法：记忆化搜索-递推-矩阵快速幂-BM+Kitamasa（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.isupper",
+   "category": "method",
+   "name": ".isupper",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "total_occ": 6,
+   "total_files": 4,
+   "example": {
+    "灵茶山艾府": "0520 检测大写字母 · 简洁写法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:iter",
+   "category": "builtin",
+   "name": "iter",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "total_occ": 4,
+   "total_files": 4,
+   "example": {
+    "灵茶山艾府": "0392 判断子序列 · 简洁写法，附进阶问题解答（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.startswith",
+   "category": "method",
+   "name": ".startswith",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 1
+   },
+   "total_occ": 4,
+   "total_files": 4,
+   "example": {
+    "灵茶山艾府": "0833 字符串中的查找与替换 · 线性做法（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "3491 电话号码前缀 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:heapq.heappop_max",
+   "category": "mod",
+   "name": "heapq.heappop_max",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "total_occ": 4,
+   "total_files": 4,
+   "example": {
+    "灵茶山艾府": "3092 最高频率的 ID · 两种方法：哈希表+有序集合-懒删除堆（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.put",
+   "category": "method",
+   "name": ".put",
+   "label": "Queue",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 9
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "total_occ": 9,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0023 合并K个排序链表 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.moveRight",
+   "category": "method",
+   "name": ".moveRight",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 6
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 2
+   },
+   "total_occ": 8,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "2753 计算一个环形街道上的房屋数量 II · 线性做法（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "2728 计算一个环形街道上的房屋数量 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.isDoorOpen",
+   "category": "method",
+   "name": ".isDoorOpen",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 4
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 2
+   },
+   "total_occ": 6,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "2753 计算一个环形街道上的房屋数量 II · 线性做法（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "2728 计算一个环形街道上的房屋数量 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:random.randrange",
+   "category": "mod",
+   "name": "random.randrange",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 5,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "total_occ": 5,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "0961 在长度 2N 的数组中找出重复 N 次的元素 · 四种方法：哈希集合-摩尔投票-邻近元素-随机（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:while ... else",
+   "category": "syn",
+   "name": "while ... else",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 5,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "total_occ": 5,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "0735 小行星碰撞 · 用栈维护小行星（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.popitem",
+   "category": "method",
+   "name": ".popitem",
+   "label": "dict",
+   "occ": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "total_occ": 4,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "0146 LRU 缓存 · 【图解】一张图秒懂 LRU！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:heapq.nsmallest",
+   "category": "mod",
+   "name": "heapq.nsmallest",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "total_occ": 4,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "3010 将数组分成最小总代价的子数组 I · 从 O(nlogn) 到 O(n)（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:itertools.chain",
+   "category": "mod",
+   "name": "itertools.chain",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "total_occ": 4,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "2415 反转二叉树的奇数层 · 直接交换值：BFS - DFS.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:import Queue",
+   "category": "import",
+   "name": "import Queue",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0101 对称二叉树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.closeDoor",
+   "category": "method",
+   "name": ".closeDoor",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 2
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "2753 计算一个环形街道上的房屋数量 II · 线性做法（Python-Java-C++-Go-JS）.md",
+    "yiduobo": "2728 计算一个环形街道上的房屋数量 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.getInteger",
+   "category": "method",
+   "name": ".getInteger",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0339 嵌套列表权重和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.getList",
+   "category": "method",
+   "name": ".getList",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0339 嵌套列表权重和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.isInteger",
+   "category": "method",
+   "name": ".isInteger",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0339 嵌套列表权重和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.length",
+   "category": "method",
+   "name": ".length",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1095 山脉数组中查找目标值 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:datetime.datetime",
+   "category": "mod",
+   "name": "datetime.datetime",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "1154 一年中的第几天 · 各种语言的库函数写法（Python-Java-C++-Go-JS）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:functools.cmp_to_key",
+   "category": "mod",
+   "name": "functools.cmp_to_key",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "0179 最大数 · 证明题：传递性和最优性（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.cbrt",
+   "category": "mod",
+   "name": "math.cbrt",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "1739 放置盒子 · 没想明白？一个动画秒懂！附 O(1) 做法（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:魔术方法 __sub__",
+   "category": "syn",
+   "name": "魔术方法 __sub__",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 3,
+   "example": {
+    "灵茶山艾府": "3494 酿造药水需要的最少总时间 · 四种方法：正反两次扫描 - 递推 - record - 凸包+二分（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.move_to_end",
+   "category": "method",
+   "name": ".move_to_end",
+   "label": "OrderedDict",
+   "occ": {
+    "灵茶山艾府": 6,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 6,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0146 LRU 缓存 · 【图解】一张图秒懂 LRU！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.acos",
+   "category": "mod",
+   "name": "math.acos",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "total_occ": 5,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "3899 三角形的内角度数 · 余弦定理（Python-Java-C++-Go）.md",
+    "yiduobo": "3899 三角形的内角度数 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:numpy.base_repr",
+   "category": "mod",
+   "name": "numpy.base_repr",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 5,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 5,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "3519 统计逐位非递减的整数 · 两种方法：上下界数位 DP - 组合数学（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:numpy.fft",
+   "category": "mod",
+   "name": "numpy.fft",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 5,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 5,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0835 图像重叠 · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:round",
+   "category": "builtin",
+   "name": "round",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "total_occ": 4,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "1870 准时到达的列车最小时速 · 极致优化！避免浮点误差的写法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": "3549 两个多项式相乘 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.at",
+   "category": "method",
+   "name": ".at",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "total_occ": 4,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "2936 包含相等值数字块的数量 · 库函数简洁写法.md",
+    "yiduobo": "2936 包含相等值数字块的数量 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.move",
+   "category": "method",
+   "name": ".move",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 4
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "total_occ": 4,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0489 扫地机器人 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:isinstance",
+   "category": "builtin",
+   "name": "isinstance",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "3569 分割数组后不同质数的最大数目 · Lazy 线段树 + 有序集合，两种写法（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.isalnum",
+   "category": "method",
+   "name": ".isalnum",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0125 验证回文串 · 简单题，简单做（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.lstrip",
+   "category": "method",
+   "name": ".lstrip",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "2211 统计道路上的碰撞次数 · 脑筋急转弯（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.most_common",
+   "category": "method",
+   "name": ".most_common",
+   "label": "Counter",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0767 重构字符串 · 结论+构造，排序-不排序两种写法，附相似题目（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.total",
+   "category": "method",
+   "name": ".total",
+   "label": "Counter",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0299 猜数字游戏 · 阅读理解（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:collections.OrderedDict",
+   "category": "mod",
+   "name": "collections.OrderedDict",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0146 LRU 缓存 · 【图解】一张图秒懂 LRU！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.cos",
+   "category": "mod",
+   "name": "math.cos",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0478 在圆内随机生成点 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:math.sin",
+   "category": "mod",
+   "name": "math.sin",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0478 在圆内随机生成点 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:numpy.sum",
+   "category": "mod",
+   "name": "numpy.sum",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 3,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "1931 用三种不同颜色为网格涂色 · 四种方法：记忆化搜索-递推-矩阵快速幂-BM+Kitamasa（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:random.random",
+   "category": "mod",
+   "name": "random.random",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0478 在圆内随机生成点 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:魔术方法 __lt__",
+   "category": "syn",
+   "name": "魔术方法 __lt__",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "total_occ": 3,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "1792 最大平均通过率 · 转化成 n 个单调递减序列，从中选最大的 k 个数（Python-Java-C++-Go）.md",
+    "yiduobo": "2102 序列顺序查询 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:filter",
+   "category": "builtin",
+   "name": "filter",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0125 验证回文串 · 简单题，简单做（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:import pandas",
+   "category": "import",
+   "name": "import pandas",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0584 寻找用户推荐人 · MySQL - Pandas 写法.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:import time",
+   "category": "import",
+   "name": "import time",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0336 回文对 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.empty",
+   "category": "method",
+   "name": ".empty",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0023 合并K个排序链表 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.f",
+   "category": "method",
+   "name": ".f",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "1237 找出给定方程的正整数解 · 相向双指针，附题单（Python-Java-C++-Go）.md",
+    "yiduobo": "1237 找出给定方程的正整数解 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.from_iterable",
+   "category": "method",
+   "name": ".from_iterable",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "2415 反转二叉树的奇数层 · 直接交换值：BFS - DFS.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.size",
+   "category": "method",
+   "name": ".size",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "2936 包含相等值数字块的数量 · 库函数简洁写法.md",
+    "yiduobo": "2936 包含相等值数字块的数量 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.strptime",
+   "category": "method",
+   "name": ".strptime",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "1154 一年中的第几天 · 各种语言的库函数写法（Python-Java-C++-Go-JS）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.title",
+   "category": "method",
+   "name": ".title",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "2129 将标题首字母大写 · 简洁写法（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:Queue.Queue",
+   "category": "mod",
+   "name": "Queue.Queue",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0101 对称二叉树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:heapq.heappushpop_max",
+   "category": "mod",
+   "name": "heapq.heappushpop_max",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0295 数据流的中位数 · 如何自然引入大小堆？简洁写法！（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:itertools.zip_longest",
+   "category": "mod",
+   "name": "itertools.zip_longest",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0165 比较版本号 · 库函数写法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:numpy.rint",
+   "category": "mod",
+   "name": "numpy.rint",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0835 图像重叠 · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:operator.mul",
+   "category": "mod",
+   "name": "operator.mul",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "2438 二的幂数组中查询范围内的乘积 · 三种方法：暴力 - 预处理 - 前缀和（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:random.shuffle",
+   "category": "mod",
+   "name": "random.shuffle",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "3680 生成赛程 · 两种方法：构造 - 随机（Python-Java-C++-Go）.md",
+    "yiduobo": "1924 安装栅栏II · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:sortedcontainers.SortedSet",
+   "category": "mod",
+   "name": "sortedcontainers.SortedSet",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "2349 设计数字容器系统 · 两种方法：有序集合 - 懒删除堆（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:match/case",
+   "category": "syn",
+   "name": "match/case",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 2,
+   "example": {
+    "灵茶山艾府": "0412 Fizz Buzz · 简单题，简单做（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:complex",
+   "category": "builtin",
+   "name": "complex",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 12
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 12,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "3549 两个多项式相乘 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.query",
+   "category": "method",
+   "name": ".query",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 8
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 8,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1538 找出隐藏数组中出现次数最多的元素 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.turnRight",
+   "category": "method",
+   "name": ".turnRight",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 6
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 6,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0489 扫地机器人 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.isdisjoint",
+   "category": "method",
+   "name": ".isdisjoint",
+   "label": "set",
+   "occ": {
+    "灵茶山艾府": 4,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 4,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "1733 需要教语言的最少人数 · 两种方法：枚举 - 计数（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:time.mktime",
+   "category": "mod",
+   "name": "time.mktime",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 3,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0635 设计日志存储系统 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:time.strptime",
+   "category": "mod",
+   "name": "time.strptime",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 3
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 3,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0635 设计日志存储系统 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:staticmethod",
+   "category": "builtin",
+   "name": "staticmethod",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3762 使数组元素相等的最小操作次数 · 中位数贪心 + 可持久化线段树（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "builtin:super",
+   "category": "builtin",
+   "name": "super",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1628 设计带解析函数的表达式树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "builtin:xrange",
+   "category": "builtin",
+   "name": "xrange",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1115 交替打印FooBar · yiduobo.md"
+   }
+  },
+  {
+   "key": "deco:@staticmethod",
+   "category": "deco",
+   "name": "@staticmethod",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3762 使数组元素相等的最小操作次数 · 中位数贪心 + 可持久化线段树（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.clean",
+   "category": "method",
+   "name": ".clean",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0489 扫地机器人 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.compareSub",
+   "category": "method",
+   "name": ".compareSub",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1533 找到最大整数的索引 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.fft2",
+   "category": "method",
+   "name": ".fft2",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0835 图像重叠 · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.format",
+   "category": "method",
+   "name": ".format",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "3318 计算子数组的x-sum I & 3321 计算子数组的x-sum II · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.max",
+   "category": "method",
+   "name": ".max",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0835 图像重叠 · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.sum",
+   "category": "method",
+   "name": ".sum",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3700 锯齿形数组的总数 II · 两种方法：矩阵快速幂优化 DP - BM+Kitamasa（Python-NumPy-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.translate",
+   "category": "method",
+   "name": ".translate",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0966 元音拼写检查器 · 三个哈希表（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.union",
+   "category": "method",
+   "name": ".union",
+   "label": "set",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1755 最接近目标值的子序列和 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:math.degrees",
+   "category": "mod",
+   "name": "math.degrees",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3899 三角形的内角度数 · 余弦定理（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.log",
+   "category": "mod",
+   "name": "math.log",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 2
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0483 最小好进制 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:numpy.int8",
+   "category": "mod",
+   "name": "numpy.int8",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0835 图像重叠 · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:try/except",
+   "category": "syn",
+   "name": "try/except",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3713 最长的平衡子串 I · 两种方法：暴力枚举 - 枚举右维护左（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "syn:yield 生成器",
+   "category": "syn",
+   "name": "yield 生成器",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 2,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 2,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "4053 使每个元素变为回文数的最少操作次数 · 两种方法：预处理回文数 - 至多考虑 5 个数（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "deco:@abstractmethod",
+   "category": "deco",
+   "name": "@abstractmethod",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1628 设计带解析函数的表达式树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "import:from Queue import PriorityQueue",
+   "category": "import",
+   "name": "from Queue import PriorityQueue",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0023 合并K个排序链表 · yiduobo.md"
+   }
+  },
+  {
+   "key": "import:from abc import ABCMeta",
+   "category": "import",
+   "name": "from abc import ABCMeta",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1628 设计带解析函数的表达式树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "import:from abc import abstractmethod",
+   "category": "import",
+   "name": "from abc import abstractmethod",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1628 设计带解析函数的表达式树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "import:from collections import Counter",
+   "category": "import",
+   "name": "from collections import Counter",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "3371 识别数组中的最大异常值 · yiduobo.md"
+   }
+  },
+  {
+   "key": "import:from fractions import Fraction",
+   "category": "import",
+   "name": "from fractions import Fraction",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0679 24 点游戏 · 每次合并两张牌，递归写法（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:from scipy.signal import convolve",
+   "category": "import",
+   "name": "from scipy.signal import convolve",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0611 有效三角形的个数 · 三种方法：枚举最长边-枚举最短边-值域卷积（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:from scipy.signal import correlate2d",
+   "category": "import",
+   "name": "from scipy.signal import correlate2d",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0835 图像重叠 · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:from scipy.spatial import ConvexHull",
+   "category": "import",
+   "name": "from scipy.spatial import ConvexHull",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0812 最大三角形面积 · 两种方法：枚举 - 凸包+旋转卡壳（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:from sortedcontainers import SortedDict",
+   "category": "import",
+   "name": "from sortedcontainers import SortedDict",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "2276 统计区间中的整数数目 · 两种做法：珂朵莉树 - 动态开点线段树（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "import:import abc",
+   "category": "import",
+   "name": "import abc",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1628 设计带解析函数的表达式树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "import:import math",
+   "category": "import",
+   "name": "import math",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0478 在圆内随机生成点 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.canMove",
+   "category": "method",
+   "name": ".canMove",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1778 未知网格中的最短路径 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.capitalize",
+   "category": "method",
+   "name": ".capitalize",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3582 为视频标题生成标签 · 库函数模拟（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.dimensions",
+   "category": "method",
+   "name": ".dimensions",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1428 至少有一个1的最左端列 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.fft",
+   "category": "method",
+   "name": ".fft",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "4021 得到旋转回文字符串的最少操作次数 I · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.format_map",
+   "category": "method",
+   "name": ".format_map",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "1807 替换字符串中的括号内容 · 记录左括号的位置，模拟（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.full",
+   "category": "method",
+   "name": ".full",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0346 数据流中的移动平均值 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.getHeight",
+   "category": "method",
+   "name": ".getHeight",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1618 找出适应屏幕的最大字号 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.getNext",
+   "category": "method",
+   "name": ".getNext",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1265 逆序打印不可变链表 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.getUrls",
+   "category": "method",
+   "name": ".getUrls",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1236 网络爬虫 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.getWidth",
+   "category": "method",
+   "name": ".getWidth",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1618 找出适应屏幕的最大字号 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.guess",
+   "category": "method",
+   "name": ".guess",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0843 猜猜这个单词 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.hasShips",
+   "category": "method",
+   "name": ".hasShips",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1274 矩形内船只的数目 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.haveSameCategory",
+   "category": "method",
+   "name": ".haveSameCategory",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "2782 唯一类别的数量 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.ifft",
+   "category": "method",
+   "name": ".ifft",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "4021 得到旋转回文字符串的最少操作次数 I · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.ifft2",
+   "category": "method",
+   "name": ".ifft2",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0835 图像重叠 · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.insert",
+   "category": "method",
+   "name": ".insert",
+   "label": "list",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3488 距离最小相等元素查询 · 两种方法：二分查找 - 预处理（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.isTarget",
+   "category": "method",
+   "name": ".isTarget",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1778 未知网格中的最短路径 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.isna",
+   "category": "method",
+   "name": ".isna",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0584 寻找用户推荐人 · MySQL - Pandas 写法.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.istitle",
+   "category": "method",
+   "name": ".istitle",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0520 检测大写字母 · 简洁写法（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.maketrans",
+   "category": "method",
+   "name": ".maketrans",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0966 元音拼写检查器 · 三个哈希表（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.next",
+   "category": "method",
+   "name": ".next",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "3023 在无限流中寻找模式I · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.openDoor",
+   "category": "method",
+   "name": ".openDoor",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "2728 计算一个环形街道上的房屋数量 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.printValue",
+   "category": "method",
+   "name": ".printValue",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1265 逆序打印不可变链表 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.qsize",
+   "category": "method",
+   "name": ".qsize",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0346 数据流中的移动平均值 · yiduobo.md"
+   }
+  },
+  {
+   "key": "method:.rjust",
+   "category": "method",
+   "name": ".rjust",
+   "label": "str",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3348 最小可整除数位乘积 II · 两种方法：从左到右暴搜-从右到左枚举（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.round",
+   "category": "method",
+   "name": ".round",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0611 有效三角形的个数 · 三种方法：枚举最长边-枚举最短边-值域卷积（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.strftime",
+   "category": "method",
+   "name": ".strftime",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "1185 一周中的第几天 · 各种语言的库函数写法（Python-Java-C++-Go-JS）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.subtract",
+   "category": "method",
+   "name": ".subtract",
+   "label": "Counter",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3868 通过交换使数组相等的最小花费 · 等价转化（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.timetuple",
+   "category": "method",
+   "name": ".timetuple",
+   "label": "其他",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "1154 一年中的第几天 · 各种语言的库函数写法（Python-Java-C++-Go-JS）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "method:.tolist",
+   "category": "method",
+   "name": ".tolist",
+   "label": "numpy",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0611 有效三角形的个数 · 三种方法：枚举最长边-枚举最短边-值域卷积（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:Queue.PriorityQueue",
+   "category": "mod",
+   "name": "Queue.PriorityQueue",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0023 合并K个排序链表 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:abc.ABCMeta",
+   "category": "mod",
+   "name": "abc.ABCMeta",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1628 设计带解析函数的表达式树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:abc.abstractmethod",
+   "category": "mod",
+   "name": "abc.abstractmethod",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1628 设计带解析函数的表达式树 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:fractions.Fraction",
+   "category": "mod",
+   "name": "fractions.Fraction",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0679 24 点游戏 · 每次合并两张牌，递归写法（Python-Java-C++-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:itertools.product",
+   "category": "mod",
+   "name": "itertools.product",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0807 保持城市天际线 · 增加到行列最大值（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.atan2",
+   "category": "mod",
+   "name": "math.atan2",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "1610 可见点的最大数目 · yiduobo.md"
+   }
+  },
+  {
+   "key": "mod:math.factorial",
+   "category": "mod",
+   "name": "math.factorial",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3272 统计好整数的数目 · 枚举所有回文数+组合数学（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.prod",
+   "category": "mod",
+   "name": "math.prod",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "3566 等积子集的划分方案 · 三种方法：递归 - 二进制枚举 - 折半枚举（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:math.trunc",
+   "category": "mod",
+   "name": "math.trunc",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0150 逆波兰表达式求值 · 理解题意，用栈模拟（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:numpy.flip",
+   "category": "mod",
+   "name": "numpy.flip",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0835 图像重叠 · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:numpy.float64",
+   "category": "mod",
+   "name": "numpy.float64",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "4021 得到旋转回文字符串的最少操作次数 I · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:scipy.ConvexHull",
+   "category": "mod",
+   "name": "scipy.ConvexHull",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0812 最大三角形面积 · 两种方法：枚举 - 凸包+旋转卡壳（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:scipy.convolve",
+   "category": "mod",
+   "name": "scipy.convolve",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0611 有效三角形的个数 · 三种方法：枚举最长边-枚举最短边-值域卷积（Python-Java-C++-C-Go-JS-Rust）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:scipy.correlate2d",
+   "category": "mod",
+   "name": "scipy.correlate2d",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "0835 图像重叠 · 两种方法：暴力枚举 - 卷积（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "mod:sortedcontainers.SortedDict",
+   "category": "mod",
+   "name": "sortedcontainers.SortedDict",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "files": {
+    "灵茶山艾府": 1,
+    "yiduobo": 0
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "2276 统计区间中的整数数目 · 两种做法：珂朵莉树 - 动态开点线段树（Python-Java-C++-Go）.md",
+    "yiduobo": ""
+   }
+  },
+  {
+   "key": "py2:sort/sorted 的 cmp= 参数",
+   "category": "py2",
+   "name": "sort/sorted 的 cmp= 参数",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "0761 特殊的二进制序列 · yiduobo.md"
+   }
+  },
+  {
+   "key": "syn:魔术方法 __str__",
+   "category": "syn",
+   "name": "魔术方法 __str__",
+   "label": "",
+   "occ": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "files": {
+    "灵茶山艾府": 0,
+    "yiduobo": 1
+   },
+   "total_occ": 1,
+   "total_files": 1,
+   "example": {
+    "灵茶山艾府": "",
+    "yiduobo": "3318 计算子数组的x-sum I & 3321 计算子数组的x-sum II · yiduobo.md"
+   }
+  }
+ ]
+}
