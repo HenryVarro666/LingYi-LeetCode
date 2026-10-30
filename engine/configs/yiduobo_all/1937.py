@@ -1,28 +1,7 @@
-P = [[1, 5, 2, 1], [2, 3, 4, 1], [4, 2, 1, 5]]
-
-
-def _row(S):
-    i = S.get('i')
-    return S['points'][i] if i is not None else None
-
-
-def _txt(S):
-    L = S.get('_line')
-    if 'i' not in S:
-        return '`f[j]` = 当前行选第 `j` 列时的最大得分；列距离 1 扣 1 分'
-    if L in (11, 12, 13, 14, 15):
-        return '左→右：`left_max[j] = max(left_max[j−1] − 1, f[j])`（左边来的，每走一格多扣 1）'
-    if L in (17, 18, 19, 20, 21):
-        return '右→左：`right_max[j] = max(right_max[j+1] − 1, f[j])`，与左边结果取较大者'
-    if L in (23, 24):
-        return '上一行的最优扣分后，再加上本行 `points[i][j]`'
-    return ''
-
-
 CONFIG = dict(
     num=1937, title='扣分后的最大得分', difficulty='Medium', category='动态规划',
-    author='yiduobo', technique='滚动 DP + 左右各扫一遍（left_max / right_max）',
-    tags=['二、网格图 DP', '十一、优化 DP', '难度分 2106'],
+    author='yiduobo', technique='滚动数组 · left_max / right_max 递推',
+    tags=['动态规划', '难度分 2106'],
     code='''
 class Solution(object):
     def maxPoints(self, points):
@@ -53,45 +32,44 @@ class Solution(object):
         
         return max(f)
 ''',
-    call=f'Solution().maxPoints({P})',
-    expect=12,
-    skip=['m = len', 'n = len', 'now = f[0]', 'now = f[-1]', 'for j in range(1, n)', 'for j in range(n - 2', 'for j in range(n):', 'f = g[:]'],
+    call='Solution().maxPoints([[1,2,3],[1,5,1],[3,1,1]])',
+    expect=9,
+    skip=['m = len', 'n = len', 'g = []', 'for j in range(1, n)', 'for j in range(n - 2', 'for j in range(n):', 'f = g[:]'],
+    max_steps=70,
     views=[
-        dict(type='array', var=_row, label='points[i]（本行得分）', cell=84, h=150),
-        dict(type='array', var='f', label='f（上一行：选第 j 列的最大得分）', cell=84, h=190, pointers={'j': 'pink'}),
-        dict(type='array', var='g', label='g（本行：先放「从上一行扣分后」的最优，最后再加 points[i][j]）', cell=84, h=190,
-             pointers={'j': 'pink'}, color=lambda S, k, v: 'green' if S.get('_line') in (23, 24) and k <= S.get('j', -1) else None),
-        dict(type='text', fn=_txt, size=24, h=60),
+        dict(type='table', var='points', label='points', h=180, cell=60, cursors=[('i', 'j', 'yellow', '')]),
+        dict(type='array', var='f', label='f：上一行每列选它的最大得分', h=150, cell=70, pointers={'j': 'blue'}),
+        dict(type='array', var='g', label='g：本行的 max(left_max, right_max)', h=150, cell=70, pointers={'j': 'pink'}),
+        dict(type='text', fn=lambda S: ('`now` = 一路带扣分传递的最大值：每走一格 `−1`，遇到更大的 `f[j]` 就换' if 'now' in S else ''), size=24, h=50),
     ],
-    watch=[('i', 'i', 'blue'), ('j', 'j', 'pink'), ('now', 'now', 'cyan')],
+    watch=['i', 'j', 'now', ('max(f)', 'max(f)', 'green')],
     captions={
-        'f = points[0][:]': '第 0 行没有上一行，`f` 就是 `points[0]`',
-        'for i in range': lambda S, B, r: (f'开始处理第 `{S.i}` 行：用 `f`（第 {S.i-1} 行）算出新的 `g`' if S.i != B.get('i') or 'i' not in B else '所有行处理完'),
-        'g = []': '`g` 保存第 `i` 行的 `max(上一行 − 距离)`',
-        'g.append(now)': '`g` 加入 `now = {now}`',
-        'now = max(now - 1, f[j])': lambda S, B, r: (
-            f'从左边来要多扣 1：`max(now − 1, f[{S.j}])` = `max({B.now - 1}, {S.f[S.j]})` → `now` 变为=={S.now}==' if S._line == 14 else
-            f'从右边来也要多扣 1：`max(now − 1, f[{S.j}])` = `max({B.now - 1}, {S.f[S.j]})` → `now` 变为=={S.now}=='),
-        'g[-1] = max(g[-1], now)': '右端的 `now` 从 `f[-1] = {f[-1]}` 起步，与左扫结果取较大者 → `g[{n-1}]` = {g[-1]}',
-        'g[j] = max(g[j], now)': '`g[{j}] = max(左扫值, now={now})` = =={g[j]}==：左右两边来的取较大者',
-        'g[j] += points[i][j]': '`g[{j}]` 加上本行得分 `points[{i}][{j}] = {points[i][j]}` → =={g[j]}==',
-        'return max(f)': '最后一行里选最大的 → =={ret}==',
+        'f = points[0]': '第 0 行没有扣分，`f = {f}`',
+        'for i in range': lambda S, B, r: (f'开始处理第 `{S.i}` 行：用 `f`（上一行）推出这一行' if S.i != B.get('i') else '所有行都处理完了'),
+        'g.append(now)': '`g` 追加 `{now}`：这是只看左侧（含自己）的最优',
+        'now = f[0]': '从左往右：`now` 从 `f[0]` = {now} 出发（第 0 列左边只有自己）',
+        'now = max(now - 1': lambda S, B, r: (f'左→右：`max({B.now} − 1, f[{S.j}] = {S.f[S.j]})` = =={S.now}==，`g[{S.j}]` 记下左侧最优' if S.get('_line') == 14 else
+                                             f'右→左：`max({B.now} − 1, f[{S.j}] = {S.f[S.j]})` = =={S.now}=='),
+        'now = f[-1]': '从右往左：`now` 从最右 `f[-1]` = {now} 出发',
+        'g[-1] = max': '最右格：`g[-1] = max(g[-1], {now})` = {g[-1]}',
+        'g[j] = max(g[j], now)': '`g[{j}] = max(左侧最优, 右侧最优)` = =={g[j]}==',
+        'g[j] += points[i][j]': '加上本格得分：`g[{j}] += {points[i][j]}` = =={g[j]}==',
+        'return max(f)': '最后一行里最大的一个 = =={ret}==',
     },
     cards=dict(
-        one_liner='距离扣分是线性的：左右各扫一遍，每走一格减 1',
+        one_liner='left_max 和 right_max 都是“上一格减 1，或换成自己”',
         complexity='时间 `O(mn)`，空间 `O(n)`',
-        problem=['每行选一个格子得分，相邻两行选的列相差 `d` 要扣 `d` 分',
+        problem=['每行选一个格子得分，相邻行列差 `|c1−c2|` 会扣分',
                  '求最大总得分',
-                 '本视频：`[[1,5,2,1],[2,3,4,1],[4,2,1,5]]`'],
-        quote='left_max[i][j] = max(left_max[i][j - 1] - 1, f[i - 1][j])……这样一来，就可以正序一趟遍历，在均摊O(1)的时间复杂度内求出所有的left_max了。',
+                 '示例：`[[1,2,3],[1,5,1],[3,1,1]]` → `9`'],
+        quote='left_max[i][j] = max(left_max[i][j - 1] - 1, f[i - 1][j])，……这样一来，就可以正序一趟遍历，在均摊O(1)的时间复杂度内求出所有的left_max了。',
         quote_src='—— yiduobo 题解原文',
-        idea=['`f[i][j]` = 上一行任选 `k` 的 `f[i-1][k] − |k−j|`，再加 `points[i][j]`，直接枚举是 `O(n)`',
-              '左边来的部分：`left_max[j] = max(left_max[j−1] − 1, f[j])`，正序一遍',
-              '右边来的部分同理，倒序一遍；取较大者，再加本行得分'],
-        summary=['时间 `O(mn)`，用 `f`、`g` 两个数组滚动，空间 `O(n)`',
-                 '易错：左扫和右扫==都要包含 `f[j]` 本身（距离 0）==',
-                 '右扫的起点 `now = f[-1]` 要先和 `g[-1]` 取最大',
-                 '原文是 Python 3 兼容写法，代码未改',
-                 '灵神题解思路相近：拆绝对值，维护 `f−k` 与 `f+k` 的前后缀最大'],
+        idea=['`f[i][j]` 要在上一行所有列里挑，扣 `|k−j|`，直接做是 `O(n²)`',
+              '把 `k ≤ j` 的部分记成 `left_max`：从左到右，每走一格 `−1`，再和 `f[j]` 比',
+              '`k ≥ j` 的部分记成 `right_max`：从右到左同理；两者取大，再加 `points[i][j]`'],
+        summary=['时间 `O(mn)`，空间 `O(n)`（两个数组滚动）',
+                 '易错：left 和 right 要分别扫一遍；右扫时最右格要单独初始化',
+                 '原文为 Python 2 风格，只删去了类型说明文档字符串',
+                 '对比灵神：灵神拆成 `f+k` / `f−k` 两个前后缀最大；yiduobo 用“每格减 1”的递推'],
     ),
 )

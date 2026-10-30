@@ -1,49 +1,18 @@
-POS, TER, OBS = [0, 0], [[2, 1], [0, 0]], [[0, 0], [0, 1]]
+TERRAIN = [[3, 0, 2]]
+OBSTACLE = [[0, 1, 0]]
 
 
-def _speeds(S):
-    vis = S.get('vis')
-    if vis is None:
-        return ''
-    rows = []
-    for i, r in enumerate(vis):
-        for j, c in enumerate(r):
-            vs = [v for v, ok in enumerate(c) if ok]
-            rows.append(f'`({i},{j})`: 速度 {vs if vs else "无"}')
-    return '访问过的状态（位置, 速度）：\n' + '    '.join(rows)
-
-
-def _cell(S, i, j, v):
-    vis = S.get('vis')
-    if vis and vis[i][j][1] and (i, j) != tuple(POS):
-        return 'green'
-    return None
-
-
-def _ok(S, B, r):
-    x, y = S.x, S.y
-    if not (0 <= x < S.m and 0 <= y < S.n):
-        return f'邻居 `({x},{y})` 出界，跳过'
-    return f'邻居 `({x},{y})` 在场地内，算新速度'
-
-
-def _nv(S, B, r):
-    return (f'`v = {S.nowv} + {S.terrain[S.nowx][S.nowy]} − {S.terrain[S.x][S.y]} − {S.obstacle[S.x][S.y]}` = =={S.v}=='
-            '；' + _new(S, B, r))
-
-
-def _new(S, B, r):
-    if S.v <= 0:
-        return f'`v = {S.v} <= 0`：骑不动了，这条路作废'
-    if B.vis[S.x][S.y][S.v]:
-        return f'`({S.x},{S.y})` 速度 `{S.v}` 以前来过 → 不重复入队'
-    return f'`({S.x},{S.y})` 第一次以速度 `{S.v}` 到达 → ==入队=='
+def _vis_cells(S):
+    if 'vis' not in S:
+        return None
+    return [[','.join(str(s) for s in range(len(S['vis'][i][j])) if S['vis'][i][j][s]) for j in range(len(S['vis'][i]))]
+            for i in range(len(S['vis']))]
 
 
 CONFIG = dict(
     num='LCP 45', title='自行车炫技赛场', difficulty='Medium', category='网格图',
-    author='yiduobo', technique='BFS · 状态 (x, y, 速度)',
-    tags=['网格图'],
+    author='yiduobo', technique='BFS · 先估速度上限',
+    tags=['灵神题单', '网格图'],
     code='''
 class Solution(object):
     def bicycleYard(self, position, terrain, obstacle):
@@ -80,53 +49,50 @@ class Solution(object):
         
         return res
 ''',
-    call=f'Solution().bicycleYard({POS}, {TER}, {OBS})',
-    expect=[[0, 1], [1, 0], [1, 1]],
-    skip=['m = len', 'n = len', 'max_v = 101', 'vis = [[[False]', 'head, tail = 0, 1', 'dx = [', 'dy = [',
-          'head += 1', 'for index in range(4)', 'x = nowx', 'y = nowy', 'tail += 1', 'for y in range(n)', 'vis[x][y][v] = True', 'if v > 0 and not vis', 'if x >= 0 and x < m'],
-    max_steps=90,
+    call=f'Solution().bicycleYard([0, 0], {TERRAIN}, {OBSTACLE})',
+    expect=[[0, 2]],
     views=[
-        dict(type='grid', var='terrain', label='terrain（高度；蓝框 = 当前出队的位置，粉框 = 邻居，绿 = 能以速度 1 到达）', cell=100, h=250,
-             color=_cell, cursors=[('nowx', 'nowy', 'blue'), ("x if _line in (19, 20, 21, 22, 23, 24) else None", 'y', 'pink')]),
-        dict(type='grid', var='obstacle', label='obstacle（减速值）', cell=70, h=170),
-        dict(type='array', var=lambda S: [f'{a}{b}/{c}' for a, b, c in S['q']] if 'q' in S else None,
-             label='q（位置 xy / 速度；暗 = 已处理，head 指向下一个出队的）', cell=110, pointers={'head': 'blue'},
-             dim=lambda S, i, v: i < S.get('head', 0), h=150),
-        dict(type='text', fn=_speeds, size=21, h=90),
+        dict(type='grid', var='terrain', label='terrain（蓝框 = 出队位置，粉框 = 邻居）', cell=80, h=230,
+             cursors=[('nowx', 'nowy', 'blue'), ('x if _line in (19, 21, 22, 23, 24, 25, 26) else None', 'y', 'pink')]),
+        dict(type='grid', var=_vis_cells, label='vis[x][y]：到过的速度（绿 = 含速度 1）', cell=110, h=240,
+             color=lambda S, i, j, v: 'green' if '1' in v.split(',') else None),
+        dict(type='array', var=lambda S: [f'({a},{b},{c})' for a, b, c in S['q']] if 'q' in S else None,
+             label='q（暗 = 已出队，head 指向下一个出队的）', cell=110, h=190, pointers={'head': 'blue'},
+             dim=lambda S, i, v: i < S.get('head', 0)),
     ],
-    watch=[('head', 'head', 'blue'), ('tail', 'tail'), ('nowv', 'nowv', 'cyan'), ('v', 'v', 'pink')],
+    watch=[('head', 'head', 'blue'), ('tail', 'tail'), ('nowv', 'nowv', 'blue'), ('v', 'v', 'pink'), ('res', 'res', 'green')],
     captions={
-        'vis[position[0]][position[1]][1] = True': '起点以速度 1 出发：状态 `(起点, 1)` 标记为访问过',
-        'q = [[position': '起点状态入队',
-        'while head < tail': lambda S, B, r: (f'队列里还有 `{B.tail - B.head}` 个状态没处理，继续 BFS' if B.head < B.tail
-                                              else '队列空了：所有可达的 (位置, 速度) 都找全了'),
-        'nowx, nowy, nowv = q[head]': '出队 `({nowx},{nowy})`，速度 `{nowv}`，向四个邻居骑',
-        'if x >= 0 and x < m': _ok,
-        'v = nowv + terrain': _nv,
-        'q.append': '状态 `({x},{y}, v={v})` 入队并标记访问：速度最大 101，可直接开三维数组',
-        'vis[x][y][v] = True': '标记访问：速度范围小（最大 101），可以直接开三维数组',
-        'res = []': 'BFS 结束，收集答案：哪些位置的 `vis[x][y][1]` 为真',
-        'if (x != position[0]': lambda S, B, r: (f'`({S.x},{S.y})` 是起点自己，不算' if (S.x, S.y) == tuple(S.position)
-                                                  else (f'`({S.x},{S.y})` 能以速度 1 到达 → ==收进答案==' if S.vis[S.x][S.y][1]
-                                                        else f'`({S.x},{S.y})` 到不了速度 1，不收')),
-        'return res': '返回 `{res}`（按行、列升序扫出来，天然有序）',
+        'max_v = 101': '速度上限：只有下坡才加速，==h 与 o 都非负==，最大是 `1 + 100 = 101`',
+        'vis = [[[False]': '`vis[x][y][v]`：是否能以速度 `v` 到达 `(x,y)`',
+        'vis[position[0]]': '起点速度为 1，先标记',
+        'q = [[position': '用数组当 BFS 队列，`head`、`tail` 是队首和队尾',
+        'while head < tail': lambda S, B, r: (f'`head = {B.head} < tail = {B.tail}`：队列不空，继续' if B.head < B.tail else '`head == tail`：队列空了，所有状态都搜完'),
+        'nowx, nowy, nowv = q[head]': '`head` 后移一位，出队：位置 `({nowx},{nowy})`，速度 `{nowv}`',
+        'y = nowy': '朝方向 `{index}` 看邻居 `({x},{y})`',
+        'if x >= 0': lambda S, B, r: (f'`({S.x},{S.y})` 在界内' if 0 <= S.x < S.m and 0 <= S.y < S.n else f'`({S.x},{S.y})` 出界，跳过'),
+        'v = nowv': '新速度 `v = {nowv} + {terrain[nowx][nowy]} - {terrain[x][y]} - {obstacle[x][y]}` = =={v}==',
+        'if v > 0': lambda S, B, r: (f'`v = {S.v}`，且 `({S.x},{S.y})` 没以这个速度到过 → 入队' if S.v > 0 and not S.vis[S.x][S.y][S.v] else (f'`v = {S.v} <= 0`：停车了，不能走' if S.v <= 0 else f'`({S.x},{S.y})` 速度 `{S.v}` 已到过，不重复入队')),
+        'q.append': '`({x},{y},{v})` 入队',
+        'vis[x][y][v] = True': '标记 `vis[{x}][{y}][{v}]`',
+        'res = []': 'BFS 完毕，开始收集答案',
+        '(x != position[0]': lambda S, B, r: (f'`({S.x},{S.y})` 是起点，不算' if (S.x == S.position[0] and S.y == S.position[1]) else (f'`({S.x},{S.y})` 速度 1 到过过 → 加入答案' if S.vis[S.x][S.y][1] else f'`({S.x},{S.y})` 速度 1 没到过')).replace('到过过', '到过'),
+        'res.append': '答案加入 `({x},{y})`',
     },
+    skip=['dx = [', 'dy = [', 'head, tail = 0', 'head += 1', 'tail += 1', 'x = nowx', 'for index in range(4)'],
+    max_steps=110,
     cards=dict(
-        one_liner='速度有上限 101，把「位置 + 速度」当状态做 BFS',
-        complexity='时间 `O(n·m·101)`，空间 `O(n·m·101)`',
-        problem=['每走一步，速度变化 = `h1 − h2 − o2`（高度差 − 目标格减速）',
-                 '起点速度为 1，骑行中速度不能 `<= 0`',
-                 '求能==刚好以速度 1==到达的其他位置，按行、列升序返回',
-                 '示例：`position=[1,1]`，`terrain=[[5,0],[0,6]]` → `[[0,1]]`；本视频用另一个 2×2 例子'],
-        quote='最大的v就是h1取上限，后面全部取0的情况，也就是==101==。这个数据规模是完全可行的。',
+        one_liner='先证明速度不会超过 101，再对 (位置, 速度) 做 BFS',
+        complexity='时间 `O(mn·101)`，空间 `O(mn·101)`',
+        problem=['从 `h1` 走到相邻 `h2`，速度变化 `h1 - h2 - o2`，初速度 1',
+                 '问哪些位置（不含起点）能刚好以速度 1 到达，要保持速度 `> 0`',
+                 '本视频：`terrain = [[3,0,2]]`，`obstacle = [[0,1,0]]`'],
+        quote='走到hk的速度就应该是1 + h1 - hk - o2 - o3 - ... - ok。由于式子中的h和o都是非负数，那么实际上最大的v就是h1取上限，后面全部取0的情况，也就是101。',
         quote_src='—— yiduobo 题解原文',
-        idea=['怕速度没有上限？推一下：走到 `hk` 时速度 = `1 + h1 − hk − o2 − … − ok`',
-              'h、o 都 ≥ 0，所以速度 `<= 1 + h1 <= 101`，状态只有 `n·m·102` 个',
-              '`vis[x][y][v]` 记录 (位置, 速度) 是否到过，从起点速度 1 出发 BFS',
-              '最后扫一遍：`vis[x][y][1]` 为真且不是起点的位置，就是答案'],
-        summary=['时间、空间都是 `O(n·m·101)`',
-                 '易错：起点不能算进答案；`v <= 0` 的状态必须丢弃',
-                 '关键是先证明速度上界，才敢开三维数组',
-                 '原文为 Python 2 风格，代码未做改动（直接是 Python 3 可运行）'],
+        idea=['先问：状态 `f[x][y][v]` 的 `v` 会不会无限大？', '速度沿路径是 `1 + h1 - hk - o2 - ... - ok`，只会越走越小，上限 101',
+              '于是三维 BFS 可行，最后看 `v = 1` 的格子'],
+        summary=['时间、空间 `O(mn·101)`',
+                 '先估 `v` 的上限是这题的关键推导',
+                 '起点要排除：`(x != position[0] or y != position[1])`',
+                 '原文为 Python 2 风格，代码无需改动（已是 Python 3 可运行）'],
     ),
 )

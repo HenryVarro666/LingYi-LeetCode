@@ -1,16 +1,17 @@
-def _txt(S):
-    if 'q' not in S:
+_OPS = ['+', '-', '^']
+
+
+def _cand(S, B):
+    if 'now' not in S or 'num' not in S or 'step' not in S:
         return ''
-    if 'now' in S and 'num' in S and 'opt' in S:
-        sym = ['+', '-', '^'][S['opt']]
-        return f"当前 `now = {S['now']}`，用 `{S['now']} {sym} {S['num']}`；目标 goal 是 =={S['goal']}=="
-    return f"第 {S['step']} 轮 bfs，队列 `q` 的 `[l, r)` 区间是这一轮要处理的数" if 'step' in S else ''
+    a, n = S['now'], S['num']
+    return f"第 `{S['step']}` 轮：`now = {a}`，`num = {n}` → `{a}+{n}={a+n}`，`{a}−{n}={a-n}`，`{a}^{n}={a^n}`（目标 `{S['goal']}`）"
 
 
 CONFIG = dict(
     num=2059, title='转化数字的最小运算数', difficulty='Medium', category='图论算法',
-    author='yiduobo', technique='分层 bfs · 只入队 0~1000 内的新数',
-    tags=['图论算法', '难度分 1850'],
+    author='yiduobo', technique='BFS 按轮扩展 + used 去重',
+    tags=['灵神题单·图论算法', '难度分 1850'],
     code='''
 class Solution(object):
     def minimumOperations(self, nums, start, goal):
@@ -32,59 +33,64 @@ class Solution(object):
                             next = now - num
                         else:
                             next = now ^ num
-
+    
                         if next == goal:
                             return step
                         elif next >= 0 and next <= 1000 and next not in used:
                             used.add(next)
                             q.append(next)
-
+            
             l, r = r, len(q)
 
         return -1
 ''',
-    call='Solution().minimumOperations([2,4,12], 2, 12)',
+    call='Solution().minimumOperations([2,12], 2, 12)',
     expect=2,
     views=[
-        dict(type='text', fn=_txt, h=60),
-        dict(type='array', var='q', pointers={'l': 'blue', 'r': 'pink'}, window=('l', 'r - 1'), label='队列 q（蓝框 = 本轮要处理的数）', h=170),
-        dict(type='set', var='used', label='used（已经入过队的数）', h=200),
+        dict(type='text', fn=_cand, h=70, size=26),
+        dict(type='array', var='q', pointers={'l': 'blue'}, window=('l', 'r - 1'), label='队列 q（框 = 本轮 [l, r) 要处理的数）', h=210),
+        dict(type='array', var='sorted(used)', label='已使用 used', index=False, h=130),
     ],
-    watch=[('step', 'step', 'yellow'), ('l', 'l', 'blue'), ('r', 'r', 'pink'), 'now', 'num', 'next', ('goal', 'goal', 'green')],
-    max_steps=64,
-    skip=['opt == 0', 'opt == 1'],
+    skip=['used.add(next)', 'step = 0', 'l = 0'],
+    max_steps=80,
+    watch=[('step', 'step', 'blue'), 'l', 'r', 'now', 'num', ('next', 'next', 'yellow'), ('goal', 'goal', 'green')],
     captions={
-        'q = [start]': '起点 `start = {start}` 进队列：它是第 0 层',
-        'used = set': '`used` 记录进过队的数，防止重复访问',
-        'step += 1': '开始处理新的一层：走了 ==`{step}`== 步能到的数',
-        'for now in q': lambda S, B, r: (f'取出 `now = {S.now}`，逐个枚举 `nums` 和三种运算' if B.get('now') != S.get('now') or 'now' not in B else '这一层的数都处理完了'),
+        'r = 1': '`[l, r)` 是本轮要处理的队列区间：`l = 0, r = 1`',
+        'q = [start]': '起点 `{start}` 入队，`used` 记录用过的数',
+        'while l < r': lambda S, B, r_: f'区间 `[{S.l}, {S.r})` 非空，继续下一轮' if S.l < S.r else '区间为空，没有新的数可扩展 → 失败',
+        'step += 1': '开始新一轮 BFS，运算次数 `step` → {step}',
+        'for now in': lambda S, B, r_: f'取本轮的数 `now = {S.now}`' if B.get('now') != S.now else '本轮的数都处理完',
+        'for num in nums': lambda S, B, r_: f'拿 `nums` 里的 `num = {S.num}` 对 `{S.now}` 运算' if B.get('num') != S.num or B.get('now') != S.now else '`nums` 用完了',
+        'for opt in': lambda S, B, r_: f'第 `{S.opt}` 种运算：{"加" if S.opt == 0 else "减" if S.opt == 1 else "异或"}' if B.get('opt') != S.opt or B.get('num') != S.num else '三种运算做完',
+        'if opt == 0': '`opt = {opt}`：{"opt == 0 → 加法" if opt == 0 else "不是加法，往下看"}',
+        'elif opt == 1': '`opt = {opt}`：{"opt == 1 → 减法" if opt == 1 else "不是减法，只剩异或"}',
         'next = now + num': '`next = {now} + {num} = {next}`',
-        'next = now - num': '`next = {now} - {num} = {next}`',
-        'next = now ^ num': '`next = {now} ^ {num} = {next}`（异或）',
-        'if next == goal': lambda S, B, r: (f"`next = {S.next}` 等于 `goal` → 这一轮就到了，答案 = ==`step = {S.step}`==" if S.next == S.goal
-                                            else f"`next = {S.next}` 不是 `goal = {S.goal}`，看它能否入队"),
-        'elif next >= 0': lambda S, B, r: (f"`{S.next}` 在 0~1000 内且没用过 → 入队，下一轮继续扩展" if 0 <= S.next <= 1000 and S.next not in B.used
-                                           else f"`{S.next}` 已用过或越界：越界的数即使不是 goal 也不能再运算，不入队"),
-        'used.add': '`used` 加入 `{next}`',
-        'q.append': '`{next}` 入队',
-        'l, r = r, len(q)': '这一层处理完：新的一层是 `q[{l}:{r}]`',
-        'return step': '返回 ==`{step}`== 步',
-        'return -1': 'bfs 耗尽仍到不了 → `-1`',
+        'next = now - num': '`next = {now} − {num} = {next}`',
+        'next = now ^ num': '`next = {now} ^ {num} = {next}`',
+        'if next == goal': lambda S, B, r_: (f'`next = {S.next}` 等于目标 → 当前 `step = {S.step}` 就是答案' if S.next == S.goal else f'`next = {S.next}` ≠ 目标 `{S.goal}`'),
+        'elif next >= 0': lambda S, B, r_: (f'`{S.next}` 越界：只能比较 `goal`，不能继续运算' if not 0 <= S.next <= 1000
+                                            else f'`{S.next}` 已在 `used` 里，不重复入队' if S.next in S.used else f'`{S.next}` 在 `[0, 1000]` 且没用过 → 记入 `used` 并入队'),
+        'q.append(next)': '`{next}` 入队：`q = {q}`',
+        'l, r = r, len(q)': '本轮结束：新区间 `[l, r) = [{l}, {r})` 就是这一轮新加入的数',
+        'return step': '第一次碰到 `goal`，答案 `{step}`',
+        'return -1': '没有新数可扩展 → `-1`',
     },
     cards=dict(
-        one_liner='把数字当成图的点，bfs 的层数就是最少运算数',
-        complexity='时间 `O(1001 × n × 3)`，空间 `O(1001)`',
-        problem=['`x` 从 `start` 出发，每次对一个 `nums[i]` 做 `+`、`-`、`^`',
-        '只有 `0 <= x <= 1000` 时才能继续运算；越界的结果可以生效，但不能再算',
-        '示例：`nums=[2,4,12], start=2, goal=12` → `2`（2 → 14 → 12）'],
+        one_liner='只要 0 到 1000 里的数入队，一轮 BFS 就是多做一次运算',
+        complexity='时间 `O(1001 × n)`，空间 `O(1001)`',
+        problem=['`x` 从 `start` 出发，每次对 `x` 加、减或异或 `nums[i]`',
+                 '只有 `0 <= x <= 1000` 才能继续运算，越界的结果也算但是不能再动',
+                 '求变成 `goal` 的最少运算次数，不行则 `-1`',
+                 '本视频：`nums=[2,12], start=2, goal=12` → `2`'],
         quote='由于题目保证了运算的中间结果只会在0到1000之间，因此可以直接从start开始进行bfs，只将在0到1000之内的且没有被使用过的数添加到bfs的队列中。',
         quote_src='—— yiduobo 题解原文',
-        idea=['能继续运算的数只有 1001 个，所以点数很少，直接 bfs',
-              '一层 bfs = 多走一步；`next == goal` 时轮次 `step` 就是答案',
-              'goal 可以在 0~1000 之外：所以==先判断 goal，再判断是否入队=='],
-        summary=['时间 `O(1001 × n)`：每个数最多入队一次，每次枚举 `n × 3` 种运算',
-                 '易错点：`next == goal` 必须放在范围判断之前，越界的 goal 也算到达',
-                 '越界的数不入队，因为它不能再做运算',
-                 '用 `l, r` 切出每一层，不需要额外存距离'],
+        idea=['`q[l:r]` 是本轮要处理的数，轮次 `step` 就是已经做的运算次数',
+              '对每个 `now`，枚举 `nums` 和三种运算（用 `opt` 编号）得到 `next`',
+              '`next` 等于 `goal` 立刻返回；在范围内且没用过才入队'],
+        summary=['原文为 Python 2 风格，在 Python 3 下无需改动，代码照搬',
+                 '时间 `O(1001 × n)`，空间 `O(1001)`',
+                 '易错点：先判断 `next == goal`，再判断范围；`goal` 可以越界',
+                 '`l, r = r, len(q)` 用区间切分轮次，代替 BFS 里的分层列表',
+                 '对比灵神：他按层拷贝队列 `tmp`，这里用下标区间；思路相同'],
     ),
 )

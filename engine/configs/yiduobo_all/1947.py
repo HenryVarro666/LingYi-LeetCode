@@ -1,105 +1,60 @@
-def _flow_draw(cv, S, B, box, T, C, W, n, left_txt, right_txt, title, wlabel, known=None, known_as_used=False):
-    """二分图费用流：s -> 左(0..n-1) -> 右(n..2n-1) -> t；C 容量矩阵，W 费用矩阵"""
-    x0, y0, x1, y1 = box
-    s, t = 2 * n, 2 * n + 1
-    cv.text((x0 + 18, y0 + 4), title, 22, T['muted'], bold=True)
-    top, bot = y0 + 120, y1 - 40
-    gap = (bot - top) / max(1, n - 1) if n > 1 else 0
-    ys = [top + i * gap for i in range(n)]
-    ymid = (top + bot) / 2
-    w_ = x1 - x0
-    HW = 68
-    XS, XL, XR, XT = x0 + 50, x0 + 70 + HW + 30, x1 - 70 - HW - 30, x1 - 50
-    pos = {s: (XS, ymid), t: (XT, ymid)}
-    hw = {s: 26, t: 26}
-    for i in range(n):
-        pos[i] = (XL, ys[i])
-        pos[n + i] = (XR, ys[i])
-        hw[i] = HW
-        hw[n + i] = HW
-    dis, prev, used, now = S.get('dis'), S.get('prev'), S.get('used') or set(), S.get('now')
-    live = dis is not None and prev is not None
-    kn = known or (lambda v: dis[v] is not None)
-    path = set()
-    if live and now is not None:
-        b = now
-        guard = 0
-        while b is not None and b != s and guard < 20 and prev[b] is not None and prev[b] != -1:
-            path.add((prev[b], b))
-            b = prev[b]
-            guard += 1
-
-    def edge(a, b, lab=None, frac=0.5):
-        (ax, ay), (bx, by) = pos[a], pos[b]
-        saturated = C[a][b] == 0
-        if (a, b) in path:
-            col, wd = T['yellow'], 7
-        elif saturated:
-            col, wd = T['green'], 5
-        else:
-            col, wd = (62, 70, 82), 2
-        cv.line([(ax + hw[a], ay), (bx - hw[b], by)], col, wd)
-        if lab is not None:
-            ax2, bx2 = ax + hw[a], bx - hw[b]
-            mx, my = ax2 + (bx2 - ax2) * frac, ay + (by - ay) * frac
-            tw = cv.tlen(lab, 20, True) + 10
-            cv.rect((mx - tw / 2, my - 14, mx + tw / 2, my + 14), fill=T['bg'], r=6)
-            cv.text((mx, my), lab, 20, col if (saturated or (a, b) in path) else T['muted'], anchor='mm', bold=True)
-
-    for i in range(n):
-        edge(s, i)
-        edge(n + i, t)
-        for j in range(n):
-            edge(i, n + j, W[i][n + j], 0.3 + 0.1 * ((i + j) % 3))
-    names = {s: 's', t: 't'}
-    for v, (X, Y) in pos.items():
-        isnow = live and v == now
-        inu = live and (v in used or (known_as_used and kn(v)))
-        fill = T['panel2']
-        out = T['border']
-        if inu:
-            out = T['cyan']
-        if isnow:
-            out = T['pink']
-        h_ = hw[v]
-        cv.rect((X - h_, Y - 26, X + h_, Y + 26), fill=fill, outline=out, width=5 if (isnow or inu) else 2, r=26)
-        if v < n:
-            cv.text((X, Y), left_txt(v), 21, T['blue'], anchor='mm', bold=True)
-        elif v < 2 * n:
-            cv.text((X, Y), right_txt(v - n), 21, T['orange'], anchor='mm', bold=True)
-        else:
-            cv.text((X, Y), names[v], 24, T['text'], anchor='mm', bold=True)
-        if live and kn(v):
-            cv.text((X, Y - 30), f'd={dis[v]}', 19, T['cyan'], anchor='mb', bold=True)
-    cv.text((x0 + 18, y0 + 36), f'线上数字 = {wlabel}；绿 = 已流过，黄 = 当前最短路，青圈 = 已确定', 19, T['dim'])
-
-
-ST = [[1, 1, 0], [1, 0, 1], [0, 0, 1]]
-MT = [[1, 0, 0], [0, 0, 1], [1, 1, 0]]
-
-
 def _draw(cv, S, B, box, T):
-    if 'v' not in S or 'c' not in S:
-        cv.text((box[0] + 18, box[1] + 4), '（建图中）', 24, T['dim'])
+    x0, y0, x1, y1 = box
+    c, v = S.get('c'), S.get('v')
+    n = S.get('n')
+    if c is None or n is None or v is None or 't' not in S:
         return
-    n = S['n']
-    s = S['s']
-    _flow_draw(cv, S, B, box, T, S['c'], S['v'], n,
-               lambda i: f"学生{i} {''.join(map(str, ST[i]))}", lambda j: f"导师{j} {''.join(map(str, MT[j]))}",
-               '二分图：学生 → 导师，线上 = 不匹配的题数（费用）', '不匹配题数',
-               known=lambda v: v == s or S['prev'][v] != -1, known_as_used=True)
-
-
-def _fml(S):
-    if 'res' not in S:
-        return '边 `学生 i → 导师 j` 的费用 = 两人答案==不同==的题数 = `题数 − 兼容分`'
-    return f'`res = m×n − 最小总费用` = {S["m"]*S["n"]} − {S["m"]*S["n"]-S["res"]} → ==当前 res = {S["res"]}=='
+    s, t = S['s'], S['t']
+    dis, prev = S.get('dis'), S.get('prev')
+    now = S.get('now')
+    H = y1 - y0 - 140
+    P = {s: (x0 + 70, y0 + 80 + H / 2), t: (x1 - 70, y0 + 80 + H / 2)}
+    for i in range(n):
+        fy = y0 + 80 + H * (i + 0.5) / n
+        P[i] = (x0 + (x1 - x0) * 0.33, fy)
+        P[i + n] = (x0 + (x1 - x0) * 0.67, fy)
+    cv.text((x0 + 18, y0 + 4), '网络流：绿 = 已选边（流量 1），黄 = 本次最短增广路；边上的数 = 费用（不匹配的题数）', 21, T['muted'], bold=True)
+    path = set()
+    if dis is not None and prev is not None and dis[t] != -1 and S.get('_line', 0) >= 0 and 'res' in S and S.get('_phase_path'):
+        pass
+    # 增广路：dis[t] 已得到时沿 prev 回溯
+    if dis is not None and prev is not None and dis[t] != -1:
+        k = t
+        guard = 0
+        while k != s and k != -1 and guard < 20:
+            path.add((prev[k], k))
+            k = prev[k]
+            guard += 1
+    edges = [(s, i) for i in range(n)] + [(i + n, t) for i in range(n)] + [(i, j + n) for i in range(n) for j in range(n)]
+    for a, b in edges:
+        used = c[a][b] == 0 and c[b][a] > 0
+        hot = (a, b) in path or (b, a) in path
+        col = T['yellow'] if hot else (T['green'] if used else T['border'])
+        cv.line([P[a], P[b]], col, 7 if (hot or used) else 3)
+        if a < n and b >= n and b < 2 * n:
+            fr = 0.5 if b - n == a else 0.25
+            mx, my = (P[a][0] * (1 - fr) + P[b][0] * fr), (P[a][1] * (1 - fr) + P[b][1] * fr)
+            cv.rect((mx - 20, my - 15, mx + 20, my + 15), fill=T['bg'], r=8)
+            cv.text((mx, my), v[a][b], 24, T['green'] if used else T['text'], anchor='mm', bold=True)
+    names = {s: '源 s', t: '汇 t'}
+    for k, (X, Y) in P.items():
+        nm = names.get(k, f'学生{k}' if k < n else f'导师{k - n}')
+        col = None
+        if k == now:
+            col = 'pink'
+        elif dis is not None and dis[k] != -1:
+            col = 'blue'
+        R = 44
+        cv.rect((X - R, Y - R, X + R, Y + R), fill=T[col] if col else T['panel2'], outline=T['border'], r=R)
+        cv.text((X, Y), nm, 22, T['bg'] if col else T['text'], anchor='mm', bold=True)
+        if dis is not None and dis[k] != -1:
+            cv.text((X, Y + R + 8), f'dis={dis[k]}', 22, T['yellow'], anchor='mt', bold=True)
 
 
 CONFIG = dict(
     num=1947, title='最大兼容性评分和', difficulty='Medium', category='动态规划',
-    author='yiduobo', technique='二分图最优匹配 · 最小费用最大流',
-    tags=['图论算法', '难度分 1704'],
+    author='yiduobo', technique='最小费用最大流（二分图最优匹配）',
+    tags=['灵神题单·动态规划', '灵神题单·图论算法', '难度分 1704'],
     code='''
 class Solution(object):
     def maxCompatibilitySum(self, students, mentors):
@@ -158,44 +113,53 @@ class Solution(object):
 
         return res
 ''',
-    call=f'Solution().maxCompatibilitySum({ST}, {MT})',
-    expect=8,
+    call='Solution().maxCompatibilitySum([[0,1,1],[1,1,0]], [[1,0,0],[1,1,0]])',
+    expect=3,
     views=[
-        dict(type='text', fn=_fml, size=26, h=60),
-        dict(type='custom', draw=_draw, h=560),
+        dict(type='custom', draw=_draw, h=500),
+        dict(type='text', fn=lambda S: (f"最小费用 = 已累计 `{S['m'] * S['n'] - S['res']}`，答案 `res = m×n − 费用 = {S['res']}`" if 'res' in S and 'm' in S and 'n' in S else ''), h=60, size=26),
+        dict(type='heap', var='heap', fmt=lambda x: f'{x[0]}:{x[1]}→{x[2]}', label='堆 heap（费用 : 来路→去向）', h=110),
     ],
-    watch=[('res', 'res', 'green'), ('now', 'now', 'pink'), ('d', 'd', 'cyan'), ('dis[t]', lambda S: S['dis'][S['t']] if S.get('dis') else None, 'yellow')],
-    skip=['n = len(students)', 't = n + n + 1', 'for i in range(n)', 'for j in range(n)', 'c[s][i] = 1', 'c[i + n][t] = 1', 'm = len(students[0])',
-          'cnt = m', 'for index in range(m)', 'if students[i][index]', 'cnt -= 1', 'c[i][j + n] = 1', 'v[i][j + n] = cnt', 'v[j + n][i] = -cnt',
-          'dis = [-1]', 'prev = [-1]', 'dis[s] = 0', 'heap = []', 'if c[s][i] > 0', 'heapq.heappush', 'while heap', 'heapq.heappop', 'if dis[now] != -1',
-          '                    continue', 'dis[now] = d', 'for next in range', 'if c[now][next] > 0', 'now = t', 'while now != s', 'c[now][prev[now]] += 1',
-          'now = prev[now]', 'while True', 'v = [[0]', 'c = [[0]', '                break'],
+    skip=['n = len', 's = n + n', 't = n + n + 1', 'c = [[0]', 'v = [[0]', 'for i in range(n)', 'c[s][i] = 1', 'c[i + n][t] = 1', 'm = len', 'for j in range(n)',
+          'cnt = m', 'for index in range(m)', 'if students[', 'cnt -= 1', 'c[i][j + n] = 1', 'v[i][j + n] = cnt', 'v[j + n][i] = -cnt',
+          'while True', 'for next in range', 'if c[now][next] > 0', 'dis = [-1]', 'prev = [-1]', 'heap = []', 'now = t', 'prev[now] = p'],
+    max_steps=68,
+    watch=['d', 'p', 'now', ('res', 'res', 'green')],
     captions={
-        's = n + n': '建图：学生 `0..{n-1}`、导师 `{n}..{2*n-1}`，加源点 `s = {n+n}`、汇点 `t = {n+n+1}`',
-        'res = m * n': '建好图：`s→学生`、`导师→t` 容量 1 费用 0；`学生→导师` 容量 1，费用 = ==两人答案不同的题数==。满分是 `m×n`，最后减去最小总费用',
-        'prev[now] = p': lambda S, B, r: f'弹出堆里最短的 `{S.now}`：`dis = {S.d}`，前驱 `{S.p}`，确定下来并向外松弛',
-        'if dis[t] == -1': lambda S, B, r: ('到不了汇点 `t` → 所有人都配好了，==结束==' if S.dis[S.t] == -1
-                                            else f'`dis[t] = {S.dis[S.t]}`：找到一条 `s → t` 的最短路，还能再增广'),
-        'res -= dis[t]': lambda S, B, r: f'这条增广路的费用 `{S.dis[S.t]}` 就是多损失的分数：`res = {B.res} − {S.dis[S.t]} = {S.res}`',
-        'c[prev[now]][now] -= 1': lambda S, B, r: f'沿 `prev` 回溯推流经过边 `{B.prev[B.now]} → {B.now}`：容量 −1，反向边 +1（==允许后面反悔==）',
-        'return res': '最大兼容性评分和 `{ret}`',
+        'res = m * n': '图建好了：源 `s` → 学生（容量 1，费用 0）；学生 → 导师（容量 1，费用 = 不匹配的题数）；导师 → 汇 `t`。`res` 先取总分上限 `m×n = {res}`，后面减去最小费用',
+        'dis[s] = 0': '每轮找一条最小费用的增广路：`dis` 记最小费用，`prev` 记来路（源点 `dis = 0`）',
+        'if c[s][i] > 0': '源点到学生 `{i}` 还有容量 → 费用 `{v[s][i]}` 入堆',
+        'heapq.heappush(heap, [v[s][i]': lambda S, B, r: f'学生 `{S.i}` 入堆：`[{S.v[S.s][S.i]}, s, {S.i}]`',
+        'while heap': lambda S, B, r: '堆里还有候选，取费用最小的' if S.heap else '堆空了：这一轮搜索结束',
+        'd, p, now = heapq.heappop': lambda S, B, r: f'弹出费用最小的：到节点 `{S.now}` 费用 `{S.d}`，来路 `{"s" if S.p == S.s else S.p}`',
+        'if dis[now] != -1': lambda S, B, r: (f'`dis[{S.now}] = {S.dis[S.now]}` 已有更小或相等的费用（`{S.d} >= {S.dis[S.now]}`）→ 跳过' if S.dis[S.now] != -1 and S.d >= S.dis[S.now]
+                                                else f'节点 `{S.now}` 第一次出堆，费用 `{S.d}` 就是最小的'),
+        'continue': '过期的候选，丢掉',
+        'dis[now] = d': '确定 `dis[{now}] = {d}`，来路 `prev[{now}] = {p}`',
+        'heapq.heappush(heap, [d + v': '从 `{now}` 出发的边 `{now}→{next}` 还有容量：候选费用 `{d} + ({v[now][next]})` = `{d + v[now][next]}` 入堆{"（反向边，费用为负）" if v[now][next] < 0 else ""}',
+        'if dis[t] == -1': lambda S, B, r: '`t` 到不了：已经没有增广路 → 结束' if S.dis[S.t] == -1 else f'`t` 的最小费用 `dis[t] = {S.dis[S.t]}`：找到一条增广路',
+        'res -= dis[t]': '这条增广路的费用 `{dis[t]}` 是被浪费掉的评分 → `res = {B.res} − {dis[t]} = {res}`',
+        'while now != s': lambda S, B, r: '沿 `prev` 从 `t` 回溯到 `s`，逐条更新容量' if S.now != S.s else '回到源点 `s`：这条增广路更新完了',
+        'c[prev[now]][now] -= 1': '正向边用掉：`c[{prev[now]}][{now}]` → 0',
+        'c[now][prev[now]] += 1': '反向边容量 +1，以后可以「退回」这条匹配（反向边费用为负）',
+        'now = prev[now]': '回到上一个节点 `{now}`',
+        'return res': '最大兼容性评分和 `{res}`',
     },
-    max_steps=60,
     cards=dict(
-        one_liner='学生和导师就是二分图，最大评分和 = 最优匹配',
-        complexity='时间约 `O(n^3·m)`，空间 `O(n^2)`',
-        problem=['`m` 名学生、`m` 名导师，各自对 `n` 道题答 0/1；配对得分 = 答案相同的题数',
-                 '一对一配对，求总得分最大',
-                 '示例：`students=[[1,1,0],[1,0,1],[0,0,1]]`，`mentors=[[1,0,0],[0,0,1],[1,1,0]]` → `8`'],
-        quote='题目给出的是一个标准的二分图，其中左侧节点为学生，右侧节点为老师，而每一对学生和老师之间存在一条边，权重为二人之间的兼容性评分。……这就是经典的最优匹配问题。',
+        one_liner='二分图最优匹配 = 最小费用最大流：费用取「不匹配的题数」',
+        complexity='建图 `O(m² n)`，每轮最短路 `O(V² log V)`，共 `m` 轮；空间 `O(m²)`',
+        problem=['`m` 名学生、`m` 名导师，各答 `n` 个 0/1 问题',
+                 '配对评分 = 两人答案相同的题数；求一一配对后评分和的最大值',
+                 '本视频：2 名学生、2 名导师，每人 3 道题 → `3`'],
+        quote='题目给出的是一个标准的二分图，左侧节点为学生，右侧节点为老师，每一对学生和老师之间存在一条边，权重为二人之间的兼容性评分。……实际上，这就是经典的最优匹配问题。',
         quote_src='—— yiduobo 题解原文',
-        idea=['数据范围小，状压 DP 能做；但==网络流 / 匹配==是更优选择',
-              '求最大变求最小：边费用取「不匹配的题数」，最后答案 = 题数×人数 − 最小费用',
-              '`s→学生`、`导师→t` 容量 1，`学生→导师` 容量 1；跑最小费用最大流'],
-        summary=['每轮用堆做 Dijkstra 找 `s→t` 最短路（反向边费用为负，靠残量图保证正确），沿路增广',
-                 '答案 `res = m×n − Σ 每轮 dis[t]`，不是直接累加',
-                 '反向边容量 +1 让后面的增广能「改派」之前的配对',
-                 '原文为 `class Solution(object)` 写法，代码本身已是 Python 3 可运行，未改动',
-                 '同题另有 KM 算法、状压 DP；原文选网络流'],
+        idea=['建图：源点→学生、导师→汇点，容量 1 费用 0；学生→导师容量 1，费用 = 题数 − 兼容性得分',
+              '做一次最小费用最大流，最小费用就是「浪费掉」的得分',
+              '答案 = 题目总数 × 人数 − 最小费用'],
+        summary=['原文为 Python 2 风格，在 Python 3 下无需改动，代码照搬',
+                 '时间约 `O(m × V² log V)`，`V = 2m + 2`；空间 `O(m²)`',
+                 '易错点：反向边费用要取相反数，这样后面的增广路才能「撤销」之前的匹配',
+                 '`res = m * n` 是总题数乘人数，最后减去最小费用',
+                 '作者说明：原文提到 KM 算法也可做，这里选择网络流；对比灵神用 KM'],
     ),
 )

@@ -1,14 +1,19 @@
-def _seg(S):
-    """当前这一段 [last, index-1]"""
-    if 'index' not in S:
-        return (0, -1)
-    return (S['last'], S['index'] - 1) if S['index'] > S['last'] else (0, -1)
+def _top(S):
+    if 'max_one' not in S:
+        return ''
+    return f"最长连续 `1`：==`{S['max_one']}`==　　最长连续 `0`：==`{S['max_zero']}`=="
+
+
+def _col(S, i, v):
+    if 'last' in S and 'index' in S and S['last'] <= i < S['index']:
+        return 'green' if v == '1' else 'orange'
+    return None
 
 
 CONFIG = dict(
     num=1869, title='哪种连续子字符串更长', difficulty='Easy', category='滑动窗口与双指针',
-    author='yiduobo', technique='一趟遍历 · 记录段首 last',
-    tags=['分组循环', '难度分 1205'],
+    author='yiduobo', technique='一趟遍历 · last 记段起点',
+    tags=['灵神题单·滑动窗口与双指针', '难度分 1205'],
     code='''
 class Solution(object):
     def checkZeroOnes(self, s):
@@ -33,47 +38,56 @@ class Solution(object):
         
         return max_one > max_zero
 ''',
-    call="Solution().checkZeroOnes('1100011')",
+    call='Solution().checkZeroOnes("110100010")',
     expect=False,
     views=[
-        dict(type='string', var='s', label='s（箭头 index = 当前字符，青框 = 上一段 [last, index)，绿色箭头 last = 段首）', h=210,
-             pointers={'index': 'blue', 'last': 'green'},
-             window=(lambda S: _seg(S)[0], lambda S: _seg(S)[1])),
-        dict(type='text', fn=lambda S: f"最长连续 `0` = =={S.get('max_zero')}==，最长连续 `1` = =={S.get('max_one')}==" if 'max_zero' in S else ''),
+        dict(type='text', fn=_top, size=28),
+        dict(type='string', var='s', label='s（last 是当前这段的开头，index 是正在看的字符）', cell=84,
+             pointers={'last': 'blue', 'index': 'pink'}, color=_col),
+        dict(type='text', fn=lambda S: (f"刚结束的上一段：`{S['s'][S['index'] - 1]}` × {S['index'] - S['last']}"
+                                         if 'index' in S and 'last' in S and S['index'] > 0 and S['index'] < len(S['s'])
+                                         and S['s'][S['index']] != S['s'][S['index'] - 1] else ''), size=26),
     ],
-    watch=[('index', 'index', 'blue'), ('last', 'last', 'green'), ('max_zero', 'max_zero', 'orange'), ('max_one', 'max_one', 'pink')],
+    watch=[('index', 'index', 'pink'), ('last', 'last', 'blue'), ('max_one', 'max_one', 'green'), ('max_zero', 'max_zero', 'orange')],
+    skip=['res = 0'],
     captions={
-        'max_zero = max_one': '`max_zero`、`max_one` 分别记录最长连续 0 / 1',
-        'for index, char': '看第 `{index}` 个字符 `char = {char}`',
-        'if index == 0': lambda S, B, r: '第一个字符前面没有字符，它自己开一段：`last = 0`' if S.index == 0 else '不是第一个字符，看下一个分支',
-        4: '`last` 记录当前连续段的开头位置，先设为 0',
-        9: '第一个字符前面没有字符，它自己开一段：`last = 0`',
-        'elif char != s[index - 1]': lambda S, B, r: (f"`'{S.char}' != '{S.s[S.index-1]}'` → ==上一段结束了==，长度是 `index - last = {S.index - S.last}`"
-                                                      if S.char != S.s[S.index - 1] else f"`'{S.char}' == '{S.s[S.index-1]}'` → 还在同一段，什么也不用做"),
-        "if char == '1'": lambda S, B, r: (f"当前是 `1` → 刚结束的那段是 ==0 段=="if S.char == '1' else "当前是 `0` → 刚结束的那段是 ==1 段=="),
-        'max_zero = max(max_zero, index - last)': '用上一段（0）的长度更新：`max_zero = max({B.max_zero}, {index - last}) = {max_zero}`',
-        'max_one = max(max_one, index - last)': '用上一段（1）的长度更新：`max_one = max({B.max_one}, {index - last}) = {max_one}`',
-        'last = index': '新的一段从 `index` 开始：`last = {last}`',
-        'if s[-1] == ': '==最后一段没遇到不同字符，还没算过==：看它是 `{s[-1]}` 段',
-        'max_one = max(max_one, len(s) - last)': '最后一段（1）长 `len(s) - last = {len(s) - last}` → `max_one = {max_one}`',
-        'max_zero = max(max_zero, len(s) - last)': '最后一段（0）长 `len(s) - last = {len(s) - last}` → `max_zero = {max_zero}`',
-        'return': lambda S, B, r: f'`max_one = {S.max_one}`，`max_zero = {S.max_zero}`：1 的最长段 ==严格大于== 0 的才为真 → {r}',
+        9: '第一个字符：第一段从下标 `0` 开始，`last = 0`',
+        4: '`last` 记录当前连续段的==开头==下标',
+        'max_zero = max_one = 0': '`max_zero`、`max_one` 分别是最长连续 0、连续 1 的长度',
+        'for index, char in enumerate(s)': lambda S, B, r: (f'看 `s[{S.index}] = {S.char!r}`' if 'char' not in B or B.get('index') != S.index
+                                                              else '遍历结束，但最后一段还没统计'),
+        'if index == 0': lambda S, B, r: ('`index == 0`：第一个字符，没有「前一个」可比' if S.index == 0 else '`index != 0`，可以和前一个字符比较'),
+        'elif char != s[index - 1]': lambda S, B, r: (
+            f'`{S.char!r}` ≠ 前一个 `{S.s[S.index - 1]!r}` → 上一段在 `{S.index - 1}` 结束，可以结算了'
+            if S.char != S.s[S.index - 1] else f'`{S.char!r}` == 前一个字符 → 还在同一段，什么都不用做'),
+        "if char == '1'": lambda S, B, r: (
+            f'当前是 `1`，说明刚结束的那段是 ==0==，长度 `{S.index - S.last}`' if S.char == '1'
+            else f'当前是 `0`，说明刚结束的那段是 ==1==，长度 `{S.index - S.last}`'),
+        'max_zero = max(max_zero, index - last)': '`max_zero = max({B.max_zero}, {index - last}) = {max_zero}`',
+        'max_one = max(max_one, index - last)': '`max_one = max({B.max_one}, {index - last}) = {max_one}`',
+        'last = index': '新的一段从 `index = {index}` 开始：`last` → {last}',
+        "if s[-1] == '1'": lambda S, B, r: (
+            f'循环结束，最后一段没人结算：它是 `{S.s[-1]}`，长度 `len(s) - last = {len(S.s) - S.last}`'),
+        'max_one = max(max_one, len(s) - last)': '`max_one = max({B.max_one}, {len(s) - last}) = {max_one}`（补上最后一段）',
+        'max_zero = max(max_zero, len(s) - last)': '`max_zero = max({B.max_zero}, {len(s) - last}) = {max_zero}`（补上最后一段）',
+        'return max_one > max_zero': '`max_one = {max_one}`，`max_zero = {max_zero}`：1 要==严格更长== → `{max_one > max_zero}`',
     },
     cards=dict(
-        one_liner='用 last 记段首，字符一变就结算上一段，最后别忘收尾',
+        one_liner='一趟遍历，遇到字符变化就结算上一段',
         complexity='时间 `O(n)`，空间 `O(1)`',
-        problem=['二进制字符串 `s`，比较「最长连续 1」与「最长连续 0」的长度',
-                 '1 的最长段==严格长于== 0 的最长段，返回 `true`，否则 `false`',
-                 '示例：`"110100010"` → `false`（1 最长 2，0 最长 3）；本视频：`"1100011"` → `false`'],
-        quote='使用一个变量last记录当前连续子字符串的开端位置。对于当前字符，若其不等于前一个字符，说明上一段连续子字符串已经结束了，因此可以使用当前下标index与last，以及上一个字符是0还是1来更新最长连续0的长度或者最长连续1的长度。',
+        problem=['二进制字符串 `s`，比较最长连续 1 与最长连续 0 的长度',
+                 '1 的更长（严格）返回 `true`，否则 `false`',
+                 '示例：`"110100010"` → 1 最长 2，0 最长 3 → `false`'],
+        quote='需要注意在遍历完成后，最后一个连续子字符串由于没有遇到不同的字符，因此其的长度是没有被计算过的，需要单独拿出来计算。',
         quote_src='—— yiduobo 题解原文',
-        idea=['`last` 是当前段的开头，字符变化时上一段长度 = `index - last`',
-              '当前字符是 `1`，说明刚结束的是 0 段，反之亦然',
-              '遍历结束时最后一段没有被结算，要单独算：`len(s) - last`'],
+        idea=['用 `last` 记当前连续段的开头；字符和前一个不同，说明上一段结束了',
+              '上一段的长度是 `index - last`，上一段是什么字符看当前字符取反',
+              '最后一段后面没有「不同的字符」，循环后要==补算一次=='],
+        result='最长 1 是 2，最长 0 是 3 → `2 > 3` 不成立 → `False` ✓',
         summary=['时间 `O(n)`，空间 `O(1)`',
-                 '易错点：最后一段必须在循环外单独结算，否则 `"1100011"` 末尾的 11 会丢',
-                 '判断当前字符时别搞反：当前是 1，结算的是上一段 0',
-                 '返回 `max_one > max_zero`，相等时为 false',
-                 '原文变量 `res` 没有用到，保留原样'],
+                 '易错：忘了循环后补算最后一段，`"111"` 这种全是同一字符的串会得到 0',
+                 '`if char == \'1\'` 更新的是 `max_zero`：因为结束的是==上一段==',
+                 '原文为 Python 2 风格，只删去了类型说明文档字符串，其余未改',
+                 '对比灵神：灵神用内层 while 一口气走完一段；yiduobo 逐字符比较前一个字符'],
     ),
 )
