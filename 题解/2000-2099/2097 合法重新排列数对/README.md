@@ -7,7 +7,16 @@ Hard · 难度分 2651 · [力扣原题](https://leetcode.cn/problems/valid-arra
 | 作者 | 题解 | 动画讲解 |
 |---|---|---|
 | 灵茶山艾府 | [📄 题解](灵茶山艾府.md) | — |
-| yiduobo | [📄 题解](yiduobo.md) | [▶︎ 2097 合法重新排列数对 · yiduobo.mp4](2097%20合法重新排列数对%20·%20yiduobo.mp4) |
+| yiduobo | [📄 题解](yiduobo.md) | [▶︎ 动画（GIF）](2097%20合法重新排列数对%20·%20yiduobo.gif) · [mp4 文件](2097%20合法重新排列数对%20·%20yiduobo.mp4) |
+
+## 动画讲解
+
+> 动图会循环播放；想暂停、拖进度条请下载上面表格里的 mp4 文件。
+
+### yiduobo
+
+![2097 合法重新排列数对 · yiduobo](2097%20合法重新排列数对%20·%20yiduobo.gif)
+
 
 ## 题目描述
 

@@ -1,87 +1,47 @@
-TOYS = [[3, 3, 1], [1, 1, 2]]
+TOYS = [[3, 3, 1], [5, 5, 3]]
 CIRCLES = [[4, 3]]
-R = 2
-
-
-def _caught(i):
-    tx, ty, tr = TOYS[i]
-    l = R - tr
-    return tr <= R and any((cx - tx) ** 2 + (cy - ty) ** 2 <= l * l for cx, cy in CIRCLES)
+R0 = 2
 
 
 def _draw(cv, S, B, box, T):
     x0, y0, x1, y1 = box
-    cv.text((x0 + 18, y0 + 4), '玩具（圆）与圈心（蓝点）：玩具被套中 ⇔ 有圈心落在半径 r−tr 的圆里', 22, T['muted'], bold=True)
-    wx0, wx1, wy0, wy1 = -1, 6, -1, 5
-    top, bot = y0 + 90, y1 - 50
-    sc = min((x1 - x0 - 100) / (wx1 - wx0), (bot - top) / (wy1 - wy0))
-    ox = x0 + 60 + ((x1 - x0 - 100) - sc * (wx1 - wx0)) / 2
-    oy = top + ((bot - top) - sc * (wy1 - wy0)) / 2
+    cv.text((x0 + 18, y0 + 4), '平面图（橙 = 玩具，白点 = 圈心，青环 = 圈心可以落的范围，粉点 = 正在试的整数点）', 22, T['muted'], bold=True)
+    gx0, gy0, gx1, gy1 = x0 + 50, y0 + 60, x1 - 30, y1 - 40
+    W = H = 9.0
+    sc = min((gx1 - gx0) / W, (gy1 - gy0) / H)
+    ox = gx0 + ((gx1 - gx0) - sc * W) / 2
+    oy = gy1 - ((gy1 - gy0) - sc * H) / 2
 
     def P(x, y):
-        return ox + (x - wx0) * sc, oy + (wy1 - y) * sc
+        return ox + x * sc, oy - y * sc
 
-    for gx in range(wx0, wx1 + 1):
-        X = P(gx, 0)[0]
-        cv.line([(X, P(0, wy1)[1]), (X, P(0, wy0)[1])], T['border'], 1)
-        cv.text((X, P(0, wy0)[1] + 6), gx, 18, T['dim'], anchor='mt', mono=True)
-    for gy in range(wy0, wy1 + 1):
-        Y = P(0, gy)[1]
-        cv.line([(P(wx0, 0)[0], Y), (P(wx1, 0)[0], Y)], T['border'], 1)
-        cv.text((P(wx0, 0)[0] - 8, Y), gy, 18, T['dim'], anchor='rm', mono=True)
-    live = 'tx' in S
-    cur = -1
-    if live:
-        cur = TOYS.index([S['tx'], S['ty'], S['tr']])
-    done_line = S.get('_line', 0) >= 24
-    for i, (tx, ty, tr) in enumerate(TOYS):
-        X, Y = P(tx, ty)
-        fin = live and (i < cur or (i == cur and done_line))
-        if i == cur:
-            col = T['pink']
-        elif fin:
-            col = T['green'] if _caught(i) else T['red']
-        else:
-            col = T['muted']
-        if fin and _caught(i):
-            cv.d.ellipse((X - tr * sc, Y - tr * sc, X + tr * sc, Y + tr * sc), fill=mix2(T['green'], T['bg']))
-        cv.d.ellipse((X - tr * sc, Y - tr * sc, X + tr * sc, Y + tr * sc), outline=col, width=4)
-        cv.text((X, Y), f'({tx},{ty})', 18, col, anchor='mm', bold=True)
-    if live and 'l' in S:
-        X, Y = P(S['tx'], S['ty'])
-        l = S['l']
-        cv.d.ellipse((X - l * sc, Y - l * sc, X + l * sc, Y + l * sc), outline=T['yellow'], width=3)
-        cv.text((X + l * sc * 0.72 + 8, Y - l * sc * 0.72 - 4) if l else (X + 16, Y + 14), f'r−tr={l}', 20, T['yellow'], bold=True)
-        if 'x' in S and 'y' in S and not done_line:
-            px, py = S['x'], S['y']
-            Q = P(px, py)
-            inside = (px - S['tx']) ** 2 + (py - S['ty']) ** 2 <= l * l
-            hit = inside and (px, py) in set(map(tuple, CIRCLES))
-            c = T['green'] if hit else (T['cyan'] if inside else T['dim'])
-            cv.d.ellipse((Q[0] - 11, Q[1] - 11, Q[0] + 11, Q[1] + 11), outline=c, width=4)
-    seen = 'circle_set' in S
-    for cx, cy in CIRCLES:
-        if seen and (cx, cy) in S['circle_set']:
-            Q = P(cx, cy)
-            cv.d.ellipse((Q[0] - 9, Q[1] - 9, Q[0] + 9, Q[1] + 9), fill=T['blue'])
-            cv.text((Q[0] + 14, Q[1] + 8), f'({cx},{cy})', 18, T['blue'], bold=True)
-    if live:
-        cv.text(((x0 + x1) / 2, y0 + 44), f"当前玩具 ({S['tx']},{S['ty']}) 半径 {S['tr']}；圈半径 r = {R}，圈心只能在 r−tr = {R - S['tr']} 以内",
-                20, T['text'], anchor='mt')
-
-
-def mix2(c, bg):
-    return tuple((a * 35 + b * 65) // 100 for a, b in zip(c, bg))
-
-
-def _inside(S):
-    return (S.x - S.tx) ** 2 + (S.y - S.ty) ** 2 <= S.l ** 2
+    for k in range(0, 10):
+        cv.line([P(k, 0), P(k, 9)], T['border'], 1)
+        cv.line([P(0, k), P(9, k)], T['border'], 1)
+        cv.text((P(k, 0)[0], P(k, 0)[1] + 8), k, 20, T['dim'], anchor='mt', mono=True)
+        cv.text((P(0, k)[0] - 10, P(0, k)[1]), k, 20, T['dim'], anchor='rm', mono=True)
+    for t in TOYS:
+        px, py = P(t[0], t[1])
+        rr = t[2] * sc
+        cur = 'tx' in S and 'ty' in S and (t[0], t[1]) == (S['tx'], S['ty'])
+        cv.rect((px - rr, py - rr, px + rr, py + rr), fill=T['yellow'] if cur else T['orange'], alpha=150 if cur else 70,
+                outline=T['yellow'] if cur else T['orange'], width=3, r=rr)
+    if 'tx' in S and 'l' in S:
+        px, py = P(S['tx'], S['ty'])
+        rr = S['l'] * sc
+        cv.rect((px - rr, py - rr, px + rr, py + rr), outline=T['cyan'], width=4, r=rr)
+    for c in CIRCLES:
+        px, py = P(c[0], c[1])
+        cv.rect((px - 8, py - 8, px + 8, py + 8), fill=T['text'], r=8)
+    if 'x' in S and 'y' in S and 'l' in S and S.get('_line') in (18, 19):
+        px, py = P(S['x'], S['y'])
+        cv.rect((px - 11, py - 11, px + 11, py + 11), outline=T['pink'], width=5, r=11)
 
 
 CONFIG = dict(
     num='LCP 42', title='玩具套圈', difficulty='Hard', category='数学算法',
-    author='yiduobo', technique='哈希表 · 枚举整数圈心',
-    tags=['计算几何'],
+    author='yiduobo', technique='圆心哈希集合 枚举整数点',
+    tags=[],
     code='''
 class Solution(object):
     def circleGame(self, toys, circles, r):
@@ -110,52 +70,44 @@ class Solution(object):
         
         return res
 ''',
-    call='Solution().circleGame([[3,3,1],[1,1,2]], [[4,3]], 2)',
+    call='Solution().circleGame([[3,3,1],[5,5,3]], [[4,3]], 2)',
     expect=1,
-    views=[dict(type='custom', draw=_draw, h=520), dict(type='set', var='circle_set', h=110,
-                                                          fmt=lambda p: f'({p[0]},{p[1]})')],
-    watch=[('tx', 'tx if "tx" in S else "-"', 'pink'), ('ty', 'ty if "ty" in S else "-"', 'pink'), ('l', 'l if "l" in S else "-"', 'yellow'),
-           ('x', 'x if "x" in S else "-"', 'cyan'), ('y', 'y if "y" in S else "-"', 'cyan'),
-           ('flag', 'flag if "flag" in S else "-"', 'orange'), ('res', 'res', 'green')],
+    views=[
+        dict(type='text', fn=lambda S: (f"`l = r − tr = {S['l']}`：圈心必须落在以玩具为中心、半径 `{S['l']}` 的圆内（再看是不是整数点）" if 'l' in S else '圈心都是整数点，玩具半径又小 → 枚举整数点')),
+        dict(type='custom', draw=_draw, h=520),
+    ],
+    watch=[('r', 'r', 'pink'), ('l', 'l', 'cyan'), ('x', 'x', 'yellow'), ('y', 'y', 'yellow'), ('flag', 'flag', 'blue'), ('res', 'res', 'green')],
     captions={
-        'res = 0': '`res` 记套中的玩具数',
-        'circle_set = set()': '用哈希集合存==所有圈心==，查「某个整数点有没有圈心」是 `O(1)`',
-        'for cx, cy': lambda S, B, r_: ('所有圈心都存好了' if 'cx' in B and B.cx == S.cx else f'取下一个圈的圆心 `({S.cx}, {S.cy})`'),
-        'circle_set.add': '圈心 `({cx}, {cy})` 入集合',
-        'for tx, ty, tr': lambda S, B, r_: ('所有玩具都处理完了' if 'tx' in B and B.tx == S.tx else f'处理玩具 `({S.tx}, {S.ty})`，半径 `{S.tr}`'),
-        'if tr > r': lambda S, B, r_: (f'玩具半径 `{S.tr} > {S.r}`：圈比玩具还小，不可能套住' if S.tr > S.r
-                                       else f'玩具半径 `{S.tr} ≤ {S.r}`：有可能被套住，继续'),
-        'l = r - tr': '圈心离玩具中心不能超过 `r − tr = {r} − {tr}` = =={l}==，否则玩具会露出圈外',
-        'flag = False': '`flag` 记录这个玩具有没有找到能套住它的圈心',
-        'for x in': lambda S, B, r_: ('横坐标枚举结束' if 'x' in B and B.x == S.x else '') or f'枚举圈心横坐标 `x` = =={S.x}==（范围 `{S.tx - S.l}` 到 `{S.tx + S.l}`）',
-        'if flag:': lambda S, B, r_: (('`flag` 为真，这个玩具被套中' if S.flag else '`flag` 为假：没有任何整数圈心能套住它') if S['_line'] == 23 else '已经找到圈心了 → 不用再枚举，跳出' if S.flag else '还没找到，继续枚举下一列'),
-        'break': '找到了 → 跳出 `y` 循环',
-        'for y in': lambda S, B, r_: ('这一列枚举完了，没有命中' if 'y' in B and B.y == S.y else '') or f'枚举圈心纵坐标 `y` = =={S.y}==，候选圈心 `({S.x}, {S.y})`',
-        'if (x - tx)': lambda S, B, r_: (
-            f'`({S.x}-{S.tx})² + ({S.y}-{S.ty})² = {(S.x - S.tx) ** 2 + (S.y - S.ty) ** 2}`，'
-            + (f'`≤ l² = {S.l ** 2}`：在可套范围内；' if _inside(S) else f'`> l² = {S.l ** 2}`：超出范围，圈会漏掉玩具；')
-            + (('`(x, y)` 在圈心集合里 → ==套中==' if (S.x, S.y) in S.circle_set else '但集合里没有这个圈心 → 不行')
-               if _inside(S) else '不用查集合')),
-        'flag = True': '这个玩具能被套住：`flag = True`',
-        'res += 1': '套中数 `res` → =={res}==',
-        'return res': '一共套中 `{res}` 个玩具',
+        'circle_set.add': '圈心 `({cx}, {cy})` 放进集合 → `circle_set = {circle_set}`',
+        'for cx, cy in circles': lambda S, B, r_: ('圈心都放进集合了' if 'cx' in B and B['cx'] == S.cx and B['cy'] == S.cy else '先把所有圈心放进哈希集合，之后查一个点是不是圈心只要 `O(1)`'),
+        'for tx, ty, tr in toys': lambda S, B, r_: ('所有玩具都枚举完了' if 'tx' in B and B['tx'] == S.tx and B['tr'] == S.tr else f'枚举玩具：圆心 `({S.tx}, {S.ty})`，半径 `{S.tr}`'),
+        'if tr > r': lambda S, B, r_: (f'玩具半径 `{S.tr}` > 圈半径 `{S.r}`：怎么也套不住，跳过' if S.tr > S.r else f'玩具半径 `{S.tr}` <= 圈半径 `{S.r}`：有可能套住'),
+        'l = r - tr': '套住的条件是 `圆心距 <= r - tr`：圈心得落在半径 `l = {l}` 的圆里',
+        'flag = False': '`flag` 记这个玩具有没有被套中',
+        'for x in range': lambda S, B, r_: ('这个玩具的所有列都枚举完了' if B.get('x') == S.x and 'x' in B else f'把圆外接成正方形，枚举横坐标 `x` 从 `{S.tx - S.l}` 到 `{S.tx + S.l}`：当前 `x = {S.x}`'),
+        16: lambda S, B, r_: ('已经找到圈了，不用再枚举其他列' if S.flag else f'还没找到：继续看 `x = {S.x}` 这一列'),
+        'for y in range': lambda S, B, r_: ('这一列的纵坐标枚举完了' if B.get('y') == S.y and 'y' in B and B.get('x') == S.x else f'枚举纵坐标：当前点 `({S.x}, {S.y})`'),
+        'if (x - tx)': lambda S, B, r_: (f'点 `({S.x}, {S.y})` 离玩具 `{(S.x - S.tx) ** 2 + (S.y - S.ty) ** 2}` ' + ('<=' if (S.x - S.tx) ** 2 + (S.y - S.ty) ** 2 <= S.l ** 2 else '>') + f' `l^2 = {S.l ** 2}`，且' + ('在' if (S.x, S.y) in S.circle_set else '不在') + '集合里 → ' + ('==这里有圈，套中了==' if (S.x - S.tx) ** 2 + (S.y - S.ty) ** 2 <= S.l ** 2 and (S.x, S.y) in S.circle_set else '不行')),
+        'flag = True': '找到可用的圈心，`flag = True`',
+        'break': '这个玩具已经确定被套中，跳出',
+        23: lambda S, B, r_: ('玩具被套中 → `res` 加一' if S.flag else '这个玩具没有被任何圈套中'),
+        'res += 1': '`res` → {res}',
+        'return res': '所有玩具都判断完，套中 `{res}` 个',
     },
     cards=dict(
-        one_liner='半径只有 10：枚举每个玩具周围的整数点，在集合里查有没有圈心',
-        complexity='时间 `O(n·r²)`，空间 `O(m)`（`m` 为圈数）',
-        problem=['平地上有若干玩具 `(x, y, 半径)`，扔了若干半径都为 `r` 的圈，圈心坐标已知',
-                 '玩具被某个圈==完整==覆盖才算套中，多个圈套同一个只算一次',
-                 '示例：`toys=[[3,3,1],[3,2,1]], circles=[[4,3]], r=2` → `1`',
-                 '本视频：`toys=[[3,3,1],[1,1,2]]`，其余同上 → `1`'],
+        one_liner='半径只有 10：把圈心放进哈希表，只枚举玩具附近的整数点',
+        complexity='时间 `O(n * r^2 + m)`，空间 `O(m)`',
+        problem=['玩具 `[x, y, r]`，圈的半径都是 `r`，圈心 `[x, y]`',
+                 '玩具被某个圈完整盖住就算套中，多个圈只算一个',
+                 '本视频：玩具 `[3,3,1]`、`[5,5,3]`，圈心 `[4,3]`，`r = 2`，答案 `1`'],
         quote='每个圆的半径都不超过10，同时所有圆的圆心都处在整数点上，那么在这里就可以将所有圈的圆心先加入到哈希表，然后对于每个玩具，枚举所有可以套到这个玩具的整数圆心。',
         quote_src='—— yiduobo 题解原文',
-        idea=['大圆 `(x1,y1,r1)` 盖住小圆 `(x2,y2,r2)` ⇔ 圆心距 `≤ r1 − r2`，平方后免开根',
-              '于是圈心必须落在以玩具为中心、半径 `r − tr` 的圆里，整数点至多 `O(r²)` 个',
-              '枚举这些整数点，查哈希集合；一旦命中就 `break`，该玩具只计一次'],
-        summary=['时间 `O(n·r²)`（`r ≤ 10`，每个玩具最多约 400 个点），空间 `O(m)`',
-                 '易错：`tr > r` 要直接跳过；双层循环命中后要连同外层一起 `break`',
-                 '正方形范围只是枚举上界，必须再用 `≤ l²` 过滤成圆',
-                 '原文为 Python 2 风格，本题代码在 Python 3 下无需改动',
-                 '对比灵神：灵神排序+二分，yiduobo 利用小半径直接哈希'],
+        idea=['圈 `(xc, yc)` 套住玩具 `(xt, yt, rt)`：`(xc−xt)^2 + (yc−yt)^2 <= (r−rt)^2`',
+              '等价于圈心落在以玩具为圆心、半径 `r − rt` 的圆里',
+              '枚举外接正方形里的整数点，既在圆内又在哈希集合中就是套中'],
+        summary=['时间 `O(n * r^2 + m)`，`r <= 10` 所以每个玩具只枚举至多 `21 × 21` 个点',
+                 '用平方比较，避免开根号',
+                 '找到一个圈就要同时跳出两层循环（`flag` + `break`）',
+                 '原文为 Python 2 风格，只删去了类型说明文档字符串，代码无需改动'],
     ),
 )

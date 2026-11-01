@@ -1,115 +1,63 @@
-def _tr(S):
-    t = S.get('treap')
-    if t is None:
-        t = S.get('self')
-    return t
-
-
-def _root(S):
-    t = _tr(S)
-    try:
-        return t.root.right
-    except Exception:
-        return None
-
-
-def _layout(root, x0, y0, x1, y1):
-    order, depth, seen = [], {}, set()
-
-    def ino(n, d):
-        if n is None or id(n) in seen or d > 8:
-            return
-        seen.add(id(n))
-        depth[id(n)] = d
-        ino(n.left, d + 1)
-        order.append(n)
-        ino(n.right, d + 1)
-    ino(root, 0)
-    if not order:
-        return {}, order, 0, 0
-    maxd = max(depth.values()) + 1
-    sp = min(150, (x1 - x0 - 40) / len(order))
-    dy = min(110, (y1 - y0 - 100) / max(1, maxd))
-    sx = x0 + 20 + ((x1 - x0 - 40) - sp * len(order)) / 2 + sp / 2
-    pos = {id(n): (sx + i * sp, y0 + 80 + depth[id(n)] * dy) for i, n in enumerate(order)}
-    return pos, order, sp, dy
+def _treap(S):
+    t = S.get('self')
+    if type(t).__name__ != 'Treap':
+        t = S.get('treap')
+    return t if type(t).__name__ == 'Treap' else None
 
 
 def _draw(cv, S, B, box, T):
     x0, y0, x1, y1 = box
-    cv.text((x0 + 18, y0 + 4), 'treap：key = 终点（左小右大）；len = 区间长度，min = 子树最小长度', 22, T['muted'], bold=True)
-    root = _root(S)
-    if root is None:
-        cv.text((x0 + 18, y0 + 56), '（空树：还没有备选区间）', 24, T['dim'])
+    cv.text((x0 + 18, y0 + 4), 'Treap：key = 区间终点，节点里记 length 与子树最小 min_length', 22, T['muted'], bold=True)
+    t = _treap(S)
+    if t is None or t.root.right is None:
+        cv.text((x0 + 30, y0 + 70), '（还没有候选区间）', 26, T['dim'])
         return
-    pos, order, sp, dy = _layout(root, x0, y0, x1, y1)
-    cur, new = S.get('now'), S.get('node')
-    w = min(132, sp - 8)
-    h = 62
-    for n in order:
-        px, py = pos[id(n)]
-        for ch in (n.left, n.right):
-            if ch is not None and id(ch) in pos:
+    now = S.get('now')
+    order = []
+
+    def walk(nd, d):
+        if nd is None:
+            return
+        walk(nd.left, d + 1)
+        order.append((nd, d))
+        walk(nd.right, d + 1)
+    walk(t.root.right, 0)
+    n = len(order)
+    maxd = max(d for _, d in order)
+    W = x1 - x0 - 60
+    cw = min(170, W / n)
+    gap = min(96, (y1 - y0 - 130) / max(1, maxd))
+    pos = {}
+    for k, (nd, d) in enumerate(order):
+        pos[id(nd)] = (x0 + 30 + cw * (k + 0.5), y0 + 80 + d * gap)
+    for nd, d in order:
+        px, py = pos[id(nd)]
+        for ch in (nd.left, nd.right):
+            if ch is not None:
                 cx, cy = pos[id(ch)]
-                cv.line([(px, py + h / 2), (cx, cy - h / 2)], T['border'], 3)
-    q = S.get('q')
-    for n in order:
-        px, py = pos[id(n)]
-        fill = T['panel2']
-        fg = T['text']
-        if new is n:
-            fill, fg = T['green'], T['bg']
-        elif cur is n:
-            fill, fg = T['yellow'], T['bg']
-        elif q is not None and 77 <= S.get('_line', 0) <= 94 and n.right_bound >= q:
-            fill, fg = T['blue'], T['bg']
-        cv.rect((px - w / 2, py - h / 2, px + w / 2, py + h / 2), fill=fill, r=10, outline=T['border'])
-        cv.text((px, py - 14), f'终点 {n.right_bound}', 22, fg, anchor='mm', bold=True)
-        cv.text((px, py + 14), f'len {n.length}  min {n.min_length}', 19, fg, anchor='mm', mono=True)
-        cv.text((px, py + h / 2 + 4), f'key {n.key % 1000}', 16, T['dim'], anchor='mt', mono=True)
+                cv.line([(px, py + 30), (cx, cy - 30)], T['border'], 3)
+    for nd, d in order:
+        px, py = pos[id(nd)]
+        hit = now is not None and getattr(now, 'right_bound', None) == nd.right_bound
+        fill = T['yellow'] if hit else T['panel2']
+        tc = T['bg'] if hit else T['text']
+        w = min(cw - 8, 150) / 2
+        cv.rect((px - w, py - 30, px + w, py + 30), fill=fill, r=10, outline=T['blue'], width=2)
+        cv.text((px, py - 12), f'终点 {nd.right_bound}  长 {nd.length}', 20, tc, anchor='mm', bold=True)
+        cv.text((px, py + 12), f'min {nd.min_length}', 20, T['bg'] if hit else T['green'], anchor='mm', bold=True)
 
 
-ITV = [[1, 5], [2, 3], [3, 7]]
-QS = [3, 6]
-
-
-def _brute(q):
-    ls = [r - l + 1 for l, r in ITV if l <= q <= r]
-    return min(ls) if ls else -1
-
-
-def _status(S):
-    if 'q' not in S:
-        return ''
-    return f"当前查询 `q = {S['q']}`（原第 {S['index']} 个）；已加入树的区间数 `p = {S['p']}` / {len(S['sorted_intevals'])}"
-
-
-def _itv(S):
-    if 'sorted_intevals' not in S or 'p' not in S:
-        return ''
-    parts = []
-    for k, (l, r) in enumerate(S['sorted_intevals']):
-        parts.append(f'`[{l},{r}]`' if k < S['p'] else (f'==[{l},{r}]==' if k == S['p'] else f'[{l},{r}]'))
-    return '按起点排序的区间：' + '  '.join(parts) + '　（强调 = 下一个）'
-
-
-def _answers(S):
-    if 'sorted_queries' not in S or 'index' not in S:
-        return ''
-    order = sorted(range(len(QS)), key=lambda i: QS[i])
-    pos = order.index(S['index'])
-    done_cur = S.get('_line') in (78, 92, 94, 111)
-    parts = []
-    for k, i in enumerate(order):
-        known = k < pos or (k == pos and done_cur)
-        parts.append(f"q={QS[i]} → ==" + (str(_brute(QS[i])) if known else '?') + '==')
-    return '已得到的答案：' + '　'.join(parts)
+def _fml(S):
+    if 'q' not in S or S.get('_line', 0) < 150:
+        return '先把区间、询问按起点/位置排序，再用 Treap 维护「起点已满足」的候选区间'
+    return f"处理询问 `q = {S['q']}`：候选区间里找 ==终点 ≥ {S['q']}== 的最小长度"
 
 
 CONFIG = dict(
     num=1851, title='包含每个查询的最小区间', difficulty='Hard', category='常用数据结构',
-    author='yiduobo', technique='离线排序 + treap（右端点为 key，维护子树最小长度）',
-    tags=['难度分 2286'],
+    author='yiduobo', technique='离线 + 双指针 + Treap（终点为键，维护子树最小长度）',
+    tags=['常用数据结构', '难度分 2286'],
+    setup='import random\nrandom.seed(0)',
     code='''
 class Node(object):
     def __init__(self, right_bound, length, key, fa):
@@ -223,109 +171,73 @@ class Solution(object):
 
         return res
 ''',
-
-    setup='import random\nrandom.seed(1)',
-    call='Solution().minInterval([[1,5],[2,3],[3,7]], [3,6])',
-    expect=[2, 5],
+    call='Solution().minInterval([[1,4],[2,4],[3,6]], [2,4,5])',
+    expect=[3, 3, 4],
+    max_steps=66,
+    skip=['grand_fa = now.fa.fa', 'now.fa.fa = now', 'now.right.fa = now.fa', 'now.left.fa = now.fa',
+          'if now.fa == grand_fa.left', 'grand_fa.left = now', 'grand_fa.right = now', 'now.fa = grand_fa',
+          'now.fa.left = now.right', 'now.fa.right = now.left', 'now.right = now.fa', 'now.left = now.fa',
+          'self.left = self.right', 'break', 'now = self.root', 'while True', 'self.right_bound =', 'self.length =', 'self.min_length =', 'self.key =', 'self.fa ='],
     views=[
-        dict(type='text', fn=_status, h=56, size=24),
-        dict(type='text', fn=_itv, h=70, size=24),
-        dict(type='custom', draw=_draw, h=330),
-        dict(type='text', fn=_answers, h=56, size=24),
+        dict(type='text', fn=_fml, size=26, h=60),
+        dict(type='custom', draw=_draw, h=280),
+        dict(type='array', var=lambda S: [q[0] for q in S['sorted_queries']], label='sorted_queries 的位置（当前 q 黄色）', cell=90, h=130,
+             color=lambda S, i, v: 'yellow' if v == S.get('q') else None),
+        dict(type='array', var='res', label='res（按原询问顺序）', cell=90, h=130,
+             color=lambda S, i, v: 'green' if v != -1 else None),
     ],
-    watch=[('q', lambda S: S.get('q', ''), 'orange'), ('p', lambda S: S.get('p', ''), 'blue'),
-           ('right_bound', lambda S: S['_inner'].get('right_bound', ''), 'pink'),
-           ('length', lambda S: S['_inner'].get('length', ''), 'cyan')],
-    skip=[3, 4, 5, 6, 7, 8, 16, 25, 32, 20, 15, 27, 34, 38, 42, 44, 49, 53, 79, 80, 77, 109, 56, 17, 36, 85, 91],
+    watch=[('q', 'q', 'blue'), ('p', 'p', 'yellow'), ('now', lambda S: S['now'].right_bound if S.get('now') is not None else None, 'pink'), 'res'],
     captions={
-        12: '`Treap` 里放一个==假根==（key=-1，最小），真正的树挂在 `root.right`，旋转时不用特判根',
-        99: '建一棵空 treap',
-        100: '区间按==起点==排序：查询 q 变大时，起点 ≤ q 的区间只会越来越多',
-        101: '查询带上原下标，按 q 从小到大排序（离线）',
-        102: '`p`：下一个还没加入 treap 的区间',
-        103: '答案默认 `-1`',
-        104: '处理查询 `q = {q}`（原第 {index} 个）',
-        105: lambda S, B, r: (
-            f'`sorted_intevals[{S.p}]` 起点 `{S.sorted_intevals[S.p][0]} <= q = {S.q}` → 这个区间的起点已满足，加入备选'
-            if S.p < len(S.sorted_intevals) and S.sorted_intevals[S.p][0] <= S.q else
-            (f'下一个区间起点 `{S.sorted_intevals[S.p][0]} > q = {S.q}`，还不能加入' if S.p < len(S.sorted_intevals) else '区间已全部加入')),
-        106: '插入区间：终点 `{sorted_intevals[p][1]}`，长度 `{sorted_intevals[p][1] - sorted_intevals[p][0] + 1}`',
-        107: '`p` → {p}',
-        15: '从假根出发，按终点往下找位置',
-        17: '沿途结点的子树都会多一个区间：`min_length` 取小 → `{now.min_length}`',
-        18: lambda S, B, r: (
-            f'终点 `{S.right_bound}` 和结点相同 → 起点已不重要，只留更短的 length' if S.right_bound == S.now.right_bound
-            else f'终点 `{S.right_bound}` ≠ 结点终点 `{S.now.right_bound}`，继续找位置'),
-        19: '终点相同，保留较短的长度：`length = {now.length}`',
-        21: lambda S, B, r: (
-            f'`{S.right_bound} < {S.now.right_bound}` → 往左子树' if S.right_bound < S.now.right_bound
-            else f'`{S.right_bound} > {S.now.right_bound}` → 往右子树'),
-        22: lambda S, B, r: ('左边是空位 → 新结点放这里' if S.now.left is None else '左边还有结点，继续往下'),
-        29: lambda S, B, r: ('右边是空位 → 新结点放这里' if S.now.right is None else '右边还有结点，继续往下'),
-        23: '新建结点：终点 `{right_bound}`，长度 `{length}`，再配一个随机优先级 key（treap 的堆序，旋转用）',
-        30: '新建结点：终点 `{right_bound}`，长度 `{length}`，再配一个随机优先级 key（treap 的堆序，旋转用）',
-        24: '挂到左边',
-        31: '挂到右边',
-        27: '往左走',
-        34: '往右走',
-        36: '从新结点开始，检查堆序（父亲的 key 必须更小）',
-        37: lambda S, B, r: (
-            f'`key {S.now.key} < 父亲 key {S.now.fa.key}` → 新结点比父亲小，需要==旋转==上去' if S.now.key < S.now.fa.key
-            else f'`key {S.now.key} > 父亲 key {S.now.fa.key}` → 堆序满足，不用旋转'),
-        39: lambda S, B, r: ('是左孩子 → 右旋' if S.now == S.now.fa.left else '是右孩子 → 左旋'),
-        41: '旋转后父亲的子树变了：先从它自己的 length 重算 `min_length`',
-        43: '再并入父亲右子树的 `min_length`',
-        45: '`now` 的右子树改挂到父亲下面',
-        46: '并入这棵子树的 `min_length`',
-        47: '父亲的左子树 = `now` 原来的右子树',
-        50: '`now` 顶替父亲，接到祖父的左边',
-        52: '`now` 顶替父亲，接到祖父的右边',
-        53: '父亲的 `fa` 改成 `now`',
-        54: '原父亲成为 `now` 的右孩子（右旋完成）',
-        55: '`now` 的子树现在包含原父亲 → `min_length = {now.min_length}`',
-        56: '`now` 接到祖父下面，一次旋转完成',
-        59: '旋转后父亲的子树变了：先从它自己的 length 重算 `min_length`',
-        65: '父亲的右子树 = `now` 原来的左子树',
-        68: '`now` 顶替父亲，接到祖父的左边',
-        70: '`now` 顶替父亲，接到祖父的右边',
-        72: '原父亲成为 `now` 的左孩子（左旋完成）',
-        73: '`now` 的子树现在包含原父亲 → `min_length = {now.min_length}`',
-        74: '`now` 接到祖父下面，一次旋转完成',
-        77: lambda S, B, r: ('树是空的 → 没有区间包含 q，答案 -1' if S.self.root.right is None else '树不空，开始查'),
-        79: '从真正的根开始查 `q = {q}`',
-        80: '`res` 先设成比任何长度都大的数',
-        81: lambda S, B, r: (f'看结点：终点 `{S.now.right_bound}`' if S.now else '走到空，查询结束'),
-        82: lambda S, B, r: (
-            f'`q = {S.q} <= 终点 {S.now.right_bound}` → 此结点和右子树的终点都 `>= q`，起点又都 `<= q` → ==全都包含 q=='
-            if S.q <= S.now.right_bound else
-            f'`q = {S.q} > 终点 {S.now.right_bound}` → 此结点和它的左子树都够不到 q，==整块排除==，去右子树'),
-        84: '用该结点自己的长度更新：`res = {res}`',
-        85: lambda S, B, r: ('有右子树 → 用它的 `min_length`' if S.now.right else '没有右子树'),
-        86: '右子树整棵都包含 q，用 `min_length` 一步更新：`res = {res}`',
-        87: '左子树里可能还有终点 `>= q` 的，继续往左',
-        89: '往右子树找',
-        91: lambda S, B, r: ('一直没更新 → 没有区间包含 q' if S.res == 10000001 else f'找到了，最小长度 `{S.res}`'),
-        92: '返回 -1',
-        94: '返回最小长度 `{ret}`',
-        109: '`q = {q}` 的最短区间长度已写入 `res`',
-        111: '全部查询答完：`{ret}`',
+        'treap = Treap()': '建一棵 Treap：==以区间终点为 key==，用来存「起点已经 ≤ 当前询问」的候选区间',
+        'sorted_intevals =': '区间按起点从小到大排序',
+        'sorted_queries =': '询问带上原下标，按位置从小到大排序（离线）',
+        'for q, index': '处理询问 `q = {q}`（原下标 {index}）',
+        'while p <': lambda S, B, r: (f"起点 `{S.sorted_intevals[S.p][0]} <= q = {S.q}`：这个区间的起点够得着 → ==放进 Treap==" if S.p < len(S.sorted_intevals) and S.sorted_intevals[S.p][0] <= S.q
+                                     else '起点都已加入，或下一个区间起点 > q：停止加区间'),
+        'treap.insert(': '插入区间：终点 `{sorted_intevals[p][1]}`，长度 `{sorted_intevals[p][1] - sorted_intevals[p][0] + 1}`',
+        'p += 1': '`p` → {p}：指针只往后走，==均摊 O(1)==',
+        'now.min_length = min(now.min_length, length)': '沿途每个节点的子树最小长度，都要用新长度 `{length}` 更新',
+        'if right_bound == now.right_bound': lambda S, B, r: (f"终点 `{S.right_bound}` 和节点终点 `{S.now.right_bound}` 相同 → 只需取更短的长度" if S.right_bound == S.now.right_bound
+                                                             else f"终点 `{S.right_bound}` ≠ 节点终点 `{S.now.right_bound}`" + ('（-1 是假根，真树在它右边）' if S.now.right_bound == -1 else '') + '，继续比大小'),
+        'elif right_bound < now.right_bound': lambda S, B, r: (f"`{S.right_bound} < {S.now.right_bound}`：终点更小 → 去左边" if S.right_bound < S.now.right_bound
+                                                             else f"`{S.right_bound} > {S.now.right_bound}`：终点更大 → 去右边"),
+        'now.length = min(now.length, length)': '终点相同：区间长度只保留更短的，`min({B.now.length}, {length})`',
+        'now.left = node': '把新节点挂到 `now` 的左边',
+        'now.right = node': '把新节点挂到 `now` 的右边',
+        'node = Node': '找到空位，新建节点：key 是随机数（堆序用）',
+        'now = node': '新节点就位，开始按随机 key 做旋转，维持堆性质',
+        'while now.key < now.fa.key': lambda S, B, r: ('子节点 key 比父节点小 → ==需要旋转上去==' if S.now.key < S.now.fa.key else '堆性质满足，不用旋转了'),
+        'if now == now.fa.left': '是左孩子 → 右旋；是右孩子 → 左旋',
+        'now.fa.min_length = now.fa.length': '旋转后父节点的子树变了：重算它的 `min_length`（自己 + 左右子树）',
+        'now.min_length = min(now.min_length, now.fa.min_length)': '新的子树根 `now` 的 `min_length` 也要合并进来',
+        'if self.root.right is None': '假根的右边就是真正的树根；空树直接 `-1`',
+        'now = self.root.right': '查询从树根开始：目标是 ==终点 ≥ q== 的区间里最小的长度',
+        'res = 10000001': '`res` 先设成一个比所有长度都大的数',
+        'while now:': lambda S, B, r: (f'当前节点终点 `{S.now.right_bound}`' if S.get('now') else '走到空了，查询结束'),
+        'if q <= now.right_bound': lambda S, B, r: (f"`q = {S.q} <= 终点 {S.now.right_bound}`：它和它右子树的区间都盖住 q" if S.q <= S.now.right_bound
+                                                   else f"`q = {S.q} > 终点 {S.now.right_bound}`：它和左子树都盖不住 q，只能去右边"),
+        'res = min(res, now.length)': '用这个节点的长度更新答案：`res = {res}`',
+        'res = min(res, now.right.min_length)': '右子树整棵都满足终点 ≥ q → ==直接取 min_length==：`res = {res}`',
+        'now = now.left': '左子树里可能还有终点 ≥ q 的，继续向左',
+        'now = now.right': '去右子树找终点更大的',
+        'if res == 10000001': '`res` 没变过说明没有区间盖住 q → `-1`',
+        'res[index] = treap.query(q)': '查询 `{q}` 的答案写进原位置 `res[{index}]`',
+        'return res': '全部询问处理完，返回 `{res}`',
     },
-    max_steps=130,
     cards=dict(
-        one_liner='查询离线排序，区间按起点加入 treap，终点做 key、子树里存最小长度',
-        complexity='时间 `O((n + q) log n)`，空间 `O(n)`',
-        problem=['给若干闭区间 `[l, r]`（长度 `r-l+1`）和一组查询点 `q`',
-                 '每个查询求「包含 `q` 的区间中长度最小的」，没有则 `-1`',
-                 '本视频：区间 `[[1,5],[2,3],[3,7]]`，查询 `[3,6]` → `[2,5]`'],
-        quote='对于当前的查询q[index]而言，设p为满足起点小于等于q[index]的左右区间中最后那一个，那么在这里由于q[index]是单调不减的，因此p同样是单调不减的。',
+        one_liner='不想写线段树：把候选区间放进 Treap 查最小长度',
+        complexity='时间 `O((n+m) log n)`，空间 `O(n)`',
+        problem=['区间 `[l, r]` 长度 `r-l+1`；每个询问 `q` 要找==盖住 q 的最短区间==的长度，没有则 `-1`',
+                 '示例：`intervals=[[1,4],[2,4],[3,6],[4,4]]`，`queries=[2,3,4,5]`，输出 `[3,3,1,4]`',
+                 '本视频：`intervals=[[1,4],[2,4],[3,6]]`，`queries=[2,4,5]` → `[3,3,4]`'],
+        quote='设p为满足起点小于等于q[index]的左右区间中最后那一个，那么在这里由于q[index]是单调不减的，因此p同样是单调不减的。',
         quote_src='—— yiduobo 题解原文',
-        idea=['区间按起点、查询按 `q` 排序：起点 `<= q` 的区间只增不减，用指针 `p` 逐个加入',
-              '备选区间起点都合格，只需要「终点 `>= q`」中长度最小 → treap 以终点为 key，结点维护子树最小长度 `min_length`',
-              '查询时：`q <= 终点` 就收下该结点和整个右子树，再去左边；否则整块丢掉去右边'],
-        summary=['时间 `O((n+q) log n)`，空间 `O(n)`；treap 靠随机优先级期望平衡',
-                 '易错点：终点相同时只更新 length；旋转后要同步重算 `min_length`',
-                 '用假根结点（key=-1）省去旋转时对根的特判，真树在 `root.right`',
-                 '原文用到 `random`，视频里固定 `random.seed(1)`，树形随种子而变，结果不变',
-                 '题解首选线段树 + 离散化 + 延迟更新，作者嫌麻烦，改用复用 1847 题的 treap'],
+        idea=['朴素逐点更新区间必超时；线段树要离散化 + 延迟更新，太繁琐',
+              '离线：区间按起点排序、询问按位置排序，起点满足的区间用指针 `p` 依次加入',
+              '剩下只需「终点 ≥ q 的区间里取最小长度」：==Treap 以终点为 key，每个节点维护子树最小长度 min_length=='],
+        summary=['时间 `O((n+m) log n)`，空间 `O(n)`；Treap 的随机 key 来自 `random`，视频里固定种子 0',
+                 '查询时「当前节点 + 右子树」都满足终点 ≥ q，所以可直接取 `now.right.min_length`',
+                 '易错点：旋转后 `fa` 与 `now` 的 `min_length` 都要重算；终点相同的节点只保留更短长度',
+                 '原文可直接在 Python 3 运行，代码未做改动；与灵神的「并查集跳过已回答」思路完全不同'],
     ),
 )

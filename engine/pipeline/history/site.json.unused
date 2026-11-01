@@ -1,0 +1,6 @@
+{
+ "owner": "HenryVarro666",
+ "repo": "LingYi-LeetCode",
+ "branch": "main",
+ "note": "视频链接指向 GitHub Pages 上的在线播放页 https://<owner>.github.io/<repo>/?v=<视频路径>（GitHub 网页本身不能直接播放 mp4）。删掉这个文件则改回相对路径链接。"
+}

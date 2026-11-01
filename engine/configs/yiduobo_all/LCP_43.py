@@ -1,76 +1,48 @@
+DIRS = 'ESWN'
 NAMES = ['东', '南', '西', '北']
-DIRS = ['W', '', '', 'W']
-
-
-def _I(S):
-    return S['_inner']
+_I = lambda S: S['_inner']
 
 
 def _draw(cv, S, B, box, T):
     x0, y0, x1, y1 = box
-    I = S['_inner']
+    d = _I(S)
     ds = S['directions']
-    pos = I.get('pos')
-    cv.text((x0 + 18, y0 + 4), '四条车道（暗 = 已开走，黄框 = 这一秒要走的车）', 22, T['muted'], bold=True)
-    rowh = (y1 - y0 - 50) / 4
-    cell, gap = min(64, rowh - 14), 10
-    cand = None
-    if all(k in I for k in ('d0', 'd1', 'd2', 'd3', 'p0', 'p1', 'p2', 'p3')):
-        cand = [I['p0'], I['p1'], I['p2'], I['p3']]
-    for d in range(4):
-        y = y0 + 48 + d * rowh
-        cv.text((x0 + 24, y + cell / 2), NAMES[d], 30, T['text'], anchor='lm', bold=True)
-        q = ds[d]
-        if not q:
-            cv.text((x0 + 100, y + cell / 2), '（没有车）', 22, T['dim'], anchor='lm')
-            continue
-        for j, ch in enumerate(q):
-            X = x0 + 100 + j * (cell + gap)
-            gone = pos is not None and j < pos[d]
-            front = pos is not None and j == pos[d]
-            moving = cand is not None and pos is not None and cand[d] == pos[d] + 1 and j == pos[d]
-            fill = T['panel2']
-            cv.rect((X, y, X + cell, y + cell), fill=fill, r=8,
-                    outline=T['yellow'] if moving else (T['blue'] if front else T['border']), width=4 if (moving or front) else 1)
-            cv.text((X + cell / 2, y + cell / 2), '去' + NAMES['ESWN'.index(ch)], 24,
-                    T['dim'] if gone else T['text'], anchor='mm', bold=True)
-        if pos is not None and pos[d] >= len(q):
-            cv.text((x0 + 100 + len(q) * (cell + gap) + 10, y + cell / 2), '空了', 22, T['green'], anchor='lm', bold=True)
-
-
-def _in_valid(S, B, r):
-    pos = S.pos
-    ps = [S.p0, S.p1, S.p2, S.p3]
-    ds = [S.d0, S.d1, S.d2, S.d3]
-    desc = '、'.join(NAMES[k] + ('停' if ps[k] == pos[k] else '去' + NAMES[ds[k]]) for k in range(4))
-    if all(ps[k] == pos[k] for k in range(4)):
-        return f'方案「{desc}」：谁都不走，不算一秒 → 不在 `valid`'
-    if (S.d0, S.d1, S.d2, S.d3) in S.valid:
-        return f'方案「{desc}」：路线不相交、也没有同进同出 → ==合法=='
-    going = [ds[k] for k in range(4) if ps[k] != pos[k]]
-    if len(going) != len(set(going)):
-        return f'方案「{desc}」：两辆车开往同一个方向，同一秒只能驶入一辆 → ==不合法=='
-    return f'方案「{desc}」：路线有交叉点 → ==不合法=='
-
-
-def _combo(S):
-    I = S['_inner']
-    if 'pos' not in I:
-        return ''
-    if not all(k in I for k in ('d0', 'd1', 'd2', 'd3')):
-        return f'`pos = {I["pos"]}`：各车道已经开走的车数'
-    pos = I['pos']
-    ps = [I['p0'], I['p1'], I['p2'], I['p3']]
-    ds = [I['d0'], I['d1'], I['d2'], I['d3']]
-    parts = []
+    pos = d.get('pos') or [0, 0, 0, 0]
+    ps = [d.get('p0'), d.get('p1'), d.get('p2'), d.get('p3')]
+    live = d.get('d3') is not None and None not in ps
+    moving = {k for k in range(4) if live and ps[k] == pos[k] + 1}
+    cv.text((x0 + 18, y0 + 4), '四个车道（左 = 最靠近路口；灰 = 已通过，黄框 = 队首，绿 = 本秒放行）', 22, T['muted'], bold=True)
+    cell = 76
+    sx = x0 + 150
+    y = y0 + 60
+    rowh = 92
     for k in range(4):
-        parts.append(f'{NAMES[k]}' + ('停' if ps[k] == pos[k] else f'→{NAMES[ds[k]]}'))
-    return '试这一秒的方案：`' + '　'.join(parts) + '`'
+        Y = y + k * rowh
+        cv.text((x0 + 24, Y + 34), f'{NAMES[k]} {DIRS[k]}', 30, T['text'], anchor='lm', bold=True)
+        cv.text((x0 + 24 + 92, Y + 34), f'pos={pos[k]}', 22, T['dim'], anchor='lm', mono=True)
+        for i, c in enumerate(ds[k]):
+            X = sx + i * cell + 70
+            passed = i < pos[k]
+            head = i == pos[k]
+            fill = (52, 60, 72) if passed else T['panel2']
+            if head and k in moving:
+                fill = T['green']
+            cv.rect((X, Y, X + cell - 8, Y + 68), fill=fill, r=10, outline=T['yellow'] if head else T['border'], width=4 if head else 1)
+            cv.text((X + (cell - 8) / 2, Y + 34), c, 34, T['bg'] if fill == T['green'] else (T['dim'] if passed else T['text']), anchor='mm', bold=True, mono=True)
+        if k in moving:
+            cv.text((sx + 70 + max(len(ds[k]), 1) * cell + 10, Y + 34), '→ 本秒放行', 24, T['green'], anchor='lm', bold=True)
+
+
+def _txt(S):
+    d = _I(S)
+    if 'pos' not in d:
+        return '`valid` = 预处理好的「可以同一秒通行的行动组合」；`f[pos]` = 剩余的车走完最少几秒'
+    return f"状态 `pos = {d['pos']}`（东南西北已走掉的车数）"
 
 
 CONFIG = dict(
     num='LCP 43', title='十字路口的交通', difficulty='Hard', category='动态规划',
-    author='yiduobo', technique='记忆化搜索 · 预处理合法组合',
+    author='yiduobo', technique='预处理路线交点 + 记忆化搜索',
     tags=['灵神题单·动态规划'],
     code='''
 class Solution(object):
@@ -188,50 +160,50 @@ class Solution(object):
         
         return dfs([0, 0, 0, 0], f)
 ''',
-    call=f'Solution().trafficCommand({DIRS})',
+    call='Solution().trafficCommand(["W", "N", "", ""])',
     expect=2,
-    skip=[8, 39, 40] + list(range(26, 33)) + list(range(43, 63)) + list(range(65, 88)) + [96, 97, 98, 99, 100, 101, 102, 103, 105, 106, 107, 108],
     views=[
-        dict(type='custom', draw=_draw, h=450),
-        dict(type='text', fn=_combo, h=70),
-        dict(type='calls', h=170, hide=('f',)),
+        dict(type='custom', draw=_draw, h=400),
+        dict(type='text', fn=_txt, size=24, h=60),
+        dict(type='calls', h=150, hide=('trafficCommand',)),
     ],
-    watch=[('pos', lambda S: S['_inner'].get('pos'), 'blue'), ('max_l', 'max_l', 'cyan'),
-           ('f[pos]', lambda S: S['_inner']['f'][S['_inner']['pos'][0]][S['_inner']['pos'][1]][S['_inner']['pos'][2]][S['_inner']['pos'][3]] if 'pos' in S['_inner'] else None, 'green')],
+    watch=[('pos', lambda S: S['_inner'].get('pos'), 'blue'), ('d0..d3', lambda S: (S['_inner'].get('d0'), S['_inner'].get('d1'), S['_inner'].get('d2'), S['_inner'].get('d3')) if S['_inner'].get('d3') is not None else None, 'orange')],
+    skip=[8, 27, 28, 29, 30, 31, 32, 38, 39, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 96, 97, 98, 99, 102, 105, 106, 107, 108, 111],
     captions={
-        'max_l = [': '东南西北各有 `{max_l}` 辆车；`pos` 记录各车道「已经开走几辆」，它就是 DP 状态',
-        'f = [[[[None]': '`f[p0][p1][p2][p3]`：四维记忆表，`None` 表示还没算过',
-        'start_coord': '预处理：把路口画成 `7×7` 矩阵，交叉点编号 1..16，四个方向的入口坐标是 `start_coord`',
-        'dx = [': '`dx / dy`：每个方向有「停着」和三条路线（左转、直行、右转），沿路线走就得到经过的交叉点',
-        'candidate_list = []': '对每个方向、每个目的地，沿路线走一遍，记下途经的交叉点（这段循环已折叠）',
-        'valid = set()': '`valid`：路线两两不交叉、且至少有一辆在走的方案集合；256 种组合的枚举已折叠，下面直接用',
-        'return dfs([0, 0, 0, 0], f)': '预处理完成，`valid` 里一共 `{len(valid)}` 种合法方案；从 `pos = [0,0,0,0]`（没有车开走）开始 `dfs`',
-        'is not None': lambda S, B, r: (f'`f{S.pos}` 已经算过 → 直接返回，这就是记忆化' if S.f[S.pos[0]][S.pos[1]][S.pos[2]][S.pos[3]] is not None
-                                        else f'`pos = {S.pos}`：还没算过，往下算'),
-        'if pos == max_l': lambda S, B, r: (f'`pos = {S.pos}` == `max_l`：所有车都开走了，还需要 `0` 秒' if S.pos == S.max_l
-                                            else f'`pos = {S.pos}`，`max_l = {S.max_l}`：还有车在等，枚举这一秒的走法'),
-        'return 0': '没有剩余的车，==0 秒==',
-        '= sum(max_l) + 1': '先把 `f[pos]` 设成「不可能」的大数 `{sum(max_l) + 1}`，后面用 `min` 取最优',
-        'in valid': _in_valid,
-        '= min(f[pos[0]]': lambda S, B, r: (f'选这个方案走 1 秒：`pos` 从 `{B.pos}` 变成 `[{B.p0}, {B.p1}, {B.p2}, {B.p3}]`，递归求剩下的最少秒数，再 `+ 1`'),
-        'return f[pos[0]][pos[1]][pos[2]][pos[3]]': lambda S, B, r: (f'记忆命中，返回 `{r}`' if S._line == 91 else f'`pos = {S.pos}` 的车走完最少需要 =={r}== 秒'),
+        'max_l = [': '每条车道的车数 `max_l = {max_l}`（东南西北）',
+        'f = [[[[None]': '`f[a][b][c][d]`：东南西北各走掉 a、b、c、d 辆后，走完剩下的车最少几秒；`None` = 还没算',
+        'points_matrix = [[': '把十字路口画成 7×7 点阵：数字 1-16 是各条路线可能相交的==交叉点==',
+        'start_coord = ': '四个方向的起点坐标：东 `[2,6]`、南 `[6,4]`、西 `[4,0]`、北 `[0,2]`',
+        'd_map = {': '方向字符 → 编号：`E=0, S=1, W=2, N=3`',
+        'return dfs([0': lambda B, S, r: (f'预处理已跑完：沿每条路线走过的交叉点，同一交叉点被两辆车用到就冲突 → `valid` 里存了 `{len(S.valid)}` 种不冲突的行动组合。现在从 `pos = [0,0,0,0]` 开始搜'),
+        'is not None': lambda B, S, r: ('这个状态算过 → 直接返回记忆值' if S.f[S.pos[0]][S.pos[1]][S.pos[2]][S.pos[3]] is not None else '这个状态还没算过'),
+        'if pos == max_l': lambda B, S, r: ('所有车都走完了 → 还要 0 秒' if S.pos == S.max_l else f'`pos = {S.pos}`，还有车没走完'),
+        'return 0': '没车了：`0` 秒',
+        'if pos[d] < max_l[d]': lambda B, S, r: (f"`{['东','南','西','北'][S.d]}` 车道还有车 → 除了「停着」，还可以让队首车走" if S.pos[S.d] < S.max_l[S.d]
+                                                else f"`{['东','南','西','北'][S.d]}` 车道没车了 → 只能「停着」"),
+        'target_d = d_map': "`{['东','南','西','北'][d]}` 车道队首车开往 `{directions[d][pos[d]]}`（编号 {target_d}）：候选「走」= `[{pos[d] + 1}, {target_d}]`",
+        '= sum(max_l) + 1': '先把当前状态记成「最坏」`sum(max_l)+1 = {sum(max_l) + 1}` 秒，再在下面取更小值',
+        'in valid': lambda B, S, r: (f'这一秒的行动 `({S.d0}, {S.d1}, {S.d2}, {S.d3})`（等于自己的编号 = 停着）' + ('在 `valid` 里 → ==路线不冲突==' if (S.d0, S.d1, S.d2, S.d3) in S.valid else '不在 `valid` 里 → 冲突或全都不动，跳过')),
+        'min(f[pos': lambda B, S, r: f'放行后进入 `[{B.p0}, {B.p1}, {B.p2}, {B.p3}]`：这个状态的答案 = `min(当前, dfs(新状态) + 1)`',
+        'return f[pos[0]][pos[1]][pos[2]][pos[3]]': lambda B, S, r: f'`pos = {S.pos}` 最少需要 =={r}== 秒',
     },
-    max_steps=60,
     max_events=200000,
+    max_steps=58,
     cards=dict(
-        one_liner='状态 = 每条车道已开走几辆；每秒枚举「谁走」，只保留路线不交叉的组合',
-        complexity='状态 `Π(len+1)`，每个状态枚举 `≤ 2^4` 种组合',
-        problem=['十字路口四个方向（东南西北）各有一队车，每辆车有目的方向',
-                 '每秒每条车道只能放走最前面一辆，且路线不能相交、不能同进同出',
-                 '示例：`["W","N","ES","W"]` → `2`'],
-        quote='题目非常贴心地把路口的图示给了出来，可以发现，在题目给出的图中，两条线路交叉的话必然存在某个交叉点。',
+        one_liner='先把「哪些行动能同一秒通行」预处理成集合，再对车道进度做记忆化搜索',
+        complexity='状态 `O(n^4)`，每个状态枚举至多 `2^4` 种行动，用 `valid` 集合 `O(1)` 判断',
+        problem=['十字路口四个方向（东南西北）各有一队车，`directions[i]` 记录每辆车要开往的方向',
+                 '每秒各车道只能走队首一辆，且路线不能相交，求最少几秒走完',
+                 '示例：`["W","N","ES","W"]` → `2`；本视频：`["W","N","",""]` → `2`'],
+        quote='两条线路交叉的话必然存在某个交叉点……若某个交点被经过了多次，说明这个线路组合就是不行的。',
         quote_src='—— yiduobo 题解原文',
-        idea=['`f[p0][p1][p2][p3]`：四个方向分别开走 `p` 辆后，剩下的车走完最少几秒',
-              '预处理：把路口画成 `7×7` 矩阵，每个交叉点编号；一辆车的路线 = 经过的编号集合',
-              '四个方向的选择组合里，任何交叉点被走 2 次就不合法；其余存进 `valid`'],
-        summary=['时间约 `O(Π(len+1) × 16)`，空间 `O(Π(len+1))`',
-                 '全部都停着（`cnt` 为空）也算不合法，否则会无限递归',
-                 '`dfs` 里先把 `f[pos]` 置成 `sum(max_l) + 1`，再取 min，起到「正在算」的标记',
-                 '原文为 Python 2 风格，代码无需修改；视频中预处理的循环（256 种组合）已折叠，只演示 `dfs`'],
+        idea=['把路口画成 7×7 点阵，给 16 个交叉点编号，从四个起点沿三个方向走，记下经过的交叉点',
+              '四个方向各「停着」或「走」，用计数表判断交叉点有没有被重复占用，合法组合存进 `valid`',
+              '`f[pos]`：各车道已走掉的车数为 `pos` 时的最少秒数，对每个合法行动 `+1` 递归取最小'],
+        summary=['预处理一次，之后判断 `(d0,d1,d2,d3) in valid` 只要 `O(1)`',
+                 '全部不动的组合 `cnt` 为空，被当作不合法；否则会原地踏步死循环',
+                 '先把当前状态记成 `sum(max_l)+1` 再更新，避免写错初值',
+                 '原文为 Python 2 风格，本题代码无需改动（仅删去了类型说明文档字符串）；预处理循环在视频里略去逐行动画，只展示结果',
+                 '对比灵神：他把一辆车旋转到方向 0 来判断冲突，这里用交叉点计数'],
     ),
 )

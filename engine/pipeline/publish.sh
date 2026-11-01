@@ -7,7 +7,7 @@
 #
 # 需要：git，并且这台电脑已经能 push 到 GitHub（装了 gh 并 gh auth login，或 git 已保存 GitHub 凭据）。
 # 没装 gh 时，先在 https://github.com/new 新建同名的空仓库（Public，不要勾选 README），脚本会提示怎么关联。
-# 分批：① 文字和代码（不含视频，约 300 MB）② 分类概念视频 ③ 每个题号区间一批视频（每批约 300 MB），
+# 分批：① 文字和代码（不含视频）② 分类概念视频 ③ 每个题号区间一批视频（mp4 + GIF 动图，每批约 0.3–0.8 GB），
 # 每批单独 push，避开 GitHub 单次 push 2 GB 的上限。
 set -euo pipefail
 cd "$(cd "$(dirname "$0")/../.." && pwd)"
@@ -60,7 +60,7 @@ batch() {  # batch "提交说明" pathspec...
 timeup() { [ "$BUDGET" -gt 0 ] && [ $(( $(date +%s) - START )) -gt "$BUDGET" ]; }
 
 # ① 文字和代码（不含视频）
-batch "题解、刷题路径、学习笔记、引擎与配置（不含视频）" . ':(exclude)*.mp4'
+batch "题解、刷题路径、学习笔记、引擎与配置（不含视频）" . ':(exclude)*.mp4' ':(exclude)*.gif'
 # ② 分类概念视频
 batch "分类概念视频" 分类概念视频
 # ③ 每个题号区间一批视频
@@ -71,8 +71,24 @@ for d in 题解/*/; do
   batch "视频：${b#题解/}" "$b"
 done
 # 收尾：README、索引等后来又更新过的文字
-batch "更新索引与 README" . ':(exclude)*.mp4'
+batch "更新索引与 README" . ':(exclude)*.mp4' ':(exclude)*.gif'
 echo "全部推送完成：$(git remote get-url origin)"
+
+# ④ 下载包（题解 + mp4，按题号分卷，每个 < 2 GB）上传到 GitHub Releases
+if ls _work/release/*.zip >/dev/null 2>&1 && command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+  TAG="${TAG:-v1.0}"
+  gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "题解与视频下载包" --notes-file _work/release/NOTES.md
+  gh release edit "$TAG" --notes-file _work/release/NOTES.md >/dev/null 2>&1 || true
+  EXISTING=$(gh release view "$TAG" --json assets -q '.assets[].name' 2>/dev/null || true)
+  for f in _work/release/*.zip; do
+    n=$(basename "$f")
+    if echo "$EXISTING" | grep -qxF "$n"; then echo "已上传：$n"; continue; fi
+    if timeup; then echo "到时间了，剩下的下载包下次再传"; exit 0; fi
+    gh release upload "$TAG" "$f" --clobber && echo "上传下载包：$n"
+  done
+  echo "下载包：$(echo "$(git remote get-url origin)" | sed 's#\.git$##')/releases/tag/$TAG"
+fi
+
 if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
   gh repo edit --add-topic leetcode,algorithms,python,visualization,animation,leetcode-solutions >/dev/null 2>&1 || true
 fi

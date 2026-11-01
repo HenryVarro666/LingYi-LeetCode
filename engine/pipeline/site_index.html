@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LingYi-LeetCode · 灵一刷题</title>
+<meta name="description" content="灵茶山艾府 + yiduobo 两位大神的 LeetCode 题解，逐行执行代码的动画讲解视频">
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--fg:#1d1d1f;--muted:#6b6b70;--line:#e3e3e0;--accent:#e8743b;--accent2:#1fa595;--chip:#efefec}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1116;--card:#161b22;--fg:#e6e6e6;--muted:#9aa0a6;--line:#2a313a;--accent:#ffa657;--accent2:#2dd4bf;--chip:#21262d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+a{color:inherit}
+header{padding:20px 16px 8px;max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline}
+header h1{font-size:22px;margin:0}
+header h1 a{text-decoration:none}
+header .sub{color:var(--muted);font-size:14px}
+header .gh{margin-left:auto;font-size:14px;color:var(--muted)}
+main{max-width:1100px;margin:0 auto;padding:8px 16px 48px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 12px}
+.bar input,.bar select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--fg)}
+.bar input{flex:1 1 220px;min-width:0}
+.count{color:var(--muted);font-size:13px;margin:4px 0 8px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:13px;color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:none}
+td.num{color:var(--muted);white-space:nowrap;width:1%}
+.diff{font-size:12px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.Easy{color:#2ea043;border-color:#2ea04366}.Medium{color:#d29922;border-color:#d2992266}.Hard{color:#f85149;border-color:#f8514966}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.tag{font-size:11px;background:var(--chip);color:var(--muted);padding:0 6px;border-radius:5px}
+.play{display:inline-block;text-decoration:none;font-weight:600;padding:3px 10px;border-radius:7px;white-space:nowrap;font-size:13px}
+.play.l{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent)}
+.play.y{background:color-mix(in srgb,var(--accent2) 16%,transparent);color:var(--accent2)}
+.none{color:var(--muted)}
+.more{display:block;margin:12px auto;font:inherit;padding:8px 18px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:12px}
+details summary{cursor:pointer;font-weight:600}
+.concepts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.concepts a{font-size:13px;text-decoration:none;background:var(--chip);padding:3px 9px;border-radius:7px}
+.player h2{margin:4px 0 2px;font-size:20px}
+.player .meta{color:var(--muted);font-size:14px;margin-bottom:10px}
+.vbox{position:relative;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:16/9}
+.vbox video{width:100%;height:100%;display:block}
+.vbox .msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#ddd;font-size:15px;text-align:center;padding:16px}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.links a{text-decoration:none;font-size:14px;padding:6px 12px;border-radius:8px;border:1px solid var(--line);background:var(--card)}
+.links a.primary{border-color:transparent;background:var(--accent);color:#fff}
+.nav{display:flex;justify-content:space-between;gap:8px;margin-top:4px}
+@media (max-width:640px){th.tg,td.tg{display:none}td,th{padding:7px 6px}}
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="./">LingYi-LeetCode · 灵一刷题</a></h1>
+  <span class="sub">灵茶山艾府 + yiduobo 题解 · 逐行执行代码的动画讲解</span>
+  <a class="gh" id="ghlink" href="#">GitHub 仓库 ↗</a>
+</header>
+<main id="app"><p class="count">加载中…</p></main>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const enc = p => p.split('/').map(encodeURIComponent).join('/');
+let D, RAW, GH;
+
+fetch('videos.json').then(r => r.json()).then(d => {
+  D = d;
+  RAW = `https://raw.githubusercontent.com/${d.owner}/${d.repo}/${d.branch}/`;
+  GH = `https://github.com/${d.owner}/${d.repo}`;
+  $('#ghlink').href = GH;
+  route();
+}).catch(e => { $('#app').innerHTML = '<p>数据加载失败：' + esc(e) + '</p>'; });
+window.addEventListener('popstate', route);
+
+function route() {
+  const v = new URLSearchParams(location.search).get('v');
+  v ? player(v) : list();
+}
+function go(url) { history.pushState(null, '', url); route(); scrollTo(0, 0); }
+document.addEventListener('click', e => {
+  const a = e.target.closest('a[data-go]');
+  if (a && !e.metaKey && !e.ctrlKey) { e.preventDefault(); go(a.getAttribute('href')); }
+});
+const playHref = p => '?v=' + enc(p);
+
+// ---------------------------------------------------------------- list
+const PAGE = 200;
+let shown = PAGE;
+function list() {
+  document.title = 'LingYi-LeetCode · 灵一刷题';
+  const tags = new Set();
+  D.items.forEach(e => (e.p || []).forEach(t => tags.add(t)));
+  const order = ['labuladong', '灵神核心路线', 'Hot100', '面试经典150', '热题173', '字节高频'];
+  const tagList = [...order.filter(t => tags.has(t)), ...[...tags].filter(t => !order.includes(t)).sort()];
+  const q = new URLSearchParams(location.search);
+  $('#app').innerHTML = `
+    <details><summary>📘 分类概念视频（${D.concepts.length} 个：每类一个通用思想 + 模板）</summary>
+      <div class="concepts">${D.concepts.map(c => `<a data-go href="${playHref(c)}">${esc(c.split('/').pop().replace(' · 概念讲解.mp4', ''))}</a>`).join('')}</div></details>
+    <div class="bar">
+      <input id="q" type="search" placeholder="搜索题号或题名，如 42 / 接雨水" value="${esc(q.get('q') || '')}">
+      <select id="tag"><option value="">全部题目</option>${tagList.map(t => `<option ${q.get('tag') === t ? 'selected' : ''}>${esc(t)}</option>`).join('')}</select>
+      <select id="diff"><option value="">全部难度</option>${['Easy', 'Medium', 'Hard'].map(t => `<option ${q.get('d') === t ? 'selected' : ''}>${t}</option>`).join('')}</select>
+      <select id="has"><option value="">有无视频都显示</option><option value="1" ${q.get('has') ? 'selected' : ''}>只看有视频的</option></select>
+    </div>
+    <div class="count" id="count"></div>
+    <table><thead><tr><th>题号</th><th>题目</th><th class="tg">所在题单</th><th>灵茶山艾府</th><th>yiduobo</th></tr></thead><tbody id="rows"></tbody></table>
+    <button class="more" id="more">显示更多</button>`;
+  ['q', 'tag', 'diff', 'has'].forEach(id => $('#' + id).addEventListener('input', () => { shown = PAGE; render(); }));
+  $('#more').onclick = () => { shown += PAGE; render(); };
+  render();
+}
+function render() {
+  const q = $('#q').value.trim().toLowerCase(), tag = $('#tag').value, diff = $('#diff').value, has = $('#has').value;
+  const p = new URLSearchParams();
+  if (q) p.set('q', q); if (tag) p.set('tag', tag); if (diff) p.set('d', diff); if (has) p.set('has', 1);
+  history.replaceState(null, '', p.toString() ? '?' + p : location.pathname);
+  let rows = D.items.filter(e =>
+    (!q || e.i.toLowerCase() === q || e.i.toLowerCase().startsWith(q) || e.t.toLowerCase().includes(q)) &&
+    (!tag || (e.p || []).includes(tag)) && (!diff || e.d === diff) && (!has || e.l || e.y || e.la));
+  if (q && /^\d+$/.test(q)) rows.sort((a, b) => (a.i === q ? -1 : 0) - (b.i === q ? -1 : 0));
+  const nv = rows.reduce((s, e) => s + (e.l || e.la ? 1 : 0) + (e.y ? 1 : 0), 0);
+  $('#count').textContent = `${rows.length} 道题 · ${nv} 个视频`;
+  $('#rows').innerHTML = rows.slice(0, shown).map(e => `<tr>
+      <td class="num">${esc(e.i)}</td>
+      <td><a href="${GH}/tree/${D.branch}/${enc(e.f)}" target="_blank" rel="noopener">${esc(e.t)}</a>
+        ${e.d ? `<span class="diff ${e.d}">${e.d}${e.r ? ' · ' + e.r : ''}</span>` : ''}</td>
+      <td class="tg"><div class="tags">${(e.p || []).slice(0, 4).map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div></td>
+      <td>${e.l ? `<a class="play l" data-go href="${playHref(e.l)}">▶ 播放</a>` : e.la ? `<a class="play l" data-go href="${playHref(e.la[0])}" title="灵神题解指向 ${esc(e.la[1])} 题">▶ 见 ${esc(e.la[1])}</a>` : '<span class="none">—</span>'}</td>
+      <td>${e.y ? `<a class="play y" data-go href="${playHref(e.y)}">▶ 播放</a>` : '<span class="none">—</span>'}</td></tr>`).join('');
+  $('#more').style.display = rows.length > shown ? '' : 'none';
+}
+
+// ---------------------------------------------------------------- player
+let objURL = null, ctrl = null;
+function player(v) {
+  const e = D.items.find(x => x.l === v || x.y === v);
+  const author = v.endsWith('灵茶山艾府.mp4') ? '灵茶山艾府' : v.endsWith('yiduobo.mp4') ? 'yiduobo' : '概念讲解';
+  const name = v.split('/').pop().replace(/\.mp4$/, '');
+  document.title = name + ' · LingYi-LeetCode';
+  const key = author === '灵茶山艾府' ? 'l' : 'y';
+  const seq = D.items.filter(x => x[key]);
+  const k = e ? seq.indexOf(e) : -1;
+  const other = e && (key === 'l' ? e.y : e.l);
+  $('#app').innerHTML = `<div class="player">
+    <h2>${esc(e ? e.i + '. ' + e.t : name)}</h2>
+    <div class="meta">${esc(author)}${e && e.d ? ' · ' + e.d : ''}${e && e.r ? ' · 难度分 ' + e.r : ''}</div>
+    <div class="vbox"><video id="vid" controls playsinline preload="auto"></video><div class="msg" id="msg">视频加载中…</div></div>
+    <div class="links">
+      ${other ? `<a class="primary" data-go href="${playHref(other)}">▶ 看${key === 'l' ? ' yiduobo ' : '灵神'}的讲解</a>` : ''}
+      ${e ? `<a href="${GH}/tree/${D.branch}/${enc(e.f)}" target="_blank" rel="noopener">📂 题目页（题面 + 题解）</a>` : ''}
+      ${e && e.ls ? `<a href="${GH}/blob/${D.branch}/${enc(e.ls)}" target="_blank" rel="noopener">📄 灵神题解</a>` : ''}
+      ${e && e.ys ? `<a href="${GH}/blob/${D.branch}/${enc(e.ys)}" target="_blank" rel="noopener">📄 yiduobo 题解</a>` : ''}
+      <a href="${RAW + enc(v)}" download>⬇ 下载 mp4</a>
+      <a data-go href="./">☰ 全部题目</a>
+    </div>
+    ${k >= 0 ? `<div class="nav">
+      ${k > 0 ? `<a data-go href="${playHref(seq[k - 1][key])}">← ${esc(seq[k - 1].i + '. ' + seq[k - 1].t)}</a>` : '<span></span>'}
+      ${k < seq.length - 1 ? `<a data-go href="${playHref(seq[k + 1][key])}">${esc(seq[k + 1].i + '. ' + seq[k + 1].t)} →</a>` : ''}
+    </div>` : ''}</div>`;
+  load(v);
+}
+async function load(v) {
+  if (ctrl) ctrl.abort();
+  if (objURL) { URL.revokeObjectURL(objURL); objURL = null; }
+  ctrl = new AbortController();
+  const msg = $('#msg'), vid = $('#vid');
+  try {
+    const r = await fetch(RAW + enc(v), {signal: ctrl.signal});
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const total = +r.headers.get('content-length') || 0;
+    const reader = r.body.getReader(), parts = [];
+    let got = 0;
+    for (;;) {
+      const {done, value} = await reader.read();
+      if (done) break;
+      parts.push(value); got += value.length;
+      if (total) msg.textContent = `视频加载中… ${Math.round(got * 100 / total)}%`;
+    }
+    objURL = URL.createObjectURL(new Blob(parts, {type: 'video/mp4'}));
+    vid.src = objURL;
+    msg.remove();
+    vid.play().catch(() => {});
+  } catch (err) {
+    if (err.name === 'AbortError') return;
+    msg.innerHTML = `视频加载失败（${esc(err.message)}）。<br>可能还没上传完，或网络无法访问 raw.githubusercontent.com。<br><a href="${RAW + enc(v)}">直接下载 mp4</a>`;
+  }
+}
+</script>
+</body>
+</html>

@@ -1,39 +1,45 @@
-def _ring(cv, S, B, box, T):
-    import math
-    x0, y0, x1, y1 = box
-    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2 + 6
-    R = min(x1 - x0, y1 - y0) / 2 - 40
-    letters = 'abcdefghijklmnopqrstuvwxyz'
-    now = S.get('now')
-    char = S.get('char')
+import math
 
-    def pos(k, r):
+
+def _draw(cv, S, B, box, T):
+    x0, y0, x1, y1 = box
+    cv.text((x0 + 18, y0 + 4), '圆盘 a~z（蓝 = now 指针，粉 = 当前字符 char）', 24, T['muted'], bold=True)
+    cx, cy = (x0 + x1) / 2, (y0 + 40 + y1) / 2
+    R = min((x1 - x0) / 2 - 60, (y1 - y0 - 40) / 2 - 40)
+    pts = {}
+    for k in range(26):
         a = -math.pi / 2 + 2 * math.pi * k / 26
-        return cx + r * math.cos(a), cy + r * math.sin(a)
-    done = set()
-    w = S.get('word', '')
-    for k, ch in enumerate(letters):
-        px, py = pos(k, R)
-        fill = None
-        if now == ch:
-            fill = T['yellow']
-        elif char == ch and char != now:
-            fill = T['pink']
-        cv.rect((px - 22, py - 22, px + 22, py + 22), fill=fill or (40, 46, 56), r=22)
-        cv.text((px, py), ch, 26, T['bg'] if fill else T['text'], anchor='mm', bold=True)
-    if now is not None and char is not None and char != now:
-        i, j = ord(now) - 97, ord(char) - 97
-        d = abs(j - i)
-        cv.text((cx, cy - 12), f'{now} → {char}', 34, T['text'], anchor='mm', bold=True)
-        cv.text((cx, cy + 30), f'顺时针 {d}，逆时针 {26 - d}', 24, T['muted'], anchor='mm')
-    elif now is not None:
-        cv.text((cx, cy), f'指针在 {now}', 34, T['text'], anchor='mm', bold=True)
+        pts[k] = (cx + R * math.cos(a), cy + R * math.sin(a))
+    cur = ord(S['now']) - 97 if 'now' in S else None
+    b = ord(S['char']) - 97 if 'char' in S else None
+    if cur is not None and b is not None and cur != b:
+        d = abs(b - cur)
+        short_cw = (b - cur) % 26
+        step = 1 if short_cw <= 13 else -1
+        k = cur
+        while k != b:
+            n = (k + step) % 26
+            cv.line([pts[k], pts[n]], T['yellow'], 6)
+            k = n
+    for k in range(26):
+        X, Y = pts[k]
+        fill = T['panel2']
+        tc = T['muted']
+        if k == cur:
+            fill, tc = T['blue'], T['bg']
+        elif k == b:
+            fill, tc = T['pink'], T['bg']
+        cv.rect((X - 20, Y - 20, X + 20, Y + 20), fill=fill, outline=T['border'], r=20)
+        cv.text((X, Y), chr(97 + k), 26, tc, anchor='mm', bold=True, mono=True)
+    if cur is not None and b is not None:
+        d = abs(b - cur)
+        cv.text((cx, cy - 22), f"`{S['now']}` → `{S['char']}`".replace('`', ''), 34, T['text'], anchor='mm', bold=True)
+        cv.text((cx, cy + 22), f"顺/逆 {d} / {26 - d}，取 {min(d, 26 - d)}", 28, T['yellow'], anchor='mm', bold=True)
 
 
 CONFIG = dict(
     num=1974, title='使用特殊打字机键入单词的最少时间', difficulty='Easy', category='字符串',
-    author='yiduobo', technique='环形距离累加',
-    tags=[],
+    author='yiduobo', technique='一趟遍历 · 累加环形距离',
     code='''
 class Solution(object):
     def minTimeToType(self, word):
@@ -47,37 +53,35 @@ class Solution(object):
         
         return res
 ''',
-    call="Solution().minTimeToType('bza')",
-    expect=7,
+    call="Solution().minTimeToType('zjpc')",
+    expect=34,
     views=[
-        dict(type='custom', draw=_ring, h=470),
-        dict(type='string', var='word', label='word', cell=100, h=170,
-             color=lambda S, i, v: None),
+        dict(type='string', var='word', h=150, label='word'),
+        dict(type='custom', draw=_draw, h=560),
     ],
-    watch=[('now', 'now', 'yellow'), ('char', 'char', 'pink'), 'delta', ('res', 'res', 'green')],
+    watch=[('now', 'now', 'blue'), ('char', 'char', 'pink'), 'delta', ('res', 'res', 'green')],
     captions={
-        'res = 0': '`res` 累计总秒数',
-        "now = 'a'": '指针一开始指向 `a`：`now = a`',
-        'for char in word': '下一个要打的字母 `char = {char}`，指针当前在 `{now}`',
-        'delta = abs': '顺时针走的距离 = ASCII 差：`|{ord(char)} − {ord(now)}|` = =={delta}==',
-        'res += min': '顺时针 `{delta}`，逆时针 `26 − {delta} = {26 - delta}`，取小的 `{min(delta, 26 - delta)}`，再加 1 秒键入：`res` {B.res} → =={res}==',
-        'now = char': '指针停在 `{char}`，下一轮从这里出发',
-        'return res': '总共 `{res}` 秒',
+        'res = 0': '`res` 累计总秒数，从 0 开始',
+        'now = ': lambda S, B, r: ("指针一开始在 `a`" if 'char' not in B else f"指针停在 `{S.now}`，下一段从这里算起"),
+        'for char in word': lambda S, B, r: (f'接着要键入 `{S.char}`' if S.char != B.get('char') or S.char != S.now else '单词键入完了，循环结束'),
+        'delta = abs': '顺时针距离 = 两字符 ASCII 码之差：`|{ord(char)} - {ord(now)}|` = =={delta}==',
+        'res += min': '逆时针是 `26 - {delta}` = {26 - delta}，取较小的 ==`{min(delta, 26 - delta)}`==，再 +1 秒键入 → `res` = =={res}==',
+        'return res': '全部键入完，总共 `{res}` 秒',
     },
     cards=dict(
-        one_liner='相邻字母在圆盘上的距离，顺逆时针取较小，再加 1 秒键入',
+        one_liner='相邻字符的圆盘距离，顺时针与逆时针取小，再加键入一步',
         complexity='时间 `O(n)`，空间 `O(1)`',
-        problem=['圆盘上有 `a`–`z`，指针初始在 `a`，每秒可顺/逆时针转一格，或键入当前字母',
+        problem=['圆盘上有 a~z，指针起初指向 `a`；每秒转一格或键入一个字符',
                  '求键入 `word` 的最少秒数',
-                 '示例：`word = "bza"` → `7`'],
+                 '示例：`"zjpc"` → `34`'],
         quote='当顺时针移动时，移动的距离就是较大字符的ascii码减去较小字符的ascii码，而逆时针移动的距离，则可以使用26减去顺时针移动的距离来得到。',
         quote_src='—— yiduobo 题解原文',
-        idea=['每个字母的位置只和前一个字母有关，逐对累加',
-              '`delta = |ord(char) − ord(now)|` 是一个方向的距离，另一个方向是 `26 − delta`',
-              '别忘了每个字母还要 1 秒键入，起点是 `a`'],
+        idea=['只需计算各字符之间移动的距离，圆盘可顺可逆',
+              '一趟遍历：`delta` 与 `26 - delta` 取小，每个字符再 +1 秒键入',
+              '注意起点是 `a`，所以 `now` 初始为 `a`'],
         summary=['时间 `O(n)`，空间 `O(1)`',
-                 '易错点：起点是 `a`，不是 `word[0]`',
-                 '易错点：每个字母都要 `+1` 键入',
-                 '原文是 Python 2 风格，本题代码在 Python 3 下无需改动'],
+                 '易错点：起点是 `a`；每次移动完要再加 1 步键入',
+                 '对比灵神：灵神先记 `len(s)` 再只累加移动，yiduobo 每步 `+1`，结果一样',
+                 '原文无需改动，直接可在 Python 3 运行'],
     ),
 )

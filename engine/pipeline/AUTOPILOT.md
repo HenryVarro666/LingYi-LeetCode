@@ -50,9 +50,10 @@ d. Mac：检查 + 渲染（`remaining` > 0 就再跑 render）：
 ```
 cd $HOME/mnt/LC_Video/engine && ~/py312/bin/python allsets.py check unrendered --root .. --quarantine | tail -3 && ~/py312/bin/python allsets.py render .. --jobs 4 --budget 140
 ```
+然后给新视频做 GIF（GitHub 网页只能看 GIF）：`cd $HOME/mnt/LC_Video/engine && python3 pipeline/gifs.py .. --jobs 4 --budget 150`（`remaining` > 0 就再跑）。
 e. Mac：刷新索引和锁心跳：
 ```
-cd $HOME/mnt/LC_Video/engine && python3 pipeline/organize.py $HOME/mnt/Leetcode $HOME/mnt/LC_Video --steps solutions,paths,index,readme --budget 150 && python3 pipeline/lock.py touch
+cd $HOME/mnt/LC_Video/engine && python3 pipeline/organize.py $HOME/mnt/Leetcode $HOME/mnt/LC_Video --steps solutions,paths,extras,index,readme,folders --budget 150 && python3 pipeline/lock.py touch
 ```
 然后回到 a 开始下一轮。
 

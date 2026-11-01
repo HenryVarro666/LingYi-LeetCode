@@ -1,15 +1,29 @@
-def _cell(S, i, j, v):
-    if 'nowx' in S and (i, j) == (S['nowy'], S['nowx']):
-        return 'blue'
-    if 'startPos' in S and [i, j] == list(S['startPos']):
-        return 'green'
-    return None
+def _draw(cv, S, B, box, T):
+    if 'n' not in S:
+        return
+    x0, y0, x1, y1 = box
+    n = S['n']
+    cell = min(80, (x1 - x0 - 40) / n, (y1 - y0 - 50) / n)
+    sx = x0 + ((x1 - x0) - cell * n) / 2
+    sy = y0 + 40
+    cv.text((x0 + 18, y0 + 4), '网格（蓝 = 起点，粉 = 机器人当前位置）', 22, T['muted'], bold=True)
+    sp = S['startPos']
+    for r in range(n):
+        for c in range(n):
+            fill = T['blue'] if [r, c] == list(sp) else (50, 56, 66)
+            cv.rect((sx + c * cell + 2, sy + r * cell + 2, sx + (c + 1) * cell - 2, sy + (r + 1) * cell - 2), fill=fill, r=6, alpha=140)
+            cv.text((sx + c * cell + cell / 2, sy + r * cell + cell / 2), f'{r},{c}', 18, T['dim'], anchor='mm', mono=True)
+    if 'nowx' in S and 'nowy' in S:
+        x, y = S['nowx'], S['nowy']
+        if 0 <= x < n and 0 <= y < n:
+            cv.rect((sx + x * cell + 10, sy + y * cell + 10, sx + (x + 1) * cell - 10, sy + (y + 1) * cell - 10), fill=T['pink'], r=cell / 2)
+        else:
+            cv.text((sx + n * cell + 20, sy + n * cell / 2), f'(行{y}, 列{x}) 出界', 26, T['red'], anchor='lm', bold=True)
 
 
 CONFIG = dict(
-    num=2120, title='执行所有后缀指令', difficulty='Medium', category='模拟',
-    author='yiduobo', technique='枚举起点 + 直接模拟',
-    tags=[],
+    num=2120, title='执行所有后缀指令', difficulty='Medium', category='网格图',
+    author='yiduobo', technique='枚举起点 + 直接模拟', tags=[],
     code='''
 class Solution(object):
     def executeInstructions(self, n, startPos, s):
@@ -38,49 +52,46 @@ class Solution(object):
         
         return res
 ''',
-    call="Solution().executeInstructions(2, [1, 1], 'LURD')",
-    expect=[4, 1, 0, 0],
-    skip=['m = len', 'res = []'],
+    call='Solution().executeInstructions(3, [0, 1], "RRDDLU")',
+    expect=[1, 5, 4, 3, 1, 0],
     views=[
-        dict(type='grid', var=lambda S: [[0] * S['n'] for _ in range(S['n'])], label='网格（绿 = 起点，蓝 = 机器人当前位置）', cell=120, h=300,
-             values=False, color=_cell),
-        dict(type='string', var='s', label='s（蓝框 = 本轮起点之后的后缀，黄 = 正在执行的指令）', cell=100, h=190,
-             window=('start_index', 'm - 1'),
-             color=lambda S, i, v: 'yellow' if 'index' in S and i == S['index'] and S['_line'] >= 12 else None),
-        dict(type='array', var='res', label='res（每个起点能执行的指令数）', cell=80, h=130),
+        dict(type='custom', h=330, draw=_draw),
+        dict(type='string', var='s', label='s（蓝 = 起点 start_index，粉 = 当前指令 index）', cell=70, h=140,
+             pointers={'start_index': 'blue', 'index': 'pink'}),
+        dict(type='array', var='res', label='res', cell=70, h=140),
     ],
-    watch=[('start_index', 'start_index', 'blue'), ('index', 'index', 'yellow'), ('(nowy, nowx)', '(nowy, nowx)', 'pink'), ('cnt', 'cnt', 'green')],
+    watch=[('start_index', 'start_index', 'blue'), ('index', 'index', 'pink'), ('cnt', 'cnt', 'orange'), ('res', 'res', 'green')],
+    skip=["nowx -= 1", "nowx += 1", "nowy -= 1", "nowy += 1", "elif s[index]"],
     captions={
-        'for start_index': '枚举从第 `{start_index}` 条指令开始的后缀（m 很小，直接模拟）',
-        'nowy, nowx = startPos': '每个后缀都从起点出发：`(nowy, nowx) = ({nowy}, {nowx})`',
-        'cnt = 0': '已成功执行的指令数清零',
-        'for index in range': '依次执行 `s[{start_index}:]` 的指令',
-        "if s[index] == 'L'": '看指令 `{s[index]}`',
-        'nowx -= 1': '`L` 向左：列 `nowx` → {nowx}',
-        'nowx += 1': '`R` 向右：列 `nowx` → {nowx}',
-        'nowy -= 1': '`U` 向上：行 `nowy` → {nowy}',
-        'nowy += 1': '`D` 向下：行 `nowy` → {nowy}',
-        'if nowx < 0': lambda S, B, r: (f'位置 `({S.nowy}, {S.nowx})` 出了 `{S.n}×{S.n}` 网格 → 这条指令不能执行，停止' if (S.nowx < 0 or S.nowx > S.n - 1 or S.nowy < 0 or S.nowy > S.n - 1)
-                                         else f'位置 `({S.nowy}, {S.nowx})` 还在网格内，可以执行'),
-        'break': '出界，不再往后：本后缀共执行 `{cnt}` 条',
-        'cnt += 1': '这条指令执行成功：`cnt` → {cnt}',
-        'res.append': '起点 `{start_index}` 能执行 `{cnt}` 条，`res` = {res}',
-        'return res': '全部后缀处理完：`{ret}`',
+        'm = len': 'm 很小（≤ 500），直接枚举每个后缀',
+        'res = []': '`res` 依次存每个起点的答案',
+        'for start_index': '枚举起点：从第 `{start_index}` 条指令开始，后缀 `{s[start_index:]}`',
+        'nowy, nowx = startPos': '每个后缀都从头出发：`(行 {nowy}, 列 {nowx})`',
+        'cnt = 0': '`cnt` 记录这个后缀已执行的指令数',
+        'for index': '执行第 `{index}` 条指令 `{s[index]}`',
+        "if s[index] == 'L'": '指令 `{s[index]}`：L 列−1，R 列+1，U 行−1，D 行+1，按指令移动机器人',
+        'else:': '指令 `{s[index]}`（D）：行 +1',
+        'if nowx < 0': lambda S, B, r: f"位置 `(行 {S.nowy}, 列 {S.nowx})`，合法范围 `0..{S.n-1}` → " + ('==出界，停止==' if (S.nowx < 0 or S.nowx > S.n - 1 or S.nowy < 0 or S.nowy > S.n - 1) else '还在界内'),
+        'break': '出界：这条指令不算，已执行 `{cnt}` 条',
+        'cnt += 1': '没出界，这条指令成功执行：`cnt` → =={cnt}==',
+        'res.append': '起点 `{start_index}` 的答案是 `{cnt}`：`res = {res}`',
+        'return res': '返回 `{res}`',
     },
     cards=dict(
-        one_liner='m 很小：枚举每个后缀，逐条模拟到出界',
-        complexity='时间 `O(m²)`，空间 `O(1)`（不计答案）',
-        problem=['`n×n` 网格，机器人从 `startPos` 出发，指令串 `s` 含 `L R U D`',
-                 '从第 `i` 条指令开始执行，出界前能执行几条？返回长度为 `m` 的数组',
-                 '示例：`n=2, startPos=[1,1], s="LURD"` → `[4,1,0,0]`'],
+        one_liner='m 很小：枚举每个后缀，模拟到出界为止',
+        complexity='时间 `O(m^2)`，空间 `O(1)`（不计返回值）',
+        problem=['`n×n` 网格，机器人在 `startPos`，指令串 `s`（L/R/U/D）',
+                 '从第 `i` 条指令开始执行，出界前停止，求每个 `i` 能执行几条',
+                 '示例：`n=3, startPos=[0,1], s="RRDDLU"` → `[1,5,4,3,1,0]`'],
         quote='由于题目中m的规模很小，因此直接枚举每一种后缀指令然后模拟执行就行了。模拟的过程中需要注意不要走出边界。',
         quote_src='—— yiduobo 题解原文',
-        idea=['每个起点 `start_index` 都把机器人放回 `startPos` 重新走',
-              '每走一步先移动再判出界：出界就 `break`，没出界 `cnt += 1`',
-              '原文提到：理论上有 `O(m)` 做法，但情况较多，没有继续展开'],
-        summary=['时间 `O(m²)`，`m ≤ 500` 完全够用',
-                 '易错点：先移动再判断出界，出界那一步不计入 `cnt`',
-                 '`nowy, nowx = startPos`：行在前、列在后，别写反',
-                 '原文为 Python 2 风格，只删去了类型说明文档字符串'],
+        idea=['外层 `start_index` 枚举起点，内层 `index` 逐条执行',
+              '每条指令先移动，再检查是否出界；出界就 `break`',
+              '没出界才 `cnt += 1`，所以出界那条不计数'],
+        summary=['时间 `O(m^2)`，空间 `O(1)`',
+                 '`startPos = [行, 列]`，所以 `nowy, nowx = startPos`',
+                 '每个起点都要把 `nowy, nowx` 重置；先判出界，再 `cnt += 1`',
+                 '作者提到可能有 `O(m)` 做法，但情况较多，原文没有展开',
+                 '代码与原文一致，Python 3 下可直接运行（无需修改）'],
     ),
 )

@@ -1,7 +1,9 @@
 _work/
+_site/
 **/__pycache__/
 *.pyc
 *.part.mp4
+*.part.gif
 engine/out/
 engine/preview/
 .DS_Store

@@ -1,9 +1,9 @@
 CONFIG = dict(
     num=1897, title='重新分配字符使所有字符串都相等', difficulty='Easy', category='字符串',
-    author='yiduobo', technique='字符计数 · 次数整除 n',
+    author='yiduobo', technique='字典计数 · 是否 n 的倍数',
     tags=[],
     code='''
-class Solution:
+class Solution(object):
     def makeEqual(self, words):
 
         cnt_dict = {}
@@ -17,47 +17,47 @@ class Solution:
         
         return True
 ''',
-    call='Solution().makeEqual(["abc", "aabc", "bc"])',
-    expect=True,
+    call='Solution().makeEqual(["ab","a","bb","ab"])',
+    expect=False,
     views=[
-        dict(type='array', var='words', label='words（共 n 个字符串）', cell=150, h=170,
-             pointers={'words.index(word)': 'blue'}, pointer_labels={'words.index(word)': 'word'}),
-        dict(type='string', var='word', label='当前字符串 word', cell=90, h=170, pointers={'word.index(char)': 'pink'}),
-        dict(type='map', var='cnt_dict', label='cnt_dict（每种字符的总次数）', fmt=lambda k, v: f"'{k}': {v}", h=150, font=34),
-        dict(type='text', size=28, h=80, fn=lambda S: (
-            f"`n = len(words) = {len(S['words'])}`：每种字符的次数都必须是 {len(S['words'])} 的倍数"
-            if 'cnt' not in S else
-            f"检查 `cnt = {S['cnt']}`：`{S['cnt']} % {len(S['words'])} = {S['cnt'] % len(S['words'])}`")),
+        dict(type='array', var='words', h=190, label='words', cell=100,
+             color=lambda S, i, v: 'blue' if 'word' in S and 'cnt' not in S and v == S['word'] and i == _first(S) else None),
+        dict(type='map', var='cnt_dict', h=270, label='cnt_dict：每种字符的总个数', fmt=lambda k, v: f'{k}:{v}'),
+        dict(type='text', size=32, h=90, fn=lambda S: (
+            f"字符串总数 `n = {len(S['words'])}`" + (f"；当前字符 `{S['char']}`" if 'char' in S and 'cnt' not in S else '')
+            + (f"；检查个数 `{S['cnt']}`" if 'cnt' in S else ''))),
     ],
-    watch=[('word', 'word', 'blue'), ('char', 'char', 'pink'), ('cnt', 'cnt', 'orange'), ('n', 'len(words)')],
+    watch=[('word', 'word', 'blue'), ('char', 'char', 'cyan'), ('cnt', 'cnt', 'yellow')],
     captions={
-        'cnt_dict = {}': '先准备一个字典，统计所有字符串里每种字符的==总次数==',
-        'for word in words': '取下一个字符串 `word`',
-        'for char in word': '逐个看 `word` 里的字符 `char`',
-        'cnt_dict[char]': '`char = {char!r}` 的总次数加一 → `cnt_dict[{char!r}] = {cnt_dict[char]}`',
-        'for cnt in cnt_dict.values()': '统计完了，逐种字符检查它的总次数 `cnt`',
-        'if cnt % len(words)': lambda S, B, ret: (
-            f'`{S.cnt} % {len(S.words)} = {S.cnt % len(S.words)}` ≠ 0 → 这种字符==无法平均分==给每个字符串，返回 False'
-            if S.cnt % len(S.words) != 0 else
-            f'`{S.cnt} % {len(S.words)} = 0` → 可以平均分给 {len(S.words)} 个字符串，继续检查'),
-        'return False': '有字符分不匀，不可能让所有字符串相等 → `False`',
-        'return True': '每种字符的次数都是 n 的倍数，平均分配后所有字符串相等 → `True`',
+        'cnt_dict = {}': '空字典，记录每种字符在所有字符串里一共出现几次',
+        'cnt_dict[char] =': '字符 `{char}` 累计出现 =={cnt_dict[char]}== 次（不区分在哪个字符串里）',
+        'if cnt % len(words)': lambda S, B, r: (
+            f'`{S.cnt} % {len(S.words)} = {S.cnt % len(S.words)}` ≠ 0 → ==这种字符没法平均分给 {len(S.words)} 个字符串=='
+            if S.cnt % len(S.words) else f'`{S.cnt} % {len(S.words)} = 0` → 能平均分，继续'),
+        'return False': '有一种字符分不匀 → ==False==',
+        'return True': '所有字符都能平均分 → True',
     },
-    max_steps=60,
     cards=dict(
-        one_liner='每种字符的总次数都是 n 的倍数，就能分匀',
-        complexity='时间 `O(L)`（L 为字符总数），空间 `O(26)`',
-        problem=['可以把任一字符串的任一字符移到别的字符串的任意位置',
-                 '问：能否让 `words` 中所有字符串变得==完全相同==',
-                 '示例：`["abc","aabc","bc"]` → `true`；`["ab","a"]` → `false`'],
-        quote='由于题目可以任意调整字符串的构成，那么只需要每种字符出现的次数都是n的倍数，就可以将当前字符平均分配到各个字符串上的同一位置，从而使得所有字符串都相等。',
-        quote_src='—— yiduobo 题解',
-        idea=['移动字符不改变字符的==总次数==，所以只看总次数',
-              '每种字符平均分给 `n` 个字符串，每个字符串各得 `cnt / n` 个',
-              '分不匀（`cnt % n != 0`）就一定做不到'],
-        summary=['时间 `O(L)`，空间 `O(26)`',
-                 '易错：`n` 是字符串个数 `len(words)`，不是字符串长度',
-                 '只有一个字符串时 `n = 1`，任何次数都整除，必为 True',
-                 '同类题：统计频次再判断整除性'],
+        one_liner='字符能任意搬，所以只看每种字符的总数能否被 n 整除',
+        complexity='时间 `O(L)`，空间 `O(1)`（L 为字符总数）',
+        problem=['可以把一个字符串里的任一字符，移到另一个字符串的任意位置',
+                 '问能不能让所有字符串都变成同一个',
+                 '本视频：`["ab","a","bb","ab"]` → `false`'],
+        quote='只需要每种字符出现的次数都是n的倍数，就可以将当前字符平均分配到各个字符串上的同一位置，从而使得所有字符串都相等。',
+        quote_src='—— yiduobo 题解原文',
+        idea=['题目允许任意调整每个字符串的构成，所以只关心每种字符的总数',
+              '用字典数一遍：每种字符总共出现多少次',
+              '若某种字符的总数不是 `n` 的倍数，就一定分不匀'],
+        summary=['时间 `O(L)`，空间 `O(1)`',
+                 '`n` 是字符串个数 `len(words)`，不是字符串长度',
+                 '本例 `a` 共 3 个，`3 % 4 != 0`，一发现就提前返回 False；若全部整除则返回 True',
+                 '对比灵神：灵神用长度 26 的数组计数，yiduobo 用字典，思路一致'],
     ),
 )
+
+
+def _first(S):
+    try:
+        return S['words'].index(S['word'])
+    except Exception:
+        return -1

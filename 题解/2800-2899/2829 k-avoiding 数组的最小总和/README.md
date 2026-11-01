@@ -6,8 +6,21 @@ Medium · 难度分 1347 · [力扣原题](https://leetcode.cn/problems/determin
 
 | 作者 | 题解 | 动画讲解 |
 |---|---|---|
-| 灵茶山艾府 | [📄 题解](灵茶山艾府.md) | [▶︎ 2829 k-avoiding 数组的最小总和 · 灵茶山艾府.mp4](2829%20k-avoiding%20数组的最小总和%20·%20灵茶山艾府.mp4) |
-| yiduobo | [📄 题解](yiduobo.md) | [▶︎ 2829 k-avoiding 数组的最小总和 · yiduobo.mp4](2829%20k-avoiding%20数组的最小总和%20·%20yiduobo.mp4) |
+| 灵茶山艾府 | [📄 题解](灵茶山艾府.md) | [▶︎ 动画（GIF）](2829%20k-avoiding%20数组的最小总和%20·%20灵茶山艾府.gif) · [mp4 文件](2829%20k-avoiding%20数组的最小总和%20·%20灵茶山艾府.mp4) |
+| yiduobo | [📄 题解](yiduobo.md) | [▶︎ 动画（GIF）](2829%20k-avoiding%20数组的最小总和%20·%20yiduobo.gif) · [mp4 文件](2829%20k-avoiding%20数组的最小总和%20·%20yiduobo.mp4) |
+
+## 动画讲解
+
+> 动图会循环播放；想暂停、拖进度条请下载上面表格里的 mp4 文件。
+
+### 灵茶山艾府
+
+![2829 k-avoiding 数组的最小总和 · 灵茶山艾府](2829%20k-avoiding%20数组的最小总和%20·%20灵茶山艾府.gif)
+
+### yiduobo
+
+![2829 k-avoiding 数组的最小总和 · yiduobo](2829%20k-avoiding%20数组的最小总和%20·%20yiduobo.gif)
+
 
 ## 题目描述
 

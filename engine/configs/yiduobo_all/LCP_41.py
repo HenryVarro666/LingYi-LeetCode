@@ -1,25 +1,33 @@
-BOARD = ['XO.', 'OOX', '.XO']
+BOARD = ["OO.", "XOO", ".XX"]
+CH = '.XO'
 
 
-def _show(S):
-    t = S.get('tmp') if isinstance(S.get('tmp'), list) else S.get('board_matrix')
-    if not isinstance(t, list):
-        return [list(r) for r in BOARD]
-    return [['.XO'[v] for v in r] for r in t]
+def _board(S):
+    inner = S.get('_inner', {})
+    if 'tmp' in S and S.get('tmp') is not None and 'tmp' in inner:
+        return [[CH[v] for v in r] for r in S['tmp']]
+    return [[CH[v] for v in r] for r in S['board_matrix']]
 
 
 def _color(S, i, j, v):
-    return {'X': 'blue', 'O': 'pink'}.get(v)
+    if v == 'X' and BOARD[i][j] == 'O':
+        return 'orange'
+    if v == 'X' and BOARD[i][j] == '.':
+        return 'purple'
+    return None
 
 
-def _q(S):
-    q = S.get('q')
-    return [f'{a},{b}' for a, b in q] if isinstance(q, list) else None
+def _info(S):
+    if 'q' in S and 'head' in S:
+        return f"队列里一共 ==`{len(S['q'])}`== 枚：1 枚新放的黑棋 + 被翻转的 ==`{len(S['q']) - 1}`== 枚白棋"
+    if 'res' in S:
+        return f"目前最好成绩 `res = {S['res']}`"
+    return ''
 
 
 CONFIG = dict(
-    num='LCP 41', title='黑白翻转棋', difficulty='Medium', category='网格图',
-    author='yiduobo', technique='枚举落子点 + BFS 模拟连锁翻转',
+    num='LCP 41', title='黑白翻转棋', difficulty='Medium', category='模拟',
+    author='yiduobo', technique='枚举落子点 · BFS 模拟连锁翻转',
     tags=[],
     code='''
 class Solution(object):
@@ -85,56 +93,64 @@ class Solution(object):
         
         return res
 ''',
-    call=f'Solution().flipChess({BOARD})',
+    call=f'Solution().flipChess({BOARD!r})',
     expect=2,
-    max_steps=56,
-    skip=['res = 0', 'n = len', 'm = len', 'dx = [', 'dy = [', 'board_matrix = [[0]', 'for i in range', 'for j in range',
-          'board_matrix[i][j] =', 'if chessboard', 'elif chessboard', 'else:', 'head = 0', 'tail = 1', 'vis = set',
-          'for x, y in q', 'tmp[x][y] = 1', 'for nowx', 'for index in range(8)', 'x = nowx', 'y = nowy',
-          'black_flag = False', 'x += dx', 'y += dy', 'tx = nowx', 'ty = nowy', 'tx += dx', 'ty += dy',
-          'q.append', 'vis.add', 'while x >=', 'while tx', 'if tmp[x][y] == 0', 'elif tmp[x][y] == 1',
-          'black_flag = True', 'break', 'if (tx, ty) not in vis'],
+    skip=['n = len', 'm = len', 'dx = [', 'dy = [', 'board_matrix = [[0]', 'for i in range(n)', 'for j in range(m)',
+          'board_matrix[i][j] =', 'if chessboard[i][j]', 'elif chessboard[i][j]', 'else:', 'for index in range(8)',
+          'x = nowx', 'y = nowy', 'black_flag = False', 'while x >= 0', 'if tmp[x][y] == 0', 'elif tmp[x][y] == 1',
+          'black_flag = True', 'break', 'x += dx', 'y += dy', 'while tx != x', 'tx += dx', 'ty += dy',
+          'for nowx, nowy', 'for x, y in q[head', 'tmp[x][y] = 1', 'vis = set', 'head = 0', 'tail = 1'],
     views=[
-        dict(type='grid', var=_show, label='棋盘（蓝 X = 黑棋，粉 O = 白棋；黄框 = 本次落子，橙框 = 正在扩展的黑子）',
-             cell=110, h=420, color=_color,
-             cursors=[('i', 'j', 'yellow'), ('nowx', 'nowy', 'orange')]),
-        dict(type='array', var=_q, label='q：本次落子后被翻转的棋子（q[0] 是落子点）', cell=80, h=170),
+        dict(type='grid', var=_board,
+             label='棋盘（紫 = 新放的黑棋，橙 = 被翻转的白棋，蓝框 = 当前出队的黑棋，粉框 = 要翻转的格）', cell=90, h=300,
+             color=_color,
+             cursors=[('nowx', 'nowy', 'blue'), ('tx if _line in (38, 39, 40, 41, 42, 43) else None', 'ty', 'pink')]),
+        dict(type='array', var=lambda S: [f'{a},{b}' for a, b in S['q']] if 'q' in S and S.get('q') else None,
+             label='q（BFS 队列：新变黑的棋子；暗 = 已处理，head 指向下一轮起点）', cell=80,
+             pointers={'head': 'blue', 'tail': 'pink'}, dim=lambda S, i, v: i < S.get('head', 0), h=240),
+        dict(type='text', h=70, size=28, fn=_info),
     ],
-    watch=[('落子 i,j', "(i, j) if 'i' in locals() else ''", 'yellow'), ('head', 'head', 'blue'), ('tail', 'tail', 'pink'),
-           ('res', 'res', 'green')],
+    watch=[('i', 'i', 'blue'), ('j', 'j', 'blue'), ('head', 'head', 'blue'), ('tail', 'tail', 'pink'), ('res', 'res', 'green')],
+    max_steps=64,
     captions={
-        'if board_matrix[i][j] == 0': lambda S, B, r: (
-            f'`({S.i},{S.j})` 是空位 → ==试着在这里落黑子=='
-            if S.board_matrix[S.i][S.j] == 0 else f'`({S.i},{S.j})` 已有棋子，跳过'),
-        'tmp = [[board_matrix': '复制一份棋盘 `tmp`，在副本上模拟，不破坏原棋盘',
-        'q = [[i, j]]': '落子点 `({i},{j})` 入队，BFS 开始：队列里的每个黑子都要往 8 个方向找「被夹住的白子」',
+        4: '`res` 记录所有落子点里最多能翻几枚白棋；后面先把棋盘转成数字：空 0，黑 1，白 2',
+        20: '棋盘转好了（看下面的棋盘）；`res` 清零，开始枚举每个空位作为第一枚黑棋的落点',
+        'if board_matrix[i][j] == 0': lambda S, B, r: (f'`({S.i},{S.j})` 是空位 → ==在这里放第一枚黑棋==，开始 BFS' if S.board_matrix[S.i][S.j] == 0
+                                                        else f'`({S.i},{S.j})` 已有棋子，跳过'),
+        'tmp = [[': '复制一份棋盘 `tmp`，在副本上模拟，不影响下一个落子点',
+        'q = [[i, j]]': '新放的黑棋 `({i},{j})` 入队：队列里装的都是“变黑的棋子”',
+        'while head < tail': lambda S, B, r: (f'`head = {S.head} < tail = {S.tail}`：这一轮有 {S.tail - S.head} 枚新黑棋要向 8 个方向扩散'
+                                              if S.head < S.tail else f'`head = {S.head} == tail`：没有新翻转的棋子了，这个落子点结束'),
         'if black_flag': lambda S, B, r: (
-            (f'沿方向 `({B.dx[B.index]},{B.dy[B.index]})` 走到黑子 `({B.x},{B.y})`，中间 `{max(abs(B.x - B.nowx), abs(B.y - B.nowy)) - 1}` 枚白子全被夹住 → ==翻转并入队==，它们下一轮也是黑子'
-             if max(abs(B.x - B.nowx), abs(B.y - B.nowy)) > 1 else
-             f'方向 `({B.dx[B.index]},{B.dy[B.index]})` 紧挨着黑子，中间没有白子 → 无可翻')
-            if B.black_flag else
-            f'方向 `({B.dx[B.index]},{B.dy[B.index]})`：先遇到空格或出界 → 不翻'),
-        'head, tail = tail, len(q)': lambda S, B, r: (
-            f'这一层处理完：新翻转的 `{S.tail - S.head}` 枚白子变成黑子，==继续作为新的黑子扩展=='
-            if S.tail > S.head else '没有新翻转的棋子了，BFS 结束'),
-        'res = max(res, len(q) - 1)': '落在 `({i},{j})` 共翻转 `{len(q) - 1}` 枚白子（q 去掉落子点）：`res = max({B.res}, {len(q) - 1}) = {res}`',
-        'return res': '最多翻转 `{res}` 枚白棋',
+            (f'方向 `({S.dx[S.index]},{S.dy[S.index]})`：`({S.x},{S.y})` 紧挨着就是黑棋，中间没有白棋 → 没有可翻的'
+             if (S.x, S.y) == (S.nowx + S.dx[S.index], S.nowy + S.dy[S.index]) else
+             f'方向 `({S.dx[S.index]},{S.dy[S.index]})`：从 `({S.nowx},{S.nowy})` 走到 `({S.x},{S.y})` 遇到黑棋 → ==中间的白棋全部变色==')
+            if S.black_flag else
+            f'方向 `({S.dx[S.index]},{S.dy[S.index]})`：先碰到空格或边界，夹不住 → 不翻'),
+        'tx = nowx': '从 `({nowx},{nowy})` 出发，把到 `({x},{y})` 之间的白棋依次入队',
+        'if (tx, ty) not in vis': lambda S, B, r: (f'`({S.tx},{S.ty})` 还没加过 → 加入队列' if (S.tx, S.ty) not in S.vis
+                                                   else f'`({S.tx},{S.ty})` 已经在队列里，不重复加'),
+        'q.append': '`({tx},{ty})` 的白棋被翻转，入队：下一轮它也会向外扩散，==连锁翻转==',
+        'vis.add': '记入 `vis`，避免重复',
+        'head, tail = tail, len(q)': '这一轮处理完：新入队的 `{tail - head}` 枚成为下一轮 → `head = {head}`，`tail = {tail}`',
+        'res = max(res, len(q) - 1)': lambda S, B, r: (f'队列里共 `{len(S.q)}` 枚，扣掉新放的黑棋，翻转了 `{len(S.q) - 1}` 枚；`res = {S.res}`'),
+        'return res': '所有空位都试过，最多翻 `{res}` 枚',
     },
     cards=dict(
-        one_liner='棋盘很小：枚举落子点，再用 BFS 模拟连锁翻转',
-        complexity='时间 `O((nm)² · 8)` 量级，空间 `O(nm)`',
-        problem=['棋盘上 `X` 黑、`O` 白、`.` 空；黑子落下后，与另一黑子在行、列或对角线上==夹住==的白子（中间无空格）都会翻成黑',
-                 '翻转后新黑子还能继续夹住别的白子，==连锁翻转==',
-                 '求放一枚黑子最多翻转多少白子',
-                 '示例：`[".X.", ".O.", "XO."]` → `2`；本视频：`["XO.","OOX",".XO"]` → `2`'],
-        quote='完全可以枚举放置第一个黑子的位置，然后从这个位置开始进行bfs，模拟整个棋盘的变化过程。',
+        one_liner='枚举落子点，再用 BFS 向 8 个方向扩散：夹住的白棋入队，变黑后继续扩散',
+        complexity='时间约 `O((nm)^2 · max(n,m))`，空间 `O(nm)`',
+        problem=['`n×m` 棋盘，黑 `X`、白 `O`、空位 `.`',
+                 '落一枚黑棋，被黑棋夹住且中间无空位的白棋翻成黑，可连锁',
+                 '本视频：`["OO.","XOO",".XX"]` → `2`'],
+        quote='题目的数据规模很小，那么完全可以枚举放置第一个黑子的位置，然后从这个位置开始进行bfs，模拟整个棋盘的变化过程。',
         quote_src='—— yiduobo 题解原文',
-        idea=['对每个空位：复制棋盘，落子，然后 BFS',
-              'BFS 每一轮：当前黑子往 8 个方向走，直到碰到另一个黑子',
-              '中途遇到空格或出界，该方向不翻；否则中间所有白子入队，下一轮它们也是黑子'],
-        summary=['时间：空位数 ≤ `nm`，每个空位 BFS 最多处理 `nm` 个黑子 × 8 方向 × 长度 `≤ max(n,m)`',
-                 '`vis` 防止同一枚白子重复入队；答案是 `len(q) - 1`（不含落子点本身）',
-                 '易错：遇到空格要 `break`，不能把空格后面的棋子算进去',
-                 '原文为 Python 2 风格，代码在 Python 3 下可直接运行，未做修改'],
+        idea=['每一轮 BFS：对每枚新变黑的棋，沿 8 个方向一直走',
+              '先遇到黑棋（中间没有空位）→ 两者之间的白棋全部变黑并入队',
+              '先遇到空位或边界 → 这个方向什么也不翻；队列空了就结束'],
+        summary=['`len(q) - 1` 就是翻转的白棋数（扣掉新放的那枚）',
+                 '用 `vis` 避免同一枚白棋被重复入队',
+                 '易错：只有「中间全是白棋、另一端是黑棋」才翻转，碰到空位要停',
+                 '对比灵神：yiduobo 用 BFS 只处理新变黑的棋；灵神反复全盘扫描白棋直到稳定',
+                 '代码未做修改（原文已可在 Python 3 运行）'],
     ),
 )

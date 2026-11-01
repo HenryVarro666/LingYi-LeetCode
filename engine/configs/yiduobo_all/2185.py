@@ -1,67 +1,21 @@
 def _trie(S):
-    """从 root 递归布局：返回 (节点列表[(node, depth, x_leaf_pos)], 边列表[(父, 子, 字符)], 叶子数)"""
     root = S.get('root')
     if root is None:
-        return [], [], 0
-    nodes, edges, cnt = [], [], [0]
-
-    def go(n, d):
-        ch = [(c, v) for c, v in n.childs.items()]
-        if not ch:
-            x = cnt[0]
-            cnt[0] += 1
-        else:
-            xs = []
-            for c, v in ch:
-                xs.append(go(v, d + 1))
-                edges.append((n, v, c))
-            x = sum(xs) / len(xs)
-        nodes.append((n, d, x))
-        return x
-    go(root, 0)
-    return nodes, edges, max(1, cnt[0])
-
-
-def _draw(cv, S, B, box, T):
-    x0, y0, x1, y1 = box
-    cv.text((x0 + 18, y0 + 4), 'trie（节点里的数字 = 权重 w：建树时经过它的次数；黄 = 当前节点 now）', 24, T['muted'], bold=True)
-    nodes, edges, leaves = _trie(S)
-    if not nodes:
-        return
-    maxd = max(d for _, d, _ in nodes)
-    W, H = x1 - x0 - 120, y1 - y0 - 150
-    pos = {}
-    for n, d, x in nodes:
-        px = x0 + 60 + (x + 0.5) / leaves * W
-        py = y0 + 90 + (d / max(1, maxd)) * H * min(1.0, maxd / 3)
-        pos[id(n)] = (px, py)
-    now = S.get('now')
-    for a, b, c in edges:
-        (ax, ay), (bx, by) = pos[id(a)], pos[id(b)]
-        cv.line([(ax, ay), (bx, by)], T['border'], 3)
-        cv.text(((ax + bx) / 2 + 12, (ay + by) / 2), c, 26, T['cyan'], anchor='lm', bold=True, mono=True)
-    for n, d, x in nodes:
-        px, py = pos[id(n)]
-        is_now = n is now
-        fill = T['yellow'] if is_now else (70, 76, 86)
-        cv.rect((px - 26, py - 26, px + 26, py + 26), fill=fill, r=26)
-        label = 'root' if n is S.get('root') else n.w
-        cv.text((px, py), label, 18 if label == 'root' else 26, T['bg'] if is_now else T['text'], anchor='mm', bold=True)
-
-
-def _txt(S):
-    if 'pref' not in S:
         return ''
-    if 'char' in S and S.get('_line', 0) >= 19:
-        return f"查找前缀 `{S['pref']}`：当前字符 `{S['char']}`"
-    if 'word' in S:
-        return f"建树：word = `{S['word']}`" + (f"，当前字符 `{S['char']}`" if 'char' in S else '')
-    return ''
+    out = []
+
+    def dfs(node, pre):
+        for ch, nx in node.childs.items():
+            out.append(f'{pre + ch}({nx.w})')
+            dfs(nx, pre + ch)
+    dfs(root, '')
+    return 'trie 节点（括号内 = 权重 w）：' + '  '.join(out) if out else ''
 
 
 CONFIG = dict(
     num=2185, title='统计包含给定前缀的字符串', difficulty='Easy', category='字符串',
-    author='yiduobo', technique='带权重的 Trie 树', tags=[],
+    author='yiduobo', technique='trie 树 · 节点带权重',
+    tags=[],
     code='''
 class Node(object):
     def __init__(self):
@@ -91,47 +45,46 @@ class Solution(object):
         
         return now.w
 ''',
-    call='Solution().prefixCount(["ab", "abc", "ba", "abd"], "ab")',
-    expect=3,
+    call='Solution().prefixCount(["at", "ate", "pa", "pat"], "at")',
+    expect=2,
     views=[
-        dict(type='text', size=30, h=100, fn=_txt),
-        dict(type='custom', draw=_draw, h=460),
+        dict(type='array', var='words', label='words', cell=120, h=250, pointers={'words.index(word)': 'blue'},
+             pointer_labels={'words.index(word)': 'word'}),
+        dict(type='text', fn=_trie, size=26, h=130),
+        dict(type='text', fn=lambda S: f"当前字符 `char = {S['char']!r}`，所在节点权重 =={S['now'].w}==" if 'char' in S and 'now' in S else '', size=28),
     ],
-    watch=[('word', 'word', 'blue'), ('char', 'char', 'pink'), ('now.w', lambda S: S['now'].w if S.get('now') is not None else '', 'green')],
+    watch=[('word', 'word', 'blue'), ('char', 'char', 'pink'), ('now.w', 'now.w', 'green')],
     captions={
-        'root = Node()': '先建一个空的根节点 `root`',
-        'for word in words': lambda S, B, r: (f'依次把每个单词插入 trie：`word = {S.word}`' if S.word != B.get('word') else '单词都插入完了，trie 建好'),
-        11: '每个单词都从根节点出发',
-        21: '回到根节点，准备沿着 `pref` 查找',
-        'for char in word': lambda S, B, r: (f'逐个字符往下走：`char = {S.char}`' if S.char != B.get('char') or S.word != B.get('word') else f'`{S.word}` 的字符走完，换下一个单词'),
-        'if char in now.childs': lambda S, B, r: ('`' + S.char + '` 已在当前节点的孩子里 → 沿着走下去，权重加一' if S.char in S.now.childs else '`' + S.char + '` 不在孩子里 → 要新建节点'),
-        'now = now.childs[char]': '走到已有节点 `{char}`',
-        'now.w += 1': '又有一个单词经过这里：权重 `w` → =={now.w}==',
-        'tmp = Node()': '新建节点，权重初始是 1（本单词经过一次）',
-        'now.childs[char] = tmp': '挂到当前节点下，边上的字符是 `{char}`',
-        'now = tmp': '`now` 走到新节点',
-        'for char in pref': lambda S, B, r: (f'找前缀，`char = {S.char}`' if S.char != B.get('char') or B.get('now') is B.get('root') else '`pref` 的字符都匹配上了'),
-        'if char not in now.childs': lambda S, B, r: ('`' + S.char + '` 在孩子里，前缀还能匹配' if S.char in S.now.childs else '`' + S.char + '` 不在孩子里 → 没有单词有这个前缀，答案 0'),
-        'return 0': '找不到前缀 → `0`',
-        'return now.w': '走完整个 `pref`，当前节点的权重 `w = {now.w}` 就是以它为前缀的单词数',
+        'root = Node()': '建一个空的根节点，作为 trie 的起点',
+        'for word in words': lambda S, B, ret: (f'插入 `"{S.word}"`' if 'word' in S and S.get('word') != B.get('word') else '所有单词都插入完了'),
+        11: '每次从根出发往下走',
+        3: '新节点权重初始为 `w = 1`',
+        4: '`childs` 是空字典，用来放子节点',
+        'if char in now.childs': lambda S, B, ret: (f"已有 `'{S.char}'` 这条边 → 走过去并把权重加一" if S.char in S.now.childs
+                                                    else f"没有 `'{S.char}'` 这条边 → 要新建节点"),
+        'now.w += 1': '经过该节点又多一个单词：`w` → =={now.w}==（就是包含此前缀的单词数）',
+        'tmp = Node()': '新建节点，权重初始为 1（当前单词经过一次）',
+        'now.childs[char] = tmp': '把新节点挂到父节点的 `childs` 上',
+        'now = tmp': '移到新节点继续',
+        14: '沿着已有的边走到子节点',
+        21: '建树完成，现在从根开始查找 `pref`',
+        'if char not in now.childs': lambda S, B, ret: (f"`pref` 的字符 `'{S.char}'` 在 trie 里找不到 → 没有单词以它开头" if S.char not in S.now.childs
+                                                        else f"`'{S.char}'` 存在，继续往下"),
+        'return 0': '前缀走不通，答案 `0`',
+        25: '沿着 `pref` 往下走一步',
+        'return now.w': '走完 `pref`，该节点的权重 `{now.w}` 就是答案',
     },
-    skip=['self.w = 1', 'self.childs = {}'],
-    max_steps=100,
     cards=dict(
-        one_liner='trie 的每个节点记「经过次数」，前缀节点的次数就是答案',
+        one_liner='trie 的每个节点记下“经过几次”，查前缀即得答案',
         complexity='时间 `O(总字符数)`，空间 `O(总字符数)`',
-        problem=['给定字符串数组 `words` 和字符串 `pref`',
-                 '返回 `words` 中以 `pref` 作为前缀的字符串个数',
-                 '示例：`["pay","attention","practice","attend"]`，`pref="at"` → `2`',
-                 '本视频：`["ab","abc","ba","abd"]`，`pref="ab"` → `3`'],
+        problem=['返回 `words` 中以 `pref` 作为==前缀==的字符串数目',
+                 '示例：`["pay","attention","practice","attend"]`，`pref = "at"` → `2`',
+                 '本视频：`["at","ate","pa","pat"]`，`pref = "at"` → `2`'],
         quote='在常规trie树的基础上给每个节点额外设置了一个权重，表示建树时经过这个节点的次数，这个次数实际上就是数组中包含该前缀的字符串数目。',
         quote_src='—— yiduobo 题解原文',
-        idea=['数据很小，暴力也行；作者选了 trie 来练手',
-              '插入时：已有的边就走过去并 `w += 1`，没有的边新建节点',
-              '查前缀：沿着 `pref` 走，走不通 → `0`；走得通 → 终点的 `w`'],
-        summary=['时间、空间 `O(总字符数)`',
-                 '新建节点 `w = 1`，已有节点才 `+= 1`，所以每个节点的 `w` 恰好是经过它的单词数',
-                 '易错点：`root` 的权重不参与计数，查找要从 `root.childs` 开始',
-                 '原文本身可直接在 Python 3 运行，未做修改；暴力写法 `startswith` 也能过'],
+        idea=['建树时每经过一个节点权重加一，新节点权重为 1', '查找 `pref`：途中断了答案就是 0，否则取终点权重'],
+        summary=['题目数据很小，暴力法也可以；这里用 trie 展示更通用的做法',
+                 '易错：新建节点权重要初始为 1（本次也算一次经过）',
+                 '`pref` 查找中途缺边要立即返回 0'],
     ),
 )

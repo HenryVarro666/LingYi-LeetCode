@@ -6,8 +6,21 @@ Hard · [力扣原题](https://leetcode.cn/problems/rMeRt2/)
 
 | 作者 | 题解 | 动画讲解 |
 |---|---|---|
-| 灵茶山艾府 | [📄 题解](灵茶山艾府.md) | [▶︎ LCP 69 Hello LeetCode! · 灵茶山艾府.mp4](LCP%2069%20Hello%20LeetCode!%20·%20灵茶山艾府.mp4) |
-| yiduobo | [📄 题解](yiduobo.md) | [▶︎ LCP 69 Hello LeetCode! · yiduobo.mp4](LCP%2069%20Hello%20LeetCode!%20·%20yiduobo.mp4) |
+| 灵茶山艾府 | [📄 题解](灵茶山艾府.md) | [▶︎ 动画（GIF）](LCP%2069%20Hello%20LeetCode!%20·%20灵茶山艾府.gif) · [mp4 文件](LCP%2069%20Hello%20LeetCode!%20·%20灵茶山艾府.mp4) |
+| yiduobo | [📄 题解](yiduobo.md) | [▶︎ 动画（GIF）](LCP%2069%20Hello%20LeetCode!%20·%20yiduobo.gif) · [mp4 文件](LCP%2069%20Hello%20LeetCode!%20·%20yiduobo.mp4) |
+
+## 动画讲解
+
+> 动图会循环播放；想暂停、拖进度条请下载上面表格里的 mp4 文件。
+
+### 灵茶山艾府
+
+![LCP 69 Hello LeetCode! · 灵茶山艾府](LCP%2069%20Hello%20LeetCode!%20·%20灵茶山艾府.gif)
+
+### yiduobo
+
+![LCP 69 Hello LeetCode! · yiduobo](LCP%2069%20Hello%20LeetCode!%20·%20yiduobo.gif)
+
 
 ## 题目描述
 

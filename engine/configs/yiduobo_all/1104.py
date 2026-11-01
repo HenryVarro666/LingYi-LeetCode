@@ -1,11 +1,20 @@
+def _txt(S):
+    if 'level' not in S:
+        return '每层节点数 `2^(k-1)`，前 k 层共 `cnt_list[k-1] = 2^k - 1` 个'
+    lv, pos = S['level'], S.get('pos')
+    if pos is None:
+        return f"label 在第 {lv + 1} 层（下标 `level = {lv}`）"
+    kind = '偶数下标 → 从左往右' if lv % 2 == 0 else '奇数下标 → 从右往左'
+    return f"当前 `level = {lv}`（{kind}），距行首/行尾的偏移 `pos = {pos}`"
+
+
 CONFIG = dict(
     num=1104, title='二叉树寻路', difficulty='Medium', category='链表、二叉树与回溯',
-    author='yiduobo', technique='按层计数 + 倒推父节点',
-    tags=['灵神题单', '链表树与回溯', '难度分 1545'],
+    author='yiduobo', technique='逐层累计节点数 · 由位置倒推',
+    tags=['灵神题单·链表树与回溯', '难度分 1545'],
     code='''
 class Solution(object):
     def pathInZigZagTree(self, label):
-
         cnt_list = [1]
         while cnt_list[-1] < label:
             cnt_list.append(cnt_list[-1] + cnt_list[-1] + 1)
@@ -32,56 +41,42 @@ class Solution(object):
         res.reverse()
         return res
 ''',
-    call='Solution().pathInZigZagTree(26)',
-    expect=[1, 2, 6, 10, 26],
+    call='Solution().pathInZigZagTree(14)',
+    expect=[1, 3, 4, 14],
     views=[
-        dict(type='text', size=26, h=60, fn=lambda S: (
-            ('`cnt_list[k]` = 前 k+1 层的节点总数 = 第 k 层的最大标号（普通编号下）' if 'res' not in S else
-             (f"第 {S['level']} 层（{'偶数层：从右往左标号' if S['level'] % 2 == 0 else '奇数层：从左往右标号'}），"
-              f"从该层「编号从左数」第 `{S['pos']}` 个往上走" if S.get('level', 0) > 0 else '回到根，反转路径')))),
-        dict(type='array', var='cnt_list', label='cnt_list（前 k+1 层节点总数；蓝 = level）', cell=84, h=190,
-             pointers={'level': 'blue'},
-             color=lambda S, i, v: 'blue' if i == S.get('level') else None),
-        dict(type='array', var='res', label='res（从 label 倒推到根，最后反转）', cell=84, h=190),
+        dict(type='text', fn=_txt, size=28),
+        dict(type='array', var='cnt_list', label='cnt_list（前 k 层的节点总数）', pointers={'level': 'blue'}, h=170),
+        dict(type='array', var='res', label='res（从叶往根收集）', h=150, color=lambda S, i, v: 'green' if i == len(S['res']) - 1 else None),
     ],
-    watch=[('label', 'label', 'yellow'), ('level', 'level', 'blue'), ('pos', 'pos', 'pink'), ('res', 'res', 'green')],
+    watch=[('label', 'label', 'blue'), ('level', 'level', 'pink'), ('pos', 'pos', 'yellow')],
     captions={
-        'cnt_list = [1]': '`cnt_list[k]` 记录前 `k+1` 层的节点总数：1、3、7、15……（满二叉树）',
-        'while cnt_list[-1] < label': lambda S, B, r: (
-            f'`cnt_list[-1] = {S.cnt_list[-1]} < label = {S.label}`：前面这些层还装不下 `label` → 再加一层'
-            if S.cnt_list[-1] < S.label else f'`cnt_list[-1] = {S.cnt_list[-1]} >= label = {S.label}`：`label` 就在最后一层'),
-        'cnt_list.append': '新一层：总数 = 前总数 × 2 + 1 → `{cnt_list}`',
-        'level = len': '`label` 位于最后一层：`level = {level}`（根是第 0 层）',
-        10: lambda S, B, r: (
-            f'`level = {S.level}` 是偶数层 → 这层标号==从右往左==，要换算成从左数的位置' if S.level % 2 == 0
-            else f'`level = {S.level}` 是奇数层 → 这层标号==从左往右==，位置就是 `cnt_list[level] - label`'),
-        'pos = label - cnt_list[-2] - 1': '偶数层：本层最小标号是 `cnt_list[-2] + 1`，`pos = label - cnt_list[-2] - 1 = =={pos}==`',
-        'pos = cnt_list[-1] - label': '奇数层：`pos = cnt_list[-1] - label = {cnt_list[-1]} - {label} = =={pos}==`',
-        'while level > 0': lambda S, B, r: (f'`level = {S.level} > 0`：还没到根，继续往上' if S.level > 0 else '`level = 0`：到根了，结束循环'),
-        19: lambda S, B, r: (f'`level = {S.level}` 是偶数层 → 用「前一层总数 + 1 + pos」算标号（偶数层从右往左）' if S.level % 2 == 0
-                             else f'`level = {S.level}` 是奇数层 → 用「本层总数 − pos」算标号（奇数层从左往右）'),
-        'res.append(cnt_list[level - 1] + 1 + pos)': '偶数层第 `{B.pos}` 个：标号 `cnt_list[{B.level - 1}] + 1 + {B.pos}` = =={res[-1]}== 加入路径',
-        'res.append(cnt_list[level] - pos)': '奇数层第 `{B.pos}` 个：标号 `cnt_list[{B.level}] - {B.pos}` = =={res[-1]}== 加入路径',
-        'level -= 1': '上一层：`level = {level}`',
-        'pos //= 2': '父亲是上一层的第 `pos // 2` 个：`pos = {B.pos} // 2 = =={pos}==`',
-        'res.append(1)': '根节点的标号是 `1`',
-        'res.reverse()': '路径是从下往上收集的 → 反转成从根到 `label`：`{res}`',
-        'return res': '返回路径 `{res}`',
+        'cnt_list.append': '前 k 层共 `2^k - 1` 个，下一层 = `2×上一个 + 1`：`cnt_list = {cnt_list}`',
+        'level = len': '`cnt_list` 刚好盖住 label，所以 `label` 位于下标 `level = {level}` 这一层（根为 0）',
+        'pos = label - cnt_list[-2] - 1': '偶数下标层从左往右标号：`pos = label - 上一层总数 - 1 = {pos}`，即从行首数起的偏移',
+        'pos = cnt_list[-1] - label': '奇数下标层从右往左标号：`pos = 本层最大标号 - label = {pos}`，即从行尾数起的偏移',
+        'pos = 1': '`level = 0` 就是根，偏移随便给个值',
+        'res.append(cnt_list[level - 1] + 1': '偶数层从行首数 `pos`：标号 = `上一层总数 + 1 + pos` = =={res[-1]}==',
+        'res.append(cnt_list[level] - pos': '奇数层从行尾数 `pos`：标号 = `本层最大标号 - pos` = =={res[-1]}==',
+        'level -= 1': '往上走一层：`level` → {level}',
+        'pos //= 2': '父节点在上一层的位置 = `pos // 2`：`pos` → {pos}',
+        'res.append(1)': '根节点标号一定是 1，补上',
+        'res.reverse': '收集时是从叶到根，反转成从根到叶：`{res}`',
     },
     cards=dict(
-        one_liner='先找 label 所在层和位置，再一层层往上找父亲',
+        one_liner='先算 label 在哪一层第几个，再按位置倒推父亲',
         complexity='时间 `O(log label)`，空间 `O(log label)`',
-        problem=['无限满二叉树，节点逐行按“之”字形标号：奇数行从左到右，偶数行从右到左',
-                 '给出节点标号 `label`，返回从根到它的路径上所有标号',
-                 '示例：`label = 14` → `[1,3,4,14]`；本视频：`label = 26` → `[1,2,6,10,26]`'],
-        quote='对于第l层第p个节点而言，其父亲节点为第l - 1层的第p / 2个节点，根据这一点我们就可以从label对应的节点开始倒推回root。',
-        quote_src='—— yiduobo 题解原文',
-        idea=['满二叉树第 k 层有 `2^(k-1)` 个节点，前缀和 1、3、7、15… 就能定位 label 在第几层',
-              '算出它是该层“从左数”的第 `pos` 个，父亲就是上一层的第 `pos // 2` 个',
-              '偶数层标号反向，换算标号时要分奇偶层处理'],
-        summary=['时间、空间都是 `O(log label)`',
-                 '易错：偶数层 `pos = label - cnt_list[-2] - 1` 与奇数层公式不同；根要单独处理',
-                 '路径是倒推出来的，最后要 `reverse`',
-                 '原文为 Python 2 写法，`pos /= 2` 已改为 `pos //= 2`'],
+        problem=['无限满二叉树，奇数行从左到右、偶数行从右到左标号',
+                 '给 `label`，返回从根到它的路径上的标号',
+                 '示例：`label = 14` → `[1,3,4,14]`'],
+        quote='由于这颗二叉树是满的，那么每一层节点的数量都可以很快计算出来，具体来说就是第k层中一个有2^(k - 1)个节点。',
+        quote_src='—— yiduobo 题解',
+        idea=['先用累计数 `cnt_list` 判断 label 在哪一层，再算出它在该层的第几个',
+              '第 l 层第 p 个节点的父亲是第 l-1 层第 `p // 2` 个，不管标号怎么排',
+              '最后按层数奇偶决定这个位置对应哪个标号，一路倒推回根'],
+        result='运行结束，返回 `[1, 3, 4, 14]`',
+        summary=['原文为 Python 2 写法，`pos /= 2` 已改为 `pos //= 2`（整数除法）',
+                 '时间 `O(log label)`：层数只有 `log` 级；空间 `O(log label)`',
+                 '易错：偶数下标层的偏移从行首数，奇数下标层从行尾数，别混',
+                 '对照灵神：他直接用公式 `sum - label/2` 求父节点，这里是先定位置再换算'],
     ),
 )

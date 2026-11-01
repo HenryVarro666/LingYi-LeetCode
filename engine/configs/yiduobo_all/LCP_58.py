@@ -1,78 +1,4 @@
-SHAPES = [["000", "110", "000"], ["110", "011", "000"], ["110", "011", "110"],
-          ["000", "010", "111"], ["011", "111", "011"], ["011", "010", "000"]]
-N = 3
-FACES = ['底面', '前面', '右面', '后面', '左面', '上面']
-TARGET = [[0, 1, 2, 3], [0, 4, 5, 6], [1, 7, 8, 4], [2, 7, 9, 10], [3, 10, 11, 6], [5, 8, 9, 11]]
-
-
-def _bits(v):
-    return format(v, f'0{N}b')
-
-
-def _draw(cv, S, B, box, T):
-    x0, y0, x1, y1 = box
-    level = S.get('level')
-    used = S.get('used') or [False] * 6
-    choose = S.get('choose') or []
-    cur_edge = S.get('edge') if 'tmp' in S else None
-    cv.text((x0 + 18, y0 + 4), '6 块积木（蓝 = 已放，黄框 = 正在试）', 22, T['muted'], bold=True)
-    cell = 24
-    gap = (x1 - x0 - 40 - 6 * 3 * cell) / 5
-    for k, sh in enumerate(SHAPES):
-        X0 = x0 + 20 + k * (3 * cell + gap)
-        Y0 = y0 + 50
-        for r in range(N):
-            for c in range(N):
-                one = sh[r][c] == '1'
-                fill = (T['blue'] if used[k] else (125, 133, 145)) if one else T['panel2']
-                cv.rect((X0 + c * cell + 1, Y0 + r * cell + 1, X0 + (c + 1) * cell - 1, Y0 + (r + 1) * cell - 1), fill=fill, r=3)
-        if cur_edge == k:
-            cv.rect((X0 - 4, Y0 - 4, X0 + N * cell + 4, Y0 + N * cell + 4), outline=T['yellow'], width=4, r=6)
-        cv.text((X0 + N * cell / 2, Y0 + N * cell + 6), f'积木 {k}', 18, T['text'] if used[k] else T['dim'], anchor='mt', bold=True)
-    # 12 条棱
-    yb = y0 + 190
-    cv.text((x0 + 18, yb), '正方体 12 条棱的编码（高位 → 低位，每位 1 = 被占）', 22, T['muted'], bold=True)
-    tgt = TARGET[level] if level is not None and 0 <= level < 6 else []
-    tmp = S.get('tmp')
-    bw = (x1 - x0 - 40) / 6
-    for e in range(12):
-        row, col = divmod(e, 6)
-        X = x0 + 20 + col * bw
-        Y = yb + 40 + row * 84
-        filled = e < len(choose)
-        hot = e in tgt
-        cv.rect((X + 3, Y, X + bw - 3, Y + 70), fill=(52, 60, 72) if filled else T['panel2'], outline=T['yellow'] if hot else T['border'],
-                width=3 if hot else 1, r=8)
-        cv.text((X + 12, Y + 6), f'棱 {e}', 18, T['yellow'] if hot else T['dim'], bold=True)
-        cv.text((X + bw / 2, Y + 44), _bits(choose[e]) if filled else '???', 28, T['green'] if filled else T['dim'], anchor='mm', mono=True, bold=True)
-    # 当前尝试
-    yt = yb + 40 + 2 * 84 + 8
-    if level is not None and tmp is not None and 'edge' in S:
-        cv.text((x0 + 18, yt), f'第 {level} 步 · {FACES[level]}：试放积木 {S["edge"]}（{"翻面" if S.get("d") else "原样"}，旋转方案 {S.get("candidate")}）', 22, T['yellow'], bold=True)
-        parts = '  '.join(f'棱{TARGET[level][k]}={_bits(tmp[k])}' for k in range(4))
-        cv.text((x0 + 18, yt + 34), '这个面的四条边：' + parts, 21, T['text'], mono=True)
-        if 'flag' in S and S.get('_line') == 96:
-            cv.text((x0 + 18, yt + 68), '与已摆好的棱：不重叠、中间能补满 → 可以放' if S['flag'] else '与已摆好的棱：重叠或中间有缺口 → 不行',
-                    22, T['green'] if S['flag'] else T['red'], bold=True)
-
-
-def _tmp(S, B, r):
-    lv = S.level
-    return (f'第 `{lv}` 面（{FACES[lv]}）试放积木 `{S.edge}`：`{"翻面" if S.d else "不翻面"}`，边的排列方案 `{S.candidate}`；'
-            f'四条边编码 `{[_bits(v) for v in S.tmp]}`')
-
-
-def _flag(S, B, r):
-    if S.flag:
-        return '四条边和已填好的棱都满足「按位与 = 0」且「按位或 ≥ 0111…10」→ ==这个摆法可行==，记下并去放下一个面'
-    return '某条已填过的棱出现了==重叠==（按位与 ≠ 0）或==中间有缺口==（按位或太小）→ 换下一种摆法'
-
-
-CONFIG = dict(
-    num='LCP 58', title='积木拼接', difficulty='Hard', category='二叉树与回溯',
-    author='yiduobo', technique='位运算编码边 + 枚举 8 种放法回溯',
-    tags=['灵神题单·常用数据结构', '灵神题单·链表树与回溯'],
-    code=r"""
+CODE = r"""
 class Solution(object):
     def composeCube(self, shapes):
 
@@ -196,52 +122,165 @@ class Solution(object):
             return True
         
         return False
-""",
-    call=f'Solution().composeCube({SHAPES!r})',
+"""
+
+
+def _ln(sub, k=0):
+    ls = [i for i, l in enumerate(CODE.strip("\n").split("\n"), 1) if sub in l]
+    return ls[k]
+
+
+SHAPES = [["110","011","000"],["000","010","111"],["000","110","000"],["011","010","000"],["110","011","110"],["011","111","011"]]
+
+FACE = ['底面', '前面', '右面', '后面', '左面', '上面']
+TARGET = [[0, 1, 2, 3], [0, 4, 5, 6], [1, 7, 8, 4], [2, 7, 9, 10], [3, 10, 11, 6], [5, 8, 9, 11]]
+L_FOR_EDGE = _ln('for edge in range(6)')
+L_TMP = _ln('tmp = [')
+L_CALL = _ln('if dfs(level + 1')
+
+
+def _bits(v, n):
+    return format(v, f'0{n}b')
+
+
+def _bad(S, index):
+    """第 index 条边与已填充的棱是否冲突（复刻代码里的判断）"""
+    k = TARGET[S['level']][index]
+    if k >= len(S['choose']):
+        return None
+    now, filled = S['tmp'][index], S['choose'][k]
+    return (now & filled) != 0 or (now | filled) < S['state_without_corner']
+
+
+def _draw(cv, S, B, box, T):
+    x0, y0, x1, y1 = box
+    shapes = S.get('shapes') or SHAPES
+    n = len(shapes[0])
+    line = S.get('_line') or 0
+    in_dfs = 'level' in S and 'choose' in S and 'used' in S
+    level = S['level'] if in_dfs else 0
+    inner = S.get('_inner') or {}
+    cand = in_dfs and 'edge' in inner and line >= L_FOR_EDGE and line <= L_CALL
+    # ---- 积木一排
+    cv.text((x0 + 14, y0 + 2), '6 块板子（黄 = 正在试，蓝 = 已放好）', 21, T['muted'], bold=True)
+    pc = min(18, (x1 - x0 - 40) / (6 * (n + 1.4)))
+    px0 = x0 + 20
+    used = S.get('used') or [False] * 6
+    for k, sh in enumerate(shapes):
+        X = px0 + k * (n + 1.4) * pc
+        iscand = cand and S['edge'] == k and not used[k]
+        col = T['yellow'] if iscand else (T['blue'] if (in_dfs and used[k]) else T['text'])
+        for i in range(n):
+            for j in range(n):
+                on = sh[i][j] == '1'
+                cv.rect((X + j * pc + 1, y0 + 40 + i * pc + 1, X + (j + 1) * pc - 1, y0 + 40 + (i + 1) * pc - 1),
+                        fill=col if on else T['panel2'], alpha=255 if on else 120, r=3)
+        cv.text((X + n * pc / 2, y0 + 44 + n * pc), f'板子 {k}', 18, col, anchor='mt', bold=True)
+    # ---- 12 条棱
+    ty = y0 + 40 + n * pc + 78
+    cv.text((x0 + 14, ty - 34), '12 条棱（上一行 = 已占用，下一行 = 正在试的编码；高位在前）', 19, T['muted'], bold=True)
+    cw = 24
+    sw = (x1 - x0 - 30) / 4
+    tmp = S.get('tmp') if (in_dfs and line >= L_TMP and line <= L_CALL and 'tmp' in inner) else None
+    trial = {}
+    if tmp is not None:
+        for index in range(4):
+            trial[TARGET[level][index]] = index
+    choose = S.get('choose') or []
+    for k in range(12):
+        col_, row_ = k % 4, k // 4
+        X = x0 + 20 + col_ * sw
+        Y = ty + row_ * 112
+        cv.text((X, Y), f'棱 {k}', 18, T['dim'], bold=True)
+        for i in range(n):
+            ch = _bits(choose[k], n)[i] if k < len(choose) else None
+            fill = (T['blue'] if ch == '1' else T['panel2']) if ch is not None else None
+            cv.rect((X + i * (cw + 3), Y + 26, X + i * (cw + 3) + cw, Y + 26 + cw), fill=fill, outline=T['border'], width=1 if ch is not None else 2, r=4)
+            if ch is None:
+                cv.text((X + i * (cw + 3) + cw / 2, Y + 26 + cw / 2), '·', 16, T['dim'], anchor='mm')
+        if k in trial:
+            idx = trial[k]
+            b = _bad(S, idx)
+            for i in range(n):
+                ch = _bits(tmp[idx], n)[i]
+                cv.rect((X + i * (cw + 3), Y + 58, X + i * (cw + 3) + cw, Y + 58 + cw), fill=(T['yellow'] if ch == '1' else T['panel2']),
+                        outline=T['red'] if b else T['border'], width=3 if b else 1, r=4)
+            if b is not None:
+                cv.text((X + n * (cw + 3) + 6, Y + 70), '冲突' if b else '吻合', 17, T['red'] if b else T['green'], anchor='lm', bold=True)
+    # ---- 说明
+    ym = ty + 3 * 112 + 4
+    if cand and 'd' in S and 'candidate' in S and line >= _ln('for candidate'):
+        cv.text((x0 + 20, ym), f'第 {level} 个面（{FACE[level]}）← 板子 {S["edge"]}，{"原样" if S["d"] == 0 else "翻面"}，4 条边按 {S["candidate"]} 的顺序对应', 19, T['yellow'], bold=True)
+    elif in_dfs:
+        cv.text((x0 + 20, ym), f'第 {level} 个面（{FACE[level]}）：影响的棱 {TARGET[level] if level < 6 else ""}', 19, T['text'], bold=True)
+
+
+def _end(S, B, name):
+    return name in B['_inner'] and B['_inner'][name] == S['_inner'].get(name)
+
+
+def _chk(S, B, ret):
+    k = TARGET[S.level][S._inner.get('index', 0)]
+    now, filled = S.now, S.filled
+    ov = (now & filled) != 0
+    gap = (now | filled) < S.state_without_corner
+    n = len(S.shapes[0])
+    s = f'棱 `{k}`：新 `{now:0{n}b}`，已有 `{filled:0{n}b}`'
+    if ov:
+        return s + ' → 有格子重叠（与运算不为 0）→ ==冲突=='
+    if gap:
+        return s + f' → 中间没填满（或运算小于 `{S.state_without_corner:0{n}b}`）→ ==冲突=='
+    return s + ' → 不重叠、中间填满 → 吻合'
+
+
+_PRE = _ln('for s in shapes')
+_END_PRE = _ln('one_cnt -= ')
+
+CONFIG = dict(
+    num='LCP 58', title='积木拼接', difficulty='Hard', category='常用数据结构',
+    author='yiduobo', technique='枚举摆放 + 棱编码位运算',
+    tags=['链表树与回溯'],
+    code=CODE,
+    call='Solution().composeCube(SHAPES)',
+    setup='SHAPES = ' + repr(SHAPES),
     expect=True,
-    max_events=800000,
-    max_steps=38,
-    skip=['edge_list.append', 'for index in range(n)', 'edge_list[-1]', 'one_cnt +=', 'one_cnt -=', 'for s in shapes', 'state_without_corner',
-          'for edge in range(6)', 'if not used[edge]', 'for d in range(2)', 'for candidate in', 'flag = True', 'fill_cnt = 0',
-          'for index in range(4):', 'if target_list', 'now = tmp', 'filled = choose', 'if (now & filled)', 'flag = False', 'break',
-          'else:', 'fill_cnt += 1', 'continue', 'choose.append(tmp[index])', 'for index in range(fill_cnt)', 'choose.pop()',
-          'used[edge] = False', 'used[edge] = True', 'if level == 6', 'candidate_list =', '[[0, 3, 2, 1]', 'edge_list = []', 'one_cnt = 0'],
-    views=[
-        dict(type='custom', draw=_draw, h=600),
-        dict(type='calls', h=100, hide=('choose', 'used')),
-    ],
-    watch=['level'],
+    views=[dict(type='custom', draw=_draw, h=640)],
+    watch=[('level', 'level', 'yellow'), ('edge', 'edge', 'blue'), ('d', 'd', 'cyan'), ('candidate', 'candidate', 'pink')],
+    skip=list(range(_ln('edge_list = []'), _END_PRE + 1)) + [_ln('candidate_list = ') + 1, _ln('for edge in range(6)'), _ln('for candidate in candidate_list'), _ln('flag = False'), _ln('used = [False]'), _ln('used[0] = True'), _ln('return True', 2), _ln('for d in range(2)'), _ln('if not used[edge]'), _ln('if level == 6'), _ln('flag = True'), _ln('fill_cnt = 0'),
+          _ln('for index in range(4)', 1), _ln('if target_list[level][index] < len(choose)', 0), _ln('now = tmp[index]'), _ln('filled = choose[target_list'),
+          _ln('break'), _ln('fill_cnt += 1'), _ln('for index in range(4)', 2), _ln('if target_list[level][index] < len(choose)', 1), _ln('continue'),
+          _ln('choose.append'), _ln('return True', 1), _ln('for index in range(fill_cnt)'), _ln('choose.pop()'), 'candidate_list', 'target_list = ', 'reverst_list = '],
+    max_steps=80,
     captions={
-        'target_list =': '6 个面的枚举顺序：底、前、右、后、左、上；每个面各自影响正方体的 4 条棱（棱编号见代码里的示意图）',
-        'reverst_list =': '有些棱在相邻两个面里的编码方向相反，校验时要让其中一方反向编码',
-        'n = len(shapes[0])': '`n = {n}`：每块积木是 `n × n`',
-        'if one_cnt != n * 12 - 16': '六块积木==四条边==上的 1 共 `{one_cnt}` 个（四个角不重复算）；正方体 12 条棱需要 `12n − 16 = {n * 12 - 16}` 个 → 数量不对就直接 False',
-        'choose = [edge_list[0][0][0]': '积木 0 直接当底面：选哪个面只是换朝向，所以==不用旋转，只考虑翻不翻面==。它的四条边编码填进棱 0、1、2、3',
-        'used[0] = True': '积木 0 已用',
-        'if dfs(1, choose, used)': lambda S, B, r: ('从第 1 个面（前面）开始，枚举剩下积木的 8 种放法' if S._line < 120 else '底面不翻面凑不出，把积木 0 ==翻面==再试一次'),
-        'tmp = [': _tmp,
-        'if flag': _flag,
-        'if dfs(level + 1': lambda S, B, r: f'这个面放好，棱 {TARGET[B.level]} 都定了 → 去放第 `{B.level + 1}` 个面',
-        'return True': lambda S, B, r: ('6 个面都放好了，没有重叠 → ==能拼成正方体==，一路返回 True' if S._line < 90 else '这一层也返回 True，继续往上传'),
-        'choose = [edge_list[0][1][0]': '积木 0 翻面作底面：四条边取顺时针编码，棱的顺序是 0,3,2,1',
-        'return False': '两种底面都试完了 → False',
+        'n = len(shapes[0])': '每块板子是 `{n} × {n}` 的方阵',
+        'state_without_corner = (1': '`state_without_corner = {state_without_corner:0{n}b}`：棱去掉两端顶角后，中间的位必须被填满',
+        'edge_list = []': '`edge_list` 预处理每块板子的逆时针 / 顺时针 4 条边编码',
+        'one_cnt != n * 12 - 16': '板子四边的 1 一共 `{one_cnt}` 个；12 条棱共 `12n − 16 = {n * 12 - 16}` 格 → ' + '==数量必须相等==',
+        'choose = [edge_list[0][0][0]': '板子 0 当底面（只需考虑翻不翻）：它 4 条边先占住棱 0–3：`choose` = `{choose}`；`used` 标记板子 0 已用',
+                'if dfs(1, choose, used)': '先试板子 0 原样当底面：从第 1 个面（前面）开始搜索',
+        'tmp = [': lambda S, B, r: f'第 `{S.level}` 个面试板子 `{S.edge}`：{"原样" if S.d == 0 else "翻面"}，边按 `{S.candidate}` 的顺序对应。4 条边编码：' + '，'.join(f'`{x:0{len(S.shapes[0])}b}`' for x in S.tmp) + f'（对应棱 {TARGET[S.level]}）',
+        'if (now & filled) != 0': _chk,
+        'if flag:': lambda S, B, r: ('4 条边都检验通过' if S.flag else '有冲突，试下一种放法'),
+        'used[edge] = True': '放上板子 `{edge}`（新占的棱已追加到 `choose`）：`choose` = `{choose}`',
+        'if dfs(level + 1': '递归：去放第 `{B.level + 1}` 个面',
+        'used[edge] = False': '后面放不下 → 回溯：释放板子 `{edge}`，并弹出刚追加的棱',
+        'return True': '6 个面都放好了 → 返回 ==True==',
+        'return False': '第 `{level}` 个面怎么放都不行 → 返回 False，上一层换个放法',
     },
     cards=dict(
-        one_liner='把积木的四条边编码成二进制数，按位与判重叠、按位或判补满',
-        complexity='时间 `O(6!·8^5·n)`（强剪枝后很小），空间 `O(n)`',
-        problem=['6 块 `n×n` 积木（`1` 有格子，`0` 空缺，中间保证实心），可旋转、翻面',
-                 '问能否各当正方体的一个面，==边缘严丝合缝==拼成正方体',
-                 '本视频用示例 1（`n = 3`）→ `true`'],
-        quote='对于棱长为n的正方体而言，这12条棱上一共有12 * n - 16个位置……底面的下侧边和前面的下侧边按位与必须等于0，否则就有位置重叠了。按位或必须大于等于(1 << (n - 1)) - 2，也就是二进制表示中的0111...1110。',
+        one_liner='把板子四条边编成二进制，按面的顺序枚举放法，用与/或检查棱',
+        complexity='时间 `O(6! × 8^5)`（有剪枝，实际很小），空间 `O(1)`',
+        problem=['6 块 `n × n` 的板子，中间都是实心，只有边上有空缺',
+                 '板子可旋转、翻面，问能否围成正方体，每块恰好一个面',
+                 '本视频：6 块 `3 × 3` 板子（示例 1 的顺序做了调整），答案 `true`'],
+        quote='题目给出的6块板子中间都是实心的，意思就是说这六块板子的四条边拼起来，能否刚刚好构成正方体的十二条棱。',
         quote_src='—— yiduobo 题解原文',
-        idea=['六块板四条边 = 12 条棱，先数 1 的个数是否恰好 `12n − 16`',
-              '每条边编码成 `n` 位二进制数，原样用逆时针编码，翻面用顺时针编码',
-              '积木 0 固定当底面，其余面按 前、右、后、左、上 的顺序枚举积木、翻面、4 种旋转',
-              '新放的面和已填的棱：按位与 ≠ 0 就重叠，按位或不够 `0111…10` 就有缺口，剪掉'],
-        summary=['时间：最坏 `5!·8^5` 量级，但每步用位运算判断，剪枝很强；空间 `O(n)`',
-                 '易错：棱 2、5、8、10、11、4 的编码方向相邻两面相反，要用 `reverst_list` 异或翻转编码',
-                 '易错：积木 0 作底面只需考虑==翻不翻面==，不用考虑旋转',
-                 '原文本身可直接在 Python 3 运行，未做修改（保留了开头那段棱编号示意图的字符串）',
-                 '视频里数 1 与编码预处理没有逐行展示，只展示放面的回溯过程'],
+        idea=['先数 1：12 条棱共 `12n − 16` 格，板子四边的 1 总数不对就直接 False',
+              '板子 0 当底面，其余按 前、右、后、左、上 的顺序逐个枚举，每块 8 种放法（4 旋转 × 翻面）',
+              '检验：已占用的棱，新边与旧边 `&` 必须为 0，`|` 必须填满中间（`>= (1 << (n-1)) - 2`）'],
+        summary=['时间 `O(6! × 8^5)`，棱长不超过 10，位运算判断一次 `O(1)`',
+                 '先数 1 的个数是个便宜的剪枝；中间填满的检查可以提前砍掉非法分支',
+                 '部分棱在两个面里编码方向相反，用 `reverst_list` 对其中一方反向编码',
+                 '原文为 Python 2 风格，但在 Python 3 下可直接运行，代码未改动；视频里把示例 1 的 6 块板子换了顺序，搜索更快找到解'],
     ),
 )

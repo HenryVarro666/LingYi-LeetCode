@@ -35,6 +35,32 @@ def enc(p):
         .replace('?', '%3F').replace('<', '%3C').replace('>', '%3E')
 
 
+SITE = {}
+try:
+    SITE = json.load(open(os.path.join(HERE, 'site.json'), encoding='utf-8'))
+except (OSError, ValueError):
+    pass
+GITHUB = {}
+try:
+    GITHUB = json.load(open(os.path.join(HERE, 'github.json'), encoding='utf-8'))
+except (OSError, ValueError):
+    pass
+ROOT_DIR = [None]
+
+
+def player_url(target):
+    """online player URL for a video (GitHub's web UI cannot play mp4 files)"""
+    from urllib.parse import quote
+    rel = os.path.relpath(target, ROOT_DIR[0]).replace(os.sep, '/')
+    return f"https://{SITE['owner'].lower()}.github.io/{SITE['repo']}/?v={quote(rel, safe='/')}"
+
+
+def vlink(frm_dir, target, text):
+    """link to a video: the GIF next to the mp4 when it exists (GitHub shows GIFs but cannot play mp4)"""
+    gif = target[:-4] + '.gif' if target.endswith('.mp4') else target
+    return link(frm_dir, gif if os.path.exists(gif) else target, text)
+
+
 def link(frm_dir, target, text):
     return f'[{text}]({enc(os.path.relpath(target, frm_dir))})'
 
@@ -83,6 +109,7 @@ def id_of(name):
 class Ctx:
     def __init__(self, vault, root):
         self.vault, self.root = vault, root
+        ROOT_DIR[0] = root
         self.items = repo.items()
         self.by_id = {it['id']: it for it in self.items}
         self.docs = path_docs(vault)
@@ -220,7 +247,7 @@ def rewrite_wikilinks(text, ctx, frm_dir, author_hint=None):
                 return alias
         if t.endswith('.mp4'):
             v = VIDEO_MAP.get(t)
-            return link(frm_dir, ctx.p(v), alias) if v else alias
+            return vlink(frm_dir, ctx.p(v), alias) if v else alias
         tt = t[:-3] if t.endswith('.md') else t
         if tt in PATH_DOCS:
             return link(frm_dir, ctx.p(PATH_DOCS[tt]), alias)
@@ -282,11 +309,19 @@ def problem_readme(ctx, it, meta):
     head += ['', '| 作者 | 题解 | 动画讲解 |', '|---|---|---|']
     for a in ('ling', 'yiduobo'):
         sol = link(d, ctx.p(repo.solution(it, a)), '📄 题解') if it.get(a) else '—'
-        vid = link(d, ctx.p(repo.video(it, a)), f'▶︎ {name} · {AUTH[a]}.mp4') if ctx.has_video(it, a) else '—'
+        vid = (vlink(d, ctx.p(repo.video(it, a)), '▶︎ 动画（GIF）') + ' · ' + link(d, ctx.p(repo.video(it, a)), 'mp4 文件')
+               if ctx.has_video(it, a) else '—')
         if vid == '—' and a == 'ling' and ling_alias_video(ctx, it):
             v, ref = ling_alias_video(ctx, it)
-            vid = f'灵神这篇题解指向 {ref} 题的题解，请看那道题的视频：' + link(d, v, f'▶︎ {os.path.basename(v)}')
+            vid = f'灵神这篇题解指向 {ref} 题的题解，请看那道题的视频：' + vlink(d, v, f'▶︎ {os.path.basename(v)[:-4]}')
         head.append(f'| {AUTH[a]} | {sol} | {vid} |')
+    gifs = []
+    for a in ('ling', 'yiduobo'):
+        v = ctx.p(repo.video(it, a))
+        if ctx.has_video(it, a) and os.path.exists(v[:-4] + '.gif'):
+            gifs += [f'### {AUTH[a]}', '', f'![{name} · {AUTH[a]}]({enc(os.path.basename(v)[:-4] + ".gif")})', '']
+    if gifs:
+        head += ['', '## 动画讲解', '', '> 动图会循环播放；想暂停、拖进度条请下载上面表格里的 mp4 文件。', ''] + gifs
     stmt = meta.get('_stmt')
     if stmt:
         head += ['', '## 题目描述', '', stmt]
@@ -333,10 +368,10 @@ def problem_links(ctx, it, frm_dir):
         if it.get(a):
             bits.append(link(frm_dir, ctx.p(repo.solution(it, a)), '灵神' if a == 'ling' else 'yiduobo'))
         if ctx.has_video(it, a):
-            bits.append(link(frm_dir, ctx.p(repo.video(it, a)), '▶︎'))
+            bits.append(vlink(frm_dir, ctx.p(repo.video(it, a)), '▶︎'))
         elif a == 'ling' and ling_alias_video(ctx, it):
             v, ref = ling_alias_video(ctx, it)
-            bits.append(link(frm_dir, v, f'▶︎（见 {ref}）'))
+            bits.append(vlink(frm_dir, v, f'▶︎（见 {ref}）'))
         if bits:
             parts.append(' '.join(bits))
     return ' · '.join(parts)
@@ -410,9 +445,9 @@ def list_doc(ctx, title, rows, out_rel, intro=''):
             if it.get(a):
                 bits.append(link(d, ctx.p(repo.solution(it, a)), '📄'))
             if ctx.has_video(it, a):
-                bits.append(link(d, ctx.p(repo.video(it, a)), '▶︎'))
+                bits.append(vlink(d, ctx.p(repo.video(it, a)), '▶︎'))
             elif a == 'ling' and ling_alias_video(ctx, it):
-                bits.append(link(d, ling_alias_video(ctx, it)[0], f'▶︎见{ling_alias_video(ctx, it)[1]}'))
+                bits.append(vlink(d, ling_alias_video(ctx, it)[0], f'▶︎见{ling_alias_video(ctx, it)[1]}'))
             cells.append(' '.join(bits) or '—')
         if it and (ctx.has_video(it, 'ling') or ctx.has_video(it, 'yiduobo')):
             have += 1
@@ -449,7 +484,7 @@ def step_paths(ctx):
         cv = ctx.p(f'分类概念视频/{i + 1:02d} {c} · 概念讲解.mp4')
         parts += [f'## {i + 1:02d} {c}', '']
         if os.path.exists(cv):
-            parts += ['📘 ' + link(d, cv, f'{c} · 概念讲解视频'), '']
+            parts += ['📘 ' + vlink(d, cv, f'{c} · 概念讲解视频'), '']
         sub = list_doc(ctx, '', [(x['num'], x['title']) for x in hot if x['cat'] == c], out_rel).split('\n')
         parts += sub[sub.index('| 题号 | 题目 | 难度 | 灵茶山艾府 | yiduobo |'):]
     write(ctx.p(out_rel), '\n'.join(parts))
@@ -522,10 +557,10 @@ def step_index(ctx):
                     bits.append(link(d, ctx.p(repo.solution(it, a)), '📄'))
                     c[1 + k] += 1
                 if ctx.has_video(it, a):
-                    bits.append(link(d, ctx.p(repo.video(it, a)), '▶︎'))
+                    bits.append(vlink(d, ctx.p(repo.video(it, a)), '▶︎'))
                     c[3 + k] += 1
                 elif a == 'ling' and ling_alias_video(ctx, it):
-                    bits.append(link(d, ling_alias_video(ctx, it)[0], f'▶︎见{ling_alias_video(ctx, it)[1]}'))
+                    bits.append(vlink(d, ling_alias_video(ctx, it)[0], f'▶︎见{ling_alias_video(ctx, it)[1]}'))
                 cells.append(' '.join(bits) or '—')
             rows.append(f"| {it['id']} | {link(d, ctx.p(repo.folder(it)), it['title'])} | {it.get('diff') or ''} | {cells[0]} | {cells[1]} |")
         write(os.path.join(d, 'README.md'), '\n'.join([f'# {b}', '', f'共 {c[0]} 题 · 视频 {c[3] + c[4]} 个', '',
@@ -581,7 +616,7 @@ def step_folders(ctx):
     d = ctx.p('分类概念视频')
     vids = sorted(f for f in os.listdir(d) if f.endswith('.mp4')) if os.path.isdir(d) else []
     write(os.path.join(d, 'README.md'), '\n'.join(['# 分类概念视频', '', 'Hot100 的 17 个分类，每类一个「通用思想 + 模板」讲解视频，建议刷该类题之前先看。', '']
-          + [f'- {link(d, os.path.join(d, v), v[:-4])}' for v in vids] + ['', link(d, ctx.p('README.md'), '↑ 仓库首页'), '']))
+          + [f'- {vlink(d, os.path.join(d, v), v[:-4])}' for v in vids] + ['', link(d, ctx.p('README.md'), '↑ 仓库首页'), '']))
     d = ctx.p('我的代码')
     rows = ['| 文件 | 题目 |', '|---|---|']
     for f in sorted(os.listdir(d) if os.path.isdir(d) else [], key=lambda x: (len(x), x)):
@@ -648,11 +683,19 @@ def step_readme(ctx):
 
 全部题号见 [索引.md](索引.md)。
 
+🎬 每个视频都有 GIF 动图版：在 GitHub 上点开任意题目文件夹，README 里直接播放；也可以下载同名 mp4（能暂停、拖进度条）。
+
+## 下载
+
+- **题解文字版**（全部题解 Markdown + 刷题路径 + 学习笔记，不含图片和视频）：[下载/LingYi-LeetCode-题解文字版.zip]({enc('下载/LingYi-LeetCode-题解文字版.zip')})
+- **题解 + mp4 视频**（按题号分卷，每卷约 1.5 GB，解压后目录结构与仓库一致）：{('[Releases 页面](https://github.com/' + GITHUB['owner'] + '/' + GITHUB['repo'] + '/releases/latest)') if GITHUB.get('owner') else '见本仓库的 Releases 页面'}
+- 也可以 `git clone` 整个仓库（约 30 GB，含 GIF 和 mp4）。
+
 ## 怎么用
 
 1. 选一条刷题路径（下面），按顺序做题。
-2. 每道题后面：📂 = 题目文件夹，`灵神` / `yiduobo` = 题解原文，▶︎ = 动画视频。
-3. 题目文件夹里的 `README.md` 有题面、两份题解和视频链接。
+2. 每道题后面：📂 = 题目文件夹，`灵神` / `yiduobo` = 题解原文，▶︎ = 动画（GIF，GitHub 上直接能看）。
+3. 题目文件夹的 `README.md`：两份题解链接、两段动画讲解（GIF）、题面；同名 mp4 可下载。
 
 ## 刷题路径
 
@@ -678,13 +721,14 @@ def step_readme(ctx):
 
 ```
 LingYi-LeetCode/
-├── 题解/<题号区间>/<NNNN 题名>/     每题一个文件夹：README（题面 + 链接）、灵茶山艾府.md、yiduobo.md、动画视频 .mp4
+├── 题解/<题号区间>/<NNNN 题名>/     每题一个文件夹：README（链接 + 动画 + 题面）、灵茶山艾府.md、yiduobo.md、动画 .gif 和 .mp4
 ├── 题解/_assets/                     题解里的图片
 ├── 分类概念视频/                     17 个分类的概念讲解
 ├── 刷题路径/                         labuladong 速成路线图、灵神「如何科学刷题」+ 12 个题单、灵神原版题单、Hot100 / 面试 150 / 热题 173 / 字节高频
 ├── 学习笔记/                         Python 刷题函数、两位大神差异对照、DP / 二分题单总结、Hot100 笔记、逐行讲解
 ├── 我的代码/
 ├── 索引.md                           全部题号
+├── 下载/                             题解文字版压缩包
 └── engine/                           视频生成器（Python）+ 每个视频的配置文件 engine/configs/
 ```
 
@@ -705,8 +749,8 @@ python make.py configs/ling/0011.py out.mp4     # 渲染一个视频
 - 动画视频与 `engine/` 代码为本仓库原创；`engine/` 代码以 [MIT 许可](engine/LICENSE) 开源。
 '''
     write(ctx.p('README.md'), T)
-    write(ctx.p('.gitignore'), '_work/\n**/__pycache__/\n*.pyc\n*.part.mp4\nengine/out/\nengine/preview/\n.DS_Store\n.obsidian/\n')
-    write(ctx.p('.gitattributes'), '*.mp4 binary\n*.png binary\n*.jpg binary\n')
+    write(ctx.p('.gitignore'), '_work/\n_site/\n**/__pycache__/\n*.pyc\n*.part.mp4\n*.part.gif\nengine/out/\nengine/preview/\n.DS_Store\n.obsidian/\n')
+    write(ctx.p('.gitattributes'), '*.mp4 binary\n*.gif binary\n*.png binary\n*.jpg binary\n')
 
 
 STEPS = {'extras': step_extras, 'assets': step_assets, 'solutions': step_solutions, 'videos': step_videos, 'paths': step_paths, 'index': step_index,

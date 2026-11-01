@@ -1,56 +1,28 @@
-S1, S2 = 'a2b', '1b2'
-
-
-def _draw(cv, S, B, box, T):
-    x0, y0, x1, y1 = box
+def _cells(S):
     f = S.get('f')
-    if f is None:
-        return
-    m, n = len(S1), len(S2)
-    ln = S.get('_line', 0)
-    inner = S.get('_inner', {})
-    ci, cj = inner.get('i'), inner.get('j')
-    bf = B.get('f')
-    cv.text((x0 + 18, y0 + 4), 'f[i][j] = 可能的差 k（s1 比 s2 多的字符数）；黄框 = 正在展开，绿框 = 刚写入', 21, T['muted'], bold=True)
-    lw, top = 70, y0 + 110
-    cw = min(200, (x1 - x0 - lw - 40) / (n + 1))
-    chh = min(120, (y1 - top - 20) / (m + 1))
-    for j in range(n + 1):
-        X = x0 + lw + j * cw
-        cv.text((X + cw / 2, top - 14), f'j={j}', 20, T['pink'], anchor='mb', bold=True, mono=True)
-        cv.text((X + cw / 2, top - 40), S2[j - 1] if j else '', 22, T['pink'], anchor='mb', bold=True, mono=True)
-    for i in range(m + 1):
-        Y = top + i * chh
-        cv.text((x0 + lw - 10, Y + chh / 2 - 12), f'i={i}', 20, T['blue'], anchor='rm', bold=True, mono=True)
-        cv.text((x0 + lw - 10, Y + chh / 2 + 14), S1[i - 1] if i else '', 22, T['blue'], anchor='rm', bold=True, mono=True)
-        for j in range(n + 1):
-            X = x0 + lw + j * cw
-            cur = (i, j) == (ci, cj) and ln >= 12
-            changed = bf is not None and sorted(bf[i][j]) != sorted(f[i][j])
-            cv.rect((X + 3, Y + 3, X + cw - 3, Y + chh - 3), fill=T['panel2'], r=8,
-                    outline=T['yellow'] if cur else (T['green'] if changed else T['border']), width=4 if (cur or changed) else 1)
-            vals = sorted(f[i][j])
-            txt = ', '.join(str(v) for v in vals[:5]) + (' …' if len(vals) > 5 else '')
-            cv.text((X + cw / 2, Y + chh / 2), txt if vals else '', 24, T['green'] if changed else T['text'], anchor='mm', mono=True, bold=changed)
+    out = {}
+    if not f:
+        return out
+    for i, row in enumerate(f):
+        for j, c in enumerate(row):
+            if c:
+                out[f'f[{i}][{j}]'] = sorted(c)
+    return out
 
 
-
-def _cap_w(name):
-    def f(S, B, r):
-        t = S[name]
-        p, lim = S['p'], len(t)
-        base = S['j'] if name == 's2' else S['i']
-        if p < lim and p < base + 3 and '1' <= t[p] <= '9':
-            return f'`{name}[{p}] = {t[p]}` 是数字，且读的位数没超过 3 → 并入数值'
-        why = '已经到串尾' if p >= lim else ('已经连读了 3 位' if p >= base + 3 else f'`{name}[{p}] = {t[p]}` 是字母')
-        return f'不能再读数字了：{why}'
-    return f
+def _col(S, r, c, v):
+    i, j = S.get('i'), S.get('j')
+    if i is None or j is None:
+        return None
+    if (r, c) == (i, j):
+        return 'yellow'
+    return None
 
 
 CONFIG = dict(
     num=2060, title='同源字符串检测', difficulty='Hard', category='动态规划',
-    author='yiduobo', technique='f[i][j] 保存差值集合的 DP',
-    tags=['其他线性 DP', '难度分 2804'],
+    author='yiduobo', technique='f[i][j] 存长度差集合（前推式 DP）',
+    tags=['灵神题单·动态规划', '难度分 2804'],
     code='''
 class Solution(object):
     def possiblyEquals(self, s1, s2):
@@ -84,7 +56,7 @@ class Solution(object):
                         
                         if i < m and (s1[i] < '1' or s1[i] > '9'):
                             f[i + 1][j].add(k + 1)
-
+                    
                     else:
                         if i < m and j < n and s1[i] == s2[j] and k == 0:
                             f[i + 1][j + 1].add(0)
@@ -105,60 +77,59 @@ class Solution(object):
 
         return 0 in f[m][n]
 ''',
-    call=f'Solution().possiblyEquals({S1!r}, {S2!r})',
+    call='Solution().possiblyEquals("a2b", "3b")',
     expect=True,
-    skip=['for i in range(m + 1)', 'for j in range(n + 1)', 'for k in f[i][j]', 'p += 1', 'now = 0', 'p = j', 'p = i',
-          'now = now * 10'],
-    max_steps=90,
     views=[
-        dict(type='string', var='s1', label='s1', h=165, cell=80,
-             color=lambda S, k, v: 'blue' if k == S.get('_inner', {}).get('i') and S.get('_line', 0) >= 12 else None),
-        dict(type='string', var='s2', label='s2', h=165, cell=80,
-             color=lambda S, k, v: 'pink' if k == S.get('_inner', {}).get('j') and S.get('_line', 0) >= 12 else None),
-        dict(type='custom', draw=_draw, h=400),
+        dict(type='string', var='s1', label='s1（m = 3）', cell=70, h=150, pointers={'i': 'blue'}),
+        dict(type='string', var='s2', label='s2（n = 2）', cell=70, h=150, pointers={'j': 'pink'}),
+        dict(type='table', var=lambda S: [[len(c) for c in row] for row in S['f']] if S.get('f') else [[0]],
+             label='f[i][j] 里元素个数（黄 = 当前 (i, j)）', h=190, cell=52, color=_col),
+        dict(type='map', var=_cells, label='非空的 f[i][j]：k = s1 比 s2 多的长度', fmt=lambda k, v: f'{k} = {v}', h=240, font=24),
     ],
-    watch=[('i', 'i', 'blue'), ('j', 'j', 'pink'), ('k', 'k', 'orange'), ('now', 'now'), ('p', 'p')],
+    watch=[('i', 'i', 'blue'), ('j', 'j', 'pink'), ('k', 'k', 'orange')],
+    skip=['m = len', 'n = len', 'for j in range', 'for k in f', 'p = i', 'p = j', 'now = 0', 'now = now * 10', 'p += 1'],
     captions={
-        15: _cap_w('s2'), 26: _cap_w('s1'), 40: _cap_w('s1'), 47: _cap_w('s2'),
-        'f[i][j + 1].add(k - 1)': 's2 的字母补掉 s1 多出的 1 个字符：差 `{k} → {k - 1}`，写入 `f[{i}][{j + 1}]`',
-        'f[i + 1][j].add(k + 1)': 's1 的字母补掉 s2 多出的 1 个字符：差 `{k} → {k + 1}`，写入 `f[{i + 1}][{j}]`',
-        'f[i + 1][j + 1].add(0)': '字母对上，两边各前进 1 格，差仍是 0，写入 `f[{i + 1}][{j + 1}]`',
-        'm = len(s1)': '`m = {m}`，s1 = `{s1!r}`',
-        'n = len(s2)': '`n = {n}`，s2 = `{s2!r}`',
-        'f = [[set()': '`f[i][j]` 是一个集合：s1 前 i 个、s2 前 j 个字符对应的原串长度之差 k（s1 − s2）的所有可能',
-        'f[0][0].add(0)': '起点：两边都还没读，长度差 `0`',
-        'if k > 0': lambda S, B, r: (f'格子 `f[{S.i}][{S.j}]` 里取到差 `k = {S.k}`：`k > 0` → s1 多出 {S.k} 个字符，要由 s2 往后补' if S.k > 0
-                                    else f'格子 `f[{S.i}][{S.j}]` 里取到差 `k = {S.k}`，不大于 0 → 看下一个分支'),
-        'if j < n and (s2[j]': lambda S, B, r: (f'`s2[{S.j}] = {S.s2[S.j]}` 是字母，可以补 s1 的 1 个字符 → 下一行写入 `f[{S.i}][{S.j + 1}]`：`k − 1 = {S.k - 1}`'
-                                               if S.j < S.n and not ('1' <= S.s2[S.j] <= '9') else '`s2[j]` 是数字（上面已按数值处理）或已读完，不能当字母补位'),
-        'elif k < 0': lambda S, B, r: (f'`k = {S.k} < 0`：s2 多出 {-S.k} 个字符，要由 s1 往后补' if S.k < 0 else '`k = 0`，也不小于 0 → 进入 else（两边刚好等长）'),
-        'if i < m and (s1[i]': lambda S, B, r: (f'`s1[{S.i}] = {S.s1[S.i]}` 是字母，补 s2 的 1 个字符 → 下一行写入 `f[{S.i + 1}][{S.j}]`：`k + 1 = {S.k + 1}`'
-                                               if S.i < S.m and not ('1' <= S.s1[S.i] <= '9') else '`s1[i]` 是数字（上面已按数值处理）或已读完，不能当字母补位'),
-        'else:': '`k = 0`：两边长度刚好相等，可以三选一：字母对字母、s1 读数字、s2 读数字',
-        'if i < m and j < n and s1[i] == s2[j]': lambda S, B, r: (f'`s1[{S.i}] = {S.s1[S.i]}` == `s2[{S.j}]` → 两个字母==一一对上==，下一行写入 `f[{S.i + 1}][{S.j + 1}]`：差 0'
-                                                                  if S.i < S.m and S.j < S.n and S.s1[S.i] == S.s2[S.j]
-                                                                  else '不是两个相同的字母，不能直接对上'),
-        'f[i][p + 1].add(k - now)': '把 `s2[{j}..{p}]` 读成数 `{now}`：s2 对应的原串多了 {now} 个字符，差变成 `{k} − {now}` = =={k - now}==，写入 `f[{i}][{p + 1}]`',
-        'f[p + 1][j].add(k + now)': '把 `s1[{i}..{p}]` 读成数 `{now}`：差变成 `{k} + {now}` = =={k + now}==，写入 `f[{p + 1}][{j}]`',
-        'f[p + 1][j].add(now)': 'k = 0 时 s1 读数 `{now}`：s1 多出 {now} 个字符，差 = =={now}==，写入 `f[{p + 1}][{j}]`',
-        'f[i][p + 1].add(-now)': 'k = 0 时 s2 读数 `{now}`：s2 多出 {now} 个字符，差 = =={-now}==，写入 `f[{i}][{p + 1}]`',
-        'return 0 in': lambda S, B, r: f'`f[{S.m}][{S.n}] = {sorted(S.f[S.m][S.n])}`，{"含有 0 → 两个串能还原成同一个原串" if r else "没有 0 → 不可能同源"}，返回 =={r}=='
+        'f = [[set()': '`f[i][j]` 是集合：`s1[:i]` 与 `s2[:j]` 匹配时，原串长度差 `k = len1 − len2` 的所有可能',
+        'f[0][0].add(0)': '起点：什么都没读，长度差 `0`',
+        'for i in range': lambda B, S, r: (f'`i = {S.i + 1}`：按 `i`、`j` 从小到大推，保证 `f[i][j]` 用到时已填完' if S.i + 1 <= S.m else '所有状态都填完了，看结果'),
+        'if k > 0': lambda B, S, r: (f'`f[{S.i}][{S.j}]` 里有 `k = {S.k}`：==s1 多出 {S.k} 个字符== → 只尝试用 s2 补位' if S.k > 0
+                                      else f'`k = {S.k}` 不大于 0，看下一种情况'),
+        'while p < n and p < j + 3': lambda B, S, r: ('s2 从 `j` 起最多 3 位数字，连成 `now`，当作 s2 的一段长度来补位' if S.p < S.n and S.s2[S.p] in '123456789' and S.p < S.j + 3
+                                                         else '没有（更多）数字可展开'),
+        'f[i][p + 1].add(k - now)': '用 s2 的数字 `{now}` 补位：`k − now = {k - now}` → 加入 `f[{i}][{p+1}]`',
+        'if j < n and (s2[j] < ': lambda B, S, r: (f'`s2[{S.j}] = {S.s2[S.j]!r}` 是字母 → 可以抵掉 s1 多出的一个字符' if S.j < S.n and not ('1' <= S.s2[S.j] <= '9')
+                                                      else '`s2[j]` 是数字（或已读完），不能当字母补位'),
+        'f[i][j + 1].add(k - 1)': '字母补位：`k − 1 = {k - 1}` → 加入 `f[{i}][{j+1}]`',
+        'elif k < 0': lambda B, S, r: (f'`k = {S.k} < 0`：==s2 多出 {-S.k} 个字符== → 只尝试用 s1 补位' if S.k < 0 else '`k = 0`：既不多也不少 → 走最后一种情况'),
+        'while p < m and p < i + 3': lambda B, S, r: ('s1 从 `i` 起最多 3 位数字，连成 `now`' if S.p < S.m and S.s1[S.p] in '123456789' and S.p < S.i + 3
+                                                         else '没有（更多）数字可展开'),
+        'f[p + 1][j].add(k + now)': '用 s1 的数字 `{now}` 补位：`k + now = {k + now}` → 加入 `f[{p+1}][{j}]`',
+        'if i < m and (s1[i] < ': lambda B, S, r: (f'`s1[{S.i}] = {S.s1[S.i]!r}` 是字母 → 抵掉 s2 多出的一个字符' if S.i < S.m and not ('1' <= S.s1[S.i] <= '9')
+                                                      else '`s1[i]` 是数字（或已读完），不能当字母补位'),
+        'f[i + 1][j].add(k + 1)': '字母补位：`k + 1 = {k + 1}` → 加入 `f[{i+1}][{j}]`',
+        'if i < m and j < n and s1[i] == s2[j]': lambda B, S, r: (f'`k = 0`：长度相同。`s1[{S.i}] = {S.s1[S.i]!r}`，`s2[{S.j}] = {S.s2[S.j]!r}`' + ('，相同 → 一起前进' if S.s1[S.i] == S.s2[S.j] else '，不同')
+                                                                    if S.i < S.m and S.j < S.n else '`k = 0`：有一边已读完，不能配字母'),
+        'f[i + 1][j + 1].add(0)': '两边字母相同，一起前进：`f[{i+1}][{j+1}]` 加入 `0`',
+        'f[p + 1][j].add(now)': '`k = 0` 时 s1 展开数字：s1 多出 `{now}` → 加入 `f[{p+1}][{j}]`',
+        'f[i][p + 1].add(-now)': '`k = 0` 时 s2 展开数字：s2 多出 `{now}` → 加入 `f[{i}][{p+1}]`（即 `k = −{now}`）',
+        'return 0 in f[m][n]': '`f[{m}][{n}]` = {sorted(f[m][n])}：含 `0` → 两边读完且长度差 0 → =={ret}=='
     },
+    max_steps=90,
     cards=dict(
-        one_liner='f[i][j] 存差值集合：k 只往 0 的方向补',
-        complexity='时间约 `O(m·n·K)`（K = 差值个数，约 1000），空间同阶',
-        problem=['`s1`、`s2` 是编码后的串：字母原样，数字表示一段被压缩的任意字母（连续数字最多 3 位）',
-                 '问两个串能否由==同一个原字符串==编码得到',
-                 '示例：`s1 = "internationalization", s2 = "i18n"` → `true`',
-                 '本视频演示：`s1 = "a2b", s2 = "1b2"` → `true`（都是 4 个字符）'],
-        quote='因为k最终是奔着0去的，因此在某一时刻k大于等于0时，这些数字始终是要被s2中的字符匹配掉的，因此在这里没必要继续考虑往里面添加s1的字符。',
-        quote_src='—— yiduobo 题解',
-        idea=['`f[i][j][k]`：s1 前 i 个、s2 前 j 个，s1 比 s2 多 k 个可用字符是否出现；用集合存 k',
-              '`k > 0`：只让 s2 往后补（字母补 1 个，或读 1~3 位数字）；`k < 0` 对称，只让 s1 补',
-              '`k = 0`：字母对字母，或任一边读数字；最后看 `0 in f[m][n]`'],
-        summary=['时间/空间：状态 `m·n` 个集合，每个集合差值最多约 2000 个',
-                 '易错：数字读法最多 3 位，`now = now * 10 + int(c)` 逐位累积，每一位都是一个新状态',
-                 '易错：`k = 0` 时两边都能读数字；字母对字母要求 `s1[i] == s2[j]`',
-                 '原文本身已是 Python 3 可运行写法（函数内无 `/`、`xrange`），无需改动'],
+        one_liner='f[i][j] 记下长度差 k：谁多出来，就只让另一边去补',
+        complexity='时间 `O(m·n·K)`，空间 `O(m·n·K)`，`K` 是集合大小（约 1000）',
+        problem=['`s1`、`s2` 是编码串：数字表示一段子串被替换成了它的长度',
+                 '问是否存在同一个原字符串，能同时编码成 `s1` 和 `s2`',
+                 '示例：`"l123e"` 和 `"44"` → `true`；本视频：`"a2b"` 与 `"3b"` → `true`'],
+        quote='因此在某一时刻k大于等于0时，这些数字始终是要被s2中的字符匹配掉的，因此在这里没必要继续考虑往里面添加s1的字符，而是尝试添加s2中的字符。',
+        quote_src='—— yiduobo 题解原文',
+        idea=['`f[i][j][k]`：`s1` 前 `i`、`s2` 前 `j` 个字符，`s1` 比 `s2` 多出 `k` 个可用字符',
+              '`k > 0` 只让 s2 补（数字或字母），`k < 0` 只让 s1 补，`k = 0` 两边都可以展开或配字母',
+              '`k` 实际取值稀疏，改成每格一个集合，最后看 `0 in f[m][n]`'],
+        summary=['时间 `O(m·n·K)`，`K` 为每格集合大小（约 ±1000）',
+                 '易错：数字最多连续 3 位，每多读一位都要单独转移',
+                 '易错：`k = 0` 时字母只能和对面字母相等才能同时前进',
+                 '原文为 Python 2 风格，本题代码无需改动（仅删去了类型说明文档字符串）',
+                 '对比灵神：他用递归 + `vis` 去重；这里是顺序填表，用集合存稀疏的 `k`'],
     ),
 )

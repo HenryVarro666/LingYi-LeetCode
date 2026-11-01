@@ -1,6 +1,6 @@
 CONFIG = dict(
     num=2006, title='差的绝对值为 K 的数对数目', difficulty='Easy', category='常用数据结构',
-    author='yiduobo', technique='哈希计数 · 只配 num + k',
+    author='yiduobo', technique='哈希表计数 · 只看 num 与 num+K',
     code='''
 class Solution(object):
     def countKDifference(self, nums, k):
@@ -15,37 +15,36 @@ class Solution(object):
         
         return res
 ''',
-    call='Solution().countKDifference([1,2,2,1,3], 1)',
+    call='Solution().countKDifference([3,1,3,5,1], 2)',
     expect=6,
     views=[
-        dict(type='array', var='nums', pointers={}, h=150, label='nums'),
-        dict(type='map', var='cnt_dict', label='cnt_dict（数字 → 出现次数）', fmt=lambda k, v: f'{k} → {v}', h=170),
-        dict(type='text', fn=lambda S: (f"数 `{S['num']}` 与 `{S['num'] + S['k']}`：`{S['cnt_dict'].get(S['num'], 0)} × {S['cnt_dict'].get(S['num'] + S['k'], 0)}`，累计 res 为 =={S['res']}=="
-                                         if S['_line'] >= 9 and 'num' in S and 'res' in S else '先统计出现次数，再配对'), h=60),
+        dict(type='array', var='nums', h=190, cell=100, label='nums',
+             color=lambda S, i, v: 'blue' if S.get('_line') == 10 and 'num' in S and v == S['num'] else None),
+        dict(type='map', var='cnt_dict', h=220, label='cnt_dict：数 → 出现次数'),
+        dict(type='text', size=28, h=100, fn=lambda S: (f"`{S['num']}` 出现 `{S['cnt_dict'][S['num']]}` 次，`{S['num'] + S['k']}` 出现 `{S['cnt_dict'].get(S['num'] + S['k'], 0)}` 次 → 乘积 ==`{S['cnt_dict'][S['num']] * S['cnt_dict'].get(S['num'] + S['k'], 0)}`==" if S.get('_line') == 10 and 'num' in S else '')),
     ],
-    watch=[('k', 'k', 'blue'), 'num', ('res', 'res', 'green')],
+    watch=[('k', 'k', 'blue'), ('num', 'num', 'pink'), ('res', 'res', 'green')],
     captions={
-        'res = 0': '`res` 累计合法数对的数目',
+        'res = 0': '`res` 累计合法数对数',
         'cnt_dict = {}': '`cnt_dict` 统计每个数出现的次数',
-        'cnt_dict[num] = cnt_dict.get': '`{num}` 出现次数 → `{cnt_dict[num]}`',
-        'for num in cnt_dict': '遍历哈希表里的每个不同的数（不是遍历原数组）',
-        'res += ': '`{num}` 出现 `{cnt_dict[num]}` 次，`{num + k}` 出现 `{cnt_dict.get(num + k, 0)}` 次：乘积 `{cnt_dict[num] * cnt_dict.get(num + k, 0)}` 对 → `res = {res}`；只看 `num + k`，`num - k` 在遍历到 `num - k` 时已算过，不会重复',
-        'return res': '所有乘积累加，答案 `{res}`',
+        'cnt_dict[num] = ': '数 `{num}` 出现次数 → `{cnt_dict[num]}`',
+        'res += ': '只配 `num` 和 `num + k`（`num - k` 在遍历到它时已算过，避免重复）：`{cnt_dict[num]} × {cnt_dict.get(num + k, 0)}` → `res` = =={res}==',
+        'return res': '全部数都配对完，答案 `{res}`',
     },
     cards=dict(
-        one_liner='先计数，再让每个数只和 num + k 配对',
+        one_liner='次数相乘：num 出现 a 次、num+K 出现 b 次，就有 a×b 对',
         complexity='时间 `O(n)`，空间 `O(n)`',
-        problem=['给整数数组 `nums` 和整数 `k`，数对 `(i, j)` 满足 `i < j` 且 `|nums[i] - nums[j]| == k`',
-                 '返回这样的数对数目',
-                 '示例：`[1,2,2,1]`，`k = 1` → `4`；本视频用 `[1,2,2,1,3]` → `6`'],
-        quote='与其差的绝对值为K的数可能是num - K或者num + K。为了避免重复，此时只需要考虑num与num + K',
+        problem=['数对 `(i, j)` 满足 `i < j` 且 `|nums[i] - nums[j]| == k`，求个数',
+                 '本视频：`[3,1,3,5,1], k=2` → `6`'],
+        quote='与其差的绝对值为K的数可能是num - K或者num + K。为了避免重复，此时只需要考虑num与num + K，因为num与num - K的情况在遍历到num - K时就考虑过了。',
         quote_src='—— yiduobo 题解原文',
-        idea=['一趟遍历，哈希表 `cnt_dict` 记下每个数出现几次',
-              '再遍历哈希表：`num` 出现 a 次，`num + k` 出现 b 次，就能配出 ==a × b== 对',
-              '`num - k` 那一边留给 `num - k` 自己算，不重复'],
-        summary=['时间 `O(n)`，空间 `O(n)`；数据范围小，双重循环 `O(n^2)` 也能过',
-                 '==只配 num + k==，同时配 num - k 会把每对算两遍',
-                 '`cnt_dict.get(num + k, 0)`：不存在时按 0 处理',
-                 '原文本身就是 Python 3 可运行的写法，未做修改'],
+        idea=['先用哈希表 `cnt_dict` 一趟统计每个数出现的次数',
+              '再遍历哈希表里的每个不同的数 `num`，只考虑它和 `num + k`',
+              '两边分别出现 `a`、`b` 次，就能组成 `a × b` 个数对，累加'],
+        summary=['时间 `O(n)`，空间 `O(n)`',
+                 '易错点：只取 `num + k` 一个方向，否则每对会被数两遍',
+                 '遍历的是哈希表（不同的数），不是原数组，所以要乘出现次数',
+                 '对比灵神：灵神遍历原数组、取 `v - k`；yiduobo 遍历哈希表、取 `num + k` 再乘次数',
+                 '原文无需改动，直接可在 Python 3 运行'],
     ),
 )

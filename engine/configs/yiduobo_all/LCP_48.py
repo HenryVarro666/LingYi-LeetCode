@@ -1,109 +1,4 @@
-PIECES = [[0, 0, 0], [1, 0, 0], [2, 0, 0], [3, 2, 1], [4, 2, 1]]
-DX = [0, 1, 1, 1]
-DY = [1, 1, 0, -1]
-X0, X1, Y0, Y1 = -3, 6, -3, 5
-
-
-def _line(st, sx, sy, c, dx, dy):
-    fill = None
-    for k in range(5):
-        p = (sx + k * dx, sy + k * dy)
-        v = st.get(p)
-        if v == c:
-            continue
-        if v == 1 - c or fill is not None:
-            return None
-        fill = p
-    return fill
-
-
-def _fills(st, x, y, c):
-    out = set()
-    for ln in range(5):
-        for d in range(4):
-            f = _line(st, x - ln * DX[d], y - ln * DY[d], c, DX[d], DY[d])
-            if f is not None:
-                out.add(f)
-    return out
-
-
-def _fmt(s):
-    return '、'.join(f'({a},{b})' for a, b in sorted(s)) if s else '无'
-
-
-def _draw(cv, S, B, box, T):
-    x0, y0, x1, y1 = box
-    st = S.get('piece_dict') or {}
-    nx, ny = X1 - X0 + 1, Y1 - Y0 + 1
-    cell = min((x1 - x0 - 40) / nx, (y1 - y0 - 90) / ny, 64)
-    sx = x0 + 20 + ((x1 - x0 - 40) - cell * nx) / 2
-    sy = y0 + 56
-    cv.text((x0 + 18, y0 + 4), '棋盘（黄环 = 试下的位置，绿环 = 黑成五处，红环 = 白成五处）', 20, T['muted'], bold=True)
-
-    def ctr(p):
-        return sx + (p[0] - X0) * cell + cell / 2, sy + (Y1 - p[1]) * cell + cell / 2
-
-    for i in range(nx):
-        for j in range(ny):
-            X, Y = sx + i * cell, sy + j * cell
-            cv.rect((X, Y, X + cell, Y + cell), fill=T['panel2'] if (i + j) % 2 == 0 else (30, 36, 46), outline=T['border'])
-    for i in range(nx):
-        cv.text((sx + i * cell + cell / 2, sy + ny * cell + 4), X0 + i, 16, T['dim'], anchor='mt', mono=True)
-    for j in range(ny):
-        cv.text((sx - 6, sy + j * cell + cell / 2), Y1 - j, 16, T['dim'], anchor='rm', mono=True)
-    line = S.get('_line')
-    cand = (S['x'], S['y']) if 'x' in S and 'y' in S and 'candidate' in S and line is not None and line >= 60 else None
-    marks = []
-    nf = S.get('need_fill') or set()
-    for p in nf:
-        marks.append((p, 'red'))
-    if cand is not None and st.get(cand) == 0:
-        for p in _fills(st, cand[0], cand[1], 0):
-            marks.append((p, 'green'))
-    for p, col in marks:
-        if X0 <= p[0] <= X1 and Y0 <= p[1] <= Y1:
-            X, Y = ctr(p)
-            cv.rect((X - cell * 0.42, Y - cell * 0.42, X + cell * 0.42, Y + cell * 0.42), outline=T[col], width=5, r=cell * 0.4)
-    if cand is not None and X0 <= cand[0] <= X1 and Y0 <= cand[1] <= Y1:
-        X, Y = ctr(cand)
-        cv.rect((X - cell * 0.46, Y - cell * 0.46, X + cell * 0.46, Y + cell * 0.46), outline=T['yellow'], width=4, r=cell * 0.4)
-    for p, c in st.items():
-        if X0 <= p[0] <= X1 and Y0 <= p[1] <= Y1:
-            X, Y = ctr(p)
-            r = cell * 0.32
-            if c == 0:
-                cv.rect((X - r, Y - r, X + r, Y + r), fill=(12, 14, 18), outline=(200, 205, 215), width=2, r=r)
-            else:
-                cv.rect((X - r, Y - r, X + r, Y + r), fill=(235, 238, 245), outline=(120, 126, 140), width=2, r=r)
-
-
-def _cap_black(S, B, r):
-    x, y = S.x, S.y
-    f = _fills(S.piece_dict, x, y, 0)
-    if f:
-        return f'黑子 `({x},{y})`：枚举经过它的所有 5 连窗口，缺一格的位置 = `{_fmt(f)}` → ==一步成五，黑直接获胜=='
-    return f'黑子 `({x},{y})`：经过它的 5 连窗口里没有「5 缺 1」，黑一步赢不了'
-
-
-def _cap_white(S, B, r):
-    x, y = S.x, S.y
-    f = _fills(S.piece_dict, x, y, 1)
-    return f'白子 `({x},{y})` 的「5 缺 1」位置：`{_fmt(f)}` → 记入 `need_fill`' if f else f'白子 `({x},{y})` 没有「5 缺 1」，不构成威胁'
-
-
-def _cap_try(S, B, r):
-    x, y = S.x, S.y
-    f = _fills(S.piece_dict, x, y, 0)
-    if len(f) >= 2:
-        return f'黑子落在 `({x},{y})` 后，成五的位置有 `{_fmt(f)}` 共 =={len(f)}== 处：白==防不住两处== → 黑胜'
-    return f'黑子落在 `({x},{y})` 后，成五的位置只有 `{len(f)}` 处（{_fmt(f)}）：白一步就能堵住，这个位置不够'
-
-
-CONFIG = dict(
-    num='LCP 48', title='无限棋局', difficulty='Hard', category='贪心与思维',
-    author='yiduobo', technique='分类讨论 + 枚举「5 缺 1」',
-    tags=['灵神题单·常用数据结构', '灵神题单·数学算法'],
-    code='''
+CODE = r"""
 class Solution(object):
     def gobang(self, pieces):
 
@@ -173,55 +68,134 @@ class Solution(object):
             piece_dict.pop((x, y))
 
         return 'None'
-''',
-    call=f'Solution().gobang({PIECES!r})',
+"""
+_LN = CODE.strip('\n').split('\n')
+
+
+def _find(s):
+    for k, l in enumerate(_LN):
+        if s in l:
+            return k + 1
+    return 10 ** 6
+
+
+_LNEED = _find('need_fill = set()')
+_LCAND = _find('for x, y in candidate')
+_LCAND0 = _find('candidate = set()')
+
+
+def _draw(cv, S, B, box, T):
+    x0, y0, x1, y1 = box
+    col = S.get('piece_dict')
+    cv.text((x0 + 18, y0 + 2), '棋盘（红框 = 白的缺口，绿框 = 当前点的缺口，黄环 = 试下的黑子）', 20, T['muted'], bold=True)
+    if not col:
+        return
+    xs = [k[0] for k in col]
+    ys = [k[1] for k in col]
+    mnx, mxx = min(xs) - 2, max(xs) + 2
+    mny, mxy = min(ys) - 2, max(ys) + 2
+    nx, ny = mxx - mnx + 1, mxy - mny + 1
+    top = y0 + 40
+    cs = min((x1 - x0 - 40) / nx, (y1 - top - 14) / ny, 64)
+    ox = x0 + 20 + ((x1 - x0 - 40) - cs * nx) / 2
+    oy = top
+
+    def pos(p):
+        return ox + (p[0] - mnx + 0.5) * cs, oy + (p[1] - mny + 0.5) * cs
+    for a in range(nx):
+        X = ox + (a + 0.5) * cs
+        cv.line([(X, oy + 0.5 * cs), (X, oy + (ny - 0.5) * cs)], T['border'], 1)
+        cv.text((X, oy + ny * cs + 1), mnx + a, 14, T['dim'], anchor='mt', mono=True)
+    for b in range(ny):
+        Y = oy + (b + 0.5) * cs
+        cv.line([(ox + 0.5 * cs, Y), (ox + (nx - 0.5) * cs, Y)], T['border'], 1)
+        cv.text((ox + 2, Y), mny + b, 14, T['dim'], anchor='lm', mono=True)
+    r = cs * 0.36
+    for k, v in col.items():
+        X, Y = pos(k)
+        if v == 0:
+            cv.rect((X - r, Y - r, X + r, Y + r), fill=(20, 22, 26), outline=T['blue'], width=2, r=r)
+        else:
+            cv.rect((X - r, Y - r, X + r, Y + r), fill=(235, 235, 235), r=r)
+    for w in (S.get('need_fill') or ()):
+        X, Y = pos(w)
+        cv.rect((X - r - 3, Y - r - 3, X + r + 3, Y + r + 3), outline=T['red'], width=3, r=6)
+    for w in (S.get('_inner', {}).get('fill_set') or ()):
+        X, Y = pos(w)
+        cv.rect((X - r - 3, Y - r - 3, X + r + 3, Y + r + 3), outline=T['green'], width=3, r=6)
+    ln = S.get('_line', 0)
+    if ln >= _LCAND and 'x' in S and 'y' in S and (S['x'], S['y']) in col:
+        X, Y = pos((S['x'], S['y']))
+        cv.rect((X - r - 6, Y - r - 6, X + r + 6, Y + r + 6), outline=T['yellow'], width=4, r=r + 6)
+
+
+def _fml(S):
+    ln = S.get('_line', 0)
+    if 'need_fill' not in S:
+        return '「5 缺 1」：同一方向 5 格里恰好 4 子同色、1 格空，补上那一子就成五'
+    if ln >= _LCAND:
+        return '情况 3/4：试下一颗黑子，看它能不能同时造出 ≥ 2 处「5 缺 1」'
+    return f"白的「5 缺 1」位置：`{sorted(S['need_fill'])}`" if S['need_fill'] else '白暂时没有「5 缺 1」，黑可以放心发展'
+
+
+def _cap_cp(S, B, r):
+    x, y, c = S.x, S.y, S.c
+    who = '黑' if c == 0 else '白'
+    fs = sorted(S.fill_set)
+    return f'以 `({x}, {y})` 为中心扫 4 个方向 × 5 种起点：{who}的「5 缺 1」缺口有 `{len(fs)}` 处' + (f' `{fs}`' if fs else '')
+
+
+CONFIG = dict(
+    num='LCP 48', title='无限棋局', difficulty='Hard', category='常用数据结构',
+    author='yiduobo', technique='「5 缺 1」检测 + 枚举黑子发展位置',
+    tags=['常用数据结构', '数学算法'],
+    code=CODE,
+    call='Solution().gobang([[1, 1, 0], [0, 2, 0], [2, 0, 0], [5, 5, 1]])',
     expect='Black',
-    max_events=600000,
-    max_steps=44,
-    skip=[5, 'piece_dict[(x, y)] = c', 'dx = [0', 'dy = [1', 'need_fill = set()', 'check_line', 'fill_x', 'fill_y', 'fill_set', 'for length', 'for index',
-          'c = piece_dict.get', 'x = sx', 'y = sy', 'if c == check_c', 'continue', 'if (c == 1', 'return None, None',
-          'if piece_dict.get', 'candidate.add', 'candidate = set()', 'else:'],
+    max_steps=90, max_events=60000,
+    skip=['def ', 'fill_x, fill_y = None, None', 'for length in range', 'x = sx + length', 'y = sy + length', 'c = piece_dict.get((x, y))',
+          'if c == check_c', 'continue', 'if (c == 1 - check_c)', 'return None, None', 'fill_x, fill_y = x, y', 'return fill_x, fill_y',
+          'fill_set = set()', 'for index in range(4)', 'fill_x, fill_y = check_line', 'if fill_x is not None', 'fill_set.add', 'dx = [', 'dy = [', 'if c == 0:', _find('for x, y, c in pieces'),
+          'piece_dict[(x, y)] = c', 'if piece_dict.get(', 'candidate.add', 'else:'],
     views=[
-        dict(type='custom', draw=_draw, h=600),
+        dict(type='text', fn=_fml, size=26, h=60),
+        dict(type='custom', draw=_draw, h=560),
     ],
-    watch=[('x', 'x'), ('y', 'y'), ('need_fill', 'sorted(need_fill) if "need_fill" in S else []', 'red')],
+    watch=[('x', 'x', 'blue'), ('y', 'y', 'pink'), ('need_fill', lambda S: len(S['need_fill']) if 'need_fill' in S else None, 'red'),
+           ('candidate', lambda S: len(S['candidate']) if 'candidate' in S else None, 'yellow')],
     captions={
-        'piece_dict = {}': '把棋子放进字典：坐标 → 颜色（0 黑 / 1 白），无边界棋盘用字典最方便',
-        36: lambda S, B, r: ('第一步：黑子有「5 缺 1」吗？白子有吗？逐个棋子检查' if 'c' not in B else f'下一枚棋子：`({S.x},{S.y})`，颜色 `{S.c}`'),
-        37: lambda S, B, r: f'`({S.x},{S.y})` 是' + ('黑子' if S.c == 0 else '白子'),
-        'if len(check_point(x, y, c))': _cap_black,
-        'need_fill.update': _cap_white,
-        'if len(need_fill) >= 2': lambda S, B, r: (f'白子要成五的位置有 `{len(S.need_fill)}` 处：黑只能堵一处 → ==白胜==' if len(S.need_fill) >= 2
-                                                   else f'白子成五的位置只有 `{len(S.need_fill)}` 处，黑还防得住'),
-        'if len(need_fill) == 1': lambda S, B, r: ('只有一处白子威胁：黑==必须下在那里防守==，候选位置只有它' if len(S.need_fill) == 1
-                                                  else '白子没有威胁：黑可以自由「发展」一枚黑子'),
-        'candidate = need_fill': '候选位置 = 白子要成五的那一格',
-        51: '黑可以自由发展：只试离现有黑子距离 ≤ 2 的空位（太远的孤子一步成不了五）',
-        52: lambda S, B, r: (f'黑子 `({S.x},{S.y})`：它四个方向上 ±1、±2 的空位都加入 `candidate`' if S.c == 0 else f'白子 `({S.x},{S.y})`，跳过'),
-        'for x, y in candidate': lambda S, B, r: f'试把黑子下在 `({S.x},{S.y})`',
-        'piece_dict[(x, y)] = 0': lambda S, B, r: f'临时把黑子放到 `({S.x},{S.y})`',
-        'if len(check_point(x, y, 0)) >= 2': _cap_try,
-        'piece_dict.pop': '不够 2 处，拿掉这枚试探的黑子，换下一个候选',
-        "return 'Black'": '找到了「一手造出两处成五」的位置：白防不住 → 返回 ==Black==',
-        "return 'None'": '所有位置都试完了：三步内无人能赢 → ==None==',
+        'return fill_set': _cap_cp,
+        'if len(check_point(x, y, c)):': lambda S, B, r: ('黑子 `({}, {})`：它的 5 连窗口里有「5 缺 1」吗？有就一手补成五，黑直接胜'.format(S.x, S.y)),
+        'need_fill.update(check_point(x, y, c))': '白子 `({x}, {y})` 的「5 缺 1」缺口，收进 `need_fill`',
+        'need_fill = set()': '`need_fill` 收集白子所有的「5 缺 1」缺口',
+        'return \'Black\'': lambda S, B, r: ('黑一子补成五连 → =="Black"==' if S.get('_line', 0) < _LCAND else '试下的这颗黑子造出 ≥ 2 处「5 缺 1」，白堵不住 → =="Black"=='),
+        'if len(need_fill) >= 2': lambda S, B, r: (f'白有 `{len(S.need_fill)}` 处缺口 ≥ 2：黑堵不过来 → =="White"==' if len(S.need_fill) >= 2 else f'白的缺口 `{len(S.need_fill)}` 处，不到 2 处：白没有双杀'),
+        'if len(need_fill) == 1': lambda S, B, r: ('白恰好 1 处缺口：黑必须下在这里防守，候选点就只有它' if len(S.need_fill) == 1 else '白没有缺口：黑可以自由发展一子'),
+        'candidate = need_fill': '候选点 = 白的缺口（黑被迫防守）',
+        'candidate = set()': '候选点：黑子周围距离 ≤ 2 的空位（再远就是孤子，一步连不成五）',
+        'for x, y, c in pieces': lambda S, B, r: ('棋子都检查完了' if B.get('x') == S.get('x') and B.get('y') == S.get('y') and 'x' in B
+                                                  else (f'黑子 `({S.x}, {S.y})`：沿 4 个方向，把距离 1、2 的空位都加进候选' if S.c == 0 else f'白子 `({S.x}, {S.y})`，不用发展，跳过')
+                                                  if S.get('_line', 0) >= _LCAND0 else f'检查棋子 `({S.x}, {S.y})`（{"黑" if S.c == 0 else "白"}）'),
+        'for x, y in candidate': '逐个试下候选点（黑第一手）',
+        'piece_dict[(x, y)] = 0': '黑第一手试下 `({x}, {y})`',
+        'if len(check_point(x, y, 0)) >= 2': '以这颗新子为中心，「5 缺 1」缺口是否 ≥ 2？有则白只能堵一处',
+        'piece_dict.pop((x, y))': '不够 2 处：撤回这手，试下一个',
+        'return \'None\'': '所有候选都试过，黑造不出双缺口 → =="None"==',
     },
     cards=dict(
-        one_liner='先看一步成五，再看谁有两处威胁，最后枚举黑的发展',
-        complexity='时间 `O(n·20·5)` + 候选 `O(n·8)` 个位置的检查，空间 `O(n)`',
-        problem=['无边界五子棋，黑先，黑 / 白 / 黑 三步内谁先五连即胜',
-                 '`pieces[i] = [x, y, color]`，`0` 黑 `1` 白，局面当前无胜者',
-                 '返回 `"Black"` / `"White"` / `"None"`',
-                 '本视频：黑已有三连，白两子在一旁 → `"Black"`'],
-        quote='综合起来可以发现，一共只有四种情况：1、黑棋可以直接取胜 2、黑棋无法直接取胜，但是白子存在两处或以上的5缺1需要防守，此时白棋取胜 3、……白子存在一处5缺1的防守，此时黑子需要在此防守 4、黑棋无法直接取胜，且无需防守白子。此时黑子可以选择在任意位置发展一处黑子。',
+        one_liner='找「5 缺 1」：缺口一处就防，两处就输，黑再试着造两处',
+        complexity='时间 `O(n·C)`（C 为常数：4 方向 × 5 起点），空间 `O(n)`',
+        problem=['无边界五子棋，黑先、黑白黑三步内，先连成同行/列/对角线连续 5 子者胜',
+                 '`pieces[i]=[x,y,color]`，`0` 黑 `1` 白；当前无胜者，双方最优',
+                 '返回 `"Black"` / `"White"` / `"None"`'],
+        quote='如果当前盘面上有5缺1的黑子，那么将其填充成5连，黑就能取胜。……如果存在两个位置可以使得白子形成5连，说明黑防守不过来，此时白能取胜。',
         quote_src='—— yiduobo 题解原文',
-        idea=['「5 缺 1」= 一个 5 连窗口里已有 4 个同色子、另 1 格是空的',
-              '对每枚棋子，枚举横竖两斜 4 个方向 × 5 种起点，窗口里遇到异色或缺两格就作废',
-              '黑有 5 缺 1 直接赢；白有两处白赢；白只有一处黑必须去堵',
-              '否则黑「发展」一枚：只试距离现有黑子 ≤ 2 的空位，看能否一手造出两处 5 缺 1'],
-        summary=['时间 `O(n)` 常数很大，空间 `O(n)`',
-                 '易错：窗口要考虑 `XXXX_`、`_XXXX`、`XX_XX` 等所有缺口位置，所以 5 种起点',
-                 '发展的黑子只需检查==包含它的==窗口，其他黑子一开始已检查过',
-                 '原文本身可直接在 Python 3 运行，未做修改',
-                 '视频中 `check_point` / `check_line` 内部没有逐行展示，结果直接画在棋盘上'],
+        idea=['「5 缺 1」：某个方向的 5 格里 4 子同色、1 格空（XXXX_、XX_XX 都算）',
+              '黑有缺口直接赢；白缺口 ≥ 2 → 白赢；恰好 1 处 → 黑被迫防守',
+              '否则黑在距离 ≤ 2 处发展一子，若新子造出 ≥ 2 处缺口 → 黑赢，否则和棋'],
+        summary=['原文为 Python 2 风格但无需改动，已直接在 Python 3 运行',
+                 '检测「5 缺 1」：每个子要看 4 个方向 × 5 种窗口起点，缺口可以在窗口任意位置',
+                 '发展黑子只需考虑距离 ≤ 2 的位置，且只检测包含这颗新子的缺口（旧子已检查过）',
+                 '视频隐去了窗口内逐格扫描，只展示每个点算出的缺口'],
     ),
 )
